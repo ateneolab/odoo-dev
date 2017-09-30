@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="ir_cron_mobilvendor_read_action" model="ir.cron">
+            <field name="name">Actualizar informacion que lee Mobilvendor - scheduler</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'mobilvendor_read.cron_mobilvendor_read'" name="model"/>
+            <field eval="'process_mobilvendor_read_scheduler_queue'" name="function"/>
+        </record>
+   </data>
+   
+   <!--<data noupdate="1">
+        <record id="ir_cron_mobilvendor_read_action" model="ir.cron">
+            <field name="name">Actualizar informacion que lee Mobilvendor - scheduler</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'mobilvendor_read.cron_mobilvendor_read'" name="model"/>
+            <field eval="'process_mobilvendor_read_scheduler_queue'" name="function"/>
+        </record>
+   </data>-->
+</openerp>

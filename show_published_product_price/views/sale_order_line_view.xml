@@ -1,0 +1,53 @@
+<openerp>
+	<data>
+		
+		<record id="view_order_form_ext" model="ir.ui.view">
+			<field name="name">sale.order.form.ext</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//notebook/page[1]/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+            <field name="pvp" readonly="1"/>
+				</xpath>
+			</field>
+		</record>
+   
+   <record id="invoice_form_ext" model="ir.ui.view">
+			<field name="name">account.invoice.form.ext</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//notebook/page[1]/field[@name='invoice_line']/tree/field[@name='price_unit']" position="after">
+            <field name="pvp" readonly="1"/>
+				</xpath>
+			</field>
+		</record>
+   
+   <record id="view_order_tree_lot_ext" model="ir.ui.view">
+            <field name="name">sale.order.tree.lot</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_order_lot_selection.view_order_tree_lot"/>
+            <field name="arch" type="xml">
+                <!--<xpath expr="//field[@name='order_line']/tree/field[@name='lot_id']" position="after">
+                    <field name="lot_id" domain="[('product_id','=', product_id)]" context="{'default_product_id': product_id}" groups="stock.group_production_lot"/>
+                </xpath>-->
+                <xpath expr="//field[@name='order_line']/form/group/group/field[@name='lot_id']" position="after">
+                    <field name="lot_available_qty" groups="stock.group_production_lot" readonly="1"/>
+                </xpath>
+            </field>
+   </record>
+   
+   <template id="report_saleorder_document_ext" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//table/thead/tr/th[4]" position="after">
+            <th class="text-right">PVP</th>
+        </xpath>
+        
+        <xpath expr="//table/tbody/tr/td[4]" position="after">
+            <td class="text-right">
+                <span t-field="l.pvp"/>
+            </td>
+        </xpath>
+   </template>
+
+	</data>
+</openerp>

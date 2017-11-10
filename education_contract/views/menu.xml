@@ -1,0 +1,31 @@
+<openerp>
+    <data>
+    
+      
+    
+      <record id="action_contracts" model="ir.actions.act_window">
+            <field name="name">Contratos de estudios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">education_contract.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field> <!-- kanban -->
+            <!--<field name="search_view_id" ref="view_sales_order_filter"/>-->
+            <!--<field name="context">{
+                    'search_default_my_sale_orders_filter': 1
+                }
+            </field>-->
+            <!--<field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>-->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clic para crear un Contrato de estudios.
+                </p><p>
+                    Odoo te ayuda a administrar los contratos de forma eficiente durante todo el flujo:
+                    creacion, verificacion, aprobacion, asignacion.
+                </p>
+            </field>
+        </record>
+        
+        <menuitem action="action_contracts" id="menu_edu_contract" parent="base.menu_sales" sequence="6" /> <!-- groups="base.group_sale_salesman,base.group_sale_manager" -->
+        
+    </data>
+</openerp>

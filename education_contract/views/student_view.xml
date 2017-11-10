@@ -1,0 +1,24 @@
+<openerp>
+    <data>
+      <!--<record id="view_student_educ" model="ir.ui.view">
+    			<field name="name">op.student.form.educ</field>
+    			<field name="model">op.student</field>
+    			<field name="inherit_id" ref="openeducat_erp.view_op_student_form"/>
+    			<field name="arch" type="xml">
+    				<xpath expr="//notebook/page[last()]" position="after">
+                <page string="Detalles de programas">
+                     <field name="program_ids">
+                         <tree>
+                             <field name="name"/>
+                             <field name="qty_years"/>
+                             <field name="study_company_id"/>
+                             <field name="contract_id"/>
+                         </tree>
+                     </field>
+                </page>
+    				</xpath>
+    			</field>
+		</record>-->
+   
+    </data>
+</openerp>

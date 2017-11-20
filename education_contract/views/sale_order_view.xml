@@ -1,43 +1,6 @@
 <openerp>
     <data>
     
-        <record id="view_education_contract_kanban" model="ir.ui.view">
-            <field name="name">education_contract.contract.kanban</field>
-            <field name="model">education_contract.contract</field>
-            <field name="arch" type="xml">
-                <kanban default_group_by="state">
-                    <field name="barcode" />
-                    <templates>
-                      <t t-name="kanban-box">
-                          <div class="oe_kanban_card">
-                              <div class="oe_kanban_content">
-                                  <!-- Option menu will go here! -->
-                                  <h4>
-                                      <a type="open">
-                                          <field name="barcode" />
-                                      </a>
-                                  </h4>
-                                  <ul>
-                                      <li><field name="owner" /></li>
-                                      <li><field name="study_company_id" /></li>
-                                      <li><field name="sale_order_id" /></li>
-                                      <li><field name="seller_id" /></li>
-                                  </ul>
-                                  <div class="oe_kanban_bottom_right">
-                                      <field name="kanban_state" widget="kanban_state_selection"/>
-                                  </div>
-                                  <div class="oe_kanban_footer_left">
-                                      <field name="priority" widget="priority"/>
-                                  </div>
-                              </div>
-                          </div>
-                      </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record>
-                
-    
         <record id="view_beneficiary_form" model="ir.ui.view">
       			<field name="name">education_contract.beneficiary.form</field>
       			<field name="model">education_contract.beneficiary</field>
@@ -71,8 +34,7 @@
       			</field>
 		    </record>
             
-            
-      <record id="view_beneficiary_tree" model="ir.ui.view">
+        <record id="view_beneficiary_tree" model="ir.ui.view">
       			<field name="name">education_contract.beneficiary.tree</field>
       			<field name="model">education_contract.beneficiary</field>
       			<field name="arch" type="xml">
@@ -84,26 +46,8 @@
                 </tree>
             </field>
       </record>
-
-    
-      <record id="view_order_form_educ" model="ir.ui.view">
-    			<field name="name">sale.order.form.educ</field>
-    			<field name="model">sale.order</field>
-    			<field name="inherit_id" ref="sale.view_order_form"/>
-    			<field name="arch" type="xml">
-    				<xpath expr="//notebook/page[last()]" position="after">
-                <page string="Educacion">
-                    <group class="col-2 col-span-2">
-                        <group class="col-2 col-span-2">
-                            <field name="education_contract_id" />
-                        </group>
-                    </group>
-                </page>
-    				</xpath>
-    			</field>
-		</record>
-   
-    <record id="view_education_contract" model="ir.ui.view">
+      
+      <record id="view_education_contract" model="ir.ui.view">
         <field name="name">education_contract.contract.form</field>
         <field name="model">education_contract.contract</field>
         <field name="arch" type="xml">
@@ -145,6 +89,7 @@
                                 </tree>
                             </field>
                         </page>
+                        
                         <page string="Programas">
                             <field name="program_ids" readonly="1"> <!-- domain="[('contract_id', '=', 'id')]"  -->
                                 <tree>
@@ -155,24 +100,29 @@
                                 </tree>
                             </field>
                         </page>
+                        
                         <page string="Plan">
-                            <field name="plan_id" context="{'default_contract_id': active_id}">
-                                <tree editable="top">
+                            <field name="plan_id"> <!-- context="{'default_contract_id': active_id}" -->
+                                <tree>
                                     <field name="type"/>
                                     <field name="amount_pay"/>
                                     <field name="registration_fee" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }" string="Valor Matricula"/>
                                     <field name="qty_dues" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }" string="No. Cuotas"/>
+                                    <field name="amount_monthly" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>
                                     <field name="residual" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>
-                                    <field name="teaching_materials"/>
-                                    <field name="initial_subscription" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>
+                                    <field name="registration_residual"/>
+                                    <!--<field name="initial_subscription" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>-->
+                                    <!--<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />-->
                                 </tree>
                             </field>
                         </page>
+                        
                         <page string="Formas de pago">
-                            <field name="payment_term_ids" context="{'default_contract_id': active_id}" >
+                            <field name="payment_term_ids"  >
                                 <tree editable="top">
                                     <field name="type"/>
                                     <field name="cash_sub_type" attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }" string="Tipo de efectivo"/>
+                                    <field name="amount"/>
                                     <field name="voucher_id" attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
                                     </field>
                                     <field name="check_id" attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
@@ -189,15 +139,11 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                		<field name="message_follower_ids" widget="mail_followers"/>
-                		<field name="message_ids" widget="mail_thread"/>
-	              </div>
             </form>
         </field>
-    </record>
-    
-    <record id="view_education_contract_tree" model="ir.ui.view">
+      </record>
+      
+      <record id="view_education_contract_tree" model="ir.ui.view">
         <field name="name">education_contract.contract.tree</field>
         <field name="model">education_contract.contract</field>
         <field name="arch" type="xml">
@@ -220,15 +166,30 @@
                 <group>
                     <group>
                         <field name="type"/>
-                        <field name="contract_id" /> <!-- context="{'default_contract_id': parent.id}" -->
+                        <field name="contract_id" invisible="1"/> <!-- context="{'default_contract_id': parent.id}" -->
                         <field name="registration_fee" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
+                        <field name="amount_monthly" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
                     </group>
                     <group>
                         <field name="amount_pay"/>
                         <field name="qty_dues" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
-                        <field name="initial_subscription" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
+                        <field name="registration_residual" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
+                        <field name="residual"/>
                     </group>
                 </group>
+                <notebook>
+                    <page string="Abonos">
+                        <!--<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />-->
+                        <!--<field name="payment_info_ids" />--> <!-- context="{'default_plan_id': active_id}" -->
+                        <field name="payment_info_ids">
+                            <tree>
+                                <field name="amount"/>
+                                <field name="payment_term_ids"/>
+                            </tree>
+                        </field>
+                        <!--<field name="payment_term_ids"/>-->
+                    </page>
+                </notebook>
             </form>
         </field>
     </record>
@@ -248,6 +209,7 @@
                         <group>
                             <field name="auth_number" required="1"/>
                             <field name="bank" required="1"/>
+							              <field name="amount" readonly="1"/>
                         </group>
                     </group>
                 </sheet>
@@ -268,6 +230,7 @@
                         </group>
                         <group>
                             <field name="bank" required="1"/>
+							              <field name="amount" readonly="1"/>
                         </group>
                     </group>
                 </sheet>
@@ -288,6 +251,7 @@
                         </group>
                         <group>
                             <field name="bank" required="1"/>
+							              <field name="amount" readonly="1"/>
                         </group>
                     </group>
                 </sheet>
@@ -314,6 +278,73 @@
             </form>
         </field>
     </record>
+    
+    
+    <record id="view_vendor_receipt_form_educ" model="ir.ui.view">
+        <field name="name">account.voucher.educ</field>
+    			<field name="model">account.voucher</field>
+    			<field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+    			<field name="arch" type="xml">
+              <xpath expr="//notebook" position="before">
+                  <field name="education_contract_id" />
+              </xpath>
+   				    <!--<xpath expr="//notebook" position="attributes">
+                <attribute name="attrs">{'invisible': [('education_contract_id', '=', 1)]}</attribute>
+   				    </xpath>-->
+    		</field>
+		</record>
+   
+   <record id="view_education_payment_info" model="ir.ui.view">
+        <field name="name">education_contract.payment_info.form</field>
+        <field name="model">education_contract.payment_info</field>
+        <field name="arch" type="xml">
+            <form string="Abono">
+                <group>
+                    <group>
+                        <field name="plan_id" readonly="1" context="{'default_plan_id': active_id}"/>
+                    </group>
+                    <group>
+                        <field name="amount"/>
+                        <field name="residual" readonly="1"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Formas de pago">
+                        <field name="payment_term_ids" context="{'default_payment_info_id': active_id}">
+                            <tree editable="top">
+                                <field name="id" /> <!-- invisible="1" -->
+                                <field name="type"/>
+                                <field name="cash_sub_type" attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }" string="Tipo de efectivo"/>
+                                <field name="amount" required="1"/>
+                                <field name="voucher_id" attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }" context="{'default_payment_term_id': active_id}">
+                                </field>
+                                <field name="check_id" attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }" context="{'default_payment_term_id': active_id}"/>
+                                <field name="transfer_id" attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }" context="{'default_payment_term_id': id}"/>
+                                <!--<field name="description_other" attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>-->
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+      
+      <record id="view_order_form_educ" model="ir.ui.view">
+    			<field name="name">sale.order.form.educ</field>
+    			<field name="model">sale.order</field>
+    			<field name="inherit_id" ref="sale.view_order_form"/>
+    			<field name="arch" type="xml">
+    				<xpath expr="//notebook/page[last()]" position="after">
+                <page string="Educacion">
+                    <group class="col-2 col-span-2">
+                        <group class="col-2 col-span-2">
+                            <field name="education_contract_id" />
+                        </group>
+                    </group>
+                </page>
+    				</xpath>
+    			</field>
+		</record>
    
     </data>
 </openerp>

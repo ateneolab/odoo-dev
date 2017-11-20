@@ -420,7 +420,7 @@ class PhoneCommon(orm.AbstractModel):
             raise orm.except_orm(
                 _('Error:'),
                 _('No callerID configured for the current user'))
-
+        
         variable = []
         if user.asterisk_chan_type in ['SIP', 'PJSIP']:
             # We can only have one alert-info header in a SIP request

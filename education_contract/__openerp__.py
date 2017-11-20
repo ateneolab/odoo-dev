@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', 'openeducat_erp', 'mail'],
+    'depends': ['base', 'account', 'account_voucher', 'sale', 'openeducat_erp', 'mail'],
 
     # always loaded
     'data': [

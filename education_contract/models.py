@@ -399,7 +399,7 @@ class payment_term(models.Model):
     
     @api.one
     def generate_voucher(self, state):
-
+        
         voucher_data = {
             'partner_id': self.plan_id.contract_id.owner.id,
             'amount': abs(self.amount),

@@ -107,8 +107,8 @@ class SalaryAdvancePayment(models.Model):
                 raise osv.except_osv('Error!', 'Max percentage or advance days are not provided')
             adv = vals.get('advance')
             amt = (each_contract.struct_id.max_percent * each_contract.wage) / 100
-            if adv > each_contract.wage:
-                raise osv.except_osv('Error!', 'Advance amount is greater than Wage')
+            """if adv > each_contract.wage:
+                raise osv.except_osv('Error!', 'Advance amount is greater than Wage')"""
             if adv > amt and vals.get('exceed_condition') == False:
                 raise osv.except_osv('Error!', 'Advance amount is greater than allotted')
         vals.update({'state': 'draft'})

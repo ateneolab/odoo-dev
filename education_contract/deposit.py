@@ -23,15 +23,15 @@ class advance(models.Model):
     
     
     seller_id = fields.Many2one('res.users', string='Vendedor')
-    amount = fields.Float(digits=(6, 4), string='Monto', compute='_compute_amount')
+    amount = fields.Float(digits=(6, 4), string='Monto', compute='_compute_amount', store=True)
     date = fields.Date('Fecha', required=False)
-    base_payment_term_ids = fields.One2many('education_contract.payment_term', 'salary_advance_id', string='Abonos base', compute='_compute_amount')
+    base_payment_term_ids = fields.One2many('education_contract.payment_term', 'salary_advance_id', string='Abonos base', compute='_compute_amount', store=True)
     salary_advance_id = fields.Many2one('salary.advance', string='Avance de salario')
     journal_id = fields.Many2one('account.journal', string='Modo de pago')
     
     
     def _get_payment_term_to_advance(self):
-        
+        print('-----------------------------------_get_payment_term_to_advance')
         contract_ids = self.env['education_contract.contract'].search([('user_id', '=', self.seller_id.id)])
         plan_ids = self.env['education_contract.plan'].search([('contract_id', 'in', contract_ids.ids)])
         payment_term_ids = self.env['education_contract.payment_term'].search([('plan_id', 'in', plan_ids.ids), ('state', 'in', ['to_advance'])])
@@ -39,9 +39,9 @@ class advance(models.Model):
         return payment_term_ids
     
     
-    @api.onchange('seller_id', 'date')
+    @api.depends('seller_id', 'date')
     def _compute_amount(self):
-        
+        print('-----------------------------------_compute_amount')
         payment_term_ids = self._get_payment_term_to_advance()
         
         sum = 0.0
@@ -54,20 +54,21 @@ class advance(models.Model):
         self.base_payment_term_ids = payment_term_ids.ids
         
         
-    @api.onchange('base_payment_term_ids')
+    """@api.onchange('base_payment_term_ids')
     def _compute_amount_custom(self):
-        
+        print('-----------------------------------_compute_amount_custom')
         sum = 0.0
     
         if self.base_payment_term_ids:
             for pt in self.base_payment_term_ids:
                 sum += pt.amount
                 
-        self.amount = sum
+        self.amount = sum"""
         
     
     @api.one
     def generate_advance(self):
+        
         employee_id = self.env['hr.employee'].search([('user_id', '=', self.seller_id.id)])
         
         if not employee_id:
@@ -86,16 +87,15 @@ class advance(models.Model):
         advance_id = self.env['salary.advance'].create(advance_data)
         
         if advance_id:
-            self.salary_advance_id = advance_id
+            self.write({'salary_advance_id': advance_id.id})
             
             for pt in self.base_payment_term_ids:
                 pt.write({'state': 'processed'})
                 
                 
-    @api.model
+    """@api.model
     def create(self, vals):
-        import pdb; pdb.set_trace()
         res = super(advance, self).create(vals)
-        return res
+        return res"""
                 
 

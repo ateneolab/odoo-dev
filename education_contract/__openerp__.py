@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'account', 'account_voucher', 'sale', 'openeducat_erp', 'mail'],
+    'depends': ['base', 'account', 'account_voucher', 'sale', 'openeducat_erp', 'mail', 'hr'],
 
     # always loaded
     'data': [
@@ -32,6 +32,7 @@
         'views/student_view.xml',
         'views/workflow.xml',
         'views/company_view.xml',
+        'views/conciliation_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

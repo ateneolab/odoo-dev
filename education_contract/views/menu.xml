@@ -27,5 +27,78 @@
         
         <menuitem action="action_contracts" id="menu_edu_contract" parent="base.menu_sales" sequence="6" /> <!-- groups="base.group_sale_salesman,base.group_sale_manager" -->
         
+        <record id="action_conciliations" model="ir.actions.act_window">
+            <field name="name">Conciliacion de contratos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">education_contract.conciliation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clic para crear un Contrato de estudios.
+                </p><p>
+                    Odoo te ayuda a administrar los contratos de forma eficiente durante todo el flujo:
+                    creacion, verificacion, aprobacion, asignacion.
+                </p>
+            </field>
+        </record>
+        
+        <menuitem action="action_conciliations" id="menu_edu_conciliation" parent="base.menu_sales" sequence="6" />
+        
+        <record id="action_advance" model="ir.actions.act_window">
+            <field name="name">Anticipo de vendedor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">education_contract.advance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clic para crear un Anticipo a un vendedor.
+                </p><p>
+                    Odoo te ayuda a administrar los contratos de forma eficiente durante todo el flujo:
+                    creacion, verificacion, aprobacion, asignacion.
+                </p>
+            </field>
+        </record>
+        
+        <menuitem action="action_advance" id="menu_edu_advance" parent="base.menu_sales" sequence="6" />
+        
+        <!-- -->
+        <record id="action_payment_mode" model="ir.actions.act_window">
+            <field name="name">Modo de pago</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">education_contract.payment_mode</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clic para crear un Modo de pago.
+                </p><p>
+                    Odoo te ayuda a administrar los contratos de forma eficiente durante todo el flujo:
+                    creacion, verificacion, aprobacion, asignacion.
+                </p>
+            </field>
+        </record>
+        <menuitem action="action_payment_mode" id="menu_edu_payment_mode" parent="account.menu_configuration_misc" sequence="6" />
+        
+        <!-- 
+        <record id="action_voucher" model="ir.actions.act_window">
+            <field name="name">Pagos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clic para crear un Modo de pago.
+                </p><p>
+                    Odoo te ayuda a administrar los contratos de forma eficiente durante todo el flujo:
+                    creacion, verificacion, aprobacion, asignacion.
+                </p>
+            </field>
+        </record>
+        <menuitem action="action_voucher" id="menu_edu_voucher" parent="account.menu_finance_receivables" sequence="6" />
+        -->
+        
     </data>
 </openerp>

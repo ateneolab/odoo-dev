@@ -107,7 +107,7 @@ class education_contract(models.Model):
     state = fields.Selection([('draft', 'Nuevo'), ('prechecked', 'Preverificado'), ('done', 'Aprobado'), ('asigned', 'Asignado'), ('waiting', 'Pendiente'), ('canceled', 'Anulado')], string='Estado', default='draft')
     program_ids = fields.One2many('education_contract.program', 'contract_id', string='Resumen de Programas')  #compute='_update_programs', 
     plan_id = fields.One2many('education_contract.plan', 'contract_id', string='Plan')
-    payment_term_ids = fields.One2many(related='plan_id.payment_term_ids', string='Formas de pago')
+    payment_term_ids = fields.One2many(related='plan_id.payment_term_ids', reverse='contract_id', string='Formas de pago')
     notes = fields.Text('Notas internas')
     observations = fields.Text('Observaciones')
     priority = fields.Selection([
@@ -118,8 +118,8 @@ class education_contract(models.Model):
     kanban_state = fields.Selection(related="state")
     seller_id = fields.Many2one(related='sale_order_id.user_id')
     state_to_show = fields.Char(compute='get_kanban_state', store=True)
-    marketing_manager_id = fields.Many2one('res.users', string='Gerente de Marketing')  # related to company manager
-    #voucher_ids = fields.One2many(related='plan_id.payment_info_ids', string='Pagos realizados')
+    marketing_manager_id = fields.Many2one('res.users', string='Gerente de Marketing')
+    contract_conciliation_id = fields.One2many('education_contract.conciliation', 'contract_id', string='Conciliacion de contrato')
     
     
     def get_kanban_state(self):
@@ -228,22 +228,6 @@ class education_contract(models.Model):
                 p_ids += ps
             
             record.program_ids = [(6, False, p_ids)]
-            
-    
-    """@api.onchange('plan_id')
-    @api.depends('plan_id')
-    def _compute_payment_term(self):
-        payment_info_ids = self.plan_id.payment_info_ids
-        import pdb; pdb.set_trace()
-        payment_term_ids = []
-        
-        for pi in payment_info_ids:
-            payment_term_ids += pi.payment_term_ids.ids
-        
-        payment_term_obj = self.env['education_contract.payment_term'].browse(payment_term_ids)
-        payment_term_obj.write({'contract_id': self.id})
-        
-        self.payment_term_ids = [(6, False, payment_term_ids)]"""
     
     
     def name_get(self,cr,uid,ids,context=None):
@@ -312,25 +296,6 @@ class education_contract(models.Model):
             
         return False
         
-        
-    """@api.multi
-    def write(self, vals):
-        vouchers = []
-        
-        plan_id = self.plan_id
-        voucher_ids = plan_id.voucher_ids
-        
-        for v in voucher_ids:
-            v.write({'education_contract_id': self.id})
-            v.proforma_voucher()
-            vouchers.append(v.id)
-            
-        vals.update({'voucher_ids': [(6, False, vouchers)]})
-        
-        res = super(education_contract, self).write(vals)
-        
-        return res"""
-        
 
 #### Plan
 class plan(models.Model):
@@ -358,9 +323,7 @@ class plan(models.Model):
         self.residual = 0.0
         self.teaching_materials = ''
         
-        
-    """@api.one
-    @api.onchange('type', 'payment_info_ids', 'qty_dues', 'amount_monthly', 'amount_pay', 'registration_fee')"""
+    
     def _compute_residual(self):
         
         if self.type:
@@ -405,10 +368,7 @@ class plan(models.Model):
     residual = fields.Float(compute='_compute_residual', digits=(6, 4), string='Saldo total a pagar')
     registration_residual = fields.Float(compute='_compute_residual', string='Saldo matricula', digits=(6, 4))
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')
-    #voucher_ids = fields.One2many('account.voucher', 'plan_id', string='Abonos')
-    #payment_info_ids = fields.One2many('education_contract.payment_info', 'plan_id', string='Abonos')
-    #payment_term_ids = fields.One2many('education_contract.payment_term', 'plan_id', string='Formas de pago')  #compute='_compute_payment_term', 
-    payment_term_ids = fields.One2many('education_contract.payment_term', compute='_compute_payment_term', string='Formas de pago')  #compute='_compute_payment_term',
+    payment_term_ids = fields.One2many('education_contract.payment_term', compute='_compute_payment_term', string='Formas de pago')
     payment_info_ids = fields.One2many('education_contract.payment_info', 'plan_id', string='Abonos')
     
     
@@ -435,6 +395,48 @@ class payment_info(models.Model):
 #### Payment term
 class payment_term(models.Model):
     _name = 'education_contract.payment_term'
+    
+    
+    @api.one
+    def generate_voucher(self, state):
+
+        voucher_data = {
+            'partner_id': self.plan_id.contract_id.owner.id,
+            'amount': abs(self.amount),
+            'journal_id': self.payment_mode_id.journal_id.id,
+            'account_id': self.payment_mode_id.journal_id.default_debit_account_id.id,
+            'type': 'receipt',
+            'reference' : self.plan_id.contract_id.barcode,
+        } 
+        
+        voucher_id = self.env['account.voucher'].create(voucher_data)
+        voucher_id.proforma_voucher()
+        
+        self.write({'account_voucher_id': voucher_id.id, 'state': state})
+        
+        
+    @api.one
+    def processed(self):
+        self.write({'state': 'processed'})
+        
+    
+    @api.one
+    def confirm(self):
+        self.generate_voucher('done')
+        
+        
+    @api.one
+    def cancel(self):
+        if self.account_voucher_id:
+            self.account_voucher_id.cancel_voucher()
+            self.account_voucher_id.unlink()
+            
+        self.write({'state': 'cancel'})
+    
+    
+    @api.one
+    def advance(self):
+        self.generate_voucher('to_advance')
     
     
     @api.onchange('sub_type')
@@ -469,8 +471,6 @@ class payment_term(models.Model):
         
     @api.model
     def create(self, vals):
-        import pdb; pdb.set_trace()
-        print('vale, bien')
         res = super(payment_term, self).create(vals)
         
         if res:
@@ -484,14 +484,23 @@ class payment_term(models.Model):
         return res
         
         
-    """@api.multi
-    def write(self, vals):
-        import pdb; pdb.set_trace()
-        print('vale, bien')
-        res = super(payment_term, self).write(vals)
+    @api.one
+    def _compute_payment_mode(self):
+        if not self.type:
+            return False
+            
+        payment_mode_id = self.env['education_contract.payment_mode'].search([('code', '=', self.type)])
         
-        
-        return res"""
+        if not payment_mode_id:
+            raise ValidationError("Debe configurar un modo de pago de tipo %s." % self.type)
+            
+        if not payment_mode_id.journal_id:
+            raise ValidationError("Debe configurar un Diario contable para el modo de pago de tipo %s." % self.type)
+            
+        """if not payment_mode_id.asset_account_id:
+            raise ValidationError("Debe configurar una cuenta de activos para el modo de pago de tipo %s." % self.type)"""
+            
+        self.payment_mode_id = payment_mode_id
         
     
     type = fields.Selection([('credit_card', 'Tarjeta de credito'), ('cash', 'Efectivo'), ('check', 'Cheque'), ('other', 'Otro')], default='cash', string='Forma de pago', required=True)
@@ -502,11 +511,25 @@ class payment_term(models.Model):
     check_id = fields.Many2one('education_contract.check', string='Cheque')
     transfer_id = fields.Many2one('education_contract.transfer', string='Transferencia')
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')
-    #account_voucher_id = fields.Many2one('account.voucher', string='Deposito abono')
+    account_voucher_id = fields.Many2one('account.voucher', string='Deposito abono')
     payment_info_id = fields.Many2one('education_contract.payment_info', string='Informacion de abono')
     amount = fields.Float(digits=(6, 4), string='Monto')
     plan_id = fields.Many2one('education_contract.plan', string='Plan de pagos')
     plan_id_ref = fields.Many2one(related='plan_id', string='Plan de pagos')
+    state = fields.Selection([('draft', 'Nuevo'), ('done', 'Confirmado'), ('to_advance', 'Para anticipo'), ('cancel', 'Cancelado'), ('processed', 'Procesado')], default='draft', string='Estado')
+    payment_mode_id = fields.Many2one('education_contract.payment_mode', compute='_compute_payment_mode', string='Modo de pago')
+    salary_advance_id = fields.Many2one('education_contract.advance', string='Avanse de salario')
+
+
+class payment_mode(models.Model):
+    _name = 'education_contract.payment_mode'
+    
+    code = fields.Char('Codigo')  # cash (Efectivo), credit_card (Banco), check (Banco)
+    name = fields.Char('Nombre')
+    journal_id = fields.Many2one('account.journal', string='Diario contable')
+    #account_id = fields.Many2one('account.account', string='Cuenta contable')
+    #asset_account_id = fields.Many2one('account.account', string='Cuenta de activos')
+    #income_account_id = fields.Many2one('account.account', string='Cuenta de ingresos')
 
 
 #### Voucher

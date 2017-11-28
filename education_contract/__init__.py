@@ -5,3 +5,5 @@ import models
 import sale
 import partner
 import company
+import user
+import deposit

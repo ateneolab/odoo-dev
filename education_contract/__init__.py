@@ -7,3 +7,6 @@ import partner
 import company
 import user
 import deposit
+import wizards.report_rpm
+import report.report_parser
+import salary_advance

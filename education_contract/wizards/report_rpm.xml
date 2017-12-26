@@ -1,0 +1,51 @@
+<openerp>
+    <data>
+      
+      <record id="view_report_rpm_wizard" model="ir.ui.view">
+        <field name="name">education_contract.rpm_wizard</field>
+        <field name="model">education_contract.rpm_wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date_start" required="1"/>
+                        </group>
+                        <group>
+                            <field name="date_end" required="1"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Filtrar por vendedores">
+                            <field name="user_id"/>
+                        </page>
+                        <page string="Filtrar por sucursales">
+                            <field name="campus_id"/>
+                        </page>
+                        <page string="Filtrar por gerentes de marketing">
+                            <field name="manager_id"/>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                
+                <footer>
+                    <button type="object" name="print_rpm" string="Imprimir RPM" class="oe_highlight" />
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+      </record>
+      
+    <act_window id="education_contract.contract" 
+        name="Reporte RPM" 
+        src_model="education_contract.contract" 
+        res_model="education_contract.rpm_wizard" 
+        view_mode="form" 
+        target="new" />
+    
+    <menuitem action="education_contract.contract" id="menu_rpm_report" parent="base.menu_sales" sequence="6" />
+   
+    </data>
+</openerp>

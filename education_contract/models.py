@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from dateutil import parser
 from openerp.exceptions import ValidationError
 from openerp.exceptions import except_orm, Warning, RedirectWarning
+import json
 
 
 #### Beneficiary
@@ -12,10 +13,10 @@ class beneficiary(models.Model):
     _name = 'education_contract.beneficiary'
     _inherits = {'op.student': 'student_id'}  #  , 'res.partner': 'partner_id'
     
-    program_ids = fields.One2many('education_contract.program', 'beneficiary_id', string='Programas')
+    program_ids = fields.One2many('education_contract.program', 'beneficiary_id', string=u'Programas')
     student_id = fields.Many2one('op.student', required=True,
-            string='Estudiante relacionado', ondelete='restrict',
-            help='Estudiate relacionado del beneficiario', auto_join=True),
+            string=u'Estudiante relacionado', ondelete='restrict',
+            help=u'Estudiate relacionado del beneficiario', auto_join=True)
             
             
     def name_get(self,cr,uid,ids,context=None):
@@ -75,7 +76,8 @@ class program(models.Model):
     
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')
     qty_years = fields.Integer('Anios')
-    study_company_id = fields.Many2one('res.company', string='Sucursal')
+    study_company_id = fields.Many2one('res.company', string='Sucursal')  ## Deprecated or related campus_id.company_id
+    campus_id = fields.Many2one('operating.unit', string='Sucursal')
     beneficiary_id = fields.Many2one('education_contract.beneficiary', string='Estudiante')
     contract_id = fields.Many2one('education_contract.contract', string='Contrato de estudios')
     
@@ -91,20 +93,218 @@ class program(models.Model):
         return res
         
         
+PLAN_TYPES = {'funded': 'Financiado', 'cash': 'Contado', 'scholarship': 'Beca'}
+
 #### Contract
 class education_contract(models.Model):
     _name = 'education_contract.contract'
     _inherit = ['mail.thread']
     
+    
+    def get_beneficiary_names(self):
+        names = []
+        
+        for id in self.beneficiary_ids:
+            names.append('%s %s' % (id.name, id.last_name))
+            
+        return names
+        
+        
+    def get_plan_id_type(self):
+        return PLAN_TYPES.get(self.plan_id.type, '')
+        
+        
+    def get_done_amount(self):
+        payment_term_ids = self.env['education_contract.payment_term'].search([('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done', 'to_advance', 'processed'])])
+        
+        sum = 0.0
+        
+        for pt in payment_term_ids:
+            sum += pt.amount
+            
+        return sum
+
+        
+    def get_not_done_amount(self):
+        if self.plan_id.type in 'cash':
+            return self.plan_id.amount_pay - self.get_done_amount()
+        elif self.plan_id.type in 'funded':
+            return self.plan_id.registration_fee - self.get_done_amount()
+        else:
+            return 0.0
+        
+        
+    def get_monthly_data(self):
+        if self.plan_id.type in ['funded']:
+            return '%d - %.2f' % (self.plan_id.qty_dues, self.plan_id.amount_monthly)
+            
+            
+    def get_payment_amount_by_type(self, type=None, sub_type=None):
+        domain = []
+
+        if type:
+            if type not in ['card']:
+                domain = [('type', 'in', [type]), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done', 'to_advance'])]
+            else:
+                domain = ['|', ('type', 'in', ['credit_card']), ('cash_sub_type', 'in', ['debit_card']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done', 'to_advance'])]
+                
+        elif sub_type:
+            domain = [('cash_sub_type', 'in', ['cash', 'transfer']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done', 'to_advance', 'processed'])]
+
+        payment_term_ids = self.env['education_contract.payment_term'].search(domain)
+        
+        sum = 0.0
+        
+        for pt in payment_term_ids:
+            sum += pt.amount
+            
+        return sum
+        
+        
+    def get_payment_term_info(self):
+        payment_term_ids = self.env['education_contract.payment_term'].search(['|', ('type', 'in', ['credit_card']), ('cash_sub_type', 'in', ['debit_card']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done', 'to_advance'])])
+        
+        data = []
+        
+        for pt in payment_term_ids:
+            data.append('%s - %s - %s' % (pt.voucher_id.card_name, pt.voucher_id.auth_number, pt.voucher_id.bank.name))
+            
+        return data
+        
+        
+    def get_payment_term_check_info(self):
+        payment_term_ids = self.env['education_contract.payment_term'].search([('type', 'in', ['check']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done', 'to_advance'])])
+        
+        data = []
+        
+        for pt in payment_term_ids:
+            data.append('%s - %s' % (pt.check_id.check_number, pt.check_id.bank.name))
+            
+        return data
+        
+        
+    def get_program_count_by_name(self):
+        sum_ilvem = 0
+        sum_charlotte = 0
+        sum_tomatis = 0
+        
+        for prog in self.program_ids:
+            if prog.name in ['01']:
+                sum_charlotte += 1
+            elif prog.name in ['02']:
+                sum_ilvem += 1
+            elif prog.name in ['03']:
+                sum_tomatis += 1
+                
+        progs = []
+        
+        if sum_charlotte:
+            progs.append({'name': 'CHARLOTTE', 'value': sum_charlotte})
+        if sum_ilvem:
+            progs.append({'name': 'ILVEM', 'value': sum_ilvem})
+        if sum_tomatis:
+            progs.append({'name': 'TOMATIS', 'value': sum_tomatis})
+        
+        return progs
+        
+    
+    def get_phone_numbers(self):
+        phones = []
+
+        for bi in self.beneficiary_ids:
+            student = bi.student_id
+            partner_id = student.partner_id
+
+            phones.append(partner_id.mobile)
+            phones.append(partner_id.phone)
+            
+        return phones
+        
+        
+    def get_total_cash(self):
+        payment_term_ids = self.env['education_contract.payment_term'].search([('cash_sub_type', 'in', ['cash']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done'])])
+        
+        sum = 0.0
+        
+        for pt in payment_term_ids:
+            sum += pt.amount
+            
+        return sum
+        
+        
+    def get_total_check(self):
+        payment_term_ids = self.env['education_contract.payment_term'].search([('type', 'in', ['check']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done'])])
+        
+        sum = 0.0
+        
+        for pt in payment_term_ids:
+            sum += pt.amount
+            
+        return sum
+        
+        
+    def get_total_transfer(self):
+        payment_term_ids = self.env['education_contract.payment_term'].search([('cash_sub_type', 'in', ['transfer']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done'])])
+        
+        sum = 0.0
+        
+        for pt in payment_term_ids:
+            sum += pt.amount
+            
+        return sum
+        
+        
+    def get_total_voucher(self):
+        payment_term_ids = self.env['education_contract.payment_term'].search(['|', ('cash_sub_type', 'in', ['debit_card']), ('type', 'in', ['credit_card']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done'])])
+        
+        sum = 0.0
+        
+        for pt in payment_term_ids:
+            sum += pt.amount
+            
+        return sum
+        
+        
+    def get_total_advance(self):
+        payment_term_ids = self.env['education_contract.payment_term'].search([('type', 'in', ['cash']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['to_advance'])])
+        
+        sum = 0.0
+        
+        for pt in payment_term_ids:
+            sum += pt.amount
+            
+        return sum
+        
+        
+    def get_cash_advances_summary(self):
+        payment_term_ids = self.env['education_contract.payment_term'].search([('type', 'in', ['cash']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['to_advance'])])
+        
+        import pdb; pdb.set_trace()
+        
+        advances = []
+        
+        for pt in payment_term_ids:
+            salary_advance_id = pt.salary_advance_id
+            advances.append({
+                'date': salary_advance_id.date,
+                'user_id': salary_advance_id.seller_id.name,
+                'concept': salary_advance_id.salary_advance_id.reason,
+                'amount': pt.amount
+            })
+            
+        return advances
+            
+    
     date = fields.Date(string='Fecha contrato', help="Fecha del contrato. Por defecto es la fecha del pedido de venta.")
     user_id = fields.Many2one('res.users', string='Vendedor', help='Por defecto es el creador del pedido de venta que da origen al contrato.')
-    study_company_id = fields.Many2one('res.company', string='Empresa o sucursal principal')
+    study_company_id = fields.Many2one('res.company', string='Empresa o sucursal principal')  ## Deprecated or related campus_id.company_id
+    campus_id = fields.Many2one('operating.unit', string='Sucursal')
     company_id = fields.Many2one('res.company', string='Compania', help='Interno para multiempresa')
     owner = fields.Many2one('res.partner', string='Titular')
     barcode = fields.Char('Codigo')
     sale_order_id = fields.Many2one('sale.order', string='Pedido de venta')
     beneficiary_ids = fields.Many2many('education_contract.beneficiary', relation='contract_beneficiary_rel', string='Beneficiarios Tmp')
-    state = fields.Selection([('draft', 'Nuevo'), ('prechecked', 'Preverificado'), ('done', 'Aprobado'), ('asigned', 'Asignado'), ('waiting', 'Pendiente'), ('canceled', 'Anulado')], string='Estado', default='draft')
+    state = fields.Selection([('draft', 'Nuevo'), ('prechecked', 'Preverificado'), ('done', 'Aprobado'), ('validated', 'Conciliado'), ('asigned', 'Asignado'), ('waiting', 'Pendiente'), ('canceled', 'Anulado')], string='Estado', default='draft')
     program_ids = fields.One2many('education_contract.program', 'contract_id', string='Resumen de Programas')  #compute='_update_programs', 
     plan_id = fields.One2many('education_contract.plan', 'contract_id', string='Plan')
     payment_term_ids = fields.One2many(related='plan_id.payment_term_ids', reverse='contract_id', string='Formas de pago')
@@ -200,6 +400,25 @@ class education_contract(models.Model):
         self.pool.get('education_contract.contract').browse(cr, uid, ids).write({'state': 'waiting'})
         
         
+    def to_validated(self, cr, uid, ids, context=None):
+        print('Cambiar a Conciliado')
+        records = self.pool.get('education_contract.contract').browse(cr, uid, ids)
+        payment_terms = records.payment_term_ids
+        
+        valid = True
+        
+        for pt in payment_terms:
+            if pt.state not in ['done', 'processed']:
+                valid = False
+                break
+        
+        if not valid:
+            raise ValidationError("""Debe conciliar todas las formas de pago del contrato para cambiar a estado 'Conciliado'.
+                                    Si existe algun anticipo pendiente, este debe ser generado antes de continuar.""")
+        else:
+            self.pool.get('education_contract.contract').browse(cr, uid, ids).write({'state': 'validated'})
+        
+        
     def to_canceled(self, cr, uid, ids, context=None):
         print('Cambiar a Cancelado')
         self.pool.get('education_contract.contract').browse(cr, uid, ids).write({'state': 'canceled'})
@@ -245,14 +464,16 @@ class education_contract(models.Model):
     
     @api.model
     def create(self, vals):
-        
         if 'sale_order_id' in vals:
             sale_order_id = self.env['sale.order'].browse(vals['sale_order_id'])
                 
-            first_student_id = self.env['education_contract.beneficiary'].search([('name', '=', sale_order_id.partner_id.firstname), ('last_name', '=', sale_order_id.partner_id.lastname)])
+            first_student_id = self.env['education_contract.beneficiary'].search([('firstname', '=', sale_order_id.partner_id.firstname), ('last_name', '=', sale_order_id.partner_id.lastname)])
                 
             if not first_student_id:
-                first_student_id = self.env['education_contract.beneficiary'].create({'name': sale_order_id.partner_id.firstname, 'last_name': sale_order_id.partner_id.lastname})
+                first_student_id = self.env['education_contract.beneficiary'].create({
+                    'firstname': sale_order_id.partner_id.firstname,
+                    'name': sale_order_id.partner_id.firstname,
+                    'last_name': sale_order_id.partner_id.lastname})
                 
             user_id = sale_order_id.user_id.id
                 
@@ -296,8 +517,36 @@ class education_contract(models.Model):
             
         return False
         
+        
+    @api.onchange('user_id')
+    def onchange_seller_id(self):
+        
+        if self.user_id:
+            sale_team_ids = self.env['crm.case.section'].search([])
+            
+            sale_team = None
+            
+            for team in sale_team_ids:
+                company_ids = team.company_ids
+                
+                for company in company_ids:
+                    if company.id == self.sale_order_id.company_id.id:
+                        if self.user_id.id in team.member_ids.ids:
+                            sale_team = team
+                            continue
+            
+            if sale_team:
+                sale_team_leader_id = sale_team.user_id or None
+                self.marketing_manager_id = sale_team_leader_id or None
+            else:
+                self.marketing_manager_id = None
+            
+        else:
+            self.marketing_manager_id = None
+        
 
 #### Plan
+TYPE = {'funded': 'Financiado', 'cash': 'Contado', 'scholarship': 'Beca'}
 class plan(models.Model):
     _name = 'education_contract.plan'
     
@@ -309,7 +558,7 @@ class plan(models.Model):
         record_name=self.browse(cr, uid, ids, context)
         
         for object in record_name:
-            res.append((object.id, '%s - %s - %s' % (object.contract_id.barcode, object.type, object.amount_pay)))
+            res.append((object.id, '%s - %s - %s' % (object.contract_id.barcode, TYPE.get(object.type, ''), object.amount_pay)))
             
         return res
         
@@ -397,6 +646,22 @@ class payment_term(models.Model):
     _name = 'education_contract.payment_term'
     
     
+    @api.depends('state')
+    @api.onchange('state')
+    def validate_contract(self):
+        payment_term_ids = self.plan_id.contract_id.payment_term_ids
+        
+        all_done = True
+        
+        for pt in payment_term_ids:
+            if pt.state not in ['done', 'processed']:
+                all_done = False
+                break
+                
+        if all_done:
+            self.plan_id.contract_id.write({'state': 'validated'})
+    
+    
     @api.one
     def generate_voucher(self, state):
         
@@ -423,6 +688,7 @@ class payment_term(models.Model):
     @api.one
     def confirm(self):
         self.generate_voucher('done')
+        self.validate_contract()
         
         
     @api.one
@@ -431,12 +697,22 @@ class payment_term(models.Model):
             self.account_voucher_id.cancel_voucher()
             self.account_voucher_id.unlink()
             
+        if self.salary_advance_id:
+            self.salary_advance_id.unlink()
+            
         self.write({'state': 'cancel'})
+        self.plan_id.contract_id.write({'state': 'draft'})
+        
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
     
     
     @api.one
     def advance(self):
         self.generate_voucher('to_advance')
+        self.validate_contract()
     
     
     @api.onchange('sub_type')
@@ -502,6 +778,24 @@ class payment_term(models.Model):
             
         self.payment_mode_id = payment_mode_id
         
+        
+    @api.multi
+    def _is_visible(self):
+        
+        for record in self:
+            invisible = False
+            
+            if record.contract_state not in ['prechecked']:
+                invisible = True
+            
+            if record.state in ['done', 'to_advance', 'processed']:
+                invisible = True
+                
+            if record.cash_sub_type not in ['cash']:
+                invisible = True
+                
+            record.invisible = invisible
+        
     
     type = fields.Selection([('credit_card', 'Tarjeta de credito'), ('cash', 'Efectivo'), ('check', 'Cheque'), ('other', 'Otro')], default='cash', string='Forma de pago', required=True)
     description_other = fields.Char('Especificacion')
@@ -519,6 +813,8 @@ class payment_term(models.Model):
     state = fields.Selection([('draft', 'Nuevo'), ('done', 'Confirmado'), ('to_advance', 'Para anticipo'), ('cancel', 'Cancelado'), ('processed', 'Procesado')], default='draft', string='Estado')
     payment_mode_id = fields.Many2one('education_contract.payment_mode', compute='_compute_payment_mode', string='Modo de pago')
     salary_advance_id = fields.Many2one('education_contract.advance', string='Avanse de salario')
+    contract_state = fields.Selection(related='plan_id.contract_id.state', store=True)
+    invisible = fields.Boolean('Invisible', compute='_is_visible', default=True)
 
 
 class payment_mode(models.Model):
@@ -561,7 +857,9 @@ class voucher(models.Model):
 #### Check
 class check(models.Model):
     _name = 'education_contract.check'
+    _rec_name = 'check_number'
     
+    date = fields.Date('Fecha')
     bank = fields.Many2one('res.bank', string='Banco')
     check_number = fields.Char('Numero de cheque')
     beneficiary = fields.Char('Beneficiario')
@@ -585,6 +883,7 @@ class check(models.Model):
 class transfer(models.Model):
     _name = 'education_contract.transfer'
     
+    date = fields.Date('Fecha')
     bank = fields.Many2one('res.bank', string='Banco')
     owner = fields.Char('Titular')
     auth_number = fields.Char('Numero de autorizacion')

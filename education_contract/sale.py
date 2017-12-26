@@ -25,12 +25,7 @@ class sale_order(models.Model):
     
     def generate_education_contract(self, cr, uid, ids, context=None):
         
-        #try:
         contract_id = self.pool.get('education_contract.contract').create(cr, uid, {'sale_order_id': ids}, context=context)
         return contract_id
-        """except Exception, e:
-            print('Error creando el Contrato de estudios.')
-            return False"""
-            
-        #return False
+
         

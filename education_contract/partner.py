@@ -15,3 +15,15 @@ class partner(models.Model):
     
     education_contract_id = fields.One2many('education_contract.contract', 'owner', string='Contrato de estudios')
     
+    def name_get(self,cr,uid,ids,context=None):
+        if context is None:
+            context ={}
+        res=[]
+        
+        record_name=self.browse(cr,uid,ids,context)
+        
+        for object in record_name:
+            res.append((object.id, '%s' % (object.display_name or '')))
+            
+        return res
+    

@@ -11,10 +11,18 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 class conciliation(models.Model):
     _name = 'education_contract.conciliation'
     
+    _rec_name = 'contract_id'
+    
     seller_id = fields.Many2one('res.users', string='Vendedor')
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')
     payment_term = fields.One2many('education_contract.payment_term', related='contract_id.payment_term_ids', string='Formas de pago')
     date = fields.Date('Fecha')
+    
+    """def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
+        if not args:
+            args = []
+        if not context:
+            context = {}"""
             
 
 #### Advance
@@ -28,10 +36,10 @@ class advance(models.Model):
     base_payment_term_ids = fields.One2many('education_contract.payment_term', 'salary_advance_id', string='Abonos base', compute='_compute_amount', store=True)
     salary_advance_id = fields.Many2one('salary.advance', string='Avance de salario')
     journal_id = fields.Many2one('account.journal', string='Modo de pago')
+    state = fields.Selection([('draft', 'Nuevo'), ('done', 'Generado'), ('cancel', 'Cancelado')], string='Estado', default='draft')
     
     
     def _get_payment_term_to_advance(self):
-        print('-----------------------------------_get_payment_term_to_advance')
         contract_ids = self.env['education_contract.contract'].search([('user_id', '=', self.seller_id.id)])
         plan_ids = self.env['education_contract.plan'].search([('contract_id', 'in', contract_ids.ids)])
         payment_term_ids = self.env['education_contract.payment_term'].search([('plan_id', 'in', plan_ids.ids), ('state', 'in', ['to_advance'])])
@@ -41,7 +49,6 @@ class advance(models.Model):
     
     @api.depends('seller_id', 'date')
     def _compute_amount(self):
-        print('-----------------------------------_compute_amount')
         payment_term_ids = self._get_payment_term_to_advance()
         
         sum = 0.0
@@ -52,18 +59,6 @@ class advance(models.Model):
             
         self.amount = sum
         self.base_payment_term_ids = payment_term_ids.ids
-        
-        
-    """@api.onchange('base_payment_term_ids')
-    def _compute_amount_custom(self):
-        print('-----------------------------------_compute_amount_custom')
-        sum = 0.0
-    
-        if self.base_payment_term_ids:
-            for pt in self.base_payment_term_ids:
-                sum += pt.amount
-                
-        self.amount = sum"""
         
     
     @api.one
@@ -81,7 +76,9 @@ class advance(models.Model):
             'date': self.date,
             'employee_id': employee_obj.id,
             'payment_method': self.journal_id.id,
-            'company_id': self.seller_id.company_id.id
+            'company_id': self.seller_id.company_id.id,
+            'reason': 'Avance de vendedor',
+            'is_seller_advance': True
         }
         
         advance_id = self.env['salary.advance'].create(advance_data)
@@ -92,10 +89,4 @@ class advance(models.Model):
             for pt in self.base_payment_term_ids:
                 pt.write({'state': 'processed'})
                 
-                
-    """@api.model
-    def create(self, vals):
-        res = super(advance, self).create(vals)
-        return res"""
-                
-
+        self.state = 'done'

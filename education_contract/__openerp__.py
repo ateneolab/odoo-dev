@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'account', 'account_voucher', 'sale', 'openeducat_erp', 'mail', 'hr'],
+    'depends': ['base', 'account', 'account_voucher', 'sale', 'openeducat_erp', 'mail', 'hr', 'advance_salary', 'operating_unit'],
 
     # always loaded
     'data': [
@@ -33,6 +33,8 @@
         'views/workflow.xml',
         'views/company_view.xml',
         'views/conciliation_view.xml',
+        'wizards/report_rpm.xml',
+        'report/view_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

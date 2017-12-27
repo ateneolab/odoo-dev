@@ -23,7 +23,8 @@ class partner(models.Model):
         record_name=self.browse(cr,uid,ids,context)
         
         for object in record_name:
-            res.append((object.id, '%s' % (object.display_name or '')))
+            display_name = object.name
+            res.append((object.id, '%s' % (display_name or 'Nombre no visible')))
             
         return res
     

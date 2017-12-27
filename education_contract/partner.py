@@ -14,6 +14,13 @@ class partner(models.Model):
     _inherit = 'res.partner'
     
     education_contract_id = fields.One2many('education_contract.contract', 'owner', string='Contrato de estudios')
+    display_name = fields.Char(compute='_compute_display_name')
+    
+    @api.one
+    @api.depends('name', 'is_company')
+    def _compute_display_name(self):
+        self.display_name = self.name
+    
     
     def name_get(self,cr,uid,ids,context=None):
         if context is None:

@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//button[@name='invoice_open']" position="attributes">
-                    <attribute name="groups">"odoo_security_custom.group_l10n_ec_withdrawing_invoice"</attribute>
+                    <attribute name="groups">["odoo_security_custom.group_l10n_ec_withdrawing_invoice"]</attribute>
                 </xpath>
 
             </field>

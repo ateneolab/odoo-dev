@@ -26,6 +26,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         'templates.xml',
+        'security/security.xml',
         'views/account_invoice_view.xml',
     ],
     # only loaded in demonstration mode

@@ -8,9 +8,9 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//button[@name='invoice_open']" position="replace">
-                    <button name="invoice_open" states="draft" string="Validate" class="oe_highlight"
+                    <button name="invoice_open" states="draft" string="Validate 1" class="oe_highlight"
                             groups="odoo_security_custom.group_validating_invoice"/>
-                    <button name="invoice_open" states="proforma2" string="Validate"
+                    <button name="invoice_open" states="proforma2" string="Validate 2"
                             groups="odoo_security_custom.group_validating_invoice2"/>
                 </xpath>
 

@@ -2,11 +2,14 @@
 <openerp>
     <data noupdate="0">
 
-        <record id="group_l10n_ec_withdrawing_invoice" model="res.groups">
+        <record id="group_validating_invoice" model="res.groups">
             <field name="name">Validating</field>
             <field name="category_id" ref="base.module_category_accounting_and_finance"/>
             <field name="users" eval="[(4, ref('base.user_root'))]"/>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
+
+
+
     </data>
 </openerp>

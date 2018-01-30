@@ -1,7 +1,7 @@
 <openerp>
     <data>
 
-        <record id="view_invoice_customer__seq_form" model="ir.ui.view">
+        <record id="view_invoice_customer_seq_form" model="ir.ui.view">
             <field name="name">account.invoice.cust.seq.form</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
@@ -11,7 +11,7 @@
                     <button name="invoice_open" states="draft" string="Validate 1" class="oe_highlight"
                             groups="odoo_security_custom.group_validating_invoice"/>
                     <button name="invoice_open" states="proforma2" string="Validate 2"
-                            groups="odoo_security_custom.group_validating_invoice2"/>
+                            groups="odoo_security_custom.group_validating_invoice"/>
                 </xpath>
 
             </field>
@@ -25,7 +25,7 @@
 
                 <xpath expr="//button[@name='invoice_open']" position="replace">
                     <button name="invoice_open" states="draft,proforma2" string="Validate" class="oe_highlight"
-                            groups="odoo_security_custom.group_validating_invoice2"/>
+                            groups="odoo_security_custom.group_validating_invoice"/>
                 </xpath>
 
             </field>

@@ -17,8 +17,8 @@
             </field>
         </record>
 
-        <record id="view_retention_authinv_form" model="ir.ui.view">
-            <field name="name">account.invoice.authinv.form</field>
+        <record id="view_invoice_sup_seq_form" model="ir.ui.view">
+            <field name="name">account.invoice.sup.seq.form</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "odoo_security_custom",
+    'name': "Custom Security Fixes",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'account'],
+    'depends': ['base', 'account', 'l10n_ec_withdrawing'],
 
     # always loaded
     'data': [
@@ -28,6 +28,7 @@
         'templates.xml',
         'security/security.xml',
         'views/account_invoice_view.xml',
+        'views/account_retention_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

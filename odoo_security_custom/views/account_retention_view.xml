@@ -1,0 +1,39 @@
+<openerp>
+    <data>
+
+        <record id="view_account_retention_form_sec_customer" model="ir.ui.view">
+            <field name="name">view.account.retention.sec.form</field>
+            <field name="model">account.retention</field>
+            <field name="inherit_id" ref="l10n_ec_withdrawing.view_account_retention_form_customer"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='button_validate']" position="replace">
+                    <button name="button_validate" string="Validar" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state','in',['done', 'cancel'])]}"
+                            groups="odoo_security_custom.group_validating_invoice"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="view_account_retention_form_sec_supplier" model="ir.ui.view">
+            <field name="name">view.account.retention.sec.sup.form</field>
+            <field name="model">account.retention</field>
+            <field name="inherit_id" ref="l10n_ec_withdrawing.view_account_retention_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='button_validate']" position="replace">
+                    <button name="button_validate" string="Validar" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state','in',['done', 'cancel'])]}"
+                            groups="odoo_security_custom.group_validating_invoice"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

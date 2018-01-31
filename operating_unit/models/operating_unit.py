@@ -31,7 +31,7 @@ class OperatingUnit(models.Model):
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
         # Make a search with default criteria
-        import pdb; pdb.set_trace()
+
         names1 = super(models.Model, self).name_search(
             name=name, args=args, operator=operator, limit=limit)
         # Make the other search

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="invoice_sale_discount_invoice">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//div[@class='oe_clear']" position="before">
+                        <group>
+                            <group class="oe_left">
+                                <field name="discount_view"/>
+                                <field name="discount_type"/>
+                            </group>
+                            <group>
+                                <button name="button_dummy" states="draft" string="(update)" type="object"
+                                        class="oe_edit_only oe_link oe_right" invisible="1"/>
+                            </group>
+                            <group class="oe_left">
+                                <field name="discount_value"
+                                       attrs="{'invisible':[('discount_type', 'not in', ['Fixed', 'Percentage'])]}"/>
+                            </group>
+                            <group class="oe_right">
+                                <button name="button_dummy" string="(update)" type="object"
+                                        class="oe_edit_only oe_link"
+                                        attrs="{'invisible':['|',('discount_type', 'not in', ['Fixed', 'Percentage']),('state','not in',['draft'])]}"/>
+                            </group>
+                        </group>
+
+                    </xpath>
+                    <xpath expr="//field[@name='amount_tax']" position="after">
+                        <field name="discounted_amount" widget="monetary" options="{'currency_field': 'currency_id'}"
+                               attrs="{'invisible':[('discount_type', 'not in', ['Fixed', 'Percentage'])]}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,17 @@
+<openerp>
+    <data>
+        <record id="view_order_form_inherit_wh" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.stock</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="warehouse_id" position="replace"/>
+                <field name="client_order_ref" position="after">
+                    <field name="warehouse_id" on_change="onchange_warehouse_id(warehouse_id)"
+                           options="{'no_create': True}" groups="stock.group_locations" default="1"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
+

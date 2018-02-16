@@ -11,3 +11,5 @@ class sale_order(models.Model):
         vals['warehouse_id'] = 1
 
         return super(sale_order, self).create(vals)
+
+    _defaults = {'company_id': 1, 'warehouse_id': 1}

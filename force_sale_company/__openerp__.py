@@ -1,26 +1,25 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "force_sale_company",
+    'name': "Force Sale Company",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Set company_id to main company and warehouse_id to default warehouse of the main company.""",
 
     'description': """
-        Long description of module's purpose
+        If you delete default warehouse of the main company, this moduel should break.
     """,
 
-    'author': "Your Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Solem Consulting",
+    'website': "http://www.solemconsulting.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Sale',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'sale'],
 
     # always loaded
     'data': [

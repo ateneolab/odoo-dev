@@ -227,3 +227,8 @@ class email_template(models.Model):
         if force_send:
             mail_mail.send(cr, uid, [msg_id], raise_exception=raise_exception, context=context)
         return msg_id"""
+
+class ir_mail_server(models.Model):
+    _inherit = "ir.mail_server"
+
+    company_id = fields.Many2one('res.company', string=u'Company')

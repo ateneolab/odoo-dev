@@ -187,7 +187,7 @@ class email_template(models.Model):
         pdb.set_trace()
 
         if server_id:
-            self.write({'mail_server_id': server_id})
+            self.write(cr, uid, [template_id], {'mail_server_id': server_id})
 
         return super(email_template, self).send_mail(context=context)
 

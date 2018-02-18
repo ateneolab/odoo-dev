@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mail_outgoing_server_mail_outgoing_server,mail_outgoing_server.mail_outgoing_server,model_mail_outgoing_server_mail_outgoing_server,,1,0,0,0

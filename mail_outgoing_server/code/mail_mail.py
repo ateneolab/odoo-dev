@@ -183,13 +183,11 @@ class email_template(models.Model):
 
     @api.cr_uid_id_context
     def send_mail(self, cr, uid, template_id, res_id, force_send=False, raise_exception=False, server_id=False, context=None):
-        import pdb;
-        pdb.set_trace()
 
         if server_id:
             self.write(cr, uid, [template_id], {'mail_server_id': server_id})
 
-        return super(email_template, self).send_mail(context=context)
+        return super(email_template, self).send_mail(res_id=res_id, force_send=force_send, raise_exception=raise_exception, context=context)
 
         """if context is None:
             context = {}

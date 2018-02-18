@@ -12,6 +12,7 @@ class OperatingUnit(models.Model):
     _description = 'Operating Unit'
 
     name = fields.Char(required=True)
+    trade_name = fields.Char(string=u'Trade name', required=True)
     code = fields.Char(required=True)
     active = fields.Boolean(default=True)
     company_id = fields.Many2one(

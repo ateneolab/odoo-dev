@@ -183,17 +183,24 @@ class email_template(models.Model):
 
     @api.cr_uid_id_context
     def send_mail(self, cr, uid, template_id, res_id, force_send=False, raise_exception=False, server_id=False, context=None):
+        """Generates a new mail message for the given template and record,
+           and schedules it for delivery through the ``mail`` module's scheduler.
 
-        if server_id:
-            self.write(cr, uid, [template_id], {'mail_server_id': server_id})
+           :param int template_id: id of the template to render
+           :param int res_id: id of the record to render the template with
+                              (model is taken from the template)
+           :param bool force_send: if True, the generated mail.message is
+                immediately sent after being created, as if the scheduler
+                was executed for this message only.
+           :returns: id of the mail.message that was created
+        """
 
-        return super(email_template, self).send_mail(res_id=res_id, force_send=force_send, raise_exception=raise_exception, context=context)
-
-        """if context is None:
+        if context is None:
             context = {}
         mail_mail = self.pool.get('mail.mail')
         ir_attachment = self.pool.get('ir.attachment')
 
+        # create a mail_mail based on values, without attachments
         values = self.generate_email(cr, uid, template_id, res_id, context=context)
         if not values.get('email_from'):
             raise osv.except_osv(_('Warning!'), _(
@@ -204,9 +211,7 @@ class email_template(models.Model):
         msg_id = mail_mail.create(cr, uid, values, context=context)
         mail = mail_mail.browse(cr, uid, msg_id, context=context)
 
-        if server_id:
-            self.write({'mail_server_id': server_id}, context=context)
-
+        # manage attachments
         for attachment in attachments:
             attachment_data = {
                 'name': attachment[0],
@@ -222,9 +227,13 @@ class email_template(models.Model):
             values['attachment_ids'] = [(6, 0, attachment_ids)]
             mail_mail.write(cr, uid, msg_id, {'attachment_ids': [(6, 0, attachment_ids)]}, context=context)
 
+        import pdb; pdb.set_trace()
+        if server_id:
+            mail_mail.write(cr, uid, [mail.id], {'mail_server_id': server_id}, context=context)
+
         if force_send:
             mail_mail.send(cr, uid, [msg_id], raise_exception=raise_exception, context=context)
-        return msg_id"""
+        return msg_id
 
 class ir_mail_server(models.Model):
     _inherit = "ir.mail_server"

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Mail Outgoing Sserver",
+    'name': "Mail Outgoing Server",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as

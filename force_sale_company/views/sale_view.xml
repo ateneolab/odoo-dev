@@ -1,7 +1,7 @@
 <openerp>
     <data>
         <record id="view_order_form_inherit_wh" model="ir.ui.view">
-            <field name="name">sale.order.form.sale.stock</field>
+            <field name="name">sale.order.form.sale.stock2</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
             <field name="arch" type="xml">

@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <field name="user_id" position="replace"/>
                 <xpath expr="//button[@name='case_escalate']" position="after">
+                    <label for="user_id" string="Comercial"/>
                     <field name="user_id"/>
                 </xpath>
 

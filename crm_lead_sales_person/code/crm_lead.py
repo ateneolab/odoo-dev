@@ -6,6 +6,7 @@ class crm_lead(models.Model):
     _inherit = 'crm.lead'
 
 
+    @api.model
     def filter_sales_persons(self):
         return [1, 2, 3]
 

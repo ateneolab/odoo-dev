@@ -1,0 +1,23 @@
+<openerp>
+    <data>
+        <!-- CRM Lead Form View  -->
+        <record model="ir.ui.view" id="crm_case_form_view_leads_sp">
+            <field name="name">CRM - Leads Form Sales Person Filter</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="replace"/>
+                <xpath expr="//button[@name='case_escalate']" position="after">
+                    <field name="user_id"/>
+                </xpath>
+
+                <field name="section_id" position="replace"/>
+                <xpath expr="//button[@name='case_escalate']" position="after">
+                    <field name="section_id"/>
+                </xpath>
+
+
+            </field>
+        </record>
+    </data>
+</openerp>

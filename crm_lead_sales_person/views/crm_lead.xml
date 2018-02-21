@@ -7,16 +7,19 @@
             <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
             <field name="arch" type="xml">
                 <field name="user_id" position="replace"/>
-                <xpath expr="//button[@name='case_escalate']" position="after">
-                    <label for="user_id" string="Comercial"/>
+                <xpath expr="//group/button[@name='case_escalate']" position="after">
+                    <!--<label for="user_id" string="Comercial"/>-->
                     <field name="user_id"/>
                 </xpath>
 
                 <field name="section_id" position="replace"/>
-                <xpath expr="//button[@name='case_escalate']" position="after">
+                <xpath expr="//button[@name='case_escalate']" position="before">
                     <field name="section_id"/>
                 </xpath>
 
+                <xpath expr="//label[@for='section_id']" position="after">
+                    <label for="user_id" string="Comercial"/>
+                </xpath>
 
             </field>
         </record>

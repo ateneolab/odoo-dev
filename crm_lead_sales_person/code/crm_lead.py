@@ -8,3 +8,7 @@ class crm_lead(models.Model):
 
     def filter_sales_persons(self):
         return [1, 2, 3]
+
+    user_id = fields.Many2one('res.users', domain=filter_sales_persons)
+
+

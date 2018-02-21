@@ -20,9 +20,9 @@
                     <label for="user_id" string="Comercial"/>
                 </xpath>-->
 
-                <field name="user_id" position="attributes">
+                <!--<field name="user_id" position="attributes">
                     <attribute name="domain">"[('id', 'in', filter_sales_persons)]"</attribute>
-                </field>
+                </field>-->
 
                 <!--<field name="company_id" position="attributes">
                     <attribute name="readonly">True</attribute>

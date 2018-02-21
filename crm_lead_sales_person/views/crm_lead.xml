@@ -24,9 +24,9 @@
                     <attribute name="domain">"[('id', 'in', filter_sales_persons)]"</attribute>
                 </field>-->
 
-                <!--<field name="company_id" position="attributes">
+                <field name="company_id" position="attributes">
                     <attribute name="readonly">True</attribute>
-                </field>-->
+                </field>
 
             </field>
         </record>

@@ -30,6 +30,7 @@ class invoice_discount(models.Model):
     @api.one
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount', 'discount_type', 'discount_value', 'discount_view')
     def _compute_amounts(self):
+        import pdb; pdb.set_trace()
         self.amount_untaxed = sum(line.price_subtotal for line in self.invoice_line)
         self.amount_tax = sum(line.amount for line in self.tax_line)
         if self.discount_view == 'After Tax':
@@ -55,6 +56,7 @@ class invoice_discount(models.Model):
     @api.one
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount', 'discount_type', 'discount_value')
     def disc_amount(self):
+        import pdb; pdb.set_trace()
         if self.discount_view == 'After Tax':
             if self.discount_type == 'Fixed':
                 self.discounted_amount = self.discount_value

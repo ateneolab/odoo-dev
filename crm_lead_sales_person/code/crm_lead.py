@@ -14,6 +14,8 @@ class crm_lead(models.Model):
         for team in teams:
             users += team.member_ids.ids
 
+        users.remove(1) # remove Administrator user
+
         return [('id', 'in', list(set(users)))]
 
     user_id = fields.Many2one('res.users', domain=_filter_sales_persons)

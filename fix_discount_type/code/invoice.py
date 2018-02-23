@@ -39,7 +39,6 @@ class account_type(models.Model):
                 self.amount_untaxed = the_value_before
                 self.amount_tax = tax_amount
                 self.amount_total = self.amount_untaxed + tax_amount
-                self.amount_pay = self.amount_total
 
     @api.one
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount', 'retention_id', 'discount_type', 'discount_value',

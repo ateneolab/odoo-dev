@@ -14,6 +14,7 @@ class account_type(models.Model):
     def do_compute_amount(self):
         if self.discount_view == 'Before Tax':
             if self.discount_type == 'Fixed':
+                import pdb; pdb.set_trace()
                 the_value_before = self.amount_untaxed - self.discount_value
 
                 tax_amount = 0.0

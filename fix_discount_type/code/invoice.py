@@ -10,6 +10,16 @@ class account_type(models.Model):
     amount_total = fields.Float(string='Total', digits=dp.get_precision('Account'), store=True, readonly=True,
                                 compute='_compute_amount')
 
+    # An invoice's residual amount is the sum of its unreconciled move lines and,
+    # for partially reconciled move lines, their residual amount divided by the
+    # number of times this reconciliation is used in an invoice (so we split
+    # the residual amount between all invoice)
+    def _compute_residual(self):
+        super(account_type, self)._compute_residual()
+
+        self.residual -= self.discount_value
+        self.residual = max(self.residual, 0.0)
+
     @api.one
     def do_compute_amount(self):
         print('---do_compute_amount')
@@ -30,7 +40,6 @@ class account_type(models.Model):
                 self.amount_tax = tax_amount
                 self.amount_total = self.amount_untaxed + tax_amount
                 self.amount_pay = self.amount_total
-                self.residual = self.amount_total
 
     @api.one
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount', 'retention_id', 'discount_type', 'discount_value',

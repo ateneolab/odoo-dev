@@ -24,8 +24,6 @@ class account_type(models.Model):
     def do_compute_amount(self):
         if self.discount_view == 'Before Tax':
             if self.discount_type == 'Fixed':
-                import pdb;
-                pdb.set_trace()
                 discount_porcentage = '%.2f' % (self.discount_value * 100 / (self.amount_untaxed or 1))
 
                 check_sum = 0.0
@@ -72,8 +70,6 @@ class account_type(models.Model):
     def disc_amount(self):
         if self.discount_view == 'Before Tax':
             if self.discount_type == 'Fixed':
-                import pdb;
-                pdb.set_trace()
                 discount_porcentage = '%.2f' % (self.discount_value * 100 / (self.amount_untaxed or 1))
 
                 check_sum = 0.0
@@ -89,9 +85,9 @@ class account_type(models.Model):
                         discount = residual
 
                     check_sum += discount
-                    line.discount = discount
+                    line.write({'discount': discount})
 
-                self.discounted_amount = self.discounted_amount
+                self.discounted_amount = self.discount_value
 
     _defaults = {
         'discount_view': 'Before Tax',

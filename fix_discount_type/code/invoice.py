@@ -35,7 +35,7 @@ class account_type(models.Model):
                     iterations += 1
                     discount = float(discount_porcentage) * line.price_subtotal / 100
 
-                    if iterations == lines_size - 1:
+                    if iterations == lines_size:
                         residual = self.discount_value - check_sum
                         discount = residual
 

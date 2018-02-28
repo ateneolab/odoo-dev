@@ -29,7 +29,7 @@ class invoice_discount(models.Model):
         return True
 
     @api.one
-    @api.depends('invoice_line.price_subtotal', 'tax_line.amount', 'discount_type', 'discount_value', 'discount_view')
+    @api.depends('invoice_line.price_subtotal', 'tax_line.amount')  # , 'discount_type', 'discount_value', 'discount_view'
     def _compute_amounts(self):
         self.amount_untaxed = sum(line.price_subtotal for line in self.invoice_line)
         self.amount_tax = sum(line.amount for line in self.tax_line)

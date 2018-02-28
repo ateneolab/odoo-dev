@@ -12,7 +12,11 @@
                 </field>-->
 
                 <field name="discount" position='after'> <!-- groups="sale.group_discount_per_so_line" -->
-                    <field name="discount_amount"/>
+                    <field name="discount_amount" readonly="1"/>
+                </field>
+
+                <field name="discount_type" position="attributes">
+                    <attribute name="invisible">True</attribute>
                 </field>
 
             </field>

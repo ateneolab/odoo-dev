@@ -54,7 +54,7 @@ class invoice_discount(models.Model):
         else:
             self.amount_total = self.amount_untaxed + self.amount_tax
 
-    @api.one
+    """@api.one
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount', 'discount_type', 'discount_value')
     def disc_amount(self):
         if self.discount_view == 'After Tax':
@@ -74,7 +74,7 @@ class invoice_discount(models.Model):
             else:
                 self.discounted_amount = 0
         else:
-            self.discounted_amount = 0
+            self.discounted_amount = 0"""
 
 
 invoice_discount()

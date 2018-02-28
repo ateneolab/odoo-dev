@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sales_invoices_discounts'],
+    'depends': ['base', 'sale_discount_total'],
 
     # always loaded
     'data': [

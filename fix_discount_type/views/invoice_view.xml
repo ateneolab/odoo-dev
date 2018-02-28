@@ -7,9 +7,9 @@
             <field name="inherit_id" ref="sale_discount_total.discount_account_invoice_view_form1"/>
             <field name="arch" type="xml">
 
-                <field name="discount_type" position="attributes">
+                <!--<field name="discount_type" position="attributes">
                     <attribute name="readonly">True</attribute>
-                </field>
+                </field>-->
 
                 <field name="discount" position='after'> <!-- groups="sale.group_discount_per_so_line" -->
                     <field name="discount_amount"/>

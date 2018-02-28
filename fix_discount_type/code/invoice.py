@@ -58,8 +58,7 @@ class account_type(models.Model):
                 self.amount_pay = self.amount_total"""
 
     @api.one
-    @api.depends('invoice_line.price_subtotal', 'tax_line.amount', 'retention_id', 'discount_type', 'discount_value',
-                 'discount_view')
+    @api.depends('invoice_line.price_subtotal', 'tax_line.amount', 'retention_id')  # , 'discount_type', 'discount_value', 'discount_view'
     def _compute_amount(self):
         super(account_type, self)._compute_amount()
 

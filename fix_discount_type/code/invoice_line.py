@@ -7,7 +7,7 @@ class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
     discount_amount = fields.Float(string='Discount amount',
-                                   digits=(16, 10),
+                                   digits=(16, 2),
                                    # digits= dp.get_precision('Discount'),
                                    default=0.0)
 

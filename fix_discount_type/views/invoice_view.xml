@@ -19,6 +19,14 @@
                     <attribute name="invisible">True</attribute>
                 </field>
 
+                <xpath expr="//field[@name='amount_total']" position="replace">
+                    <field name="amount_pay" string="Total" class="oe_subtotal_footer_separator" widget="monetary"
+                           options="{'currency_field': 'currency_id'}"/>
+                    <field name="amount_tax_retention"/>
+                    <field name="amount_total" string="Total a Pagar" class="oe_subtotal_footer_separator"
+                           widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </xpath>
+
             </field>
         </record>
 

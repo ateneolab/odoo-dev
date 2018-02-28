@@ -85,7 +85,7 @@ class account_type(models.Model):
                         discount = residual
 
                     check_sum += discount
-                    line.write({'discount': discount})
+                    line.write({'discount': discount_porcentage})
 
                 self.discounted_amount = self.discount_value
 

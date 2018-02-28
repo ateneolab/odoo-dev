@@ -25,7 +25,7 @@ class account_type(models.Model):
         if self.discount_view == 'Before Tax':
             if self.discount_type == 'Fixed':
                 discount_porcentage = '%.2f' % (self.discount_value * 100 / self.amount_untaxed)
-
+                import pdb; pdb.set_trace()
                 for line in self.invoice_line:
                     line.discount = discount_porcentage * line.price_subtotal
 

@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record model="ir.ui.view" id="invoice_sale_discount_invoice_fix">
+        <record model="ir.ui.view" id="sale_discount_total_fix">
+            <field name="name">account.invoice.fix.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="sale_discount_total.discount_account_invoice_view_form1"/>
+            <field name="arch" type="xml">
+
+                <field name="discount_type" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </field>
+
+                <field name="discount" position='after'> <!-- groups="sale.group_discount_per_so_line" -->
+                    <field name="discount_amount"/>
+                </field>
+
+            </field>
+        </record>
+
+        <!--<record model="ir.ui.view" id="invoice_sale_discount_invoice_fix">
             <field name="name">account.invoice.fix.form</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="sales_invoices_discounts.invoice_sale_discount_invoice"/>
@@ -15,6 +32,6 @@
                 </field>
 
             </field>
-        </record>
+        </record>-->
     </data>
 </openerp>

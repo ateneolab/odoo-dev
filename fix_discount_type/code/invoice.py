@@ -87,7 +87,7 @@ class account_type(models.Model):
                     check_sum += discount
                     line.write({'discount': discount_porcentage})
 
-                self.discounted_amount = self.discount_value
+                self.discounted_amount = check_sum
 
     _defaults = {
         'discount_view': 'Before Tax',

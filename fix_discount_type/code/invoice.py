@@ -22,11 +22,14 @@ class account_type(models.Model):
 
     @api.one
     def do_compute_amount(self):
-        print('---do_compute_amount')
         if self.discount_view == 'Before Tax':
             if self.discount_type == 'Fixed':
-                print('---do_compute_amount Fixed')
-                the_value_before = self.amount_untaxed - self.discount_value
+                discount_porcentage = '%.2f' % (self.discount_value * 100 / self.amount_untaxed)
+
+                for line in self.invoice_line:
+                    line.discount = discount_porcentage * line.price_subtotal
+
+                """the_value_before = self.amount_untaxed - self.discount_value
 
                 tax_amount = 0.0
 
@@ -39,7 +42,7 @@ class account_type(models.Model):
                 self.amount_untaxed = the_value_before
                 self.amount_tax = tax_amount
                 self.amount_total = self.amount_untaxed + tax_amount
-                self.amount_pay = self.amount_total
+                self.amount_pay = self.amount_total"""
 
     @api.one
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount', 'retention_id', 'discount_type', 'discount_value',

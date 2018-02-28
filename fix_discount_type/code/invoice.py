@@ -70,6 +70,7 @@ class account_type(models.Model):
     def disc_amount(self):
         if self.discount_view == 'Before Tax':
             if self.discount_type == 'Fixed':
+                import pdb; pdb.set_trace()
                 discount_porcentage = '%.2f' % (self.discount_value * 100 / (self.amount_untaxed or 1))
 
                 check_sum = 0.0

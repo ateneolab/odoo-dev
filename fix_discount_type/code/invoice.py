@@ -26,8 +26,21 @@ class account_type(models.Model):
             if self.discount_type == 'Fixed':
                 discount_porcentage = '%.2f' % (self.discount_value * 100 / self.amount_untaxed)
                 import pdb; pdb.set_trace()
+
+                check_sum = 0.0
+                lines_size = len(self.invoice_line)
+                iterations = 0
+
                 for line in self.invoice_line:
-                    line.discount = discount_porcentage * line.price_subtotal
+                    iterations += 1
+                    discount = float(discount_porcentage) * line.price_subtotal
+
+                    if iterations == lines_size - 1:
+                        residual = self.discount_value - check_sum
+                        discount = residual
+
+                    check_sum += discount
+                    line.discount = discount
 
                 """the_value_before = self.amount_untaxed - self.discount_value
 

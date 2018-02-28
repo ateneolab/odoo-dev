@@ -60,10 +60,11 @@ class account_type(models.Model):
     @api.one
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount', 'retention_id')  # , 'discount_type', 'discount_value', 'discount_view'
     def _compute_amount(self):
-        super(account_type, self)._compute_amount()
-
         if self.type == 'out_invoice':
             self.do_compute_amount()
+
+        super(account_type, self)._compute_amount()
+
 
     _defaults = {
         'discount_view': 'Before Tax',

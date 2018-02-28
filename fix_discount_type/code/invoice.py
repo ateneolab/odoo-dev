@@ -33,7 +33,7 @@ class account_type(models.Model):
 
                 for line in self.invoice_line:
                     iterations += 1
-                    discount = float(discount_porcentage) * line.price_subtotal
+                    discount = float(discount_porcentage) * line.price_subtotal / 100
 
                     if iterations == lines_size - 1:
                         residual = self.discount_value - check_sum

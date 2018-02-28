@@ -24,8 +24,9 @@ class account_type(models.Model):
     def do_compute_amount(self):
         if self.discount_view == 'Before Tax':
             if self.discount_type == 'Fixed':
-                discount_porcentage = '%.2f' % (self.discount_value * 100 / self.amount_untaxed)
-                import pdb; pdb.set_trace()
+                import pdb;
+                pdb.set_trace()
+                discount_porcentage = '%.2f' % (self.discount_value * 100 / (self.amount_untaxed or 1) )
 
                 check_sum = 0.0
                 lines_size = len(self.invoice_line)

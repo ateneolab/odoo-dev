@@ -17,7 +17,7 @@ class invoice_discount(models.Model):
                                      help='Choose the type of the Discount')
     discount_value = fields.Float(string='Discount Value', states={'draft': [('readonly', False)]},
                                   help='Choose the value of the Discount')
-    discounted_amount = fields.Float(compute='disc_amount', string='Discounted Amount', readonly=True)
+    discounted_amount = fields.Float(string='Discounted Amount', readonly=True)
     amount_total = fields.Float(string='Total', digits=dp.get_precision('Account'),
                                 store=True, readonly=True, compute='_compute_amounts')
 

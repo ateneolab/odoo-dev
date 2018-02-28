@@ -19,7 +19,46 @@ class account_type(models.Model):
             disc += (line.quantity * line.price_unit) * line.discount / 100
         self.amount_discount = disc
 
-        super(account_type, self)._compute_amount()
+        self.compute_amount()
+
+        # super(account_type, self)._compute_amount()
+
+    @api.one
+    def compute_amount(self):
+        self.amount_untaxed = sum(line.price_subtotal for line in self.invoice_line)
+
+        import pdb;
+        pdb.set_trace()
+
+        for line in self.tax_line:
+            if line.tax_group == 'vat':
+                self.amount_vat += line.base
+                self.amount_tax += line.amount
+            elif line.tax_group == 'vat0':
+                self.amount_vat_cero += line.base
+            elif line.tax_group == 'novat':
+                self.amount_novat += line.base
+            elif line.tax_group == 'no_ret_ir':
+                self.amount_noret_ir += line.base
+            elif line.tax_group in ['ret_vat_b', 'ret_vat_srv', 'ret_ir']:  # estas son las retenciones
+                self.amount_tax_retention += line.amount
+                if line.tax_group == 'ret_vat_b':  # in ['ret_vat_b', 'ret_vat_srv']:
+                    self.amount_tax_ret_vatb += line.base
+                    self.taxed_ret_vatb += line.amount
+                elif line.tax_group == 'ret_vat_srv':
+                    self.amount_tax_ret_vatsrv += line.base
+                    self.taxed_ret_vatsrv += line.amount
+                elif line.tax_group == 'ret_ir':
+                    self.amount_tax_ret_ir += line.base
+                    self.taxed_ret_ir += line.amount
+            elif line.tax_group == 'ice':
+                self.amount_ice += line.amount
+
+        if self.amount_vat == 0 and self.amount_vat_cero == 0:
+            self.amount_vat_cero = self.amount_untaxed
+
+        self.amount_total = self.amount_untaxed + self.amount_tax + self.amount_tax_retention
+        self.amount_pay = self.amount_tax + self.amount_untaxed
 
     @api.multi
     def compute_discount(self, discount):  # todo: after taxes
@@ -35,10 +74,9 @@ class account_type(models.Model):
                 line.discount_amount = line_disc_amnt
             total = val1 + val2 - disc_amnt
             self.amount_discount = disc_amnt
-            self.amount_tax = val2
-            self.amount_total = total
+            # self.amount_tax = val2
+            # self.amount_total = total
 
     _defaults = {
-        # 'discount_view': 'Before Tax',
         'discount_type': 'amount'
     }

@@ -279,7 +279,7 @@ class education_contract(models.Model):
     def get_cash_advances_summary(self):
         payment_term_ids = self.env['education_contract.payment_term'].search([('type', 'in', ['cash']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['to_advance'])])
         
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         
         advances = []
         

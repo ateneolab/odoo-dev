@@ -70,8 +70,23 @@ class account_type(models.Model):
                 line.discount_amount = line_disc_amnt
             total = val1 + val2 - disc_amnt
             self.amount_discount = disc_amnt
-            # self.amount_tax = val2
-            # self.amount_total = total
+
+    @api.onchange('discount_type', 'discount_rate')
+    def supply_rate(self):
+        for inv in self:
+            # if inv.discount_rate != 0:
+            amount = sum(line.price_subtotal for line in self.invoice_line)
+            tax = sum(line.amount for line in self.tax_line)
+            if inv.discount_type == 'percent':
+                self.compute_discount(inv.discount_rate)
+            else:
+                total = 0.0
+                discount = 0.0
+                for line in inv.invoice_line:
+                    total += (line.quantity * line.price_unit)
+                # if inv.discount_rate != 0:
+                discount = (inv.discount_rate / total) * 100
+                self.compute_discount(discount)
 
     _defaults = {
         'discount_type': 'amount'

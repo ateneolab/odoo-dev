@@ -26,10 +26,6 @@ class account_type(models.Model):
     @api.one
     def compute_amount(self):
         self.amount_untaxed = sum(line.price_subtotal for line in self.invoice_line)
-
-        import pdb;
-        pdb.set_trace()
-
         for line in self.tax_line:
             if line.tax_group == 'vat':
                 self.amount_vat += line.base

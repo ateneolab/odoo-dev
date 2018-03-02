@@ -3,6 +3,7 @@
 from openerp import models, api
 from openerp.osv import osv
 
+
 class account_type(models.Model):
     _inherit = 'account.invoice'
 
@@ -79,6 +80,7 @@ class account_type(models.Model):
             if inv.discount_type == 'percent':
                 self.compute_discount(inv.discount_rate)
             else:
+                import pdb; pdb.set_trace()
                 total = 0.0
                 discount = 0.0
                 for line in inv.invoice_line:
@@ -87,7 +89,7 @@ class account_type(models.Model):
                     discount = (inv.discount_rate / total) * 100
                 self.compute_discount(discount)
                 # else:
-                    # raise osv.except_osv('Error en detalles', u'Especifique todos los precios y las cantidades de los detalles de la factura.')
+                # raise osv.except_osv('Error en detalles', u'Especifique todos los precios y las cantidades de los detalles de la factura.')
 
     _defaults = {
         'discount_type': 'amount'

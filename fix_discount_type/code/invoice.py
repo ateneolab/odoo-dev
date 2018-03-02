@@ -23,7 +23,7 @@ class account_type(models.Model):
 
         # super(account_type, self)._compute_amount()
 
-    @api.one
+    """@api.one
     def compute_amount(self):
         self.amount_untaxed = sum(line.price_subtotal for line in self.invoice_line)
         for line in self.tax_line:
@@ -54,7 +54,7 @@ class account_type(models.Model):
             self.amount_vat_cero = self.amount_untaxed
 
         self.amount_total = self.amount_untaxed + self.amount_tax + self.amount_tax_retention
-        self.amount_pay = self.amount_tax + self.amount_untaxed
+        self.amount_pay = self.amount_tax + self.amount_untaxed"""
 
     """@api.multi
     def compute_discount(self, discount):  # todo: after taxes

@@ -56,7 +56,7 @@ class account_type(models.Model):
         self.amount_total = self.amount_untaxed + self.amount_tax + self.amount_tax_retention
         self.amount_pay = self.amount_tax + self.amount_untaxed
 
-    @api.multi
+    """@api.multi
     def compute_discount(self, discount):  # todo: after taxes
         # for inv in self:
         val1 = val2 = 0.0
@@ -69,9 +69,9 @@ class account_type(models.Model):
             disc_amnt += line_disc_amnt
             line.discount_amount = line_disc_amnt
         total = val1 + val2 - disc_amnt
-        self.amount_discount = disc_amnt
+        self.amount_discount = disc_amnt"""
 
-    @api.onchange('discount_type', 'discount_rate')
+    """@api.onchange('discount_type', 'discount_rate')
     def supply_rate(self):
         # for inv in self:
         if self.discount_rate != 0:
@@ -87,7 +87,7 @@ class account_type(models.Model):
             if self.discount_rate != 0:
                 if total != 0.0:
                     discount = (self.discount_rate / total) * 100
-            self.compute_discount(discount)
+            self.compute_discount(discount)"""
 
             # raise osv.except_osv('Error en detalles', u'Especifique todos los precios y las cantidades de los detalles de la factura.')
 

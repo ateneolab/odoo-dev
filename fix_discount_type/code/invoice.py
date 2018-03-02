@@ -80,10 +80,9 @@ class account_type(models.Model):
                 self.compute_discount(inv.discount_rate)
             else:
                 total = 0.0
-                discount = 0.0
                 for line in inv.invoice_line:
                     total += (line.quantity * line.price_unit)
-                if inv.discount_rate != 0:
+                if total != 0:
                     discount = (inv.discount_rate / total) * 100
                     self.compute_discount(discount)
                 else:

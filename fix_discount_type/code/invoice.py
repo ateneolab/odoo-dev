@@ -11,7 +11,7 @@ class account_type(models.Model):
     # for partially reconciled move lines, their residual amount divided by the
     # number of times this reconciliation is used in an invoice (so we split
     # the residual amount between all invoice)
-    @api.one
+    """@api.one
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount', 'retention_id')
     def _compute_amount(self):
         disc = 0.0
@@ -19,7 +19,7 @@ class account_type(models.Model):
             disc += (line.quantity * line.price_unit) * line.discount / 100
         self.amount_discount = disc
 
-        self.compute_amount()
+        self.compute_amount()"""
 
         # super(account_type, self)._compute_amount()
 

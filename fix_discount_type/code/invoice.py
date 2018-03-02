@@ -58,19 +58,20 @@ class account_type(models.Model):
 
     @api.multi
     def compute_discount(self, discount):  # todo: after taxes
-        # for inv in self:
-        val1 = val2 = 0.0
-        disc_amnt = 0.0
-        val2 = sum(line.amount for line in self.tax_line)
-        for line in self.invoice_line:
-            val1 += (line.quantity * line.price_unit)
-            line.discount = discount
-            line_disc_amnt = (line.quantity * line.price_unit) * discount / 100
-            disc_amnt += line_disc_amnt
-            line.discount_amount = line_disc_amnt
-        total = val1 + val2 - disc_amnt
-        self.amount_discount = disc_amnt
+        for inv in self:
+            val1 = val2 = 0.0
+            disc_amnt = 0.0
+            val2 = sum(line.amount for line in inv.tax_line)
+            for line in inv.invoice_line:
+                val1 += (line.quantity * line.price_unit)
+                line.discount = discount
+                line_disc_amnt = (line.quantity * line.price_unit) * discount / 100
+                disc_amnt += line_disc_amnt
+                line.discount_amount = line_disc_amnt
+            total = val1 + val2 - disc_amnt
+            inv.amount_discount = disc_amnt
 
+    @api.one
     @api.onchange('discount_type', 'discount_rate')
     def supply_rate(self):
         # for inv in self:

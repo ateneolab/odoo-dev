@@ -74,9 +74,9 @@ class account_type(models.Model):
     @api.onchange('discount_type', 'discount_rate')
     def supply_rate(self):
         # for inv in self:
-        if self.discount_rate != 0:
-            amount = sum(line.price_subtotal for line in self.invoice_line)
-            tax = sum(line.amount for line in self.tax_line)
+        # if self.discount_rate != 0:
+        amount = sum(line.price_subtotal for line in self.invoice_line)
+        tax = sum(line.amount for line in self.tax_line)
         if self.discount_type == 'percent':
             self.compute_discount(self.discount_rate)
         else:
@@ -84,9 +84,13 @@ class account_type(models.Model):
             discount = 0.0
             for line in self.invoice_line:
                 total += (line.quantity * line.price_unit)
-            if self.discount_rate != 0:
-                if total != 0.0:
-                    discount = (self.discount_rate / total) * 100
+            """if self.discount_rate != 0:
+                if total != 0.0:"""
+            try:
+                discount = (self.discount_rate / total) * 100
+            except:
+                raise osv.except_osv('Error en detalles',
+                                     u'Especifique todos los precios y las cantidades de los detalles de la factura.')
             self.compute_discount(discount)
 
             # raise osv.except_osv('Error en detalles', u'Especifique todos los precios y las cantidades de los detalles de la factura.')

@@ -67,8 +67,6 @@ class AccountInvoice(models.Model):
                 if inv.discount_type == 'percent':
                     self.compute_discount(inv.discount_rate)
                 else:
-                    import pdb;
-                    pdb.set_trace()
                     total = 0.0
                     discount = 0.0
                     for line in inv.invoice_line:

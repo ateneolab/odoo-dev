@@ -58,38 +58,38 @@ class account_type(models.Model):
 
     @api.multi
     def compute_discount(self, discount):  # todo: after taxes
-        for inv in self:
-            val1 = val2 = 0.0
-            disc_amnt = 0.0
-            val2 = sum(line.amount for line in self.tax_line)
-            for line in inv.invoice_line:
-                val1 += (line.quantity * line.price_unit)
-                line.discount = discount
-                line_disc_amnt = (line.quantity * line.price_unit) * discount / 100
-                disc_amnt += line_disc_amnt
-                line.discount_amount = line_disc_amnt
-            total = val1 + val2 - disc_amnt
-            self.amount_discount = disc_amnt
+        # for inv in self:
+        val1 = val2 = 0.0
+        disc_amnt = 0.0
+        val2 = sum(line.amount for line in self.tax_line)
+        for line in self.invoice_line:
+            val1 += (line.quantity * line.price_unit)
+            line.discount = discount
+            line_disc_amnt = (line.quantity * line.price_unit) * discount / 100
+            disc_amnt += line_disc_amnt
+            line.discount_amount = line_disc_amnt
+        total = val1 + val2 - disc_amnt
+        self.amount_discount = disc_amnt
 
     @api.onchange('discount_type', 'discount_rate')
     def supply_rate(self):
-        for inv in self:
-            # if inv.discount_rate != 0:
+        # for inv in self:
+        if self.discount_rate != 0:
             amount = sum(line.price_subtotal for line in self.invoice_line)
             tax = sum(line.amount for line in self.tax_line)
-            if inv.discount_type == 'percent':
-                self.compute_discount(inv.discount_rate)
-            else:
-                total = 0.0
-                discount = 0.0
-                for line in inv.invoice_line:
-                    total += (line.quantity * line.price_unit)
-                if inv.discount_rate != 0:
-                    if total > 0.0:
-                        discount = (inv.discount_rate / total) * 100
-                self.compute_discount(discount)
+        if self.discount_type == 'percent':
+            self.compute_discount(self.discount_rate)
+        else:
+            total = 0.0
+            discount = 0.0
+            for line in self.invoice_line:
+                total += (line.quantity * line.price_unit)
+            if self.discount_rate != 0:
+                if total != 0.0:
+                    discount = (self.discount_rate / total) * 100
+            self.compute_discount(discount)
 
-                # raise osv.except_osv('Error en detalles', u'Especifique todos los precios y las cantidades de los detalles de la factura.')
+            # raise osv.except_osv('Error en detalles', u'Especifique todos los precios y las cantidades de los detalles de la factura.')
 
     _defaults = {
         'discount_type': 'amount'

@@ -83,8 +83,11 @@ class account_type(models.Model):
                 for line in inv.invoice_line:
                     total += (line.quantity * line.price_unit)
                 if total > 0.0:
-                    discount = (inv.discount_rate / total) * 100
-                    self.compute_discount(discount)
+                    try:
+                        discount = (inv.discount_rate / total) * 100
+                        self.compute_discount(discount)
+                    except:
+                        pass
                 else:
                     raise osv.except_osv('Error en detalles', u'Especifique todos los precios y las cantidades de los detalles de la factura.')
 

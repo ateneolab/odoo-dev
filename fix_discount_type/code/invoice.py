@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, fields, api
-import openerp.addons.decimal_precision as dp
-
+from openerp import models, api
+from openerp.osv import osv
 
 class account_type(models.Model):
     _inherit = 'account.invoice'
@@ -84,9 +83,11 @@ class account_type(models.Model):
                 discount = 0.0
                 for line in inv.invoice_line:
                     total += (line.quantity * line.price_unit)
-                # if inv.discount_rate != 0:
-                discount = (inv.discount_rate / total) * 100
-                self.compute_discount(discount)
+                if inv.discount_rate != 0:
+                    discount = (inv.discount_rate / total) * 100
+                    self.compute_discount(discount)
+                else:
+                    raise osv.except_osv('Error en detalles', u'Especifique todos los precios y las cantidades de los detalles de la factura.')
 
     _defaults = {
         'discount_type': 'amount'

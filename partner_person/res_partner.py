@@ -170,8 +170,13 @@ class res_partner(models.Model):
             if record.national_identity:
                 national_identity = '[' + record.national_identity + ']'
             name = "%s %s" % (name, national_identity)
-            if record.parent_id and not record.is_company:
-                name = "%s, %s" % (record.parent_id.name, name)
+            if record.is_company:
+                name = record.is_company.name
+            else:
+                if record.parent_id:
+                    name = "%s, %s" % (record.parent_id.name, name)
+                else:
+                    name = "%s, %s" % (record.name, record.lastname)
             if context.get('show_address'):
                 name = name + "\n" + \
                     self._display_address(

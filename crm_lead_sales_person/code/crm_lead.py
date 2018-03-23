@@ -14,7 +14,8 @@ class crm_lead(models.Model):
         for team in teams:
             users += team.member_ids.ids
 
-        users.remove(1) # remove Administrator user
+        if 1 in users:
+            users.remove(1) # remove Administrator user
 
         return [('id', 'in', list(set(users)))]
 

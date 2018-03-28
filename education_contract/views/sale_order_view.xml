@@ -408,5 +408,24 @@
             </field>
         </record>
 
+        <record id="view_payment_term_form">
+            <field name="name">education_contract.payment_term.form</field>
+            <field name="model">education_contract.payment_term</field>
+            <field name="arch" type="xml">
+                <form string="Forma de pago">
+                    <group>
+                        <group>
+                            <field name="type"/>
+                        </group>
+                        <group></group>
+                    </group>
+                    <group></group>
+                    <group></group>
+                    <group></group>
+                    <group></group>
+                </form>
+            </field>
+        </record>
+
     </data>
 </openerp>

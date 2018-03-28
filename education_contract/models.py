@@ -659,7 +659,7 @@ class plan(models.Model):
     residual = fields.Float(compute='_compute_residual', digits=(6, 4), string='Saldo total a pagar')
     registration_residual = fields.Float(compute='_compute_residual', string='Saldo matricula', digits=(6, 4))
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')
-    payment_term_ids = fields.One2many('education_contract.payment_term',
+    payment_term_ids = fields.One2many('education_contract.payment_term', 'plan_id',
                                        string='Formas de pago')  # compute='_compute_payment_term',
     # payment_info_ids = fields.One2many('education_contract.payment_info', 'plan_id', string='Abonos')
 

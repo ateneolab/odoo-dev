@@ -2,368 +2,403 @@
 
 <openerp>
     <data>
-    
+
         <record id="view_beneficiary_form" model="ir.ui.view">
-      			<field name="name">education_contract.beneficiary.form</field>
-      			<field name="model">education_contract.beneficiary</field>
-      			<field name="arch" type="xml">
-      				<form>
-                  <sheet>
-                      <group>
-                          <group>
-                              <field name="name" string="Nombre"/>
-                              <field name="last_name" string="Apellido"/>
-                          </group>
-                          <group>
-                              <field name="middle_name" string="Segundo nombre"/>
-                              <field name="gender" string="Sexo"/>
-                          </group>
-                      </group>
-                      <notebook>
-                          <page string="Programas">
-                              <field name="program_ids">
-                                  <tree>
-                                      <field name="contract_id"/>
-                                      <field name="name"/>
-                                      <field name="study_company_id" required="0" invisible="1"/>
-                                      <field name="campus_id"/>
-                                      <field name="qty_years"/>
-                                  </tree>
-                              </field>
-                          </page>
-                      </notebook>
-                  </sheet>
-              </form>
-      			</field>
-		    </record>
-            
+            <field name="name">education_contract.beneficiary.form</field>
+            <field name="model">education_contract.beneficiary</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id" string="Cliente"/>
+                                <field name="name" string="Nombre"/>
+                                <field name="last_name" string="Apellido"/>
+                            </group>
+                            <group>
+                                <field name="middle_name" string="Segundo nombre"/>
+                                <field name="gender" string="Sexo"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Programas">
+                                <field name="program_ids">
+                                    <tree>
+                                        <field name="contract_id"/>
+                                        <field name="name"/>
+                                        <field name="study_company_id" required="0" invisible="1"/>
+                                        <field name="campus_id"/>
+                                        <field name="qty_years"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <record id="view_beneficiary_tree" model="ir.ui.view">
-      			<field name="name">education_contract.beneficiary.tree</field>
-      			<field name="model">education_contract.beneficiary</field>
-      			<field name="arch" type="xml">
+            <field name="name">education_contract.beneficiary.tree</field>
+            <field name="model">education_contract.beneficiary</field>
+            <field name="arch" type="xml">
                 <tree>
-                    <field name="name" />
+                    <field name="name"/>
                     <field name="middle_name" string="Segundo nombre"/>
                     <field name="last_name" string="Apellido"/>
                     <field name="gender" string="Sexo"/>
                 </tree>
             </field>
-      </record>
-      
-      <record id="view_education_contract" model="ir.ui.view">
-        <field name="name">education_contract.contract.form</field>
-        <field name="model">education_contract.contract</field>
-        <field name="arch" type="xml">
-            <form string="Contrato de estudios" create="false">
-                <header>
-                    <button name="to_prechecked" states="draft" type="object" string="Pre-verificar" class="oe_highlight" />
-                    <button name="to_done" states="validated,waiting" type="object" string="Aprobar" class="oe_highlight" />
-                    <button name="to_waiting" states="prechecked" type="object" string="Pendiente" class="oe_highlight" /> <!--groups="account.group_account_invoice"-->
-                    <button name="to_validated" states="prechecked" type="object" string="Conciliado" class="oe_highlight" />
-                    <button name="to_canceled" states="waiting" type="object" string="Anular" class="oe_highlight" />
-                    <button name="to_asigned" states="done" type="object" string="Asignar" class="oe_highlight" />
-                    <field name="state" widget="statusbar" type="object" statusbar_visible="draft,prechecked,done,waiting,asigned" />
-                </header>
-                
-                <sheet>
+        </record>
+
+        <record id="view_education_contract" model="ir.ui.view">
+            <field name="name">education_contract.contract.form</field>
+            <field name="model">education_contract.contract</field>
+            <field name="arch" type="xml">
+                <form string="Contrato de estudios" create="false">
+                    <header>
+                        <button name="to_prechecked" states="draft" type="object" string="Pre-verificar"
+                                class="oe_highlight"/>
+                        <button name="to_done" states="validated,waiting" type="object" string="Aprobar"
+                                class="oe_highlight"/>
+                        <button name="to_waiting" states="prechecked" type="object" string="Pendiente"
+                                class="oe_highlight"/> <!--groups="account.group_account_invoice"-->
+                        <button name="to_validated" states="prechecked" type="object" string="Conciliado"
+                                class="oe_highlight"/>
+                        <button name="to_canceled" states="waiting" type="object" string="Anular" class="oe_highlight"/>
+                        <button name="to_asigned" states="done" type="object" string="Asignar" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" type="object"
+                               statusbar_visible="draft,prechecked,done,waiting,asigned"/>
+                    </header>
+
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="barcode" required="1" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="user_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="marketing_manager_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+
+                            </group>
+                            <group>
+                                <field name="owner" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="study_company_id" required="0" invisible="1"
+                                       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="campus_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="sale_order_id" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Beneficiarios">
+                                <field name="id" invisible="1"/>
+                                <field name="beneficiary_ids" string="Beneficiarios" context="{'contract_id': id}"
+                                       attrs="{'readonly': [('state', 'in', ['done'])]}">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="middle_name" string="Segundo nombre"/>
+                                        <field name="last_name" string="Apellido"/>
+                                        <field name="gender" string="Sexo"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Programas">
+                                <field name="program_ids" readonly="1"> <!-- domain="[('contract_id', '=', 'id')]"  -->
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="beneficiary_id"/>
+                                        <field name="qty_years"/>
+                                        <field name="study_company_id" required="0" invisible="1"/>
+                                        <field name="campus_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Plan">
+                                <field name="plan_id"
+                                       attrs="{'readonly': [('state', 'in', ['done', 'validated'])]}"> <!-- context="{'default_contract_id': active_id}" -->
+                                    <tree>
+                                        <field name="type"/>
+                                        <field name="amount_pay"/>
+                                        <field name="registration_fee"
+                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"
+                                               string="Valor Matricula"/>
+                                        <field name="qty_dues"
+                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"
+                                               string="No. Cuotas"/>
+                                        <field name="amount_monthly"
+                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>
+                                        <field name="residual"
+                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>
+                                        <field name="registration_residual"/>
+                                        <!--<field name="initial_subscription" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>-->
+                                        <!--<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />-->
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Formas de pago">
+                                <field name="payment_term_ids"
+                                       attrs="{'readonly': [('state', 'in', ['done', 'validated'])]}">
+                                    <tree create="false" edit="false">  <!-- editable="top" -->
+                                        <field name="type"/>
+                                        <field name="cash_sub_type"
+                                               attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
+                                               string="Tipo de efectivo"/>
+                                        <field name="amount"/>
+                                        <field name="voucher_id"
+                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
+                                        </field>
+                                        <field name="check_id"
+                                               attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
+                                        <field name="transfer_id"
+                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
+                                        <field name="description_other"
+                                               attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
+
+                                        <button name="confirm" string="Confirmar" type="object" class="oe_highlight"
+                                                attrs="{'invisible': ['|', ('state', 'in', ['done', 'to_advance']), ('contract_state', 'not in', ['prechecked'])]}"/>
+                                        <button name="advance" string="Anticipo" type="object" class="oe_highlight"
+                                                attrs="{'invisible': [('invisible', '=', True)]}"/>
+                                        <button name="cancel" string="Cancelar" type="object" class="oe_highlight"
+                                                attrs="{'invisible': ['|', ('state', 'in', ['cancel', 'draft']), ('contract_state', 'not in', ['prechecked'])]}"/>
+
+                                        <field name="state" invisible="1"/>
+                                        <field name="contract_state" invisible="1"/>
+                                        <field name="invisible" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Notas internas">
+                                <field name="notes"/>
+                            </page>
+                            <page string="Observaciones">
+                                <field name="observations"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_education_contract_tree" model="ir.ui.view">
+            <field name="name">education_contract.contract.tree</field>
+            <field name="model">education_contract.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Contrato de estudios" create="false">
+                    <field name="date"/>
+                    <field name="barcode"/>
+                    <field name="user_id"/>
+                    <field name="owner"/>
+                    <field name="study_company_id" required="0" invisible="1"/>
+                    <field name="campus_id"/>
+                    <field name="sale_order_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_education_plan" model="ir.ui.view">
+            <field name="name">education_contract.plan.form</field>
+            <field name="model">education_contract.plan</field>
+            <field name="arch" type="xml">
+                <form string="Plan de financiamiento">
                     <group>
                         <group>
-                            <field name="barcode" required="1" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                            <field name="user_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                            <field name="marketing_manager_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                            <field name="date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                            
+                            <field name="type"/>
+                            <field name="contract_id"
+                                   invisible="1"/> <!-- context="{'default_contract_id': parent.id}" -->
+                            <field name="registration_fee" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
+                            <field name="amount_monthly" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
                         </group>
                         <group>
-                            <field name="owner" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                            <field name="study_company_id" required="0" invisible="1" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                            <field name="campus_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                            <field name="sale_order_id" readonly="1"/>
+                            <field name="amount_pay"/>
+                            <field name="qty_dues" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
+                            <field name="registration_residual"
+                                   attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
+                            <field name="residual"/>
                         </group>
                     </group>
-                    
                     <notebook>
-                        <page string="Beneficiarios">
-                            <field name="id" invisible="1"/>
-                            <field name="beneficiary_ids" string="Beneficiarios" context="{'contract_id': id}" attrs="{'readonly': [('state', 'in', ['done'])]}">
+                        <page string="Abonos">
+                            <!--<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />-->
+                            <!--<field name="payment_info_ids" />--> <!-- context="{'default_plan_id': active_id}" -->
+                            <field name="payment_info_ids">
                                 <tree>
-                                    <field name="name" />
-                                    <field name="middle_name" string="Segundo nombre"/>
-                                    <field name="last_name" string="Apellido"/>
-                                    <field name="gender" string="Sexo"/>
-                                </tree>
-                            </field>
-                        </page>
-                        
-                        <page string="Programas">
-                            <field name="program_ids" readonly="1"> <!-- domain="[('contract_id', '=', 'id')]"  -->
-                                <tree>
-                                    <field name="name"/>
-                                    <field name="beneficiary_id"/>
-                                    <field name="qty_years"/>
-                                    <field name="study_company_id" required="0" invisible="1"/>
-                                    <field name="campus_id"/>
-                                </tree>
-                            </field>
-                        </page>
-                        
-                        <page string="Plan">
-                            <field name="plan_id" attrs="{'readonly': [('state', 'in', ['done', 'validated'])]}"> <!-- context="{'default_contract_id': active_id}" -->
-                                <tree>
-                                    <field name="type"/>
-                                    <field name="amount_pay"/>
-                                    <field name="registration_fee" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }" string="Valor Matricula"/>
-                                    <field name="qty_dues" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }" string="No. Cuotas"/>
-                                    <field name="amount_monthly" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>
-                                    <field name="residual" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>
-                                    <field name="registration_residual"/>
-                                    <!--<field name="initial_subscription" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>-->
-                                    <!--<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />-->
-                                </tree>
-                            </field>
-                        </page>
-                        
-                        <page string="Formas de pago">
-                            <field name="payment_term_ids" attrs="{'readonly': [('state', 'in', ['done', 'validated'])]}">
-                                <tree create="false" edit="false">  <!-- editable="top" -->
-                                    <field name="type"/>
-                                    <field name="cash_sub_type" attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }" string="Tipo de efectivo"/>
                                     <field name="amount"/>
-                                    <field name="voucher_id" attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
-                                    </field>
-                                    <field name="check_id" attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
-                                    <field name="transfer_id" attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
-                                    <field name="description_other" attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
-                                    
-                                    <button name="confirm" string="Confirmar" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state', 'in', ['done', 'to_advance']), ('contract_state', 'not in', ['prechecked'])]}"/>
-                                      <button name="advance" string="Anticipo" type="object" class="oe_highlight" attrs="{'invisible': [('invisible', '=', True)]}"/>
-                                      <button name="cancel" string="Cancelar" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state', 'in', ['cancel', 'draft']), ('contract_state', 'not in', ['prechecked'])]}"/>
-                                      
-                                      <field name="state" invisible="1"/>
-                                      <field name="contract_state" invisible="1"/>
-                                      <field name="invisible" invisible="1"/>
+                                    <field name="payment_term_ids"/>
                                 </tree>
                             </field>
-                        </page>
-                        <page string="Notas internas">
-                            <field name="notes"/>
-                        </page>
-                        <page string="Observaciones">
-                            <field name="observations"/>
+                            <!--<field name="payment_term_ids"/>-->
                         </page>
                     </notebook>
-                </sheet>
-            </form>
-        </field>
-      </record>
-      
-      <record id="view_education_contract_tree" model="ir.ui.view">
-        <field name="name">education_contract.contract.tree</field>
-        <field name="model">education_contract.contract</field>
-        <field name="arch" type="xml">
-            <tree string="Contrato de estudios" create="false">
-                <field name="date"/>
-                <field name="barcode"/>
-                <field name="user_id"/>
-                <field name="owner"/>
-                <field name="study_company_id" required="0" invisible="1"/>
-                <field name="campus_id"/>
-                <field name="sale_order_id"/>
-                <field name="state"/>
-            </tree>
-        </field>
-    </record>
-    
-    <record id="view_education_plan" model="ir.ui.view">
-        <field name="name">education_contract.plan.form</field>
-        <field name="model">education_contract.plan</field>
-        <field name="arch" type="xml">
-            <form string="Plan de financiamiento">
-                <group>
-                    <group>
-                        <field name="type"/>
-                        <field name="contract_id" invisible="1"/> <!-- context="{'default_contract_id': parent.id}" -->
-                        <field name="registration_fee" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
-                        <field name="amount_monthly" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
-                    </group>
-                    <group>
-                        <field name="amount_pay"/>
-                        <field name="qty_dues" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
-                        <field name="registration_residual" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
-                        <field name="residual"/>
-                    </group>
-                </group>
-                <notebook>
-                    <page string="Abonos">
-                        <!--<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />-->
-                        <!--<field name="payment_info_ids" />--> <!-- context="{'default_plan_id': active_id}" -->
-                        <field name="payment_info_ids">
-                            <tree>
-                                <field name="amount"/>
-                                <field name="payment_term_ids"/>
-                            </tree>
-                        </field>
-                        <!--<field name="payment_term_ids"/>-->
-                    </page>
-                </notebook>
-            </form>
-        </field>
-    </record>
-    
-    <record id="view_education_voucher" model="ir.ui.view">
-        <field name="name">education_contract.voucher.form</field>
-        <field name="model">education_contract.voucher</field>
-        <field name="arch" type="xml">
-            <form string="Voucher">
-                <sheet>
-                    <group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_education_voucher" model="ir.ui.view">
+            <field name="name">education_contract.voucher.form</field>
+            <field name="model">education_contract.voucher</field>
+            <field name="arch" type="xml">
+                <form string="Voucher">
+                    <sheet>
                         <group>
-                            <field name="voucher_number" required="1"/>
-                            <field name="date" required="1"/>
-                            <field name="card_name" required="1"/>
+                            <group>
+                                <field name="voucher_number" required="1"/>
+                                <field name="date" required="1"/>
+                                <field name="card_name" required="1"/>
+                            </group>
+                            <group>
+                                <field name="auth_number" required="1"/>
+                                <field name="bank" required="1"/>
+                                <field name="amount" readonly="1"/>
+                            </group>
                         </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_education_check" model="ir.ui.view">
+            <field name="name">education_contract.check.form</field>
+            <field name="model">education_contract.check</field>
+            <field name="arch" type="xml">
+                <form string="Cheque">
+                    <sheet>
                         <group>
-                            <field name="auth_number" required="1"/>
-                            <field name="bank" required="1"/>
-							              <field name="amount" readonly="1"/>
+                            <group>
+                                <field name="date" required="1"/>
+                                <field name="check_number" required="1"/>
+                                <field name="beneficiary" required="1"/>
+                            </group>
+                            <group>
+                                <field name="bank" required="1"/>
+                                <field name="amount" readonly="1"/>
+                            </group>
                         </group>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-    
-    <record id="view_education_check" model="ir.ui.view">
-        <field name="name">education_contract.check.form</field>
-        <field name="model">education_contract.check</field>
-        <field name="arch" type="xml">
-            <form string="Cheque">
-                <sheet>
-                    <group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_education_transfer" model="ir.ui.view">
+            <field name="name">education_contract.transfer.form</field>
+            <field name="model">education_contract.transfer</field>
+            <field name="arch" type="xml">
+                <form string="Transferencia">
+                    <sheet>
                         <group>
-                            <field name="date" required="1"/>
-                            <field name="check_number" required="1"/>
-                            <field name="beneficiary" required="1"/>
+                            <group>
+                                <field name="date" required="1"/>
+                                <field name="owner" required="1"/>
+                                <field name="auth_number" required="1"/>
+                            </group>
+                            <group>
+                                <field name="bank" required="1"/>
+                                <field name="amount" readonly="1"/>
+                            </group>
                         </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_education_program" model="ir.ui.view">
+            <field name="name">education_contract.program.form</field>
+            <field name="model">education_contract.program</field>
+            <field name="arch" type="xml">
+                <form string="Programa">
+                    <sheet>
                         <group>
-                            <field name="bank" required="1"/>
-							              <field name="amount" readonly="1"/>
+                            <group>
+                                <field name="study_company_id" required="0" invisible="1"/>
+                                <field name="campus_id"/>
+                                <field name="qty_years" required="1"/>
+                            </group>
+                            <group>
+                                <field name="name" required="1"/>
+                            </group>
                         </group>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-    
-    <record id="view_education_transfer" model="ir.ui.view">
-        <field name="name">education_contract.transfer.form</field>
-        <field name="model">education_contract.transfer</field>
-        <field name="arch" type="xml">
-            <form string="Transferencia">
-                <sheet>
-                    <group>
-                        <group>
-                            <field name="date" required="1"/>
-                            <field name="owner" required="1"/>
-                            <field name="auth_number" required="1"/>
-                        </group>
-                        <group>
-                            <field name="bank" required="1"/>
-							              <field name="amount" readonly="1"/>
-                        </group>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-    
-    <record id="view_education_program" model="ir.ui.view">
-        <field name="name">education_contract.program.form</field>
-        <field name="model">education_contract.program</field>
-        <field name="arch" type="xml">
-            <form string="Programa">
-                <sheet>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_vendor_receipt_form_educ" model="ir.ui.view">
+            <field name="name">account.voucher.educ</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="before">
+                    <field name="education_contract_id"/>
+                </xpath>
+                <!--<xpath expr="//notebook" position="attributes">
+         <attribute name="attrs">{'invisible': [('education_contract_id', '=', 1)]}</attribute>
+                </xpath>-->
+            </field>
+        </record>
+
+        <record id="view_education_payment_info" model="ir.ui.view">
+            <field name="name">education_contract.payment_info.form</field>
+            <field name="model">education_contract.payment_info</field>
+            <field name="arch" type="xml">
+                <form string="Abono">
                     <group>
                         <group>
-                            <field name="study_company_id" required="0" invisible="1"/>
-                            <field name="campus_id"/>
-                            <field name="qty_years" required="1"/>
+                            <field name="plan_id" readonly="1" context="{'default_plan_id': active_id}"/>
                         </group>
                         <group>
-                            <field name="name" required="1"/>
+                            <field name="amount"/>
+                            <field name="residual" readonly="1"/>
                         </group>
                     </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-    
-    
-    <record id="view_vendor_receipt_form_educ" model="ir.ui.view">
-        <field name="name">account.voucher.educ</field>
-    			<field name="model">account.voucher</field>
-    			<field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
-    			<field name="arch" type="xml">
-              <xpath expr="//notebook" position="before">
-                  <field name="education_contract_id" />
-              </xpath>
-   				    <!--<xpath expr="//notebook" position="attributes">
-                <attribute name="attrs">{'invisible': [('education_contract_id', '=', 1)]}</attribute>
-   				    </xpath>-->
-    		</field>
-		</record>
-   
-   <record id="view_education_payment_info" model="ir.ui.view">
-        <field name="name">education_contract.payment_info.form</field>
-        <field name="model">education_contract.payment_info</field>
-        <field name="arch" type="xml">
-            <form string="Abono">
-                <group>
-                    <group>
-                        <field name="plan_id" readonly="1" context="{'default_plan_id': active_id}"/>
-                    </group>
-                    <group>
-                        <field name="amount"/>
-                        <field name="residual" readonly="1"/>
-                    </group>
-                </group>
-                <notebook>
-                    <page string="Formas de pago">
-                        <field name="payment_term_ids" context="{'default_payment_info_id': active_id}">
-                            <tree editable="top">
-                                <field name="id" invisible="1"/> 
-                                <field name="type"/>
-                                <field name="cash_sub_type" attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }" string="Tipo de efectivo"/>
-                                <field name="amount" required="1"/>
-                                <field name="voucher_id" attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }" context="{'default_payment_term_id': active_id}">
-                                </field>
-                                <field name="check_id" attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }" context="{'default_payment_term_id': active_id}"/>
-                                <field name="transfer_id" attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }" context="{'default_payment_term_id': id}"/>
-                                <!--<field name="description_other" attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>-->
-                            </tree>
-                        </field>
-                    </page>
-                </notebook>
-            </form>
-        </field>
-    </record>
-      
-      <record id="view_order_form_educ" model="ir.ui.view">
-    			<field name="name">sale.order.form.educ</field>
-    			<field name="model">sale.order</field>
-    			<field name="inherit_id" ref="sale.view_order_form"/>
-    			<field name="arch" type="xml">
-    				<xpath expr="//notebook/page[last()]" position="after">
-                <page string="Educacion">
-                    <group class="col-2 col-span-2">
+                    <notebook>
+                        <page string="Formas de pago">
+                            <field name="payment_term_ids" context="{'default_payment_info_id': active_id}">
+                                <tree editable="top">
+                                    <field name="id" invisible="1"/>
+                                    <field name="type"/>
+                                    <field name="cash_sub_type"
+                                           attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
+                                           string="Tipo de efectivo"/>
+                                    <field name="amount" required="1"/>
+                                    <field name="voucher_id"
+                                           attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }"
+                                           context="{'default_payment_term_id': active_id}">
+                                    </field>
+                                    <field name="check_id"
+                                           attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"
+                                           context="{'default_payment_term_id': active_id}"/>
+                                    <field name="transfer_id"
+                                           attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"
+                                           context="{'default_payment_term_id': id}"/>
+                                    <!--<field name="description_other" attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>-->
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_order_form_educ" model="ir.ui.view">
+            <field name="name">sale.order.form.educ</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[last()]" position="after">
+                    <page string="Educacion">
                         <group class="col-2 col-span-2">
-                            <field name="education_contract_id" />
+                            <group class="col-2 col-span-2">
+                                <field name="education_contract_id"/>
+                            </group>
                         </group>
-                    </group>
-                </page>
-    				</xpath>
-    			</field>
-		</record>
-   
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>

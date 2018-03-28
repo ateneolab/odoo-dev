@@ -41,6 +41,7 @@ class beneficiary(models.Model):
         :param vals:
         :return:
         """
+        import pdb; pdb.set_trace()
         id_partner = False
         partner = False
 

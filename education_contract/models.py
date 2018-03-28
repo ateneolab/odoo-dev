@@ -62,6 +62,7 @@ class student(models.Model):
 
         return res
 
+    name = fields.Char('Nombre', size=128, required=False)
     middle_name = fields.Char('Segundo nombre', size=128, required=False)
     last_name = fields.Char('Apellido', size=128, required=False)
     birth_date = fields.Date('Birth Date', required=False)

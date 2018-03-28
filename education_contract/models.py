@@ -56,8 +56,8 @@ class beneficiary(models.Model):
             if new_id_partner.id != id_partner:
                 print('It created another partner')
                 print(res.student_id.partner_id)
-                new_id_partner.unlink()
                 res.student_id.partner_id = partner
+                new_id_partner.unlink()
                 print(res.student_id.partner_id)
 
             return res

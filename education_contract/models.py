@@ -54,6 +54,7 @@ class beneficiary(models.Model):
         else:
             raise ValidationError("Debe seleccionar un cliente existente o proveer el nombre para crear uno nuevo.")
 
+        vals.update({'customer': True})
         res = super(beneficiary, self).create(vals)
 
         if id_partner and partner:

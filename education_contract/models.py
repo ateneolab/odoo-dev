@@ -710,7 +710,8 @@ class payment_term(models.Model):
             'type': 'receipt',
             'reference': self.plan_id.contract_id.barcode,
         }
-
+        import pdb;
+        pdb.set_trace()
         voucher_id = self.env['account.voucher'].create(voucher_data)
         voucher_id.proforma_voucher()
         import pdb; pdb.set_trace()

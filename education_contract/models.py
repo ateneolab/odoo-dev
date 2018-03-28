@@ -51,7 +51,7 @@ class beneficiary(models.Model):
             new_beneficiary = self.env['education_contract.beneficiary'].browse(res)
 
             new_id_partner = new_beneficiary.student_id.partner_id
-
+            import pdb; pdb.set_trace()
             if new_id_partner != id_partner:
                 print('It created another partner')
             else:

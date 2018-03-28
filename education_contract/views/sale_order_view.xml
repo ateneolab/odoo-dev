@@ -437,6 +437,7 @@
 
                     <field name="state" invisible="1"/>
                     <field name="contract_state" invisible="1"/>
+                    <field name="invisible" invisible="1"/>
                 </tree>
             </field>
         </record>

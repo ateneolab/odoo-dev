@@ -12,14 +12,14 @@
                         <group>
                             <group>
                                 <field name="create_new"/>
-                                <field name="partner_id" string="Cliente" invisible="[('create_new', '=', True)]"/>
+                                <field name="partner_id" string="Cliente" attrs="{'invisible': [('create_new', '=', True)]}"/>
                             </group>
                             <group></group>
-                            <group invisible="[('create_new', '=', False)]">
+                            <group attrs="{'invisible': [('create_new', '=', False)]}">
                                 <field name="name" string="Nombre"/>
                                 <field name="middle_name" string="Segundo nombre"/>
                             </group>
-                            <group invisible="[('create_new', '=', False)]">
+                            <group attrs="{'invisible': [('create_new', '=', False)]}">
                                 <field name="last_name" string="Apellido"/>
                                 <field name="gender" string="Sexo"/>
                             </group>

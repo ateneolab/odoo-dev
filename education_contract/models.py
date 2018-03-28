@@ -55,8 +55,10 @@ class beneficiary(models.Model):
             import pdb; pdb.set_trace()
             if new_id_partner.id != id_partner:
                 print('It created another partner')
-            else:
-                print('It (magically) linked correct partner')
+                print(res.student_id.partner_id)
+                new_id_partner.unlink()
+                res.student_id.partner_id = partner
+                print(res.student_id.partner_id)
 
             return res
 

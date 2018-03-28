@@ -36,8 +36,11 @@ class partner(models.Model):
         return res
 
     @api.model
-    def create(self, vals):
+    def create(self, vals, context=None):
         import pdb; pdb.set_trace()
+        if context and 'name' in context:
+            name = context.get('name')
+            vals.update({'name': name})
         res = super(partner, self).create(vals)
         return res
     

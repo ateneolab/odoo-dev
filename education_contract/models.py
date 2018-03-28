@@ -98,14 +98,13 @@ class student(models.Model):
         'res.partner', 'Partner', required=False, ondelete="cascade")
 
     @api.model
-    def create(self, vals, context=None):
+    def create(self, vals):
         import pdb; pdb.set_trace()
-        """if 'partner_id' in vals:
-            partner = self.env['res.partner'].browse([vals.get('partner_id')])
-            vals.update({
-                'name': partner.name,
-            })"""
-        return super(student, self).create(vals, context=context)
+        if 'name' in vals:
+            self._context.update({
+                'name': vals.get('name'),
+            })
+        return super(student, self).create(vals)
 
 
 #### Program

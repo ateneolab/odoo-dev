@@ -80,17 +80,19 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="barcode" required="1" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                                <field name="user_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                                <field name="marketing_manager_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                                <field name="date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="barcode" required="1"
+                                       attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"/>
+                                <field name="user_id" attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"/>
+                                <field name="marketing_manager_id"
+                                       attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"/>
+                                <field name="date" attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"/>
 
                             </group>
                             <group>
-                                <field name="owner" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="owner" attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"/>
                                 <field name="study_company_id" required="0" invisible="1"
-                                       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                                <field name="campus_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                       attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"/>
+                                <field name="campus_id" attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"/>
                                 <field name="sale_order_id" readonly="1"/>
                             </group>
                         </group>
@@ -99,7 +101,7 @@
                             <page string="Beneficiarios">
                                 <field name="id" invisible="1"/>
                                 <field name="beneficiary_ids" string="Beneficiarios" context="{'contract_id': id}"
-                                       attrs="{'readonly': [('state', 'in', ['done'])]}">
+                                       attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}">
                                     <tree>
                                         <field name="name"/>
                                         <field name="middle_name" string="Segundo nombre"/>
@@ -123,7 +125,7 @@
 
                             <page string="Plan">
                                 <field name="plan_id"
-                                       attrs="{'readonly': [('state', 'in', ['done', 'validated'])]}"> <!-- context="{'default_contract_id': active_id}" -->
+                                       attrs="{'readonly': [('state', 'in', ['done', 'validated', 'asigned'])]}"> <!-- context="{'default_contract_id': active_id}" -->
                                     <tree>
                                         <field name="type"/>
                                         <field name="amount_pay"/>
@@ -146,7 +148,7 @@
 
                             <page string="Formas de pago">
                                 <field name="payment_term_ids"
-                                       attrs="{'readonly': [('state', 'in', ['done', 'validated'])]}">
+                                       attrs="{'readonly': [('state', 'in', ['done', 'validated', 'asigned'])]}">
                                     <tree create="false" edit="false">  <!-- editable="top" -->
                                         <field name="type"/>
                                         <field name="cash_sub_type"

@@ -681,6 +681,7 @@ class payment_info(models.Model):
     residual = fields.Float(compute='_compute_residual', digits=(6, 4), string='Saldo', store=True)
     payment_term_ids = fields.One2many('education_contract.payment_term', 'payment_info_id', string='Forma de pago')
     plan_id = fields.Many2one('education_contract.plan', string='Plan de pagos')
+    contract_id = fields.Many2one('education_contract.contract', string='Contrato')
 
     @api.model
     def create(self, vals):

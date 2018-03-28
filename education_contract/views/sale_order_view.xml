@@ -408,7 +408,7 @@
             </field>
         </record>
 
-        <record id="view_payment_term_form">
+        <record id="view_payment_term_form" model="ir.ui.view">
             <field name="name">education_contract.payment_term.form</field>
             <field name="model">education_contract.payment_term</field>
             <field name="arch" type="xml">
@@ -419,10 +419,6 @@
                         </group>
                         <group></group>
                     </group>
-                    <group></group>
-                    <group></group>
-                    <group></group>
-                    <group></group>
                 </form>
             </field>
         </record>

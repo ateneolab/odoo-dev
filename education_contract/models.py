@@ -41,27 +41,28 @@ class beneficiary(models.Model):
         :param vals:
         :return:
         """
+        id_partner = False
+        partner = False
+
         if 'partner_id' in vals:
             id_partner = vals.get('partner_id')
             partner = self.env['res.partner'].browse([id_partner])
             vals.update({'name': partner.name})
+        elif 'name' in vals:
+            vals.update({'name': vals.get('name')})
+        else:
+            raise ValidationError("Debe seleccionar un cliente existente o proveer el nombre para crear uno nuevo.")
 
-            res = super(beneficiary, self).create(vals)
+        res = super(beneficiary, self).create(vals)
 
+        if id_partner and partner:
             new_id_partner = res.student_id.partner_id
 
             if new_id_partner.id != id_partner:
-                print('It created another partner')
-                print(res.student_id.partner_id)
                 res.student_id.partner_id = partner
                 new_id_partner.unlink()
-                print(res.student_id.partner_id)
 
-            return res
-
-        else:
-            res = super(beneficiary, self).create(vals)
-            return res
+        return res
 
 
 #### Student

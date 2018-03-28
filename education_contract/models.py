@@ -41,8 +41,27 @@ class beneficiary(models.Model):
         :param vals:
         :return:
         """
-        res = super(beneficiary, self).create(vals)
-        return res
+        import pdb; pdb.set_trace()
+        if 'partner_id' in vals:
+            id_partner = vals.get('partner_id')
+            partner = self.env['res.partner'].browse([id_partner])
+            vals.update({'name': partner.name})
+
+            res = super(beneficiary, self).create(vals)
+            new_beneficiary = self.env['education_contract.beneficiary'].browse(res)
+
+            new_id_partner = new_beneficiary.student_id.partner_id
+
+            if new_id_partner != id_partner:
+                print('It created another partner')
+            else:
+                print('It (magically) linked correct partner')
+
+            return res
+
+        else:
+            res = super(beneficiary, self).create(vals)
+            return res
 
 
 #### Student
@@ -81,11 +100,11 @@ class student(models.Model):
     @api.model
     def create(self, vals):
         import pdb; pdb.set_trace()
-        if 'partner_id' in vals:
+        """if 'partner_id' in vals:
             partner = self.env['res.partner'].browse([vals.get('partner_id')])
             vals.update({
                 'name': partner.name,
-            })
+            })"""
         return super(student, self).create(vals)
 
 

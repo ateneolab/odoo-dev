@@ -149,7 +149,7 @@
                             <page string="Formas de pago">
                                 <field name="payment_term_ids"
                                        attrs="{'readonly': [('state', 'in', ['done', 'validated', 'asigned'])]}">
-                                    <tree editable="top">  <!-- create="false" edit="false" -->
+                                    <tree>  <!-- editable="top" create="false" edit="false" -->
                                         <field name="type"/>
                                         <field name="cash_sub_type"
                                                attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"

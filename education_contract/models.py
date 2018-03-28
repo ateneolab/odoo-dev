@@ -618,7 +618,8 @@ class plan(models.Model):
         self.teaching_materials = ''
 
     def _compute_residual(self):
-        import pdb; pdb.set_trace()
+        import pdb;
+        pdb.set_trace()
         if self.type:
             if self.type in 'cash':
                 self.residual = self.amount_pay - self._compute_voucher_sum()
@@ -671,7 +672,7 @@ class payment_info(models.Model):
     @api.onchange('payment_term_ids', 'amount', 'plan_id')
     @api.depends('payment_term_ids', 'amount', 'plan_id')
     def _compute_residual(self):
-        import pdb; pdb.set_trace()
+        pdb.set_trace()
         sum = 0.0
 
         for pt in self.payment_term_ids:
@@ -683,6 +684,21 @@ class payment_info(models.Model):
     residual = fields.Float(compute='_compute_residual', digits=(6, 4), string='Saldo', store=True)
     payment_term_ids = fields.One2many('education_contract.payment_term', 'payment_info_id', string='Forma de pago')
     plan_id = fields.Many2one('education_contract.plan', string='Plan de pagos')
+
+    @api.model
+    def create(self, vals):
+        if 'residual' in vals and 'amount' in vals:
+            if float(vals.get('residual', '0.0')) > float('0.0'):
+                raise ValidationError("El saldo de los pagos debe ser cero.")
+
+        return super(payment_info, self).create(vals)
+
+    @api.multi
+    def write(self, vals):
+        if self.residual > 0:
+            raise ValidationError("El saldo de los pagos debe ser cero.")
+
+        return super(payment_info, self).write(vals)
 
 
 #### Payment term

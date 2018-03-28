@@ -55,6 +55,7 @@ class beneficiary(models.Model):
                 'name': vals.get('name'),
                 'firstname': '%s %s' % (vals.get('name'), vals.get('middle_name', '')),
                 'lastname': vals.get('last_name', ''),
+                'sex': str(vals.get('gender', '')).upper(),
             })
         else:
             raise ValidationError("Debe seleccionar un cliente existente o proveer el nombre para crear uno nuevo.")

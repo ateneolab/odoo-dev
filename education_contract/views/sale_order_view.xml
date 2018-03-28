@@ -234,7 +234,7 @@
                             <!--<field name="payment_info_ids" />--> <!-- context="{'default_plan_id': active_id}" -->
                             <!--<field name="payment_info_ids">-->
                             <field name="payment_term_ids">
-                                <tree create="false" edit="false">
+                                <tree create="false" edit="false" delete="false">
                                     <field name="amount"/>
                                     <field name="type"/>
                                 </tree>

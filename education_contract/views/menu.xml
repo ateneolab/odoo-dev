@@ -67,7 +67,7 @@
 
         <!-- -->
         <record id="action_payment_mode" model="ir.actions.act_window">
-            <field name="name">Modo de pago</field>
+            <field name="name">Modo de pago contratos</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">education_contract.payment_mode</field>
             <field name="view_type">form</field>

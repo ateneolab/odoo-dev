@@ -13,6 +13,7 @@
                             <group>
                                 <field name="partner_id" string="Cliente"/>
                             </group>
+                            <group></group>
                             <group>
                                 <field name="name" string="Nombre"/>
                                 <field name="middle_name" string="Segundo nombre"/>

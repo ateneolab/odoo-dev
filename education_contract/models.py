@@ -707,11 +707,10 @@ class payment_term(models.Model):
             'reference': self.plan_id.contract_id.barcode,
             'company_id': self.payment_mode_id.journal_id.company_id.id,
         }
-        import pdb;
-        pdb.set_trace()
+
         voucher_id = self.env['account.voucher'].create(voucher_data)
         voucher_id.proforma_voucher()
-        import pdb; pdb.set_trace()
+
         self.write({'account_voucher_id': voucher_id.id, 'state': state})
 
     @api.one

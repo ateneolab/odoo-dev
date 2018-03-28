@@ -37,7 +37,6 @@ class partner(models.Model):
 
     @api.model
     def create(self, vals):
-        import pdb; pdb.set_trace()
         if self.env.context and 'name' in self.env.context:
             name = self.env.context.get('name')
             vals.update({'name': name})

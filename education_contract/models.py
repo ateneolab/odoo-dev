@@ -49,7 +49,8 @@ class beneficiary(models.Model):
 
             res = super(beneficiary, self).create(vals)
             new_beneficiary = self.env['education_contract.beneficiary'].browse(res)
-
+            import pdb;
+            pdb.set_trace()
             new_id_partner = new_beneficiary.student_id.partner_id
             import pdb; pdb.set_trace()
             if new_id_partner != id_partner:

@@ -174,6 +174,7 @@
 
                                         <field name="state" invisible="1"/>
                                         <field name="contract_state" invisible="1"/>
+                                        <field name="invisible" invisible="1"/>
                                     </tree>
                                 </field>
                             </page>
@@ -406,65 +407,6 @@
                 </xpath>
             </field>
         </record>
-
-
-        <!--<record id="view_education_contract_payment_term_tree" model="ir.ui.view">
-            <field name="name">education_contract.payment_term.tree</field>
-            <field name="model">education_contract.payment_term</field>
-            <field name="arch" type="xml">
-                <tree editable="top">
-                    <field name="type"/>
-                    <field name="cash_sub_type"
-                           attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
-                           string="Tipo de efectivo"/>
-                    <field name="amount"/>
-                    <field name="voucher_id"
-                           attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
-                    </field>
-                    <field name="check_id"
-                           attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
-                    <field name="transfer_id"
-                           attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
-                    <field name="description_other"
-                           attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
-
-                    <button name="confirm" string="Confirmar" type="object" class="oe_highlight"
-                            attrs="{'invisible': ['|', ('state', 'in', ['done', 'to_advance']), ('contract_state', 'not in', ['prechecked'])]}"/>
-                    <button name="advance" string="Anticipo" type="object" class="oe_highlight"
-                            attrs="{'invisible': [('invisible', '=', True)]}"/>
-                    <button name="cancel" string="Cancelar" type="object" class="oe_highlight"
-                            attrs="{'invisible': ['|', ('state', 'in', ['cancel', 'draft']), ('contract_state', 'not in', ['prechecked'])]}"/>
-
-                    <field name="state" invisible="1"/>
-                    <field name="contract_state" invisible="1"/>
-                    <field name="invisible" invisible="0"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="view_education_contract_payment_term_form" model="ir.ui.view">
-            <field name="name">education_contract.payment_term.form</field>
-            <field name="model">education_contract.payment_term</field>
-            <field name="arch" type="xml">
-                <form>
-                    <group>
-                        <group>
-                            <field name="type"/>
-                        </group>
-                        <group></group>
-                    </group>
-                    <group string="Efectivo">
-                        <group>
-                            <field name="cash_sub_type"
-                                   attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])], 'invisible': [('type', 'not in', ['cash'])] }"
-                                   string="Tipo de efectivo"/>
-                        </group>
-                        <group></group>
-                    </group>
-                </form>
-            </field>
-        </record>-->
-
 
     </data>
 </openerp>

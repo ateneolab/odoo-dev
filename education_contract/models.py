@@ -41,7 +41,8 @@ class beneficiary(models.Model):
         :param vals:
         :return:
         """
-        import pdb; pdb.set_trace()
+        import pdb;
+        pdb.set_trace()
         id_partner = False
         partner = False
 
@@ -50,11 +51,16 @@ class beneficiary(models.Model):
             partner = self.env['res.partner'].browse([id_partner])
             vals.update({'name': partner.name})
         elif 'name' in vals:
-            vals.update({'name': vals.get('name')})
+            vals.update({
+                'name': vals.get('name'),
+                'firstname': '%s %s' % (vals.get('name'), vals.get('middle_name', '')),
+                'lastname': vals.get('last_name', ''),
+            })
         else:
             raise ValidationError("Debe seleccionar un cliente existente o proveer el nombre para crear uno nuevo.")
 
         vals.update({'customer': True})
+
         res = super(beneficiary, self).create(vals)
 
         if id_partner and partner:

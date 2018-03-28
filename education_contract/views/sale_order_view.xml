@@ -408,7 +408,7 @@
         </record>
 
 
-        <record id="view_education_contract_payment_term_tree" model="ir.ui.view">
+        <!--<record id="view_education_contract_payment_term_tree" model="ir.ui.view">
             <field name="name">education_contract.payment_term.tree</field>
             <field name="model">education_contract.payment_term</field>
             <field name="arch" type="xml">
@@ -463,7 +463,7 @@
                     </group>
                 </form>
             </field>
-        </record>
+        </record>-->
 
 
     </data>

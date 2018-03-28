@@ -41,7 +41,6 @@ class beneficiary(models.Model):
         :param vals:
         :return:
         """
-        import pdb; pdb.set_trace()
         if 'partner_id' in vals:
             id_partner = vals.get('partner_id')
             partner = self.env['res.partner'].browse([id_partner])
@@ -100,7 +99,6 @@ class student(models.Model):
 
     @api.model
     def create(self, vals):
-        import pdb; pdb.set_trace()
         if 'name' in vals:
             context = self.env.context.copy()
             context.update({'name': vals.get('name')})
@@ -322,8 +320,6 @@ class education_contract(models.Model):
     def get_cash_advances_summary(self):
         payment_term_ids = self.env['education_contract.payment_term'].search(
             [('type', 'in', ['cash']), ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['to_advance'])])
-
-        # import pdb; pdb.set_trace()
 
         advances = []
 
@@ -709,6 +705,7 @@ class payment_term(models.Model):
             'account_id': self.payment_mode_id.journal_id.default_debit_account_id.id,
             'type': 'receipt',
             'reference': self.plan_id.contract_id.barcode,
+            'company_id': self.payment_mode_id.journal_id.company_id.id,
         }
         import pdb;
         pdb.set_trace()

@@ -1,112 +1,128 @@
 <openerp>
     <data>
-    
+
         <record id="view_conciliation_tree" model="ir.ui.view">
-      			<field name="name">education_contract.conciliation.tree</field>
-      			<field name="model">education_contract.conciliation</field>
-      			<field name="arch" type="xml">
+            <field name="name">education_contract.conciliation.tree</field>
+            <field name="model">education_contract.conciliation</field>
+            <field name="arch" type="xml">
                 <tree>
                     <field name="contract_id"/>
                     <field name="seller_id"/>
                 </tree>
             </field>
-         </record>
-    
+        </record>
+
         <record id="view_conciliation_form" model="ir.ui.view">
-      			<field name="name">education_contract.conciliation.form</field>
-      			<field name="model">education_contract.conciliation</field>
-      			<field name="arch" type="xml">
-      				<form>
-                  <sheet>
-                      <group>
-                          <group>
-                              <field name="seller_id"/>
-                          </group>
-                          <group>
-                              <field name="contract_id"/>
-                          </group>
-                      </group>
-                      <notebook>
-                          <page string="Formas de pago">
-                              <field name="payment_term">
-                                  <tree>
-                                      <field name="type"/>
-                                      <field name="cash_sub_type" attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }" string="Tipo de efectivo"/>
-                                      <field name="amount"/>
-                                      <field name="voucher_id" attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
-                                      </field>
-                                      <field name="check_id" attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
-                                      <field name="transfer_id" attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
-                                      <field name="description_other" attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
-                                      <button name="confirm" string="Confirmar" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['done', 'to_advance'])]}"/>
-                                      <button name="advance" string="Anticipo" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['done', 'to_advance']), ('cash_sub_type', 'not in', ['cash'])]}"/>
-                                      <button name="cancel" string="Cancelar" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['cancel', 'draft'])]}"/>
-                                      <field name="state" invisible="1"/>
-                                      <!--<field name="account_voucher_id"/>-->
-                                  </tree>
-                              </field>
-                          </page>
-                      </notebook>
-                  </sheet>
-              </form>
-      			</field>
-		    </record>
-            
-      <record id="view_advance_tree" model="ir.ui.view">
-          <field name="name">education_contract.advance.form</field>
-   			  <field name="model">education_contract.advance</field>
-      		<field name="arch" type="xml">
-             <tree>
-                 <field name="seller_id"/>
-                 <field name="date"/>
-                 <field name="amount"/>
-                 <field name="salary_advance_id" string="Avance de salario"/>
-             </tree>
-          </field>
-      </record>
-            
-      <record id="view_advance_form" model="ir.ui.view">
-      			<field name="name">education_contract.advance.form</field>
-      			<field name="model">education_contract.advance</field>
-      			<field name="arch" type="xml">
-      				<form>
-                  <header>
-                    <button name="generate_advance" type="object" string="Generar anticipo" class="oe_highlight" states="draft,cancel" /> <!-- attrs="{'invisible': [('state', 'in', ['done'])]}" -->
-                </header>
-                  <sheet>
-                      <field name="state" invisible="1"/>
-                      <group>
-                          <group>
-                              <field name="seller_id"/>
-                              <field name="date"/>
-                          </group>
-                          <group>
-                              <field name="amount" readonly="1"/>
-                              <field name="journal_id" domain="[('type', 'in', ['cash'])]"/>
-                              <field name="salary_advance_id" string="Avance de salario" readonly="1"/>
-                          </group>
-                      </group>
-                      
-                      <notebook>
-                          <page string="Abonos base">
-                              <field name="base_payment_term_ids" readonly="1">
-                                  <tree>
-                                      <field name="type"/>
-                                      <field name="cash_sub_type" attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }" string="Tipo de efectivo"/>
-                                      <field name="amount"/>
-                                      <field name="voucher_id" attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
-                                      </field>
-                                      <field name="check_id" attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
-                                      <field name="transfer_id" attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
-                                      <field name="description_other" attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
-                                  </tree>
-                              </field>
-                          </page>
-                      </notebook>
-                  </sheet>
-              </form>
-      			</field>
-		    </record>
-   
+            <field name="name">education_contract.conciliation.form</field>
+            <field name="model">education_contract.conciliation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="seller_id"/>
+                            </group>
+                            <group>
+                                <field name="contract_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Formas de pago">
+                                <field name="payment_term">
+                                    <tree>
+                                        <field name="type"/>
+                                        <field name="cash_sub_type"
+                                               attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
+                                               string="Tipo de efectivo"/>
+                                        <field name="amount"/>
+                                        <field name="voucher_id"
+                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
+                                        </field>
+                                        <field name="check_id"
+                                               attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
+                                        <field name="transfer_id"
+                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
+                                        <field name="description_other"
+                                               attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
+                                        <button name="confirm" string="Confirmar" type="object" class="oe_highlight"
+                                                attrs="{'invisible': [('state', 'in', ['done', 'to_advance'])]}"/>
+                                        <button name="advance" string="Anticipo" type="object" class="oe_highlight"
+                                                attrs="{'invisible': [('state', 'in', ['done', 'to_advance']), ('cash_sub_type', 'not in', ['cash'])]}"/>
+                                        <button name="cancel" string="Cancelar" type="object" class="oe_highlight"
+                                                attrs="{'invisible': [('state', 'in', ['cancel', 'draft'])]}"/>
+                                        <field name="state" invisible="1"/>
+                                        <!--<field name="account_voucher_id"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_advance_tree" model="ir.ui.view">
+            <field name="name">education_contract.advance.form</field>
+            <field name="model">education_contract.advance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="seller_id"/>
+                    <field name="date"/>
+                    <field name="amount"/>
+                    <field name="salary_advance_id" string="Avance de salario"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_advance_form" model="ir.ui.view">
+            <field name="name">education_contract.advance.form</field>
+            <field name="model">education_contract.advance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="generate_advance" type="object" string="Generar anticipo" class="oe_highlight"
+                                states="draft,cancel"/> <!-- attrs="{'invisible': [('state', 'in', ['done'])]}" -->
+                    </header>
+                    <sheet>
+                        <field name="state" invisible="1"/>
+                        <group>
+                            <group>
+                                <field name="seller_id"/>
+                                <field name="date"/>
+                            </group>
+                            <group>
+                                <field name="amount" readonly="1"/>
+                                <field name="journal_id" domain="[('type', 'in', ['cash'])]"/>
+                                <field name="salary_advance_id" string="Avance de salario" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Abonos base">
+                                <field name="base_payment_term_ids" readonly="1">
+                                    <tree>
+                                        <field name="type"/>
+                                        <field name="cash_sub_type"
+                                               attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
+                                               string="Tipo de efectivo"/>
+                                        <field name="amount"/>
+                                        <field name="voucher_id"
+                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
+                                        </field>
+                                        <field name="check_id"
+                                               attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
+                                        <field name="transfer_id"
+                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
+                                        <field name="description_other"
+                                               attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
     </data>
 </openerp>

@@ -424,22 +424,22 @@
                     </group>
 
                     <group>
-                        <group attrs="[('invisible': [('type', 'not in', ['cash'])])]" string="Tipos en Efectivo">
+                        <group attrs="{'invisible': [('type', 'not in', ['cash'])]}" string="Tipos en Efectivo">
                             <field name="cash_sub_type"
                                    attrs="{'required': [('type', 'in', ['cash'])]}"
                                    string="Tipo de efectivo"/>
                         </group>
-                        <group attrs="[('invisible': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])])]">
+                        <group attrs="{'invisible': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])]}">
                             <field name="voucher_id"
                                    attrs="{'required': [('cash_sub_type', 'in', ['debit_card'])] }"
                                    context="{'default_payment_term_id': active_id}"/>
                         </group>
-                        <group attrs="[('invisible': [('type', 'not in', ['check'])])]">
+                        <group attrs="{'invisible': [('type', 'not in', ['check'])]}">
                             <field name="check_id"
                                    attrs="{'required': [('type', 'in', ['check'])] }"
                                    context="{'default_payment_term_id': active_id}"/>
                         </group>
-                        <group attrs="[('invisible': [('cash_sub_type', 'not in', ['transfer'])])]">
+                        <group attrs="{'invisible': [('cash_sub_type', 'not in', ['transfer'])]}">
                             <field name="transfer_id"
                                    attrs="{'required': [('cash_sub_type', 'in', ['transfer'])] }"
                                    context="{'default_payment_term_id': id}"/>

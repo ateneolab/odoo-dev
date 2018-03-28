@@ -44,8 +44,8 @@ class beneficiary(models.Model):
         import pdb; pdb.set_trace()
         if 'partner_id' in vals:
             id_partner = vals.get('partner_id')
-            partner = self.env['res.partner'].browse([id_partner])
-            vals.update({'name': partner.name})
+            # partner = self.env['res.partner'].browse([id_partner])
+            vals.update({'partner_id': id_partner})
 
             res = super(beneficiary, self).create(vals)
             new_beneficiary = self.env['education_contract.beneficiary'].browse(res)

@@ -702,6 +702,7 @@ class payment_info(models.Model):
 class payment_term(models.Model):
     _name = 'education_contract.payment_term'
 
+    @api.one
     @api.depends('state')
     @api.onchange('state')
     def validate_contract(self):

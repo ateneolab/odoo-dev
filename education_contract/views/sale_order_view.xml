@@ -12,7 +12,9 @@
                         <group>
                             <group>
                                 <field name="create_new"/>
-                                <field name="partner_id" string="Cliente" attrs="{'invisible': [('create_new', '=', True)]}"/>
+                                <field name="partner_id" string="Cliente"
+                                       attrs="{'invisible': [('create_new', '=', True)]}"
+                                       domain="[('is_customer', '=', True), ('is_company', '=', False)]"/>
                             </group>
                             <group></group>
                             <group attrs="{'invisible': [('create_new', '=', False)]}">

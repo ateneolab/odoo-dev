@@ -672,7 +672,6 @@ class payment_info(models.Model):
     @api.onchange('payment_term_ids', 'amount', 'plan_id')
     @api.depends('payment_term_ids', 'amount', 'plan_id')
     def _compute_residual(self):
-        pdb.set_trace()
         sum = 0.0
 
         for pt in self.payment_term_ids:

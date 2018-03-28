@@ -667,8 +667,8 @@ class plan(models.Model):
 class payment_info(models.Model):
     _name = 'education_contract.payment_info'
 
+    @api.one
     @api.onchange('payment_term_ids', 'amount', 'plan_id')
-    @api.depends('payment_term_ids', 'amount', 'plan_id')
     def _compute_residual(self):
         sum = 0.0
 

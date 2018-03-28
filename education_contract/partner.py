@@ -34,4 +34,10 @@ class partner(models.Model):
             res.append((object.id, '%s' % (display_name or 'Nombre no visible')))
             
         return res
+
+    @api.model
+    def create(self, vals):
+        import pdb; pdb.set_trace()
+        res = super(partner, self).create(vals)
+        return res
     

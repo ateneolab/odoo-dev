@@ -101,9 +101,7 @@ class student(models.Model):
     def create(self, vals):
         import pdb; pdb.set_trace()
         if 'name' in vals:
-            self._context.update({
-                'name': vals.get('name'),
-            })
+            self.with_context(name=vals.get('name'))
         return super(student, self).create(vals)
 
 

@@ -628,12 +628,13 @@ class plan(models.Model):
 
     def _compute_voucher_sum(self):
         voucher_sum = 0.0
-        for v in self.payment_info_ids:
+        #for v in self.payment_info_ids:
+        for v in self.payment_term_ids:
             voucher_sum += v.amount
 
         return voucher_sum
 
-    @api.one
+    """@api.one
     @api.depends('payment_info_ids')
     def _compute_payment_term(self):
 
@@ -647,7 +648,7 @@ class plan(models.Model):
 
         if payment_term_obj:
             payment_term_obj.write({'plan_id': self.id})
-            self.payment_term_ids = payment_term_obj
+            self.payment_term_ids = payment_term_obj"""
 
     type = fields.Selection([('funded', 'Financiado'), ('cash', 'Contado'), ('scholarship', 'Beca')], default='cash',
                             string='Tipo de Plan', required=True)
@@ -658,9 +659,9 @@ class plan(models.Model):
     residual = fields.Float(compute='_compute_residual', digits=(6, 4), string='Saldo total a pagar')
     registration_residual = fields.Float(compute='_compute_residual', string='Saldo matricula', digits=(6, 4))
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')
-    payment_term_ids = fields.One2many('education_contract.payment_term', compute='_compute_payment_term',
-                                       string='Formas de pago')
-    payment_info_ids = fields.One2many('education_contract.payment_info', 'plan_id', string='Abonos')
+    payment_term_ids = fields.One2many('education_contract.payment_term',
+                                       string='Formas de pago')  # compute='_compute_payment_term',
+    # payment_info_ids = fields.One2many('education_contract.payment_info', 'plan_id', string='Abonos')
 
 
 #### Payment info
@@ -707,7 +708,8 @@ class payment_term(models.Model):
     @api.depends('state')
     @api.onchange('state')
     def validate_contract(self):
-        payment_term_ids = self.plan_id.contract_id.payment_term_ids
+        #payment_term_ids = self.plan_id.contract_id.payment_term_ids
+        payment_term_ids = self.plan_id.payment_term_ids
 
         all_done = True
 
@@ -856,7 +858,7 @@ class payment_term(models.Model):
     transfer_id = fields.Many2one('education_contract.transfer', string='Transferencia')
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')
     account_voucher_id = fields.Many2one('account.voucher', string='Deposito abono')
-    payment_info_id = fields.Many2one('education_contract.payment_info', string='Informacion de abono')
+    # payment_info_id = fields.Many2one('education_contract.payment_info', string='Informacion de abono')
     amount = fields.Float(digits=(6, 4), string='Monto')
     plan_id = fields.Many2one('education_contract.plan', string='Plan de pagos')
     plan_id_ref = fields.Many2one(related='plan_id', string='Plan de pagos')

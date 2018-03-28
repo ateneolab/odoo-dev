@@ -232,10 +232,11 @@
                         <page string="Abonos">
                             <!--<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />-->
                             <!--<field name="payment_info_ids" />--> <!-- context="{'default_plan_id': active_id}" -->
-                            <field name="payment_info_ids">
+                            <!--<field name="payment_info_ids">-->
+                            <field name="payment_term_ids">
                                 <tree>
                                     <field name="amount"/>
-                                    <field name="payment_term_ids"/>
+                                    <field name="type"/>
                                 </tree>
                             </field>
                             <!--<field name="payment_term_ids"/>-->
@@ -348,7 +349,7 @@
             </field>
         </record>
 
-        <record id="view_education_payment_info" model="ir.ui.view">
+        <!--<record id="view_education_payment_info" model="ir.ui.view">
             <field name="name">education_contract.payment_info.form</field>
             <field name="model">education_contract.payment_info</field>
             <field name="arch" type="xml">
@@ -382,14 +383,13 @@
                                     <field name="transfer_id"
                                            attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"
                                            context="{'default_payment_term_id': id}"/>
-                                    <!--<field name="description_other" attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>-->
                                 </tree>
                             </field>
                         </page>
                     </notebook>
                 </form>
             </field>
-        </record>
+        </record>-->
 
         <record id="view_order_form_educ" model="ir.ui.view">
             <field name="name">sale.order.form.educ</field>
@@ -416,7 +416,7 @@
                     <group>
                         <group>
                             <field name="contract_id"/>
-                            <field name="payment_info_id" domain="[('contract_id', '=', contract_id.id)]"/>
+                            <!--<field name="payment_info_id" domain="[('contract_id', '=', contract_id.id)]"/>-->
                         </group>
                         <group>
                             <field name="type"/>

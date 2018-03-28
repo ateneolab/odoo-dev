@@ -41,8 +41,6 @@ class beneficiary(models.Model):
         :param vals:
         :return:
         """
-        import pdb;
-        pdb.set_trace()
         id_partner = False
         partner = False
 
@@ -379,7 +377,6 @@ class education_contract(models.Model):
                                                string='Conciliacion de contrato')
 
     def get_kanban_state(self):
-
         for record in self:
             if record.state in 'draft':
                 return 'Nuevo'
@@ -621,7 +618,7 @@ class plan(models.Model):
         self.teaching_materials = ''
 
     def _compute_residual(self):
-
+        import pdb; pdb.set_trace()
         if self.type:
             if self.type in 'cash':
                 self.residual = self.amount_pay - self._compute_voucher_sum()

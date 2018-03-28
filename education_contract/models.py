@@ -665,7 +665,7 @@ class plan(models.Model):
 
 
 #### Payment info
-class payment_info(models.Model):
+"""class payment_info(models.Model):
     _name = 'education_contract.payment_info'
 
     @api.one
@@ -697,7 +697,7 @@ class payment_info(models.Model):
         if self.residual > 0:
             raise ValidationError("El saldo de los pagos debe ser cero.")
 
-        return super(payment_info, self).write(vals)
+        return super(payment_info, self).write(vals)"""
 
 
 #### Payment term

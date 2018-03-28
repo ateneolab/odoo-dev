@@ -618,8 +618,6 @@ class plan(models.Model):
         self.teaching_materials = ''
 
     def _compute_residual(self):
-        import pdb;
-        pdb.set_trace()
         if self.type:
             if self.type in 'cash':
                 self.residual = self.amount_pay - self._compute_voucher_sum()

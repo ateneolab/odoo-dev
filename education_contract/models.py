@@ -353,8 +353,7 @@ class education_contract(models.Model):
     owner = fields.Many2one('res.partner', string='Titular')
     barcode = fields.Char('Codigo')
     sale_order_id = fields.Many2one('sale.order', string='Pedido de venta')
-    beneficiary_ids = fields.Many2many('education_contract.beneficiary', relation='contract_beneficiary_rel',
-                                       string='Beneficiarios Tmp')
+    beneficiary_ids = fields.Many2many('education_contract.beneficiary', related='beneficiary_ids_2')
     beneficiary_ids_2 = fields.One2many('education_contract.beneficiary', 'contract_id', string=_('Beneficiaries'))
     state = fields.Selection(
         [('draft', 'Nuevo'), ('prechecked', 'Preverificado'), ('done', 'Aprobado'), ('validated', 'Conciliado'),

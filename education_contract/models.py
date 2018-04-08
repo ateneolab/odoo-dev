@@ -21,6 +21,7 @@ class beneficiary(models.Model):
                                  help=u'Estudiate relacionado del beneficiario', auto_join=True)
     partner_id = fields.Many2one('res.partner', _(u'Related Partner'))
     create_new = fields.Boolean(_(u'Create new beneficiary'))
+    contract_id = fields.Many2one('education_contract.contract', _('Contract'))
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:
@@ -354,7 +355,7 @@ class education_contract(models.Model):
     sale_order_id = fields.Many2one('sale.order', string='Pedido de venta')
     beneficiary_ids = fields.Many2many('education_contract.beneficiary', relation='contract_beneficiary_rel',
                                        string='Beneficiarios Tmp')
-    beneficiary_ids_2 = fields.One2many('education_contract.beneficiary', string=_('Beneficiaries'))
+    beneficiary_ids_2 = fields.One2many('education_contract.beneficiary', 'contract_id', string=_('Beneficiaries'))
     state = fields.Selection(
         [('draft', 'Nuevo'), ('prechecked', 'Preverificado'), ('done', 'Aprobado'), ('validated', 'Conciliado'),
          ('asigned', 'Asignado'), ('waiting', 'Pendiente'), ('canceled', 'Anulado')], string='Estado', default='draft')

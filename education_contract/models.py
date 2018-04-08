@@ -354,6 +354,7 @@ class education_contract(models.Model):
     sale_order_id = fields.Many2one('sale.order', string='Pedido de venta')
     beneficiary_ids = fields.Many2many('education_contract.beneficiary', relation='contract_beneficiary_rel',
                                        string='Beneficiarios Tmp')
+    beneficiary_ids_2 = fields.One2many('education_contract.beneficiary', string=_('Beneficiaries'))
     state = fields.Selection(
         [('draft', 'Nuevo'), ('prechecked', 'Preverificado'), ('done', 'Aprobado'), ('validated', 'Conciliado'),
          ('asigned', 'Asignado'), ('waiting', 'Pendiente'), ('canceled', 'Anulado')], string='Estado', default='draft')
@@ -484,7 +485,7 @@ class education_contract(models.Model):
         p_ids = []
 
         for record in self:
-            bs = [b for b in record.beneficiary_ids]
+            bs = [b for b in record.beneficiary_ids_2]
 
             for s in bs:
                 ps = [p.id for p in s.program_ids]

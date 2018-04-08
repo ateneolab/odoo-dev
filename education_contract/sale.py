@@ -10,11 +10,12 @@ class sale_order(models.Model):
     _inherit = 'sale.order'
     
     education_contract_id = fields.Many2one('education_contract.contract', string='Contrato de estudios')
+    generate_contract = fields.Boolean(_('Generate contract'), default=False)
     
     def action_button_confirm(self, cr, uid, ids, context=None):
         res = super(sale_order, self).action_button_confirm(cr, uid, ids, context=context)
         
-        if res:
+        if res and self.generate_contract:
             contract_id = self.generate_education_contract(cr, uid, ids, context=context)
             
             if contract_id:

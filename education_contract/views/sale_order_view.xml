@@ -406,8 +406,11 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="generate_contract"/>
+                </field>
                 <xpath expr="//notebook/page[last()]" position="after">
-                    <page string="Educacion">
+                    <page string="Educacion" atts="{'invisible': [('generate_contract', '=', False)]}">
                         <group class="col-2 col-span-2">
                             <group class="col-2 col-span-2">
                                 <field name="education_contract_id"/>

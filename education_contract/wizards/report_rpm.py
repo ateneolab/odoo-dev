@@ -24,7 +24,7 @@ class report_rpm(models.TransientModel):
     @api.multi
     def print_rpm(self):
         
-        domain = [('date', '>=', self.date_start), ('date', '<=', self.date_end)]
+        domain = [('date', '>=', self.date_start), ('date', '<=', self.date_end), ('state', 'in', ['done', 'validated', 'asigned'])]
         
         if self.user_id:
             domain.append(('user_id', 'in', self.user_id.ids))

@@ -650,7 +650,10 @@ class plan(models.Model):
             elif self.type in 'funded':
                 self.residual = self.qty_dues * self.amount_monthly
 
-                self.registration_residual = self.registration_fee - self._compute_voucher_sum()
+                if self.registration_payed:
+                    self.registration_residual = 0
+                else:
+                    self.registration_residual = self.registration_fee
 
     def _compute_voucher_sum(self):
         voucher_sum = 0.0
@@ -687,6 +690,7 @@ class plan(models.Model):
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')
     payment_term_ids = fields.One2many('education_contract.payment_term', 'plan_id',
                                        string='Formas de pago')  # compute='_compute_payment_term',
+    registration_payed = fields.Boolean(_('Registration payed?'))
     # payment_info_ids = fields.One2many('education_contract.payment_info', 'plan_id', string='Abonos')
 
 

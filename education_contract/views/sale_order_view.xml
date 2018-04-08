@@ -218,12 +218,12 @@
                             <field name="contract_id"
                                    invisible="1"/> <!-- context="{'default_contract_id': parent.id}" -->
                             <field name="registration_fee" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
-                            <field name="registration_payed" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
-                            <field name="amount_monthly" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
+                            <field name="qty_dues" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
                         </group>
                         <group>
                             <field name="amount_pay"/>
-                            <field name="qty_dues" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
+                            <field name="registration_payed" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
+                            <field name="amount_monthly" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
                             <field name="registration_residual"
                                    invisible="1"/>
                             <field name="residual"/>

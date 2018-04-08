@@ -625,22 +625,25 @@ class plan(models.Model):
         self.amount_monthly = 0.0"""
 
     @api.one
-    @api.depends('type', 'amount_pay', 'amount_monthly')
+    @api.depends('type', 'amount_pay', 'qty_dues')
     def _compute_dues(self):
         if self.type:
             if self.type == 'funded':
                 # residual = self.amount_pay - self.registration_fee
                 residual = self.amount_pay
-                if self.amount_monthly == 0:
+                if self.qty_dues == 0.0:
+                    self.qty_dues = 1
                     self.amount_monthly = self.amount_pay
+                elif self.qty_dues > 0.0:
+                    self.amount_monthly = round(self.amount_pay / float(self.qty_dues), 2)
 
-                div = residual / self.amount_monthly
+                """div = residual / self.amount_monthly
                 cos = residual % self.amount_monthly
 
                 if cos == 0:
                     self.qty_dues = div
                 else:
-                    self.qty_dues = div + 1
+                    self.qty_dues = div + 1"""
 
     @api.one
     @api.depends('type', 'amount_pay', 'payment_term_ids')

@@ -617,6 +617,8 @@ class plan(models.Model):
         self.residual = 0.0
         self.teaching_materials = ''
 
+    @api.one
+    @api.depends('type', 'amount_pay', 'payment_term_ids')
     def _compute_residual(self):
         if self.type:
             if self.type in 'cash':

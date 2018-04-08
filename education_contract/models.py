@@ -508,7 +508,8 @@ class education_contract(models.Model):
 
     @api.model
     def create(self, vals):
-        import pdb; pdb.set_trace()
+        import pdb;
+        pdb.set_trace()
         if 'sale_order_id' in vals:
             sale_order_id = self.env['sale.order'].browse(vals['sale_order_id'])
 
@@ -524,6 +525,9 @@ class education_contract(models.Model):
                     'firstname': sale_order_id.partner_id.firstname,
                     'name': sale_order_id.partner_id.firstname,
                     'last_name': sale_order_id.partner_id.lastname})
+            else:
+                first_student_id = self.env['education_contract.beneficiary'].search(
+                    [('student_id', '=', first_student_id.id)])
 
             user_id = sale_order_id.user_id.id
 

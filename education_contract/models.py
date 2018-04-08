@@ -512,9 +512,12 @@ class education_contract(models.Model):
         if 'sale_order_id' in vals:
             sale_order_id = self.env['sale.order'].browse(vals['sale_order_id'])
 
-            first_student_id = self.env['education_contract.beneficiary'].search(
+            """first_student_id = self.env['education_contract.beneficiary'].search(
                 [('firstname', '=', sale_order_id.partner_id.firstname),
-                 ('last_name', '=', sale_order_id.partner_id.lastname)])
+                 ('last_name', '=', sale_order_id.partner_id.lastname)])"""
+
+            first_student_id = self.env['op.student'].search(
+                [('partner_id', '=', sale_order_id.partner_id.id)])
 
             if not first_student_id:
                 first_student_id = self.env['education_contract.beneficiary'].create({

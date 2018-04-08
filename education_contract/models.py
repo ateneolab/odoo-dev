@@ -696,7 +696,6 @@ class payment_term(models.Model):
     @api.depends('state')
     @api.onchange('state')
     def validate_contract(self):
-        pdb.set_trace()
         """if self.state == 'draft':
             return"""
 

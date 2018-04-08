@@ -358,7 +358,7 @@ class education_contract(models.Model):
         [('draft', 'Nuevo'), ('prechecked', 'Preverificado'), ('done', 'Aprobado'), ('validated', 'Conciliado'),
          ('asigned', 'Asignado'), ('waiting', 'Pendiente'), ('canceled', 'Anulado')], string='Estado', default='draft')
     program_ids = fields.One2many('education_contract.program', 'contract_id',
-                                  string='Resumen de Programas')  # compute='_update_programs',
+                                  compute='_update_programs', string='Resumen de Programas')
     plan_id = fields.One2many('education_contract.plan', 'contract_id', string='Plan')
     payment_term_ids = fields.One2many(related='plan_id.payment_term_ids', reverse='contract_id',
                                        string='Formas de pago')
@@ -685,7 +685,7 @@ class plan(models.Model):
     amount_pay = fields.Float(string='Total a pagar', digits=(6, 4), required=True, default=0.00001)
     registration_fee = fields.Float(string='Valor matricula', digits=(6, 4))
     qty_dues = fields.Integer(string='Cantidad de cuotas')
-    amount_monthly = fields.Float(digits=(6, 4), string='Valor mensual')    #, compute='_compute_dues'
+    amount_monthly = fields.Float(digits=(6, 4), string='Valor mensual')  # , compute='_compute_dues'
     residual = fields.Float(compute='_compute_residual', digits=(6, 4), string='Saldo total a pagar')
     registration_residual = fields.Float(compute='_compute_residual', string='Saldo matricula', digits=(6, 4))
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')

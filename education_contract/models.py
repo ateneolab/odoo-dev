@@ -598,10 +598,11 @@ class education_contract(models.Model):
         else:
             self.marketing_manager_id = None
 
-    """@api.multi
+    @api.multi
     def write(self, vals):
         import pdb; pdb.set_trace()
-        return super(education_contract, self).write(vals)"""
+        res = super(education_contract, self).write(vals)
+        return res
 
 
 #### Plan

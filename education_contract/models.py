@@ -610,12 +610,27 @@ class plan(models.Model):
 
     @api.onchange('type')
     def clean_fields(self):
-        self.amount_pay = 0.0
+        #self.amount_pay = 0.0
         self.qty_dues = 0
         self.registration_fee = 0.0
         self.registration_residual = 0.0
         self.residual = 0.0
         self.teaching_materials = ''
+        self.amount_monthly = 0.0
+
+    @api.one
+    @api.depends('type', 'amount_pay', 'amount_monthly')
+    def _compute_dues(self):
+        if self.type:
+            if self.type == 'funded':
+                residual = self.amount_pay - self.registration_fee
+                div = residual / self.amount_monthly
+                cos = residual % self.amount_monthly
+
+                if cos == 0:
+                    self.qty_dues = div
+                else:
+                    self.qty_dues = div + 1
 
     @api.one
     @api.depends('type', 'amount_pay', 'payment_term_ids')
@@ -656,7 +671,7 @@ class plan(models.Model):
                             string='Tipo de Plan', required=True)
     amount_pay = fields.Float(string='Total a pagar', digits=(6, 4), required=True, default=0.00001)
     registration_fee = fields.Float(string='Valor matricula', digits=(6, 4))
-    qty_dues = fields.Integer(string='Cantidad de cuotas')
+    qty_dues = fields.Integer(string='Cantidad de cuotas', compute='_compute_dues')
     amount_monthly = fields.Float(digits=(6, 4), string='Valor mensual')
     residual = fields.Float(compute='_compute_residual', digits=(6, 4), string='Saldo total a pagar')
     registration_residual = fields.Float(compute='_compute_residual', string='Saldo matricula', digits=(6, 4))

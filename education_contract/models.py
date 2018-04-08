@@ -551,7 +551,7 @@ class education_contract(models.Model):
                     'owner': sale_order_id.partner_id.id,
                     'sale_order_id': sale_order_id.id,
                     # 'beneficiary_ids': [(6, 0, [first_student_id.id])],
-                    'beneficiary_ids_2': (4, first_student_id),
+                    'beneficiary_ids_2': [(4, first_student_id.id)],
                     'marketing_manager_id': sale_team_leader_id
                 }
 

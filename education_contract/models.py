@@ -629,7 +629,8 @@ class plan(models.Model):
     def _compute_dues(self):
         if self.type:
             if self.type == 'funded':
-                residual = self.amount_pay - self.registration_fee
+                # residual = self.amount_pay - self.registration_fee
+                residual = self.amount_pay
                 if self.amount_monthly == 0:
                     self.amount_monthly = self.amount_pay
 

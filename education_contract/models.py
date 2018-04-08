@@ -624,6 +624,9 @@ class plan(models.Model):
         if self.type:
             if self.type == 'funded':
                 residual = self.amount_pay - self.registration_fee
+                if self.amount_monthly == 0:
+                    self.amount_monthly = self.amount_pay
+
                 div = residual / self.amount_monthly
                 cos = residual % self.amount_monthly
 

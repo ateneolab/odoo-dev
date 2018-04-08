@@ -502,7 +502,7 @@ class education_contract(models.Model):
         record_name = self.browse(cr, uid, ids, context)
 
         for object in record_name:
-            res.append((object.id, '%s-%s %s' % (object.barcode, object.owner.firstname, object.owner.lastname)))
+            res.append((object.id, '%s-%s %s' % (object.barcode or '', object.owner.firstname or '', object.owner.lastname or '')))
 
         return res
 
@@ -552,7 +552,8 @@ class education_contract(models.Model):
                     'sale_order_id': sale_order_id.id,
                     # 'beneficiary_ids': [(6, 0, [first_student_id.id])],
                     'beneficiary_ids_2': [(4, first_student_id.id)],
-                    'marketing_manager_id': sale_team_leader_id
+                    'marketing_manager_id': sale_team_leader_id,
+                    'state': 'draft'
                 }
 
                 plan_id = self.env['education_contract.plan'].create({
@@ -564,9 +565,6 @@ class education_contract(models.Model):
 
                 if plan_id:
                     vals.update({'plan_id': [(6, False, [plan_id.id])]})
-
-                import pdb;
-                pdb.set_trace()
 
                 res = super(education_contract, self).create(vals)
 
@@ -658,6 +656,7 @@ class plan(models.Model):
     @api.one
     @api.depends('type', 'amount_pay', 'payment_term_ids')
     def _compute_residual(self):
+        print('_COMPUTE_RESIDUAL: CHECK VALUES...')
         if self.type:
             if self.type in 'cash':
                 self.residual = self.amount_pay - self._compute_voucher_sum()

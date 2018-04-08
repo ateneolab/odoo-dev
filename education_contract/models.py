@@ -752,6 +752,7 @@ class payment_term(models.Model):
     @api.depends('state')
     @api.onchange('state')
     def validate_contract(self):
+        import pdb; pdb.set_trace()
         # payment_term_ids = self.plan_id.contract_id.payment_term_ids
         payment_term_ids = self.plan_id.payment_term_ids
 

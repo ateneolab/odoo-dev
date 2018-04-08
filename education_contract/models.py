@@ -155,7 +155,7 @@ class education_contract(models.Model):
     def get_beneficiary_names(self):
         names = []
 
-        for id in self.beneficiary_ids:
+        for id in self.beneficiary_ids_2:
             names.append('%s %s' % (id.name, id.last_name))
 
         return names
@@ -261,7 +261,7 @@ class education_contract(models.Model):
     def get_phone_numbers(self):
         phones = []
 
-        for bi in self.beneficiary_ids:
+        for bi in self.beneficiary_ids_2:
             student = bi.student_id
             partner_id = student.partner_id
 
@@ -403,7 +403,7 @@ class education_contract(models.Model):
                     raise ValidationError("Debe registrar datos para los campos obligatorios del plan de pago.")
 
     def validate_filled(self):
-        if not self.beneficiary_ids:
+        if not self.beneficiary_ids_2:
             return False
 
         if not self.program_ids:
@@ -542,7 +542,8 @@ class education_contract(models.Model):
                     'company_id': sale_order_id.company_id.id,
                     'owner': sale_order_id.partner_id.id,
                     'sale_order_id': sale_order_id.id,
-                    'beneficiary_ids': [(6, 0, [first_student_id.id])],
+                    # 'beneficiary_ids': [(6, 0, [first_student_id.id])],
+                    'beneficiary_ids_2': [first_student_id.id],
                     'marketing_manager_id': sale_team_leader_id
                 }
 

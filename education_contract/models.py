@@ -601,8 +601,9 @@ class education_contract(models.Model):
 
     @api.multi
     def write(self, vals):
-        import pdb;
-        pdb.set_trace()
+        if 'state' in vals and vals.get('state', False) is False:
+            return True
+
         res = super(education_contract, self).write(vals)
         return res
 
@@ -691,15 +692,13 @@ class plan(models.Model):
 class payment_term(models.Model):
     _name = 'education_contract.payment_term'
 
-    """@api.one
+    @api.one
     @api.depends('state')
-    @api.onchange('state')"""
+    @api.onchange('state')
     def validate_contract(self):
-        pass
-        """import pdb;
         pdb.set_trace()
-        if self.state == 'draft':
-            return
+        """if self.state == 'draft':
+            return"""
 
         payment_term_ids = self.plan_id.payment_term_ids
 
@@ -711,7 +710,7 @@ class payment_term(models.Model):
                 break
 
         if all_done:
-            self.plan_id.contract_id.write({'state': 'validated'})"""
+            self.plan_id.contract_id.write({'state': 'validated'})
 
     @api.one
     def generate_voucher(self, state):

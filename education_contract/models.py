@@ -624,7 +624,7 @@ class plan(models.Model):
         self.teaching_materials = ''
         self.amount_monthly = 0.0"""
 
-    @api.one
+    """@api.one
     @api.depends('type', 'amount_pay', 'qty_dues')
     def _compute_dues(self):
         if self.type:
@@ -635,15 +635,7 @@ class plan(models.Model):
                     self.qty_dues = 1
                     self.amount_monthly = self.amount_pay
                 elif self.qty_dues > 0.0:
-                    self.amount_monthly = round(self.amount_pay / float(self.qty_dues), 3)
-
-                """div = residual / self.amount_monthly
-                cos = residual % self.amount_monthly
-
-                if cos == 0:
-                    self.qty_dues = div
-                else:
-                    self.qty_dues = div + 1"""
+                    self.amount_monthly = round(self.amount_pay / float(self.qty_dues), 3)"""
 
     @api.one
     @api.depends('type', 'amount_pay', 'payment_term_ids')
@@ -688,7 +680,7 @@ class plan(models.Model):
     amount_pay = fields.Float(string='Total a pagar', digits=(6, 4), required=True, default=0.00001)
     registration_fee = fields.Float(string='Valor matricula', digits=(6, 4))
     qty_dues = fields.Integer(string='Cantidad de cuotas')
-    amount_monthly = fields.Float(digits=(6, 4), string='Valor mensual', compute='_compute_dues')
+    amount_monthly = fields.Float(digits=(6, 4), string='Valor mensual')    #, compute='_compute_dues'
     residual = fields.Float(compute='_compute_residual', digits=(6, 4), string='Saldo total a pagar')
     registration_residual = fields.Float(compute='_compute_residual', string='Saldo matricula', digits=(6, 4))
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')

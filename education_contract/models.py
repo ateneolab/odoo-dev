@@ -610,13 +610,19 @@ class plan(models.Model):
 
     @api.onchange('type')
     def clean_fields(self):
-        #self.amount_pay = 0.0
-        self.qty_dues = 0
+        if self.type:
+            if self.type == 'cash':
+                self.qty_dues = 0.0
+                self.registration_fee = 0.0
+                self.registration_residual = 0.0
+                self.amount_monthly = 0.0
+
+        """self.qty_dues = 0
         self.registration_fee = 0.0
         self.registration_residual = 0.0
         self.residual = 0.0
         self.teaching_materials = ''
-        self.amount_monthly = 0.0
+        self.amount_monthly = 0.0"""
 
     @api.one
     @api.depends('type', 'amount_pay', 'amount_monthly')
@@ -648,7 +654,7 @@ class plan(models.Model):
 
     def _compute_voucher_sum(self):
         voucher_sum = 0.0
-        #for v in self.payment_info_ids:
+        # for v in self.payment_info_ids:
         for v in self.payment_term_ids:
             voucher_sum += v.amount
 
@@ -728,7 +734,7 @@ class payment_term(models.Model):
     @api.depends('state')
     @api.onchange('state')
     def validate_contract(self):
-        #payment_term_ids = self.plan_id.contract_id.payment_term_ids
+        # payment_term_ids = self.plan_id.contract_id.payment_term_ids
         payment_term_ids = self.plan_id.payment_term_ids
 
         all_done = True

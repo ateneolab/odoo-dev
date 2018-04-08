@@ -175,6 +175,7 @@ class education_contract(models.Model):
         return sum
 
     def get_not_done_amount(self):
+        import pdb; pdb.set_trace()
         if self.plan_id.type in 'cash':
             return self.plan_id.amount_pay - self.get_done_amount()
         elif self.plan_id.type in 'funded':
@@ -420,13 +421,10 @@ class education_contract(models.Model):
 
     @api.multi
     def to_draft(self, context=None):
-        print('Cambiar a Borrador')
         self.write({'state': 'draft'})
 
     @api.multi
     def to_prechecked(self, context=None):
-        print('Cambiar a Preverificado')
-
         filled = self.validate_filled()
 
         if not filled:
@@ -436,8 +434,6 @@ class education_contract(models.Model):
 
     @api.multi
     def to_done(self, context=None):
-        print('Cambiar a Aprobado')
-
         filled = self.validate_filled()
 
         if not filled:
@@ -446,11 +442,9 @@ class education_contract(models.Model):
             self.write({'state': 'done'})
 
     def to_waiting(self, cr, uid, ids, context=None):
-        print('Cambiar a Pendiente')
         self.pool.get('education_contract.contract').browse(cr, uid, ids).write({'state': 'waiting'})
 
     def to_validated(self, cr, uid, ids, context=None):
-        print('Cambiar a Conciliado')
         records = self.pool.get('education_contract.contract').browse(cr, uid, ids)
         payment_terms = records.payment_term_ids
 
@@ -468,13 +462,10 @@ class education_contract(models.Model):
             self.pool.get('education_contract.contract').browse(cr, uid, ids).write({'state': 'validated'})
 
     def to_canceled(self, cr, uid, ids, context=None):
-        print('Cambiar a Cancelado')
         self.pool.get('education_contract.contract').browse(cr, uid, ids).write({'state': 'canceled'})
 
     @api.multi
     def to_asigned(self, context=None):
-        print('Cambiar a Asignado')
-
         filled = self.validate_filled()
 
         if not filled:
@@ -653,7 +644,6 @@ class plan(models.Model):
     @api.one
     @api.depends('type', 'amount_pay', 'payment_term_ids')
     def _compute_residual(self):
-        print('_COMPUTE_RESIDUAL: CHECK VALUES...')
         if self.type:
             if self.type in 'cash':
                 self.residual = self.amount_pay - self._compute_voucher_sum()

@@ -502,7 +502,8 @@ class education_contract(models.Model):
         record_name = self.browse(cr, uid, ids, context)
 
         for object in record_name:
-            res.append((object.id, '%s-%s %s' % (object.barcode or '', object.owner.firstname or '', object.owner.lastname or '')))
+            res.append((object.id,
+                        '%s-%s %s' % (object.barcode or '', object.owner.firstname or '', object.owner.lastname or '')))
 
         return res
 
@@ -600,7 +601,8 @@ class education_contract(models.Model):
 
     @api.multi
     def write(self, vals):
-        import pdb; pdb.set_trace()
+        import pdb;
+        pdb.set_trace()
         res = super(education_contract, self).write(vals)
         return res
 
@@ -633,13 +635,6 @@ class plan(models.Model):
                 self.registration_fee = 0.0
                 self.registration_residual = 0.0
                 self.amount_monthly = 0.0
-
-        """self.qty_dues = 0
-        self.registration_fee = 0.0
-        self.registration_residual = 0.0
-        self.residual = 0.0
-        self.teaching_materials = ''
-        self.amount_monthly = 0.0"""
 
     """@api.one
     @api.depends('type', 'amount_pay', 'qty_dues')
@@ -677,22 +672,6 @@ class plan(models.Model):
 
         return voucher_sum
 
-    """@api.one
-    @api.depends('payment_info_ids')
-    def _compute_payment_term(self):
-
-        payment_term_ids = []
-        payment_info_ids = self.payment_info_ids
-
-        for pis in payment_info_ids:
-            payment_term_ids += pis.payment_term_ids.ids
-
-        payment_term_obj = self.env['education_contract.payment_term'].browse(payment_term_ids)
-
-        if payment_term_obj:
-            payment_term_obj.write({'plan_id': self.id})
-            self.payment_term_ids = payment_term_obj"""
-
     type = fields.Selection([('funded', 'Financiado'), ('cash', 'Contado'), ('scholarship', 'Beca')], default='cash',
                             string='Tipo de Plan', required=True)
     amount_pay = fields.Float(string='Total a pagar', digits=(6, 4), required=True, default=0.00001)
@@ -708,55 +687,19 @@ class plan(models.Model):
     # payment_info_ids = fields.One2many('education_contract.payment_info', 'plan_id', string='Abonos')
 
 
-#### Payment info
-"""class payment_info(models.Model):
-    _name = 'education_contract.payment_info'
-
-    @api.one
-    @api.onchange('payment_term_ids', 'amount', 'plan_id')
-    def _compute_residual(self):
-        sum = 0.0
-
-        for pt in self.payment_term_ids:
-            sum += pt.amount
-
-        self.residual = self.amount - sum
-
-    amount = fields.Float(digits=(6, 4), string='Monto')
-    residual = fields.Float(compute='_compute_residual', digits=(6, 4), string='Saldo', store=True)
-    payment_term_ids = fields.One2many('education_contract.payment_term', 'payment_info_id', string='Forma de pago')
-    plan_id = fields.Many2one('education_contract.plan', string='Plan de pagos')
-    contract_id = fields.Many2one('education_contract.contract', string='Contrato')
-
-    @api.model
-    def create(self, vals):
-        if 'residual' in vals and 'amount' in vals:
-            if float(vals.get('residual', '0.0')) > float('0.0'):
-                raise ValidationError("El saldo de los pagos debe ser cero.")
-
-        return super(payment_info, self).create(vals)
-
-    @api.multi
-    def write(self, vals):
-        if self.residual > 0:
-            raise ValidationError("El saldo de los pagos debe ser cero.")
-
-        return super(payment_info, self).write(vals)"""
-
-
 #### Payment term
 class payment_term(models.Model):
     _name = 'education_contract.payment_term'
 
-    @api.one
+    """@api.one
     @api.depends('state')
-    @api.onchange('state')
+    @api.onchange('state')"""
     def validate_contract(self):
-        import pdb; pdb.set_trace()
+        import pdb;
+        pdb.set_trace()
         if self.state == 'draft':
             return
 
-        # payment_term_ids = self.plan_id.contract_id.payment_term_ids
         payment_term_ids = self.plan_id.payment_term_ids
 
         all_done = True

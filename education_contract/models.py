@@ -543,9 +543,6 @@ class education_contract(models.Model):
 
             sale_team_leader_id = sale_team.user_id.id or None
 
-            import pdb;
-            pdb.set_trace()
-
             if first_student_id:
                 vals = {
                     'date': sale_order_id.date_order,
@@ -570,6 +567,8 @@ class education_contract(models.Model):
 
                 res = super(education_contract, self).create(vals)
 
+                import pdb;
+                pdb.set_trace()
                 return res
 
         return False

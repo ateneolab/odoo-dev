@@ -635,7 +635,7 @@ class plan(models.Model):
                     self.qty_dues = 1
                     self.amount_monthly = self.amount_pay
                 elif self.qty_dues > 0.0:
-                    self.amount_monthly = round(self.amount_pay / float(self.qty_dues), 2)
+                    self.amount_monthly = round(self.amount_pay / float(self.qty_dues), 3)
 
                 """div = residual / self.amount_monthly
                 cos = residual % self.amount_monthly

@@ -565,10 +565,11 @@ class education_contract(models.Model):
                 if plan_id:
                     vals.update({'plan_id': [(6, False, [plan_id.id])]})
 
-                res = super(education_contract, self).create(vals)
-
                 import pdb;
                 pdb.set_trace()
+
+                res = super(education_contract, self).create(vals)
+
                 return res
 
         return False

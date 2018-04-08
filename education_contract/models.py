@@ -508,6 +508,7 @@ class education_contract(models.Model):
 
     @api.model
     def create(self, vals):
+        import pdb; pdb.set_trace()
         if 'sale_order_id' in vals:
             sale_order_id = self.env['sale.order'].browse(vals['sale_order_id'])
 

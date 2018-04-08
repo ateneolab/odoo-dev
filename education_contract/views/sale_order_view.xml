@@ -218,7 +218,7 @@
                             <field name="contract_id"
                                    invisible="1"/> <!-- context="{'default_contract_id': parent.id}" -->
                             <field name="registration_fee" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
-                            <field name="qty_dues" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
+                            <field name="qty_dues" attrs="{'invisible': [('type', 'not in', ['funded'])], 'readonly': False}"/>
                         </group>
                         <group>
                             <field name="amount_pay"/>

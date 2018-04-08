@@ -695,7 +695,8 @@ class payment_term(models.Model):
     @api.depends('state')
     @api.onchange('state')"""
     def validate_contract(self):
-        import pdb;
+        pass
+        """import pdb;
         pdb.set_trace()
         if self.state == 'draft':
             return
@@ -710,7 +711,7 @@ class payment_term(models.Model):
                 break
 
         if all_done:
-            self.plan_id.contract_id.write({'state': 'validated'})
+            self.plan_id.contract_id.write({'state': 'validated'})"""
 
     @api.one
     def generate_voucher(self, state):

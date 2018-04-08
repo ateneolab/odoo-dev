@@ -587,6 +587,11 @@ class education_contract(models.Model):
         else:
             self.marketing_manager_id = None
 
+    @api.multi
+    def write(self, vals):
+        import pdb; pdb.set_trace()
+        return super(education_contract, self).write(vals)
+
 
 #### Plan
 TYPE = {'funded': 'Financiado', 'cash': 'Contado', 'scholarship': 'Beca'}

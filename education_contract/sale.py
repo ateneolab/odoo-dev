@@ -11,7 +11,8 @@ class sale_order(models.Model):
     
     education_contract_id = fields.Many2one('education_contract.contract', string='Contrato de estudios')
     generate_contract = fields.Boolean(_('Generate contract'), default=False)
-    
+
+
     def action_button_confirm(self, cr, uid, ids, context=None):
         res = super(sale_order, self).action_button_confirm(cr, uid, ids, context=context)
         

@@ -15,6 +15,8 @@ class sale_order(models.Model):
     def action_button_confirm(self, cr, uid, ids, context=None):
         res = super(sale_order, self).action_button_confirm(cr, uid, ids, context=context)
 
+        import pdb; pdb.set_trace()
+
         if res and self.generate_contract:
             contract_id = self.generate_education_contract(cr, uid, ids, context=context)
 

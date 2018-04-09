@@ -15,16 +15,18 @@ class sale_order(models.Model):
     def action_button_confirm(self, cr, uid, ids, context=None):
         res = super(sale_order, self).action_button_confirm(cr, uid, ids, context=context)
 
+        sale_o = self.pool.get('sale.order').browse(cr, uid, ids, context=context)
+
         import pdb; pdb.set_trace()
 
-        if res and self.generate_contract:
+        if res and sale_o and sale_o.generate_contract:
             contract_id = self.generate_education_contract(cr, uid, ids, context=context)
 
             if contract_id:
                 self.pool.get('sale.order').write(cr, uid, ids, {'education_contract_id': contract_id})
                 self.pool.get('education_contract.contract').write(cr, uid, [contract_id],
                                                                    {'operating_unit_id',
-                                                                    self.operating_unit_id}, context=context)
+                                                                    sale_o.operating_unit_id}, context=context)
 
         return res
 

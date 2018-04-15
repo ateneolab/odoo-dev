@@ -171,7 +171,7 @@ class res_partner(models.Model):
                 national_identity = '[' + record.national_identity + ']'
             name = "%s %s" % (name, national_identity)
             if record.is_company:
-                name = record.is_company.name
+                name = record.company_id.name
             else:
                 if record.parent_id:
                     name = "%s, %s" % (record.parent_id.name, name)

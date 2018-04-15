@@ -628,18 +628,18 @@ class plan(models.Model):
                 self.registration_residual = 0.0
                 self.amount_monthly = 0.0
 
-    """@api.one
+    @api.one
     @api.depends('type', 'amount_pay', 'qty_dues')
     def _compute_dues(self):
         if self.type:
             if self.type == 'funded':
                 # residual = self.amount_pay - self.registration_fee
-                residual = self.amount_pay
+                residual = self.amount_pay + self.registration_residual - self.registration_fee
                 if self.qty_dues == 0.0:
                     self.qty_dues = 1
-                    self.amount_monthly = self.amount_pay
+                    self.amount_monthly = residual
                 elif self.qty_dues > 0.0:
-                    self.amount_monthly = round(self.amount_pay / float(self.qty_dues), 3)"""
+                    self.amount_monthly = round(residual / float(self.qty_dues), 4)
 
     @api.one
     @api.depends('type', 'amount_pay', 'payment_term_ids')
@@ -935,3 +935,8 @@ class transfer(models.Model):
             res.append((object.id, '%s-%s' % (object.owner, object.bank.name)))
 
         return res
+
+class education_contract_payment_info(models.Model):
+    _name = 'education_contract.payment_info'
+
+    name = fields.Char('Name')

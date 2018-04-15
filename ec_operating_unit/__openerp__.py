@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Contrato de educación multi establecimiento",
+    'name': "Contrato de educacion multi establecimiento",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as

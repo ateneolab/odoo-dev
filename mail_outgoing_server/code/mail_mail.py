@@ -83,8 +83,8 @@ class email_template(models.Model):
             values['attachment_ids'] = [(6, 0, attachment_ids)]
             mail_mail.write(cr, uid, msg_id, {'attachment_ids': [(6, 0, attachment_ids)]}, context=context)
 
-        if server_id in [2, 3]: # Cable
-            server_id = 6
+        """if server_id in [2, 3]: # Cable
+            server_id = 6"""
 
         if server_id:
             mail_mail.write(cr, uid, [mail.id], {'mail_server_id': server_id}, context=context)

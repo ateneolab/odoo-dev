@@ -13,10 +13,12 @@ class res_users(models.Model):
     # we restore base birthdate field TODO remove on version 9
     birthdate = fields.Char(
         'Birthdate (OLD)'
-        )
+    )
+
+
 #     # added this here because in v8 there is a conflict with a char birthdate
 #     # field in partner it is supose to be fixed
-    # birthdate = fields.Date(string='Birthdate')
+# birthdate = fields.Date(string='Birthdate')
 
 
 class res_partner(models.Model):
@@ -70,70 +72,70 @@ class res_partner(models.Model):
 
     disabled_person = fields.Boolean(
         string='Disabled Person?'
-        )
+    )
     # TODO analizar si mejor depende del modulo de la oca partner_firstname
     # y que estos campos vengan de ahi
     firstname = fields.Char(
         string='First Name'
-        )
+    )
     lastname = fields.Char(
         string='Last Name'
-        )
+    )
     national_identity = fields.Char(
         string='National Identity'
-        )
+    )
     passport = fields.Char(
         string='Passport'
-        )
+    )
     marital_status = fields.Selection(
         [(u'single', u'Single'), (u'married', u'Married'),
          (u'divorced', u'Divorced')],
         string='Marital Status',
-        )
+    )
     # we restore base birthdate field TODO remove on version 9
     birthdate = fields.Char(
         'Birthdate (OLD)'
-        )
+    )
     birthdate_date = fields.Date(
         string='Birthdate'
-        )
+    )
     father_id = fields.Many2one(
         'res.partner',
         string='Father',
         context={'default_is_company': False, 'default_sex': 'M',
                  'from_member': True},
         domain=[('is_company', '=', False), ('sex', '=', 'M')]
-        )
+    )
     mother_id = fields.Many2one(
         'res.partner',
         string='Mother',
         context={'default_is_company': False, 'default_sex': 'F',
                  'from_member': True},
         domain=[('is_company', '=', False), ('sex', '=', 'F')]
-        )
+    )
     sex = fields.Selection(
         [(u'M', u'Male'), (u'F', u'Female')],
         string='Sex',
-        )
+    )
     age = fields.Integer(
         compute='_get_age',
         type='integer',
         string='Age'
-        )
+    )
     father_child_ids = fields.One2many(
         'res.partner',
         'father_id',
         string='Childs',
-        )
+    )
     mother_child_ids = fields.One2many(
         'res.partner',
         'mother_id',
         string='Childs',
-        )
+    )
     nationality_id = fields.Many2one(
         'res.country',
         string='Nationality'
-        )
+    )
     husband_id = fields.Many2one(
         'res.partner',
         compute='_get_husband',
@@ -142,13 +144,13 @@ class res_partner(models.Model):
         string='Husband',
         domain=[('sex', '=', 'M'), ('is_company', '=', False)],
         context={'default_sex': 'M', 'is_person': True}
-        )
+    )
     wife_id = fields.Many2one(
         'res.partner',
         string='Wife',
         domain=[('sex', '=', 'F'), ('is_company', '=', False)],
         context={'default_sex': 'F', 'is_person': True}
-        )
+    )
 
     @api.one
     @api.onchange('firstname', 'lastname')
@@ -165,27 +167,32 @@ class res_partner(models.Model):
             ids = [ids]
         res = []
         for record in self.browse(cr, uid, ids, context=context):
-            name = record.name
+            """display_name = record.name
             national_identity = ''
+            
             if record.national_identity:
                 national_identity = '[' + record.national_identity + ']'
-            name = "%s %s" % (name, national_identity)
+                display_name = "%s %s" % (display_name, national_identity)"""
+
             if record.is_company:
-                name = record.company_id.name
+                display_name = record.name
             else:
                 if record.parent_id:
-                    name = "%s, %s" % (record.parent_id.name, name)
+                    display_name = "%s" % record.parent_id.display_name
                 else:
-                    name = "%s, %s" % (record.name, record.lastname)
+                    display_name = "%s" % record.display_name
+
             if context.get('show_address'):
-                name = name + "\n" + \
-                    self._display_address(
-                        cr, uid, record, without_company=True, context=context)
-                name = name.replace('\n\n', '\n')
-                name = name.replace('\n\n', '\n')
+                display_name = display_name + "\n" + \
+                               self._display_address(
+                                   cr, uid, record, without_company=True, context=context)
+                display_name = display_name.replace('\n\n', '\n')
+                display_name = display_name.replace('\n\n', '\n')
+
             if context.get('show_email') and record.email:
-                name = "%s <%s>" % (name, record.email)
-            res.append((record.id, name))
+                display_name = "%s <%s>" % (display_name, record.email)
+
+            res.append((record.id, display_name))
         return res
 
     def name_search(
@@ -232,7 +239,8 @@ class res_partner(models.Model):
                 cr, uid, [('id', 'in', ids)] + args, limit=limit, context=context)
             if ids:
                 return self.name_get(cr, uid, ids, context)
-        return super(res_partner, self).name_search(cr, uid, name, args, operator=operator, context=context, limit=limit)
+        return super(res_partner, self).name_search(cr, uid, name, args, operator=operator, context=context,
+                                                    limit=limit)
 
     # Como no anduvo sobre escribiendo con la nueva api, tuvimos que hacerlo con la vieja
     # display_name = fields.Char(
@@ -251,17 +259,18 @@ class res_partner(models.Model):
     # def _diplay_name(self):
     #     self.display_name = self.with_context({}).name_get()
 
-
     _display_name = lambda self, *args, **kwargs: self._display_name_compute(*args, **kwargs)
 
     _display_name_store_triggers = {
-        'res.partner': (lambda self,cr,uid,ids,context=None: self.search(cr, uid, [('id','child_of',ids)], context=dict(active_test=False)),
+        'res.partner': (lambda self, cr, uid, ids, context=None: self.search(cr, uid, [('id', 'child_of', ids)],
+                                                                             context=dict(active_test=False)),
                         ['parent_id', 'is_company', 'name', 'national_identity'], 10)
         # Se agrega national_identity aqui
     }
 
     _columns = {
-        'display_name': old_fields.function(_display_name, type='char', string='N2222asdasdadsame', store=_display_name_store_triggers, select=True),
+        'display_name': old_fields.function(_display_name, type='char', string='N2222asdasdadsame',
+                                            store=_display_name_store_triggers, select=True),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

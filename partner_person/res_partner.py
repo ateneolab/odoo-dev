@@ -175,24 +175,24 @@ class res_partner(models.Model):
                 display_name = "%s %s" % (display_name, national_identity)"""
 
             if record.is_company:
-                display_name = record.name
+                name = record.name
             else:
                 if record.parent_id:
-                    display_name = "%s" % record.parent_id.display_name
+                    name = "%s" % record.parent_id.name
                 else:
-                    display_name = "%s" % record.display_name
+                    name = "%s" % record.name
 
             if context.get('show_address'):
-                display_name = display_name + "\n" + \
+                name = name + "\n" + \
                                self._display_address(
                                    cr, uid, record, without_company=True, context=context)
-                display_name = display_name.replace('\n\n', '\n')
-                display_name = display_name.replace('\n\n', '\n')
+                name = name.replace('\n\n', '\n')
+                name = name.replace('\n\n', '\n')
 
             if context.get('show_email') and record.email:
-                display_name = "%s <%s>" % (display_name, record.email)
+                name = "%s <%s>" % (name, record.email)
 
-            res.append((record.id, display_name))
+            res.append((record.id, name))
         return res
 
     def name_search(

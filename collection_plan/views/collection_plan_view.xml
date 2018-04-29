@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<openerp>
+    <data>
+
+        <record id="view_collection_plan_form" model="ir.ui.view">
+            <field name="name">collection_plan.form</field>
+            <field name="model">collection_plan.collection_plan</field>
+            <field name="arch" type="xml">
+                <form string="Plan de Cobranzas">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="active_plan_id" required="1"
+                                       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="user_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                            </group>
+                            <group>
+                                <field name="start_date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="end_date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Payment terms">
+                                <field name="payment_term_ids"/>
+                            </page>
+
+                            <page string="Payments">
+                                <field name="payed_payment_term_ids"/>
+                            </page>
+
+                            <page string="Old plans">
+                                <field name="plan_ids"/>
+                            </page>
+
+                            <page string="Internal notes">
+                                <field name="notes"/>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_collection_plan_tree" model="ir.ui.view">
+            <field name="name">collection_plan.collection_plan.tree</field>
+            <field name="model">collection_plan.collection_plan</field>
+            <field name="arch" type="xml">
+                <tree string="Collection plan">
+                    <field name="user_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="residual"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

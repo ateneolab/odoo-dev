@@ -26,8 +26,10 @@ class CollectionPlan(models.Model):
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,
             'amount_pay': self.active_plan_id.residual,
-            'qty_dues': 0,
-            'amount_monthly': self.active_plan_id.residual
+            'qty_dues': 0.0,
+            'amount_monthly': self.active_plan_id.residual,
+            'registration_fee': 0.0,
+            'residual': self.active_plan_id.residual
         })
 
         self.plan_ids = [(4, self.active_plan_id.id)]

@@ -8,6 +8,7 @@
             <field name="model">collection_plan.collection_plan</field>
             <field name="arch" type="xml">
                 <form string="Plan de Cobranzas">
+                    <field name="state" invisible="1"/>
                     <sheet>
                         <group>
                             <group>

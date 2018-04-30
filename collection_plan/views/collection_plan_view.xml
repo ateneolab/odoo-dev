@@ -57,12 +57,12 @@
                                         <!--<field name="voucher_id"
                                                attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
                                         </field>-->
-                                        <field name="check_id"
+                                        <!--<field name="check_id"
                                                attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
                                         <field name="transfer_id"
                                                attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
                                         <field name="description_other"
-                                               attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
+                                               attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>-->
                                         <!--<field name="planned_date"/>
                                         <field name="payment_date"/>
                                         <field name="payed"/>-->

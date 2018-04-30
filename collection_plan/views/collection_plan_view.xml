@@ -35,12 +35,12 @@
                                 <field name="active_plan_id" required="1"
                                        attrs="{'readonly': [('state', 'in', ['done'])]}"
                                        domain="[('contract_id', '=', contract_id)]">
-                                    <tree editable="top">
+                                    <!--<tree editable="top">
                                         <field name="balance"/>
                                         <field name="qty_dues"/>
                                         <field name="amount_monthly"/>
                                         <field name="residual"/>
-                                    </tree>
+                                    </tree>-->
                                 </field>
                             </group>
                         </group>

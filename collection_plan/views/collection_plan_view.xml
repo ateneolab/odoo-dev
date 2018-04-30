@@ -23,11 +23,11 @@
 
                         <notebook>
                             <page string="Payment terms">
-                                <field name="payment_term_ids"/>
+                                <!--<field name="payment_term_ids"/>-->
                             </page>
 
                             <page string="Payments">
-                                <field name="payed_payment_term_ids"/>
+                                <!--<field name="payed_payment_term_ids"/>-->
                             </page>
 
                             <page string="Old plans">

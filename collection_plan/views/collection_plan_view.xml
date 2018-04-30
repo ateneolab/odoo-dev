@@ -54,9 +54,9 @@
                                                attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
                                                string="Tipo de efectivo"/>
                                         <field name="amount"/>
-                                        <field name="voucher_id"
+                                        <!--<field name="voucher_id"
                                                attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
-                                        </field>
+                                        </field>-->
                                         <field name="check_id"
                                                attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
                                         <field name="transfer_id"

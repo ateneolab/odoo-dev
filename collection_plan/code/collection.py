@@ -38,7 +38,8 @@ class CollectionPlan(models.Model):
             'qty_dues': 0.0,
             'amount_monthly': self.active_plan_id.amount_pay,
             'registration_fee': 0.0,
-            'residual': self.active_plan_id.amount_pay
+            'residual': self.active_plan_id.amount_pay,
+            'collection_plan_id': self.id
         })
 
         self.plan_ids = [(4, self.active_plan_id.id)]

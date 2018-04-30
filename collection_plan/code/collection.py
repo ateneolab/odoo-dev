@@ -4,6 +4,7 @@ from openerp import models, fields, api, _
 import datetime
 from dateutil.relativedelta import relativedelta
 
+
 class CollectionPlan(models.Model):
     _name = 'collection_plan.collection_plan'
 
@@ -85,10 +86,13 @@ class EducationContractPlan(models.Model):
                     'plan_id': self.id
                 })
 
-                self.payment_term_ids = [(4, new_payment_term)]
+                print(new_payment_term)
+                self.payment_term_fixed_ids = [(4, new_payment_term)]
 
                 before_date = sd
 
+    payment_term_fixed_ids = fields.One2many('education_contract.payment_term', 'fixed_plan_id',
+                                             compute='_compute_payment_terms', string=_('Payment terms'))
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(''))
     plan_active = fields.Boolean(_('Active'))
     balance = fields.Float(digits=(6, 4), compute='_compute_balance', string=_('Balance'))
@@ -103,6 +107,7 @@ class PaymentTerm(models.Model):
     payment_date = fields.Date(_('Payment date'))
     payed = fields.Boolean(_('Payed?'))
     order = fields.Integer('Order')
+    fixed_plan_id = fields.Many2one('education_contract.plan', string=_('Payment Plan'))
 
     # payed_collection_plan_id = fields.One2many('collection_plan.collection_plan', string=_('Payed Collection Plan'))
 

@@ -48,7 +48,9 @@ class beneficiary(models.Model):
         if 'partner_id' in vals and vals.get('partner_id'):
             id_partner = vals.get('partner_id')
             partner = self.env['res.partner'].browse([id_partner])
-            vals.update({'name': partner.name or False, 'gender': partner.sex.lower() or False})
+            vals.update({'name': partner.name})
+            if partner.sex is not None:
+                vals.update({'gender': partner.sex.lower()})
         elif 'name' in vals:
             vals.update({
                 'name': vals.get('name'),
@@ -175,7 +177,8 @@ class education_contract(models.Model):
         return sum
 
     def get_not_done_amount(self):
-        import pdb; pdb.set_trace()
+        import pdb;
+        pdb.set_trace()
         if self.plan_id.type in 'cash':
             return self.plan_id.amount_pay - self.get_done_amount()
         elif self.plan_id.type in 'funded':
@@ -935,6 +938,7 @@ class transfer(models.Model):
             res.append((object.id, '%s-%s' % (object.owner, object.bank.name)))
 
         return res
+
 
 class education_contract_payment_info(models.Model):
     _name = 'education_contract.payment_info'

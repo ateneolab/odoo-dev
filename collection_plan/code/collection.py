@@ -88,7 +88,7 @@ class EducationContractPlan(models.Model):
         _self = False
 
         if isinstance(self.id, models.NewId):
-            if 'activve_id' in self._context:
+            if 'active_id' in self._context:
                 _self = self.env['education_contract.plan'].browse([self._context.get('active_id', False)])
 
         if not _self:

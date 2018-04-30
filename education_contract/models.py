@@ -49,7 +49,7 @@ class beneficiary(models.Model):
             id_partner = vals.get('partner_id')
             partner = self.env['res.partner'].browse([id_partner])
             vals.update({'name': partner.name})
-            if partner.sex is not None:
+            if partner.sex is not None and partner.sex is not False:
                 vals.update({'gender': partner.sex.lower()})
         elif 'name' in vals:
             vals.update({

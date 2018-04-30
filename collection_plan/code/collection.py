@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api, _
-
+import datetime
+from dateutil.relativedelta import relativedelta
 
 class CollectionPlan(models.Model):
     _name = 'collection_plan.collection_plan'
@@ -25,11 +26,11 @@ class CollectionPlan(models.Model):
 
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,
-            'amount_pay': self.active_plan_id.residual,
+            'amount_pay': self.active_plan_id.amount_pay,
             'qty_dues': 0.0,
-            'amount_monthly': self.active_plan_id.residual,
+            'amount_monthly': self.active_plan_id.amount_pay,
             'registration_fee': 0.0,
-            'residual': self.active_plan_id.residual
+            'residual': self.active_plan_id.amount_pay
         })
 
         self.plan_ids = [(4, self.active_plan_id.id)]
@@ -55,8 +56,43 @@ class EducationContractPlan(models.Model):
     _name = 'education_contract.plan'
     _inherit = 'education_contract.plan'
 
+    @api.one
+    @api.depends('payment_term_ids')
+    def _compute_balance(self):
+        sum = 0.0
+        if self.payment_term_ids:
+            for pt in self.payment_term_ids:
+                if not pt.payed:
+                    sum += pt.amount
+        self.balance = sum
+
+    @api.one
+    @api.depends('qty_dues', 'amount_monthly')
+    def _compute_payment_terms(self):
+        index = 1
+        before_date = datetime.date.today()
+
+        if self.qty_dues and self.collection_plan_id and self.amount_monthly:
+            for n in range(1, self.qty_dues + 1):
+                if index == 1:
+                    sd = before_date
+                else:
+                    sd = before_date + relativedelta(months=+1)
+
+                new_payment_term = self.env['education_contract.payment_term'].create({
+                    'amount': self.amount_monthly,
+                    'planned_date': sd,
+                    'plan_id': self.id
+                })
+
+                self.payment_term_ids = [(4, new_payment_term)]
+
+                before_date = sd
+
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(''))
     plan_active = fields.Boolean(_('Active'))
+    balance = fields.Float(digits=(6, 4), compute='_compute_balance', string=_('Balance'))
+    start_date = fields.Date(_('Start date'))
 
 
 class PaymentTerm(models.Model):
@@ -66,6 +102,7 @@ class PaymentTerm(models.Model):
     planned_date = fields.Date(_('Planned date'))
     payment_date = fields.Date(_('Payment date'))
     payed = fields.Boolean(_('Payed?'))
+    order = fields.Integer('Order')
 
     # payed_collection_plan_id = fields.One2many('collection_plan.collection_plan', string=_('Payed Collection Plan'))
 

@@ -651,12 +651,18 @@ class plan(models.Model):
             if self.type in 'cash':
                 self.residual = self.amount_pay - self._compute_voucher_sum()
             elif self.type in 'funded':
-                self.residual = self.qty_dues * self.amount_monthly
+                fee = 0.0
 
                 if self.registration_payed:
                     self.registration_residual = 0
+                    fee = self.registration_fee
                 else:
                     self.registration_residual = self.registration_fee
+
+                if self.qty_dues:
+                    self.amount_monthly = (self.amount_pay - fee) / self.qty_dues
+
+                self.residual = self.qty_dues * self.amount_monthly
 
     def _compute_voucher_sum(self):
         voucher_sum = 0.0

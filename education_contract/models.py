@@ -645,7 +645,7 @@ class plan(models.Model):
                     self.amount_monthly = round(residual / float(self.qty_dues), 4)
 
     @api.one
-    @api.depends('type', 'amount_pay', 'payment_term_ids')
+    @api.depends('type', 'amount_pay', 'payment_term_ids', 'qty_dues')
     def _compute_residual(self):
         if self.type:
             if self.type in 'cash':

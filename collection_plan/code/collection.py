@@ -15,9 +15,11 @@ class CollectionPlan(models.Model):
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))
     residual = fields.Float(digits=(10, 4), string=_('Amount'))
     state = fields.Selection([('created', _('New')), ('done', _('Finish'))], default='created')
-    payment_term_ids = fields.One2many(related='active_plan_id.payment_term_ids',
+    payment_term_ids = fields.One2many('education_contract.payment_term', 'collection_plan_id',
+                                       related='active_plan_id.payment_term_ids',
                                        string=_('Payment terms from active plan'))
-    payed_payment_term_ids = fields.One2many('education_contract.payment_term', string=_('All payed Payment terms'),
+    payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
+                                             string=_('All payed Payment terms'),
                                              compute='_compute_payed_terms', store=True)
     user_id = fields.Many2one('res.users', string=_('Account manager'))
     start_date = fields.Date('Start date')
@@ -38,3 +40,4 @@ class PaymentTerm(models.Model):
     _inherit = 'education_contract.payment_term'
 
     collection_plan_id = fields.One2many('collection_plan.collection_plan', string=_('Collection Plan'))
+    payed_collection_plan_id = fields.One2many('collection_plan.collection_plan', string=_('Payed Collection Plan'))

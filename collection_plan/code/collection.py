@@ -85,21 +85,30 @@ class EducationContractPlan(models.Model):
         index = 1
         before_date = datetime.date.today()
 
-        if self.qty_dues and self.collection_plan_id and self.amount_monthly:
-            for n in range(1, self.qty_dues + 1):
+        _self = False
+
+        if isinstance(self.id, models.NewId):
+            if 'activve_id' in self._context:
+                _self = self.env['education_contract.plan'].browse([self._context.get('active_id', False)])
+
+        if not _self:
+            return
+
+        if _self.qty_dues and _self.collection_plan_id and _self.amount_monthly:
+            for n in range(1, _self.qty_dues + 1):
                 if index == 1:
                     sd = before_date
                 else:
                     sd = before_date + relativedelta(months=+1)
 
                 new_payment_term = self.env['education_contract.payment_term'].create({
-                    'amount': self.amount_monthly,
+                    'amount': _self.amount_monthly,
                     'planned_date': sd,
-                    'plan_id': self.id
+                    'plan_id': _self.id
                 })
 
                 print(new_payment_term)
-                self.payment_term_fixed_ids = [(4, new_payment_term)]
+                _self.payment_term_fixed_ids = [(4, new_payment_term)]
 
                 before_date = sd
 

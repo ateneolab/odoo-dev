@@ -15,6 +15,7 @@
                                 <field name="contract_id" required="1"
                                        attrs="{'readonly': [('state', 'in', ['done'])]}"/>
                             </group>
+                            <group/>
                             <group>
                                 <field name="active_plan_id" required="1"
                                        attrs="{'readonly': [('state', 'in', ['done'])]}"/>

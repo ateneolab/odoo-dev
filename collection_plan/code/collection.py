@@ -67,7 +67,7 @@ class EducationContractPlan(models.Model):
         self.balance = sum
 
     @api.one
-    @api.depends('qty_dues', 'amount_monthly')
+    @api.onchange('qty_dues', 'amount_monthly')
     def _compute_payment_terms(self):
         index = 1
         before_date = datetime.date.today()

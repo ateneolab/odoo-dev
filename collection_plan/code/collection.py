@@ -11,6 +11,7 @@ class CollectionPlan(models.Model):
     def _compute_payed_terms(self):
         pass
 
+    contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
     active_plan_id = fields.Many2one('education_contract.plan')
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))
     residual = fields.Float(digits=(10, 4), string=_('Amount'))
@@ -39,3 +40,9 @@ class EducationContractPlan(models.Model):
     _inherit = 'education_contract.payment_term'
 
     payed_collection_plan_id = fields.One2many('collection_plan.collection_plan', string=_('Payed Collection Plan'))"""
+
+
+class EducationContract(models.Model):
+    _inherit = 'education_contract.contract'
+
+    collection_id = fields.Many2one('collection_plan.collection_plan', string=_('Collection plan'))

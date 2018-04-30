@@ -12,13 +12,17 @@
                     <sheet>
                         <group>
                             <group>
+                                <field name="contract_id" required="1"
+                                       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                            </group>
+                            <group>
                                 <field name="active_plan_id" required="1"
                                        attrs="{'readonly': [('state', 'in', ['done'])]}"/>
                                 <field name="start_date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
                             </group>
                             <group>
-                                <field name="end_date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
                                 <field name="user_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="end_date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
                             </group>
                         </group>
 

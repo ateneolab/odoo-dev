@@ -42,9 +42,10 @@ class CollectionPlan(models.Model):
             'residual': self.active_plan_id.amount_pay,
             'collection_plan_id': self.id
         })
+        self.env.cr.commit()
 
         self.plan_ids = [(4, self.active_plan_id.id)]
-        self.active_plan_id = new_plan.id
+        self.active_plan_id = new_plan
 
     contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
     active_plan_id = fields.Many2one('education_contract.plan')

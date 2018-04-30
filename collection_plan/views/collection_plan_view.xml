@@ -29,8 +29,29 @@
                         </group>
 
                         <notebook>
-                            <page string="Planned Payment">
-                                <field name="payment_term_ids"/>
+                            <page string="Planned Payments">
+                                <field name="payment_term_ids">
+                                    <tree>
+                                        <field name="type"/>
+                                        <field name="cash_sub_type"
+                                               attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
+                                               string="Tipo de efectivo"/>
+                                        <field name="amount"/>
+                                        <field name="voucher_id"
+                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
+                                        </field>
+                                        <field name="check_id"
+                                               attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
+                                        <field name="transfer_id"
+                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
+                                        <field name="description_other"
+                                               attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
+                                        <field name="planned_date"/>
+                                        <field name="payment_date"/>
+                                        <field name="payed"/>
+                                        <field name="invisible" invisible="1"/>
+                                    </tree>
+                                </field>
                             </page>
 
                             <page string="Payments made">

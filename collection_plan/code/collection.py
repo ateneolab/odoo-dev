@@ -42,11 +42,15 @@ class EducationContractPlan(models.Model):
     plan_active = fields.Boolean(_('Active'))
 
 
-"""class PaymentTerm(models.Model):
+class PaymentTerm(models.Model):
     _name = 'education_contract.payment_term'
     _inherit = 'education_contract.payment_term'
 
-    payed_collection_plan_id = fields.One2many('collection_plan.collection_plan', string=_('Payed Collection Plan'))"""
+    planned_date = fields.Date(_('Planned date'))
+    payment_date = fields.date_('Payment date')
+    payed = fields.Boolean(_('Payed?'))
+
+    #payed_collection_plan_id = fields.One2many('collection_plan.collection_plan', string=_('Payed Collection Plan'))
 
 
 class EducationContract(models.Model):

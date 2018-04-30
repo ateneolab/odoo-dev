@@ -44,7 +44,7 @@ class CollectionPlan(models.Model):
         })
 
         self.plan_ids = [(4, self.active_plan_id.id)]
-        self.active_plan_id = new_plan
+        self.active_plan_id = new_plan.id
 
     contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
     active_plan_id = fields.Many2one('education_contract.plan')

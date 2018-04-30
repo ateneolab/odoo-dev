@@ -94,7 +94,10 @@ class EducationContractPlan(models.Model):
         if not _self:
             return
 
-        if _self.qty_dues and _self.collection_plan_id and _self.amount_monthly:
+        if _self.qty_dues and _self.collection_plan_id \
+                and _self.amount_monthly \
+                and _self.plan_active \
+                and not _self.payment_term_fixed_ids:
             for n in range(1, _self.qty_dues + 1):
                 if index == 1:
                     sd = before_date

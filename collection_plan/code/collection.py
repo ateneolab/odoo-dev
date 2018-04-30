@@ -47,7 +47,7 @@ class PaymentTerm(models.Model):
     _inherit = 'education_contract.payment_term'
 
     planned_date = fields.Date(_('Planned date'))
-    payment_date = fields.date_('Payment date')
+    payment_date = fields.Date(_('Payment date'))
     payed = fields.Boolean(_('Payed?'))
 
     #payed_collection_plan_id = fields.One2many('collection_plan.collection_plan', string=_('Payed Collection Plan'))

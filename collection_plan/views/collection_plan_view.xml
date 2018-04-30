@@ -14,17 +14,17 @@
                             <group>
                                 <field name="active_plan_id" required="1"
                                        attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                                <field name="user_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="start_date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
                             </group>
                             <group>
-                                <field name="start_date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
                                 <field name="end_date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="user_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
                             </group>
                         </group>
 
                         <notebook>
                             <page string="Payment terms">
-                                <!--<field name="payment_term_ids"/>-->
+                                <field name="payment_term_ids"/>
                             </page>
 
                             <page string="Payments">

@@ -11,6 +11,13 @@ class CollectionPlan(models.Model):
     def _compute_payed_terms(self):
         pass
 
+    @api.one
+    @api.onchange('contract_id')
+    @api.depends('contract_id')
+    def onchange_contract_id(self):
+        if self.contract_id:
+            self.contract_id.write({'collection_id': self.id})
+
     contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
     active_plan_id = fields.Many2one('education_contract.plan')
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))

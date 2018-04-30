@@ -47,7 +47,7 @@
 
                         <notebook>
                             <page string="Planned Payments">
-                                <field name="payment_term_ids">
+                                <field name="payment_term_fixed_ids">
                                     <!--<tree editable="top">
                                         <field name="type"/>
                                         <field name="cash_sub_type"

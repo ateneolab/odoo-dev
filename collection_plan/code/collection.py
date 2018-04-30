@@ -91,8 +91,10 @@ class EducationContractPlan(models.Model):
 
                 before_date = sd
 
-    payment_term_fixed_ids = fields.One2many('education_contract.payment_term', 'fixed_plan_id',
-                                             compute='_compute_payment_terms', string=_('Payment terms'), store=True)
+    payment_term_ids =          fields.One2many('education_contract.payment_term', 'plan_id',
+                                       string='Formas de pago')
+    payment_term_fixed_ids =    fields.One2many('education_contract.payment_term', 'fixed_plan_id',
+                                             string=_('Payment terms'), store=True)
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(''))
     plan_active = fields.Boolean(_('Active'))
     balance = fields.Float(digits=(6, 4), compute='_compute_balance', string=_('Balance'))

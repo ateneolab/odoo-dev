@@ -78,7 +78,7 @@ class EducationContractPlan(models.Model):
         self.balance = sum
 
     @api.one
-    @api.onchange('qty_dues', 'amount_monthly')
+    @api.depends('qty_dues', 'amount_monthly')
     def _compute_payment_terms(self):
         import pdb;
         pdb.set_trace()

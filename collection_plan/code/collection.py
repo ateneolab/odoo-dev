@@ -21,6 +21,13 @@ class CollectionPlan(models.Model):
             self.contract_id.write({'collection_id': self.id})
 
     @api.one
+    @api.onchange('active_plan_id')
+    @api.depends('active_plan_id')
+    def onchange_active_plan_id(self):
+        if self.active_plan_id:
+            self.active_plan_id.write({'collection_plan_id': self.id})
+
+    @api.one
     def create_new_plan(self):
         if self.active_plan_id:
             self.active_plan_id.plan_active = False
@@ -70,7 +77,8 @@ class EducationContractPlan(models.Model):
     @api.one
     @api.onchange('qty_dues', 'amount_monthly')
     def _compute_payment_terms(self):
-        import pdb; pdb.set_trace()
+        import pdb;
+        pdb.set_trace()
         index = 1
         before_date = datetime.date.today()
 

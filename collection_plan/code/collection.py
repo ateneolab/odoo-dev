@@ -42,7 +42,7 @@ class CollectionPlan(models.Model):
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))
     residual = fields.Float(digits=(10, 4), string=_('Amount'))
     state = fields.Selection([('created', _('New')), ('done', _('Finish'))], default='created')
-    payment_term_ids = fields.One2many(related='active_plan_id.payment_term_ids',
+    payment_term_ids = fields.One2many(related='active_plan_id.payment_term_fixed_ids',
                                        string=_('Payment terms from active plan'))
     """payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
                                          string=_('All payed Payment terms'), compute='_compute_payed_terms',
@@ -70,6 +70,7 @@ class EducationContractPlan(models.Model):
     @api.one
     @api.onchange('qty_dues', 'amount_monthly')
     def _compute_payment_terms(self):
+        import pdb; pdb.set_trace()
         index = 1
         before_date = datetime.date.today()
 
@@ -91,10 +92,8 @@ class EducationContractPlan(models.Model):
 
                 before_date = sd
 
-    payment_term_ids =          fields.One2many('education_contract.payment_term', 'plan_id',
-                                       string='Formas de pago')
-    payment_term_fixed_ids =    fields.One2many('education_contract.payment_term', 'fixed_plan_id',
-                                             string=_('Payment terms'), store=True)
+    payment_term_fixed_ids = fields.One2many('education_contract.payment_term', 'fixed_plan_id',
+                                             compute='_compute_payment_terms', string=_('Payment terms'), store=True)
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(''))
     plan_active = fields.Boolean(_('Active'))
     balance = fields.Float(digits=(6, 4), compute='_compute_balance', string=_('Balance'))

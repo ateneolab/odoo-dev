@@ -8,6 +8,11 @@
             <field name="model">collection_plan.collection_plan</field>
             <field name="arch" type="xml">
                 <form string="Plan de Cobranzas">
+                    <header>
+                        <button name="create_new_plan" states="created" type="object" string="New plan"
+                                class="oe_highlight"/>
+                    </header>
+
                     <field name="state" invisible="1"/>
                     <sheet>
                         <group>
@@ -31,7 +36,7 @@
                         <notebook>
                             <page string="Planned Payments">
                                 <field name="payment_term_ids">
-                                    <tree>
+                                    <tree editable="top">
                                         <field name="type"/>
                                         <field name="cash_sub_type"
                                                attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"

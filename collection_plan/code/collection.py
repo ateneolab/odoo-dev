@@ -18,6 +18,21 @@ class CollectionPlan(models.Model):
         if self.contract_id:
             self.contract_id.write({'collection_id': self.id})
 
+    @api.one
+    def create_new_plan(self):
+        if self.active_plan_id:
+            self.active_plan_id.plan_active = False
+
+        new_plan = self.active_plan_id.copy({
+            'payment_term_ids': None,
+            'amount_pay': self.active_plan_id.residual,
+            'qty_dues': 0,
+            'amount_monthly': self.active_plan_id.residual
+        })
+
+        self.plan_ids = [(4, self.active_plan_id.id)]
+        self.active_plan_id = new_plan
+
     contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
     active_plan_id = fields.Many2one('education_contract.plan')
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))
@@ -50,7 +65,7 @@ class PaymentTerm(models.Model):
     payment_date = fields.Date(_('Payment date'))
     payed = fields.Boolean(_('Payed?'))
 
-    #payed_collection_plan_id = fields.One2many('collection_plan.collection_plan', string=_('Payed Collection Plan'))
+    # payed_collection_plan_id = fields.One2many('collection_plan.collection_plan', string=_('Payed Collection Plan'))
 
 
 class EducationContract(models.Model):

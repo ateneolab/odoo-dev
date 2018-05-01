@@ -27,12 +27,6 @@ class BranchOffice(models.Model):
     verification_id = fields.One2many('education_contract.verification')
 
 
-class Contract(models.Model):
-    _inherit = 'education_contract.contract'
-
-    verification_id = fields.Many2one('education_contract.verification')
-
-
 class User(models.Model):
     _inherit = 'res.users'
 

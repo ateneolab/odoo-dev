@@ -638,15 +638,25 @@ class plan(models.Model):
         print('COMPUTE DUES')
         if self.type:
             if self.type == 'funded':
-                # residual = self.amount_pay - self.registration_fee
-                residual = self.amount_pay + self.registration_residual - self.registration_fee
-                if self.qty_dues <= 0.0:
-                    self.qty_dues = 1
-                    self.amount_monthly = residual
-                elif self.qty_dues > 0.0:
-                    self.amount_monthly = round(residual / float(self.qty_dues), 4)
+                fee = 0.0
 
-    @api.one
+                if self.registration_payed:
+                    self.registration_residual = 0
+                    fee = self.registration_fee
+                else:
+                    self.registration_residual = self.registration_fee
+
+                if self.qty_dues:
+                    self.amount_monthly = round((self.amount_pay - fee) / self.qty_dues, 4)
+                else:
+                    self.amount_monthly = round((self.amount_pay - fee), 4)
+
+                self.residual = round(self.qty_dues * self.amount_monthly, 4)
+
+            if self.type in 'cash':
+                self.residual = self.amount_pay - self._compute_voucher_sum()
+
+    """@api.one
     @api.depends('type', 'amount_pay', 'payment_term_ids', 'qty_dues')
     def _compute_residual(self):
         print('COMPUTE RESIDUAL')
@@ -665,11 +675,10 @@ class plan(models.Model):
                 if self.qty_dues:
                     self.amount_monthly = round((self.amount_pay - fee) / self.qty_dues, 4)
 
-                self.residual = round(self.qty_dues * self.amount_monthly, 4)
+                self.residual = round(self.qty_dues * self.amount_monthly, 4)"""
 
     def _compute_voucher_sum(self):
         voucher_sum = 0.0
-        # for v in self.payment_info_ids:
         for v in self.payment_term_ids:
             voucher_sum += v.amount
 
@@ -680,14 +689,13 @@ class plan(models.Model):
     amount_pay = fields.Float(string='Total a pagar', digits=(6, 4), required=True, default=0.00001)
     registration_fee = fields.Float(string='Valor matricula', digits=(6, 4))
     qty_dues = fields.Integer(string='Cantidad de cuotas')
-    amount_monthly = fields.Float(digits=(6, 4), string='Valor mensual')  # , compute='_compute_dues'
-    residual = fields.Float(compute='_compute_residual', digits=(6, 4), string='Saldo total a pagar')
-    registration_residual = fields.Float(compute='_compute_residual', string='Saldo matricula', digits=(6, 4))
+    amount_monthly = fields.Float(digits=(6, 4), string='Valor mensual', compute='_compute_dues')
+    residual = fields.Float(compute='_compute_dues', digits=(6, 4), string='Saldo total a pagar')
+    registration_residual = fields.Float(compute='_compute_dues', string='Saldo matricula', digits=(6, 4))
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')
     payment_term_ids = fields.One2many('education_contract.payment_term', 'plan_id',
                                        string='Formas de pago')  # compute='_compute_payment_term',
     registration_payed = fields.Boolean(_('Registration payed?'))
-    # payment_info_ids = fields.One2many('education_contract.payment_info', 'plan_id', string='Abonos')
 
 
 #### Payment term

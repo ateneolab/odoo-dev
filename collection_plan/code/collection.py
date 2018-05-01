@@ -69,7 +69,7 @@ class EducationContractPlan(models.Model):
     _inherit = 'education_contract.plan'
 
     @api.one
-    @api.depends('payment_term_ids')
+    @api.onchange('payment_term_ids')
     def _compute_balance(self):
         print('COMPUTE BALANCE')
         sum = 0.0

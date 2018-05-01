@@ -173,8 +173,6 @@ class education_contract(models.Model):
         return sum
 
     def get_not_done_amount(self):
-        import pdb;
-        pdb.set_trace()
         if self.plan_id.type in 'cash':
             return self.plan_id.amount_pay - self.get_done_amount()
         elif self.plan_id.type in 'funded':
@@ -629,13 +627,12 @@ class plan(models.Model):
                 self.registration_residual = 0.0
                 self.amount_monthly = 0.0
 
+
     @api.one
-    @api.depends('type', 'amount_pay', 'qty_dues', 'payment_term_ids')
+    @api.depends('type', 'amount_pay', 'qty_dues')
     def _compute_dues(self):
         if self.type:
             if self.type == 'funded':
-                import pdb
-                pdb.set_trace()
                 payed = self._compute_voucher_sum()
                 if payed >= self.registration_fee:
                     self.registration_residual = 0.0

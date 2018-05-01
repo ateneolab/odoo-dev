@@ -96,6 +96,8 @@ class EducationContractPlan(models.Model):
 
                 before_date = sd
 
+                index += 1
+
     @api.one
     @api.onchange('payment_term_ids')
     def _compute_balance(self):

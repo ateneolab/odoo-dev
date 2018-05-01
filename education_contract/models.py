@@ -613,7 +613,7 @@ class plan(models.Model):
 
         for object in record_name:
             res.append((object.id,
-                        '%s - %s - %s' % (object.contract_id.barcode, TYPE.get(object.type, ''), object.amount_pay)))
+                        '%s - %s - %s' % (object.contract_id.barcode or '', TYPE.get(object.type, ''), object.amount_pay)))
 
         return res
 
@@ -845,7 +845,7 @@ class payment_term(models.Model):
         default='cash', string='Forma de pago', required=True)
     description_other = fields.Char('Especificacion')
     cash_sub_type = fields.Selection(
-        [('debit_card', 'Tarjeta de debito'), ('transfer', 'Transferencia'), ('cash', 'Efectivo')])
+        [('debit_card', 'Tarjeta de debito'), ('transfer', 'Transferencia'), ('cash', 'Efectivo')], default='cash')
     sub_type = fields.Selection(
         [('debit_card', 'Tarjeta de debito'), ('transfer', 'Transferencia'), ('cash', 'Efectivo')])
     voucher_id = fields.Many2one('education_contract.voucher', string='Voucher')

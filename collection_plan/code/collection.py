@@ -9,6 +9,11 @@ class CollectionPlan(models.Model):
     _name = 'collection_plan.collection_plan'
 
     @api.one
+    def reschedule_plan(self):
+        if self.active_plan_id:
+            self.active_plan_id.reschedule()
+
+    @api.one
     @api.depends('active_plan_id', 'plan_ids', 'payment_term_ids')
     def _compute_payed_terms(self):
         pass
@@ -69,6 +74,28 @@ class EducationContractPlan(models.Model):
     _inherit = 'education_contract.plan'
 
     @api.one
+    def reschedule(self):
+        index = 1
+        before_date = self.start_date
+
+        if self.qty_dues and self.plan_active:
+            for n in range(1, self.qty_dues + 1):
+                if index == 1:
+                    sd = before_date
+                else:
+                    sd = before_date + relativedelta(months=+1)
+
+                new_payment_term = self.env['education_contract.payment_term'].create({
+                    'amount': self.amount_monthly,
+                    'planned_date': sd,
+                    'plan_id': self.id
+                })
+
+                self.payment_term_fixed_ids = [(4, new_payment_term)]
+
+                before_date = sd
+
+    @api.one
     @api.onchange('payment_term_ids')
     def _compute_balance(self):
         print('COMPUTE BALANCE')
@@ -79,8 +106,8 @@ class EducationContractPlan(models.Model):
                     sum += pt.amount
         self.balance = sum
 
-    @api.one
-    @api.depends('qty_dues', 'amount_monthly')
+    """@api.one
+    @api.depends('qty_dues')
     def _compute_payment_terms(self):
         import pdb;
         pdb.set_trace()
@@ -98,18 +125,18 @@ class EducationContractPlan(models.Model):
                 else:
                     sd = before_date + relativedelta(months=+1)
 
-                """new_payment_term = self.env['education_contract.payment_term'].create({
+                new_payment_term = self.env['education_contract.payment_term'].create({
                     'amount': self.amount_monthly,
                     'planned_date': sd,
                     'plan_id': self.id
                 })
 
-                self.payment_term_fixed_ids = [(4, new_payment_term)]"""
+                self.payment_term_fixed_ids = [(4, new_payment_term)]
 
-                before_date = sd
+                before_date = sd"""
 
     payment_term_fixed_ids = fields.One2many('education_contract.payment_term', 'fixed_plan_id',
-                                             compute='_compute_payment_terms', string=_('Payment terms'), store=True)
+                                             string=_('Payment terms'))
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(''))
     plan_active = fields.Boolean(_('Active'))
     balance = fields.Float(digits=(6, 4), compute='_compute_balance', string=_('Balance'))

@@ -9,7 +9,7 @@
             <field name="model">collection_plan.collection_plan</field>
             <field name="inherit_id" ref="collection_plan.view_collection_plan_form"/>
             <field name="arch" type="xml">
-                <button name="reschedule_plan" posibion="after">
+                <button name="reschedule_plan" position="after">
                     <button name="generate_verification" states="created" type="object" string="Generate verification"
                             class="oe_highlight"/>
                 </button>

@@ -8,8 +8,7 @@ from openerp.exceptions import ValidationError
 class ContractVerification(models.Model):
     _name = 'education_contract.verification'
 
-    """operating_unit_id = fields.Many2one('operating.unit', 'verification_id',
-                                        related='contract_id.campus_id')"""
+    operating_unit_id = fields.Many2one(related='contract_id.campus_id')
     contract_id = fields.Many2one('education_contract.contract', 'verification_id')
     """contract_date = fields.Date(_('Contract date'), related='contract_id.date')
     verification_date = fields.Date()

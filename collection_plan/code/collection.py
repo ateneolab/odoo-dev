@@ -11,6 +11,7 @@ class CollectionPlan(models.Model):
     @api.one
     def reschedule_plan(self):
         if self.active_plan_id:
+            self.active_plan_id.start_date = self.start_date
             self.active_plan_id.reschedule()
 
     @api.one

@@ -223,7 +223,6 @@
                 <form string="Plan de financiamiento">
                     <group>
                         <group>
-                            <field name="id"/>
                             <field name="type"/>
                             <field name="contract_id"
                                    invisible="1"/> <!-- context="{'default_contract_id': parent.id}" -->

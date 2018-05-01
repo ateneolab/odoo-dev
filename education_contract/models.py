@@ -630,7 +630,7 @@ class plan(models.Model):
                 self.amount_monthly = 0.0
 
     @api.one
-    @api.depends('type', 'amount_pay', 'qty_dues')
+    @api.depends('type', 'amount_pay', 'qty_dues', 'payment_term_ids')
     def _compute_dues(self):
         if self.type:
             if self.type == 'funded':

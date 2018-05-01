@@ -20,7 +20,8 @@ class Contract(models.Model):
                 'payment_term_ids': None,
                 'amount_pay': self.plan_id.residual,
                 'plan_active': True,
-                'start_date': datetime.today()
+                'start_date': datetime.today(),
+                'contract_id': None
             })
 
             active_plan_id.reschedule()

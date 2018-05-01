@@ -91,7 +91,7 @@ class EducationContractPlan(models.Model):
                     'plan_id': self.id
                 })
 
-                self.payment_term_fixed_ids = [(4, new_payment_term)]
+                self.payment_term_fixed_ids = [(4, new_payment_term.id)]
 
                 before_date = sd
 

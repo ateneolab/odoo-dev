@@ -468,12 +468,13 @@ class education_contract(models.Model):
         self.pool.get('education_contract.contract').browse(cr, uid, ids).write({'state': 'canceled'})
 
     @api.multi
-    def to_asigned(self, context=None):
+    def to_assigned(self, context=None):
         filled = self.validate_filled()
 
         if not filled:
             raise ValidationError("Debe completar todos los datos del contrato para cambiar a estado 'Asignado'.")
         else:
+
             self.write({'state': 'asigned'})
 
     def _update_programs(self):

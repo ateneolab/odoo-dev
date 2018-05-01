@@ -38,8 +38,7 @@ class CollectionPlan(models.Model):
     def create_new_plan(self):
         if self.active_plan_id:
             self.active_plan_id.plan_active = False
-        import pdb
-        pdb.set_trace()
+
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,
             'amount_pay': self.active_plan_id.amount_pay,

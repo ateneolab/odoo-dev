@@ -72,7 +72,7 @@
                         <button name="to_validated" states="prechecked" type="object" string="Conciliado"
                                 class="oe_highlight"/>
                         <button name="to_canceled" states="waiting" type="object" string="Anular" class="oe_highlight"/>
-                        <button name="to_asigned" states="done" type="object" string="Asignar" class="oe_highlight"/>
+                        <button name="to_assigned" states="done" type="object" string="Asignar" class="oe_highlight"/>
                         <field name="state" widget="statusbar" type="object"
                                statusbar_visible="draft,prechecked,done,waiting,asigned"/>
                     </header>

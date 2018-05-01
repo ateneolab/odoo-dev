@@ -78,7 +78,8 @@ class EducationContractPlan(models.Model):
     def reschedule(self):
         index = 1
         before_date = self.start_date
-
+        import pdb
+        pdb.set_trace()
         if self.qty_dues and self.plan_active:
             for n in range(1, self.qty_dues + 1):
                 if index == 1:

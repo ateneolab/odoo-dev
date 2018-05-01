@@ -47,7 +47,8 @@ class CollectionPlan(models.Model):
             'registration_fee': 0.0,
             'residual': self.active_plan_id.amount_pay,
             'collection_plan_id': self.id,
-            'plan_active': True
+            'plan_active': True,
+            'contract_id': None,
         })
         self.env.cr.commit()
 

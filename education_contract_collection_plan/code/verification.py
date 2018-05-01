@@ -17,6 +17,8 @@ class ContractVerification(models.Model):
                                           default='home')
     user_id = fields.Many2one(related='contract_id.seller_id')
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', _('Collection plan'))
+    plan_id = fields.Many2one('education_contract.plan', _('Payment plan'))
+    payment_term_ids = fields.One2many(related='plan_id.payment_term_ids')
 
 
 """class BranchOffice(models.Model):

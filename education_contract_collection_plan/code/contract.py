@@ -28,10 +28,20 @@ class Contract(models.Model):
 
             active_plan_id.reschedule()
 
-            self.env['collection_plan.collection_plan'].create({
+            """self.env['education_contract.verification'].create({
+                'plan_id': active_plan_id.id,
+                'start_date': active_plan_id.start_date,
+                'contract_id': self.id,
+            })"""
+
+            """self.env['collection_plan.collection_plan'].create({
                 'active_plan_id': active_plan_id.id,
                 'start_date': active_plan_id.start_date,
                 'contract_id': self.id,
-            })
+            })"""
 
-            self.write({'state': 'asigned'})
+            self.write({'state': 'asigned', 'verification_id': {
+                'plan_id': active_plan_id.id,
+                'start_date': active_plan_id.start_date,
+                'contract_id': self.id,
+            }})

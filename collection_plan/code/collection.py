@@ -76,11 +76,17 @@ class EducationContractPlan(models.Model):
     _inherit = 'education_contract.plan'
 
     @api.one
+    def remove_payment_terms(self):
+        for pt in self.payment_term_fixed_ids:
+            pt.unlink()
+
+    @api.one
     def reschedule(self):
         index = 1
         before_date = datetime.strptime(self.start_date, '%Y-%m-%d')
-        import pdb
-        pdb.set_trace()
+
+        self.remove_payment_terms()
+
         if self.qty_dues and self.plan_active:
             for n in range(1, self.qty_dues + 1):
                 if index == 1:

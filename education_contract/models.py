@@ -1,11 +1,7 @@
 # -*- coding: iso-8859-1 -*-
 
 from openerp import models, fields, api, _
-from datetime import datetime, timedelta
-from dateutil import parser
 from openerp.exceptions import ValidationError
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-import json
 
 
 #### Beneficiary
@@ -636,16 +632,22 @@ class plan(models.Model):
     @api.one
     @api.depends('type', 'amount_pay', 'qty_dues')
     def _compute_dues(self):
-        print('COMPUTE DUES')
         if self.type:
             if self.type == 'funded':
                 fee = 0.0
 
+                payed = self._compute_voucher_sum()
+                if payed >= self.registration_fee:
+                    fee = 0.0
+                else:
+                    fee = self.registration_fee - payed
+
+                self.registration_payed = fee == 0
+
                 if self.registration_payed:
                     self.registration_residual = 0
-                    fee = self.registration_fee
                 else:
-                    self.registration_residual = self.registration_fee
+                    self.registration_residual = fee
 
                 if self.qty_dues:
                     self.amount_monthly = round((self.amount_pay - fee) / self.qty_dues, 4)

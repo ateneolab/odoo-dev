@@ -635,7 +635,8 @@ class plan(models.Model):
         if self.type:
             if self.type == 'funded':
                 fee = 0.0
-
+                import pdb
+                pdb.set_trace()
                 payed = self._compute_voucher_sum()
                 if payed >= self.registration_fee:
                     fee = 0.0

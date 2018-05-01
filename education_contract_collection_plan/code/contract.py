@@ -9,7 +9,7 @@ class Contract(models.Model):
     _name = 'education_contract.contract'
     _inherit = 'education_contract.contract'
 
-    verification_id = fields.Many2one('education_contract.verification')
+    verification_id = fields.Many2one('education_contract.verification', 'contract_id')
 
     @api.multi
     def to_assigned(self):

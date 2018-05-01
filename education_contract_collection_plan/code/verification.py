@@ -30,13 +30,13 @@ class BranchOffice(models.Model):
 class User(models.Model):
     _inherit = 'res.users'
 
-    verification_id = fields.Many2one('education_contract.verification')
+    verification_id = fields.Many2one('education_contract.verification', 'user_id')
 
 
 class CollectionPlan(models.Model):
     _inherit = 'collection_plan.collection_plan'
 
-    verification_id = fields.Many2one('education_contract.verification')
+    verification_id = fields.Many2one('education_contract.verification', 'collection_plan_id')
 
     @api.one
     def generate_verification(self):

@@ -98,13 +98,13 @@ class EducationContractPlan(models.Model):
                 else:
                     sd = before_date + relativedelta(months=+1)
 
-                new_payment_term = self.env['education_contract.payment_term'].create({
+                """new_payment_term = self.env['education_contract.payment_term'].create({
                     'amount': self.amount_monthly,
                     'planned_date': sd,
                     'plan_id': self.id
                 })
 
-                self.payment_term_fixed_ids = [(4, new_payment_term)]
+                self.payment_term_fixed_ids = [(4, new_payment_term)]"""
 
                 before_date = sd
 

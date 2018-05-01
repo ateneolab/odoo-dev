@@ -18,7 +18,7 @@ class Contract(models.Model):
         else:
             active_plan_id = self.plan_id.copy({
                 'payment_term_ids': None,
-                'amount_pay': self.active_plan_id.residual,
+                'amount_pay': self.plan_id.residual,
                 'plan_active': True,
                 'start_date': datetime.today()
             })

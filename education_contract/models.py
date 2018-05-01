@@ -642,7 +642,7 @@ class plan(models.Model):
                 else:
                     self.registration_residual = self.registration_fee - payed
 
-                self.registration_payed = self.registration_residual == 0
+                self.write({'registration_payed': self.registration_residual == 0})
 
                 if self.qty_dues:
                     self.amount_monthly = round((self.amount_pay - payed) / self.qty_dues, 4)

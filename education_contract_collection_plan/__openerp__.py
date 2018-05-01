@@ -26,8 +26,8 @@
     'data': [
         # 'security/ir.model.access.csv',
         'templates.xml',
-        'views/collection_plan_view.xml',
-        'views/menu_view.xml',
+        #'views/collection_plan_view.xml',
+        #'views/menu_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

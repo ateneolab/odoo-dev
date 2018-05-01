@@ -24,5 +24,11 @@
         <menuitem action="action_verifications" id="menu_verifications" parent="verifications_menu"
                   sequence="6"/>
 
+        <!-- -->
+        <menuitem name="Collections" id="collections_menu"
+                  parent="education_contract_menu"/>
+        <menuitem action="action_collections" id="menu_collections" parent="collections_menu"
+                  sequence="6"/>
+
     </data>
 </openerp>

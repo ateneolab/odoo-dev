@@ -58,7 +58,7 @@
                     <field name="contract_id"/>
                     <field name="collection_plan_id"/>
                     <field name="operating_unit_id"/>
-                    <field name="seller_id"/>
+                    <field name="user_id"/>
                 </tree>
             </field>
         </record>

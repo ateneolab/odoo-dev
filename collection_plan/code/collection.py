@@ -80,6 +80,9 @@ class EducationContractPlan(models.Model):
         for pt in self.payment_term_fixed_ids:
             pt.unlink()
 
+        for pt in self.payment_term_ids:
+            pt.unlink()
+
     @api.one
     def reschedule(self):
         index = 1

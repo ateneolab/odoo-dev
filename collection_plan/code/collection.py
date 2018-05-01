@@ -71,6 +71,7 @@ class EducationContractPlan(models.Model):
     @api.one
     @api.depends('payment_term_ids')
     def _compute_balance(self):
+        print('COMPUTE BALANCE')
         sum = 0.0
         if self.payment_term_ids:
             for pt in self.payment_term_ids:
@@ -83,6 +84,7 @@ class EducationContractPlan(models.Model):
     def _compute_payment_terms(self):
         import pdb;
         pdb.set_trace()
+        print('COMPUTE PAYMENT TERMS')
         index = 1
         before_date = datetime.date.today()
 
@@ -102,7 +104,6 @@ class EducationContractPlan(models.Model):
                     'plan_id': self.id
                 })
 
-                print(new_payment_term)
                 self.payment_term_fixed_ids = [(4, new_payment_term)]
 
                 before_date = sd

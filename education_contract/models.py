@@ -624,6 +624,7 @@ class plan(models.Model):
 
     @api.onchange('type')
     def clean_fields(self):
+        print('CLEAN FIELDS')
         if self.type:
             if self.type == 'cash':
                 self.qty_dues = 0.0
@@ -634,11 +635,12 @@ class plan(models.Model):
     @api.one
     @api.depends('type', 'amount_pay', 'qty_dues')
     def _compute_dues(self):
+        print('COMPUTE DUES')
         if self.type:
             if self.type == 'funded':
                 # residual = self.amount_pay - self.registration_fee
                 residual = self.amount_pay + self.registration_residual - self.registration_fee
-                if self.qty_dues == 0.0:
+                if self.qty_dues <= 0.0:
                     self.qty_dues = 1
                     self.amount_monthly = residual
                 elif self.qty_dues > 0.0:
@@ -647,6 +649,7 @@ class plan(models.Model):
     @api.one
     @api.depends('type', 'amount_pay', 'payment_term_ids', 'qty_dues')
     def _compute_residual(self):
+        print('COMPUTE RESIDUAL')
         if self.type:
             if self.type in 'cash':
                 self.residual = self.amount_pay - self._compute_voucher_sum()
@@ -660,9 +663,9 @@ class plan(models.Model):
                     self.registration_residual = self.registration_fee
 
                 if self.qty_dues:
-                    self.amount_monthly = (self.amount_pay - fee) / self.qty_dues
+                    self.amount_monthly = round((self.amount_pay - fee) / self.qty_dues, 4)
 
-                self.residual = self.qty_dues * self.amount_monthly
+                self.residual = round(self.qty_dues * self.amount_monthly, 4)
 
     def _compute_voucher_sum(self):
         voucher_sum = 0.0

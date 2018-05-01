@@ -9,14 +9,14 @@ class ContractVerification(models.Model):
     _name = 'education_contract.verification'
 
     operating_unit_id = fields.Many2one(related='contract_id.campus_id')
-    contract_id = fields.Many2one('education_contract.contract', 'verification_id')
+    contract_id = fields.Many2one('education_contract.contract', _('Education contract'))
     contract_date = fields.Date(_('Contract date'), related='contract_id.date')
     verification_date = fields.Date()
     agreement_duration = fields.Integer(_('Duration of the agreement (Months)'))
     verification_place = fields.Selection([('office', _('Office')), ('home', _('Home')), ('work', _('Work'))],
                                           default='home')
     user_id = fields.Many2one(related='contract_id.seller_id')
-    collection_plan_id = fields.Many2one('collection_plan.collection_plan', 'verification_id')
+    collection_plan_id = fields.Many2one('collection_plan.collection_plan', _('Collection plan'))
 
 
 """class BranchOffice(models.Model):

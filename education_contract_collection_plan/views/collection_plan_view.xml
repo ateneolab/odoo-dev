@@ -10,7 +10,7 @@
             <field name="inherit_id" ref="collection_plan.view_collection_plan_form"/>
             <field name="arch" type="xml">
                 <button name="reschedule_plan" position="after">
-                    <button name="generate_verification" states="created" type="object" string="Generate verification"
+                    <button name="generate_verification" type="object" string="Generate verification"
                             class="oe_highlight"/>
                 </button>
 
@@ -26,7 +26,7 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="print" states="created" type="object" string="Print Verification Report"
+                        <button name="print" type="object" string="Print Verification Report"
                                 class="oe_highlight"/>
                     </header>
 

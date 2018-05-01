@@ -1,0 +1,28 @@
+<openerp>
+    <data>
+
+        <record id="action_verifications" model="ir.actions.act_window">
+            <field name="name">Verifications</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">education_contract.verification</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clic to create a Contract Verification.
+                </p>
+                <p>
+                    Solem Collections te ayuda a administrar los contratos de forma eficiente durante todo el flujo:
+                    creacion, verificacion, aprobacion, asignacion.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Education Contract" id="education_contract_menu"/>
+        <menuitem name="Verifications" id="verifications_menu"
+                  parent="education_contract_menu"/>
+        <menuitem action="action_verifications" id="menu_verifications" parent="verifications_menu"
+                  sequence="6"/>
+
+    </data>
+</openerp>

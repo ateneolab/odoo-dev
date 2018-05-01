@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<openerp>
+    <data>
+
+
+        <record id="view_collection_plan_form2" model="ir.ui.view">
+            <field name="name">collection_plan.form2</field>
+            <field name="model">collection_plan.collection_plan</field>
+            <field name="inherit_id" ref="collection_plan.view_collection_plan_form"/>
+            <field name="arch" type="xml">
+                <button name="reschedule_plan" posibion="after">
+                    <button name="generate_verification" states="created" type="object" string="Generate verification"
+                            class="oe_highlight"/>
+                </button>
+
+                <field name="active_plan_id" position="after">
+                    <field name="verification_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_verification_form" model="ir.ui.view">
+            <field name="name">education_contract.verification.form</field>
+            <field name="model">education_contract.verification</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="print" states="created" type="object" string="Print Verification Report"
+                                class="oe_highlight"/>
+                    </header>
+
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="contract_id"/>
+                                <field name="collection_plan_id"/>
+                                <field name="operating_unit_id"/>
+                            </group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="verification_date"/>
+                                <field name="verification_place"/>
+                                <field name="agreement_duration"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_verification_tree" model="ir.ui.view">
+            <field name="name">education_contract.verification.tree</field>
+            <field name="model">education_contract.verification</field>
+            <field name="arch" type="xml">
+                <tree string="Contract Verification">
+                    <field name="contract_id"/>
+                    <field name="collection_plan_id"/>
+                    <field name="operating_unit_id"/>
+                    <field name="seller_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

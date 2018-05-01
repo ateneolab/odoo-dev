@@ -2,6 +2,7 @@
 
 from openerp import models, fields, api, _
 import datetime
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 
@@ -77,7 +78,7 @@ class EducationContractPlan(models.Model):
     @api.one
     def reschedule(self):
         index = 1
-        before_date = self.start_date
+        before_date = datetime.strptime(self.start_date, '%Y-%m-%d')
         import pdb
         pdb.set_trace()
         if self.qty_dues and self.plan_active:

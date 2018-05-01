@@ -634,26 +634,20 @@ class plan(models.Model):
     def _compute_dues(self):
         if self.type:
             if self.type == 'funded':
-                fee = 0.0
                 import pdb
                 pdb.set_trace()
                 payed = self._compute_voucher_sum()
                 if payed >= self.registration_fee:
-                    fee = 0.0
+                    self.registration_residual = 0.0
                 else:
-                    fee = self.registration_fee - payed
+                    self.registration_residual = self.registration_fee - payed
 
-                self.registration_payed = fee == 0
-
-                if self.registration_payed:
-                    self.registration_residual = 0
-                else:
-                    self.registration_residual = fee
+                self.registration_payed = self.registration_residual == 0
 
                 if self.qty_dues:
-                    self.amount_monthly = round((self.amount_pay - fee) / self.qty_dues, 4)
+                    self.amount_monthly = round((self.amount_pay - payed) / self.qty_dues, 4)
                 else:
-                    self.amount_monthly = round((self.amount_pay - fee), 4)
+                    self.amount_monthly = round((self.amount_pay - payed), 4)
 
                 self.residual = round(self.qty_dues * self.amount_monthly, 4)
 

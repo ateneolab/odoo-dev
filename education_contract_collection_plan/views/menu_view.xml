@@ -25,6 +25,23 @@
                   sequence="6"/>
 
         <!-- -->
+        <record id="action_collections" model="ir.actions.act_window">
+            <field name="name">Collections</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">collection_plan.collection_plan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Clic to create a Collection plan.
+                </p>
+                <p>
+                    Solem Collections te ayuda a administrar los contratos de forma eficiente durante todo el flujo:
+                    creacion, verificacion, aprobacion, asignacion.
+                </p>
+            </field>
+        </record>
+
         <menuitem name="Collections" id="collections_menu"
                   parent="education_contract_menu"/>
         <menuitem action="action_collections" id="menu_collections" parent="collections_menu"

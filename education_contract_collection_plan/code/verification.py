@@ -17,17 +17,20 @@ class ContractVerification(models.Model):
         import pdb
         pdb.set_trace()
 
-        payment_term_ids = []
+        # payment_term_ids = []
         for pt in self.plan_id.payment_term_ids:
             new_pt = pt.copy({
                 'plan_id': plan_id.id
             })
 
-            payment_term_ids.append(new_pt)
+            plan_id.write({
+                'payment_term_ids': [(4, new_pt.id)]
+            })
+            # payment_term_ids.append(new_pt)
 
-        plan_id.write({
+        """plan_id.write({
             'payment_term_ids': (6, 0, payment_term_ids)
-        })
+        })"""
 
         data = {
             'active_plan_id': plan_id.id,

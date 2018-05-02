@@ -40,4 +40,4 @@ class Contract(models.Model):
                 'contract_id': self.id,
             })"""
 
-            self.write({'state': 'asigned', 'verification_id': verification_id})
+            self.write({'state': 'asigned', 'verification_id': verification_id.id})

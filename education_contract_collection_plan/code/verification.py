@@ -8,6 +8,25 @@ from openerp.exceptions import ValidationError
 class ContractVerification(models.Model):
     _name = 'education_contract.verification'
 
+    @api.one
+    def generate_collection_plan(self):
+        plan_id = self.plan_id.copy({
+            'contract_id': None
+        })
+
+        collection_id = self.env['collection_plan.collection_plan'].create({
+            'active_plan_id': plan_id.id,
+            'start_date': plan_id.start_date,
+            'contract_id': self.id,
+            'verification_id': self.id
+        })
+
+        self.write({
+            'collection_plan_id': collection_id.id,
+            'contract_id': self.contract_id.id,
+            'start_date': plan_id.start_date
+        })
+
     operating_unit_id = fields.Many2one(related='contract_id.campus_id')
     contract_id = fields.Many2one('education_contract.contract', _('Education contract'))
     contract_date = fields.Date(_('Contract date'), related='contract_id.date')
@@ -40,7 +59,7 @@ class CollectionPlan(models.Model):
 
     verification_id = fields.Many2one('education_contract.verification', 'collection_plan_id')
 
-    @api.one
+    """@api.one
     def generate_verification(self):
         verification_id = self.env['education_contract.verification'].create({
             'collection_plan_id': self.id,
@@ -49,4 +68,4 @@ class CollectionPlan(models.Model):
 
         self.write({
             'verification_id': verification_id.id
-        })
+        })"""

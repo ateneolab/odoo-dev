@@ -14,6 +14,9 @@ class ContractVerification(models.Model):
             'contract_id': None
         })
 
+        import pdb
+        pdb.set_trace()
+
         payment_term_ids = []
         for pt in self.plan_id.payment_term_ids:
             new_pt = pt.copy({

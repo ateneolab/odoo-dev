@@ -28,6 +28,8 @@
                     <header>
                         <button name="print" type="object" string="Print Verification Report"
                                 class="oe_highlight"/>
+                        <button name="to_signed" type="object" string="Mark as Signed"
+                                class="oe_highlight"/>
                         <button name="generate_collection_plan" type="object" string="Generate collection plan"
                                 class="oe_highlight"/>
                     </header>
@@ -52,12 +54,12 @@
                             <page string="Planned Payments">
                                 <field name="payment_term_ids">
                                     <tree editable="top">
-                                        <field name="type"/>
+                                        <!--<field name="type"/>
                                         <field name="cash_sub_type"
                                                attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
-                                               string="Tipo de efectivo"/>
+                                               string="Tipo de efectivo"/>-->
                                         <field name="amount"/>
-                                        <field name="voucher_id"
+                                        <!--<field name="voucher_id"
                                                attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
                                         </field>
                                         <field name="check_id"
@@ -65,10 +67,10 @@
                                         <field name="transfer_id"
                                                attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
                                         <field name="description_other"
-                                               attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
+                                               attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>-->
                                         <field name="planned_date"/>
-                                        <field name="payment_date"/>
-                                        <field name="payed"/>
+                                        <!--<field name="payment_date"/>
+                                        <field name="payed"/>-->
                                         <field name="invisible" invisible="1"/>
                                     </tree>
                                 </field>

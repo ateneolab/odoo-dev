@@ -23,7 +23,7 @@ class ContractVerification(models.Model):
                 'plan_id': plan_id.id
             })
 
-            payment_term_ids.append(new_pt.id)
+            payment_term_ids.append(new_pt)
 
         plan_id.write({
             'payment_term_ids': (6, 0, payment_term_ids)

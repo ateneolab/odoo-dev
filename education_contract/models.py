@@ -631,6 +631,8 @@ class plan(models.Model):
     @api.one
     @api.depends('type', 'amount_pay', 'qty_dues')
     def _compute_dues(self):
+        import pdb
+        pdb.set_trace()
         if self.type:
             if self.type == 'funded':
                 payed = self._compute_voucher_sum()

@@ -55,6 +55,7 @@
                                 <group>
                                     <group>
                                         <field name="plan_id"/>
+                                        <button name="reschedule_plan" type="object" string="Reschedule plan"/>
                                     </group>
                                     <group>
                                         <field name="payment_term_ids" nolabel="1">

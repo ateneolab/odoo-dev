@@ -1,12 +1,17 @@
 # -*- coding: iso-8859-1 -*-
 
 from openerp import models, fields, api, _
-from datetime import datetime, timedelta
-from openerp.exceptions import ValidationError
 
 
 class ContractVerification(models.Model):
     _name = 'education_contract.verification'
+
+    @api.one
+    def reschedule_plan(self):
+        if self.plan_id:
+            if not self.plan_id.start_date:
+                self.plan_id.start_date = self.start_date
+            self.plan_id.reschedule()
 
     @api.one
     def generate_collection_plan(self):
@@ -50,20 +55,6 @@ class ContractVerification(models.Model):
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', _('Collection plan'))
     plan_id = fields.Many2one('education_contract.plan', _('Payment plan'))
     payment_term_ids = fields.One2many(related='plan_id.payment_term_ids')
-
-
-"""class BranchOffice(models.Model):
-    _name = 'operating.unit'
-    _inherit = 'operating.unit'
-
-    verification_id = fields.One2many('education_contract.verification')"""
-
-"""
-class User(models.Model):
-    _inherit = 'res.users'
-
-    verification_id = fields.Many2one('education_contract.verification', 'user_id')
-"""
 
 
 class CollectionPlan(models.Model):

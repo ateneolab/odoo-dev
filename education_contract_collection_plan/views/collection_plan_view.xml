@@ -27,11 +27,11 @@
                 <form>
                     <header>
                         <button name="print" type="object" string="Print Verification Report"
-                                class="oe_highlight"/>
+                                class="oe_highlight" confirm="Are you sure Paymen plan is updated with Payment terms?"/>
                         <button name="to_signed" type="object" string="Mark as Signed"
                                 class="oe_highlight"/>
                         <button name="generate_collection_plan" type="object" string="Generate collection plan"
-                                class="oe_highlight"/>
+                                class="oe_highlight" confirm="Are you sure Paymen plan is updated with Payment terms?"/>
                     </header>
 
                     <sheet>

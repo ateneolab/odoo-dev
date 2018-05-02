@@ -9,6 +9,19 @@ from dateutil.relativedelta import relativedelta
 class CollectionPlan(models.Model):
     _name = 'collection_plan.collection_plan'
 
+    def name_get(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        res = []
+
+        record_name = self.browse(cr, uid, ids, context)
+
+        for object in record_name:
+            res.append((object.id,
+                        '%s-%s' % (object.contract_id.barcode or '', object.start_date or '')))
+
+        return res
+
     @api.one
     def reschedule_plan(self):
         if self.active_plan_id:

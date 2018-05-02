@@ -6,6 +6,19 @@ from openerp import models, fields, api, _
 class ContractVerification(models.Model):
     _name = 'education_contract.verification'
 
+    def name_get(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        res = []
+
+        record_name = self.browse(cr, uid, ids, context)
+
+        for object in record_name:
+            res.append((object.id,
+                        '%s-%s' % (object.contract_id.barcode or '', object.verification_date or '')))
+
+        return res
+
     @api.one
     def reschedule_plan(self):
         if self.plan_id:

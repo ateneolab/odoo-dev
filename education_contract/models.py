@@ -677,7 +677,8 @@ class plan(models.Model):
     def _compute_voucher_sum(self):
         voucher_sum = 0.0
         for v in self.payment_term_ids:
-            voucher_sum += v.amount
+            if v.state in ['done', 'to_advance', 'processed']:
+                voucher_sum += v.amount
 
         return voucher_sum
 

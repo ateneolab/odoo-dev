@@ -10,10 +10,20 @@ class ContractVerification(models.Model):
 
     @api.one
     def generate_collection_plan(self):
-        import pdb
-        pdb.set_trace()
         plan_id = self.plan_id.copy({
             'contract_id': None
+        })
+
+        payment_term_ids = []
+        for pt in self.plan_id.payment_term_ids:
+            new_pt = pt.copy({
+                'plan_id': plan_id.id
+            })
+
+            payment_term_ids.append(new_pt.id)
+
+        plan_id.write({
+            'payment_term_ids': [(6, 0, payment_term_ids)]
         })
 
         data = {

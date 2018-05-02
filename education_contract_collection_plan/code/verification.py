@@ -10,6 +10,8 @@ class ContractVerification(models.Model):
 
     @api.one
     def generate_collection_plan(self):
+        import pdb
+        pdb.set_trace()
         plan_id = self.plan_id.copy({
             'contract_id': None
         })

@@ -65,6 +65,7 @@ class ContractVerification(models.Model):
     verification_place = fields.Selection([('office', _('Office')), ('home', _('Home')), ('work', _('Work'))],
                                           default='home')
     user_id = fields.Many2one(related='contract_id.seller_id')
+    verify_user_id = fields.Many2one('res.users', string=_('Verified by'))
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', _('Collection plan'))
     plan_id = fields.Many2one('education_contract.plan', _('Payment plan'))
     payment_term_ids = fields.One2many(related='plan_id.payment_term_ids')

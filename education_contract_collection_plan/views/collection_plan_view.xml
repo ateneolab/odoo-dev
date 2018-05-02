@@ -40,7 +40,7 @@
                                 <field name="contract_id"/>
                                 <field name="collection_plan_id"/>
                                 <field name="operating_unit_id"/>
-
+                                <field name="verify_user_id" readonly="1"/>
                             </group>
                             <group>
                                 <field name="user_id"/>
@@ -83,6 +83,9 @@
                                     </group>
                                 </group>
                             </page>
+                            <page string="Contract information"></page>
+                            <page string="Beneficiary information"></page>
+                            <page string="Academic information"></page>
                         </notebook>
 
                     </sheet>

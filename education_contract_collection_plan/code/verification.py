@@ -16,12 +16,14 @@ class ContractVerification(models.Model):
             'contract_id': None
         })
 
-        collection_id = self.env['collection_plan.collection_plan'].create({
+        data = {
             'active_plan_id': plan_id.id,
             'start_date': plan_id.start_date,
-            'contract_id': self.id,
+            'contract_id': self.contract_id.id,
             'verification_id': self.id
-        })
+        }
+
+        collection_id = self.env['collection_plan.collection_plan'].create(data)
 
         self.write({
             'collection_plan_id': collection_id.id,

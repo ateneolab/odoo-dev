@@ -57,7 +57,7 @@
                                         <field name="plan_id"/>
                                     </group>
                                     <group>
-                                        <field name="payment_term_ids">
+                                        <field name="payment_term_ids" nolabel="1">
                                             <tree editable="top">
                                                 <!--<field name="type"/>
                                                 <field name="cash_sub_type"

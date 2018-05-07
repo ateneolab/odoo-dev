@@ -63,9 +63,9 @@
             <field name="arch" type="xml">
                 <form string="Contrato de estudios" create="false">
                     <header>
-                        <button name="to_prechecked" states="draft" type="object" string="Pre-verificar"
+                        <button name="to_prechecked" states="draft,waiting" type="object" string="Pre-verificar"
                                 class="oe_highlight"/>
-                        <button name="to_done" states="validated,waiting" type="object" string="Aprobar"
+                        <button name="to_done" states="validated" type="object" string="Aprobar"
                                 class="oe_highlight"/>
                         <button name="to_waiting" states="prechecked" type="object" string="Pendiente"
                                 class="oe_highlight"/> <!--groups="account.group_account_invoice"-->

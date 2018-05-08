@@ -124,8 +124,8 @@
                                 <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
                                     <t t-set="students" t-value="doc.get_beneficiary_names()"/>
                                     <span t-foreach="students" t-as="st">
-                                        <span t-esc="st"/>
-                                        <br>-</br>
+                                        -<span t-esc="st"/>
+                                        <br/>
                                     </span>
                                 </td>
                                 <td style="border-top: none; padding: 1px; border: 1px solid #ddd">

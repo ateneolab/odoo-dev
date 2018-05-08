@@ -1,481 +1,564 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--Custom report.-->
 <openerp>
-	<data>
- 
-    <record id="paperformat_rpm" model="report.paperformat">
-        <field name="name">RPM Paperformat</field>
-        <field name="orientation">Landscape</field>
-    </record>
+    <data>
 
-		<template id="invoice_external_layout_footer">
-			<t t-name="report.invoice_external_layout_footer">
-				<div class="footer">
-					<!--<div class="text-center" style="border-top: 1px solid black;"></div>-->
-				</div>      
-			</t>
-		</template>
+        <record id="paperformat_rpm" model="report.paperformat">
+            <field name="name">RPM Paperformat</field>
+            <field name="orientation">Landscape</field>
+        </record>
 
-		<template id="invoice_external_layout_header">
-			<t t-name="report.invoice_external_layout_header">
-				<div class="header">
-					<!--<div class="text-center" style="border-top: 1px solid black;"></div>-->
-				</div>      
-			</t>
-		</template>
-
-		<template id="contract_external_layout">
-			<t t-name="report.invoice_external_layout">
-
-				<t t-call="l10n_ec_reports.invoice_external_layout_header"/>
-				<t t-raw="0"/>
-				<t t-call="l10n_ec_reports.invoice_external_layout_footer"/>
-			</t>
-		</template>
-
-		<template id="education_contract.report_rpm_document">
-			<t t-call="education_contract.contract_external_layout">
-				<div class="page" style="font-size:13px">
-        
-            <h2 style="text-align: center"><![CDATA[REPORTE DE PRODUCCIÓN POR MATRÍCULA - RPM]]></h2><br/><br/>
-        
-            <table class="table table-condensed" style="border: none">
-                <tr>
-                    <td style="width: 25%">Fecha</td>
-                    <td style="width: 25%">Vendedores</td>
-                    <td style="width: 25%">Gerentes</td>
-                    <td style="width: 25%">Sucursales</td>
-                </tr>
-                <tr>
-                    <td style="width: 25%"><span t-field="o.date_start"/> - <span t-field="o.date_end"/></td>
-                    <td style="width: 25%">
-                        <t t-if="not o.user_id">
-                            <span>TODOS</span><br/>
-                        </t>
-                        <t t-foreach="o.user_id" t-as="u">
-                            <span t-esc="u.display_name"/><br/>
-                        </t>
-                    </td>
-                    <td style="width: 25%">
-                        <t t-if="not o.manager_id">
-                            <span>TODOS</span><br/>
-                        </t>
-                        <t t-foreach="o.manager_id" t-as="m">
-                            <span t-esc="m.display_name"/><br/>
-                        </t>
-                    </td>
-                    <td style="width: 25%">
-                        <t t-if="not o.campus_id">
-                            <span>TODOS</span><br/>
-                        </t>
-                        <t t-foreach="o.campus_id" t-as="c">
-                            <span t-esc="c.name"/><br/>
-                        </t>
-                    </td>
-                </tr>
-            </table>
-                
-            <table class="table table-condensed" style="border: 1px solid #ddd">
-                <thead>
-                    <tr style="border: 1px solid #ddd; background-color: LAVENDER">
-                        <th style="width:15%;">Código</th>
-                        <th style="width:30%;">Titular</th>
-					              <th style="width:10%;">Alumnos</th>
-					              <th style="width:8%;">Fecha</th>
-				                <th style="width:9%;">Gerente Marketing</th>
-					              <th style="width:9%;">Asesor</th>
-					              <th style="width:9%;">Cancelado</th>
-					              <th style="width:10%;">Por cancelar</th>
-            						<th style="width:10%;">Plan</th>
-            						<th style="width:10%;">Mensualidad</th>
-            						<th style="width:10%;">Efectivo</th>
-            						<th style="width:10%;">Tarjeta</th>
-            						<th style="width:10%;">Cheque</th>
-            						<th style="width:10%;">Tarjeta - Voucher - Banco</th>
-          						  <th style="width:10%;">#Cheque</th>
-          						  <th style="width:10%;">PROGRAMA</th>
-          						  <th style="width:10%;">Sede</th>
-          						  <th style="width:10%;">Observaciones</th>
-          						  <th style="width:10%;">Teléfonos</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <t t-set="total_done" t-value="0.0"/>
-                    
-                    <tr t-foreach="o.contract_ids" t-as="doc" style=" line-height: 5%; border: 1px solid #ddd">
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-							              <span t-esc="doc['barcode']"></span>
-						            </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-	                          <span t-esc="doc['owner'].display_name"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-                          	<t t-set="students" t-value="doc.get_beneficiary_names()"/>
-                          	<span t-foreach="students" t-as="st">
-                          		<span t-esc="st"/><br/>
-                          	</span>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-	                          <span t-esc="doc['date']" style="font-size:10px"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-                      	    <span t-esc="doc['marketing_manager_id'].name"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-                      	    <span t-esc="doc['user_id'].name"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
-                          	<t t-set="done" t-value="doc.get_done_amount()"/>
-                          	<span t-esc="done"/>
-                          	<t t-set="total_done" t-value="total_done + done"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
-                          	<span t-esc="doc.get_not_done_amount()"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-                      	    <span t-esc="doc.get_plan_id_type()"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-                        	  <span t-esc="doc.get_monthly_data()"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
-                      	    <span t-esc="doc.get_payment_amount_by_type(sub_type='cash')"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
-                      	    <span t-esc="doc.get_payment_amount_by_type(type='card')"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
-                      	    <span t-esc="doc.get_payment_amount_by_type(type='check')"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-                      	<t t-set="credit_cards" t-value="doc.get_payment_term_info()"/>
-                          	<span t-foreach="credit_cards" t-as="cc">
-                         		    <span t-esc="cc"/><br/>
-                          	</span>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-                      	    <t t-set="checks" t-value="doc.get_payment_term_check_info()"/>
-                      	    <span t-foreach="checks" t-as="ch">
-                      		      <span t-esc="ch"/><br/>
-                      	    </span>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-                          	<t t-set="progs" t-value="doc.get_program_count_by_name()"/>
-                          	<span t-foreach="progs" t-as="pg">
-                         		    <span t-esc="pg['name']"/> - <span t-esc="pg['value']"/><br/>
-                          	</span>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-	                          <span t-esc="doc.campus_id.name"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-                       	    <span t-esc="doc.observations"/>
-                        </td>
-                        <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-                          	<t t-set="phones" t-value="doc.get_phone_numbers()"/>
-                          	<span t-foreach="phones" t-as="ph">
-                          		<span t-esc="ph"/><br/>
-                          	</span>
-                        </td>
-                    </tr>
-                    <tr>
-                         <td style="border: none; padding: 1px;"></td>
-                         <td style="border: none; padding: 1px;"></td>
-                         <td style="border: none; padding: 1px;"></td>
-                         <td style="border: none; padding: 1px;"></td>
-                         <td style="border: none; padding: 1px;"></td>
-                         <td style="border: none; padding: 1px;"></td>
-                         <td style="padding: 1px; border: 1px solid #ddd; background-color: LAVENDER; text-align: right">
-                             <span t-esc="total_done"></span>
-                         </td>
-                     </tr>
-                </tbody>
-            </table>
-            
-            <t t-set="total_all" t-value="0.0"/>
-            <table class="table table-condensed" style="border: 1px solid #ddd; width: 30%">
-                <tr>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-		                    <span>Depósito en Efectivo</span>
-    				        </td>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
-                        <t t-set="total_cash" t-value="get_total_cash(o.contract_ids)"/>
-                        <span t-esc="total_cash"/>
-                        <t t-set="total_all" t-value="total_cash + total_all"/>
-    				        </td>
-                </tr>
-                <tr>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-		                    <span>Depósito en Cheques</span>
-    				        </td>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
-                        <t t-set="total_check" t-value="get_total_check(o.contract_ids)"/>
-                        <span t-esc="total_check"/>
-                        <t t-set="total_all" t-value="total_check + total_all"/>
-    				        </td>
-                </tr>
-                <tr>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-		                    <span>Depósito en Transferencias</span>
-    				        </td>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
-                        <t t-set="total_transfer" t-value="get_total_transfer(o.contract_ids)"/>
-                        <span t-esc="total_transfer"/>
-                        <t t-set="total_all" t-value="total_transfer + total_all"/>
-    				        </td>
-                </tr>
-                <tr>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-		                    <span>Depósito en Vouchers</span>
-    				        </td>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
-                        <t t-set="total_voucher" t-value="get_total_voucher(o.contract_ids)"/>
-                        <span t-esc="total_voucher"/>
-                        <t t-set="total_all" t-value="total_voucher + total_all"/>
-    				        </td>
-                </tr>
-                <tr>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-		                    <span>Uso de Efectivo</span>
-    				        </td>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
-                        <t t-set="total_advance" t-value="get_total_advance(o.contract_ids)"/>
-                        <span t-esc="total_advance"/>
-                        <t t-set="total_all" t-value="total_advance + total_all"/>
-    				        </td>
-                </tr>
-                <tr>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
-		                    <span>Totales</span>
-    				        </td>
-                    <td style="border-top: none; padding: 1px; border: 1px solid #ddd; background-color: LAVENDER; text-align: right">
-                        <span t-esc="total_all"/>
-    				        </td>
-                </tr>
-             </table>
-             
-             <p style="page-break-after:always;"></p>
-             
-             <h2 style="text-align: center">ILVEM <![CDATA[&]]> CHARLOTTE</h2>
-             <h3 style="text-align: center">CONSTANCIA DE DEPOSITOS, VOUCHERS Y EGRESOS</h3>
-             
-             <t t-set="general_sum" t-value="0.0"/>
-            
-            <br/>
-            <t t-set="cash_advance" t-value="cash_advance"/>
-            <t t-set="total_cash_advance" t-value="0.0"/>
-            <h4 style="text-align: center">TABLA DE USO DE EFECTIVO</h4>
-            <table class="table table-condensed" style="border: 1px solid #ddd; width: 100%">
-                <thead>
-                    <tr style="background-color: LAVENDER;">
-                        <th style="width:5%;">No.</th>
-                        <th style="width:10%;">Fecha</th>
-					              <th style="width:30%;">Beneficiario</th>
-					              <th style="width:45%;">Concepto</th>
-				                <th style="width:15%; text-align: right">Valor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr t-foreach="cash_advance" t-as="l">
-                        <td><span t-esc="l_index + 1"/></td>
-                        <td><span t-esc="l['date']"/></td>
-                        <td><span t-esc="l['user_id']"/></td>
-                        <td><span t-esc="l['concept']"/></td>
-                        <td style="width:15%; text-align: right"><span t-esc="l['amount']"/></td>
-                        <t t-set="total_cash_advance" t-value="total_cash_advance + l['amount']"/>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="background-color: LAVENDER; text-align: right"><span t-esc="total_cash_advance"/></td>
-                        <t t-set="general_sum" t-value="general_sum + total_cash_advance"/>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <br/>
-            <t t-set="vouchers" t-value="get_vouchers(o.contract_ids)"/>
-            <t t-set="total_vouchers" t-value="0.0"/>
-            <h4 style="text-align: center">TABLA DE VOUCHERS</h4>
-            <table class="table table-condensed" style="border: 1px solid #ddd; width: 100%">
-                <thead>
-                    <tr style="background-color: LAVENDER;">
-                        <th style="width:5%;">No.</th>
-                        <th style="width:10%;">Fecha</th>
-					              <th style="width:25%;">Nombre tarjeta</th>
-					              <th style="width:15%;">Nº voucher</th>
-                        <th style="width:15%;">Nº autorizacion</th>
-                        <th style="width:15%;">Nº tarjeta</th>
-				                <th style="width:15%; text-align: right">Valor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr t-foreach="vouchers" t-as="l">
-                        <td><span t-esc="l_index + 1"/></td>
-                        <td><span t-esc="l['date']"/></td>
-                        <td><span t-esc="l['card_name']"/></td>
-                        <td><span t-esc="l['voucher_number']"/></td>
-                        <td><span t-esc="l['auth_number']"/></td>
-                        <td><span t-esc="l['card_number']"/></td>
-                        <td style="width:15%; text-align: right"><span t-esc="l['amount']"/></td>
-                        <t t-set="total_vouchers" t-value="total_vouchers + l['amount']"/>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="background-color: LAVENDER; text-align: right"><span t-esc="total_vouchers"/></td>
-                        <t t-set="general_sum" t-value="general_sum + total_vouchers"/>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <br/>
-            <t t-set="get_cash_deposits" t-value="get_cash_deposits(o.contract_ids)"/>
-            <t t-set="total_cash_deposits" t-value="0.0"/>
-            <h4 style="text-align: center">TABLA DE DEPOSITOS EN EFECTIVO</h4>
-            <table class="table table-condensed" style="border: 1px solid #ddd; width: 100%">
-                <thead>
-                    <tr style="background-color: LAVENDER;">
-                        <th style="width:90%;">No.</th>
-                        <!--<th style="width:10%;">Fecha</th>-->
-				                <th style="width:10%; text-align: right">Valor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr t-foreach="get_cash_deposits" t-as="l">
-                        <td><span t-esc="l_index + 1"/></td>
-                        <!--<td><span t-esc="l['date']"/></td>-->
-                        <td style="width:15%; text-align: right"><span t-esc="l['amount']"/></td>
-                        <t t-set="total_cash_deposits" t-value="total_cash_deposits + l['amount']"/>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <!--<td></td>-->
-                        <td style="background-color: LAVENDER; text-align: right"><span t-esc="total_cash_deposits"/></td>
-                        <t t-set="general_sum" t-value="general_sum + total_cash_deposits"/>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <br/>
-            <t t-set="get_transfers" t-value="get_transfers(o.contract_ids)"/>
-            <t t-set="total_transfers" t-value="0.0"/>
-            <h4 style="text-align: center">TABLA DE DEPOSITOS EN TRANSFERENCIA</h4>
-            <table class="table table-condensed" style="border: 1px solid #ddd; width: 100%">
-                <thead>
-                    <tr style="background-color: LAVENDER;">
-                        <th style="width:5%;">No.</th>
-                        <th style="width:10%;">Fecha</th>
-                        <th style="width:10%;">Beneficiario</th>
-                        <th style="width:10%;">Nº Autorizacion</th>
-                        <th style="width:10%;">Banco</th>
-				                <th style="width:15%; text-align: right">Valor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr t-foreach="get_transfers" t-as="l">
-                        <td><span t-esc="l_index + 1"/></td>
-                        <td><span t-esc="l['date']"/></td>
-                        <td><span t-esc="l['owner']"/></td>
-                        <td><span t-esc="l['auth_number']"/></td>
-                        <td><span t-esc="l['bank']"/></td>
-                        <td style="width:15%; text-align: right"><span t-esc="l['amount']"/></td>
-                        <t t-set="total_transfers" t-value="total_transfers + l['amount']"/>
-                    </tr>
-                    <tr style="border: none;">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="background-color: LAVENDER; text-align: right"><span t-esc="total_transfers"/></td>
-                        <t t-set="general_sum" t-value="general_sum + total_transfers"/>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <br/>
-            <t t-set="get_checks" t-value="get_checks(o.contract_ids)"/>
-            <t t-set="total_checks" t-value="0.0"/>
-            <h4 style="text-align: center">TABLA DE DEPOSITOS EN CHEQUE</h4>
-            <table class="table table-condensed" style="border: 1px solid #ddd; width: 100%">
-                <thead>
-                    <tr style="background-color: LAVENDER;">
-                        <th style="width:5%;">No.</th>
-                        <th style="width:10%;">Fecha</th>
-                        <th style="width:10%;">Nº Cheque</th>
-                        <th style="width:10%;">Banco</th>
-                        <th style="width:10%;">Beneficiario</th>
-				                <th style="width:15%; text-align: right">Valor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr t-foreach="get_checks" t-as="l">
-                        <td><span t-esc="l_index + 1"/></td>
-                        <td><span t-esc="l['date']"/></td>
-                        <td><span t-esc="l['check_number']"/></td>
-                        <td><span t-esc="l['bank']"/></td>
-                        <td><span t-esc="l['beneficiary']"/></td>
-                        <td style="width:15%; text-align: right"><span t-esc="l['amount']"/></td>
-                        <t t-set="total_checks" t-value="total_checks + l['amount']"/>
-                    </tr>
-                    <tr style="border: none;">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="background-color: LAVENDER; text-align: right"><span t-esc="total_checks"/></td>
-                        <t t-set="general_sum" t-value="general_sum + total_checks"/>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <br/>
-            <table style="border: none; width: 100%">
-                <tr>
-                    <td style="width: 90%; text-align: right">Total General</td>
-                    <td style="padding: 1px; background-color: LAVENDER; text-align: right"><span t-esc="general_sum"/></td>
-                </tr>
-            </table>
-            
-            
-				</div>
-			</t>
-		</template>
-
-		<template id="report_rpm">
-		    <t t-call="report.html_container">
-            <t t-foreach="docs" t-as="o">
-                <t t-call="education_contract.report_rpm_document"/>
+        <template id="invoice_external_layout_footer">
+            <t t-name="report.invoice_external_layout_footer">
+                <div class="footer">
+                    <!--<div class="text-center" style="border-top: 1px solid black;"></div>-->
+                </div>
             </t>
-			  </t>
-		</template>
-   
-   <!--<report 
-        id="report_contract"
-        model="education_contract.contract"
-        string="RPM"
-        report_type="qweb-pdf"
-        name="education_contract.report_rpm"
-        attachment_use="False"
-        file="education_contract.report_rpm"
-   />-->
+        </template>
 
-    <record id="report_contract" model="ir.actions.report.xml">
-        <field name="name">report_contract</field>
-        <field name="paperformat_id" ref="paperformat_rpm"/>
-        <field name="model">education_contract.contract</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">education_contract.report_rpm</field>
-        <field name="attachment_use" eval="False"></field>
-    </record>
+        <template id="invoice_external_layout_header">
+            <t t-name="report.invoice_external_layout_header">
+                <div class="header">
+                    <!--<div class="text-center" style="border-top: 1px solid black;"></div>-->
+                </div>
+            </t>
+        </template>
 
-	</data>
+        <template id="contract_external_layout">
+            <t t-name="report.invoice_external_layout">
+
+                <t t-call="l10n_ec_reports.invoice_external_layout_header"/>
+                <t t-raw="0"/>
+                <t t-call="l10n_ec_reports.invoice_external_layout_footer"/>
+            </t>
+        </template>
+
+        <template id="education_contract.report_rpm_document">
+            <t t-call="education_contract.contract_external_layout">
+                <div class="page" style="font-size:13px">
+
+                    <h2 style="text-align: center"><![CDATA[REPORTE DE PRODUCCIÓN POR MATRÍCULA - RPM]]></h2>
+                    <br/>
+                    <br/>
+
+                    <table class="table table-condensed" style="border: none">
+                        <tr>
+                            <td style="width: 25%">Fecha</td>
+                            <td style="width: 25%">Vendedores</td>
+                            <td style="width: 25%">Gerentes</td>
+                            <td style="width: 25%">Sucursales</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%">
+                                <span t-field="o.date_start"/>
+                                -
+                                <span t-field="o.date_end"/>
+                            </td>
+                            <td style="width: 25%">
+                                <t t-if="not o.user_id">
+                                    <span>TODOS</span>
+                                    <br/>
+                                </t>
+                                <t t-foreach="o.user_id" t-as="u">
+                                    <span t-esc="u.display_name"/>
+                                    <br/>
+                                </t>
+                            </td>
+                            <td style="width: 25%">
+                                <t t-if="not o.manager_id">
+                                    <span>TODOS</span>
+                                    <br/>
+                                </t>
+                                <t t-foreach="o.manager_id" t-as="m">
+                                    <span t-esc="m.display_name"/>
+                                    <br/>
+                                </t>
+                            </td>
+                            <td style="width: 25%">
+                                <t t-if="not o.campus_id">
+                                    <span>TODOS</span>
+                                    <br/>
+                                </t>
+                                <t t-foreach="o.campus_id" t-as="c">
+                                    <span t-esc="c.name"/>
+                                    <br/>
+                                </t>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table table-condensed" style="border: 1px solid #ddd">
+                        <thead>
+                            <tr style="border: 1px solid #ddd; background-color: LAVENDER">
+                                <th style="width:15%;">Código</th>
+                                <th style="width:30%;">Titular</th>
+                                <th style="width:10%;">Alumnos</th>
+                                <th style="width:8%;">Fecha</th>
+                                <th style="width:9%;">Gerente Marketing</th>
+                                <th style="width:9%;">Asesor</th>
+                                <th style="width:9%;">Cancelado</th>
+                                <th style="width:10%;">Por cancelar</th>
+                                <th style="width:10%;">Plan</th>
+                                <th style="width:10%;">Mensualidad</th>
+                                <th style="width:10%;">Efectivo</th>
+                                <th style="width:10%;">Tarjeta</th>
+                                <th style="width:10%;">Cheque</th>
+                                <th style="width:10%;">Tarjeta - Voucher - Banco</th>
+                                <th style="width:10%;">#Cheque</th>
+                                <th style="width:10%;">PROGRAMA</th>
+                                <th style="width:10%;">Sede</th>
+                                <th style="width:10%;">Observaciones</th>
+                                <th style="width:10%;">Teléfonos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="total_done" t-value="0.0"/>
+
+                            <tr t-foreach="o.contract_ids" t-as="doc" style=" line-height: 5%; border: 1px solid #ddd">
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <span t-esc="doc['barcode']"></span>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <span t-esc="doc['owner'].display_name"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <t t-set="students" t-value="doc.get_beneficiary_names()"/>
+                                    <span t-foreach="students" t-as="st">
+                                        <span t-esc="st"/>
+                                        <br>-</br>
+                                    </span>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <span t-esc="doc['date']" style="font-size:10px"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <span t-esc="doc['marketing_manager_id'].name"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <span t-esc="doc['user_id'].name"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
+                                    <t t-set="done" t-value="doc.get_done_amount()"/>
+                                    <span t-esc="done"/>
+                                    <t t-set="total_done" t-value="total_done + done"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
+                                    <span t-esc="doc.get_not_done_amount()"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <span t-esc="doc.get_plan_id_type()"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <span t-esc="doc.get_monthly_data()"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
+                                    <span t-esc="doc.get_payment_amount_by_type(sub_type='cash')"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
+                                    <span t-esc="doc.get_payment_amount_by_type(type='card')"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
+                                    <span t-esc="doc.get_payment_amount_by_type(type='check')"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <t t-set="credit_cards" t-value="doc.get_payment_term_info()"/>
+                                    <span t-foreach="credit_cards" t-as="cc">
+                                        <span t-esc="cc"/>
+                                        <br/>
+                                    </span>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <t t-set="checks" t-value="doc.get_payment_term_check_info()"/>
+                                    <span t-foreach="checks" t-as="ch">
+                                        <span t-esc="ch"/>
+                                        <br/>
+                                    </span>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <t t-set="progs" t-value="doc.get_program_count_by_name()"/>
+                                    <span t-foreach="progs" t-as="pg">
+                                        <span t-esc="pg['name']"/>
+                                        -
+                                        <span t-esc="pg['value']"/>
+                                        <br/>
+                                    </span>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <span t-esc="doc.campus_id.name"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <span t-esc="doc.observations"/>
+                                </td>
+                                <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                    <t t-set="phones" t-value="doc.get_phone_numbers()"/>
+                                    <span t-foreach="phones" t-as="ph">
+                                        <span t-esc="ph"/>
+                                        <br/>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; padding: 1px;"></td>
+                                <td style="border: none; padding: 1px;"></td>
+                                <td style="border: none; padding: 1px;"></td>
+                                <td style="border: none; padding: 1px;"></td>
+                                <td style="border: none; padding: 1px;"></td>
+                                <td style="border: none; padding: 1px;"></td>
+                                <td style="padding: 1px; border: 1px solid #ddd; background-color: LAVENDER; text-align: right">
+                                    <span t-esc="total_done"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <t t-set="total_all" t-value="0.0"/>
+                    <table class="table table-condensed" style="border: 1px solid #ddd; width: 30%">
+                        <tr>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                <span>Depósito en Efectivo</span>
+                            </td>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
+                                <t t-set="total_cash" t-value="get_total_cash(o.contract_ids)"/>
+                                <span t-esc="total_cash"/>
+                                <t t-set="total_all" t-value="total_cash + total_all"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                <span>Depósito en Cheques</span>
+                            </td>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
+                                <t t-set="total_check" t-value="get_total_check(o.contract_ids)"/>
+                                <span t-esc="total_check"/>
+                                <t t-set="total_all" t-value="total_check + total_all"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                <span>Depósito en Transferencias</span>
+                            </td>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
+                                <t t-set="total_transfer" t-value="get_total_transfer(o.contract_ids)"/>
+                                <span t-esc="total_transfer"/>
+                                <t t-set="total_all" t-value="total_transfer + total_all"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                <span>Depósito en Vouchers</span>
+                            </td>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
+                                <t t-set="total_voucher" t-value="get_total_voucher(o.contract_ids)"/>
+                                <span t-esc="total_voucher"/>
+                                <t t-set="total_all" t-value="total_voucher + total_all"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                <span>Uso de Efectivo</span>
+                            </td>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd; text-align: right">
+                                <t t-set="total_advance" t-value="get_total_advance(o.contract_ids)"/>
+                                <span t-esc="total_advance"/>
+                                <t t-set="total_all" t-value="total_advance + total_all"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd">
+                                <span>Totales</span>
+                            </td>
+                            <td style="border-top: none; padding: 1px; border: 1px solid #ddd; background-color: LAVENDER; text-align: right">
+                                <span t-esc="total_all"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <p style="page-break-after:always;"></p>
+
+                    <h2 style="text-align: center">ILVEM <![CDATA[&]]> CHARLOTTE</h2>
+                    <h3 style="text-align: center">CONSTANCIA DE DEPOSITOS, VOUCHERS Y EGRESOS</h3>
+
+                    <t t-set="general_sum" t-value="0.0"/>
+
+                    <br/>
+                    <t t-set="cash_advance" t-value="cash_advance"/>
+                    <t t-set="total_cash_advance" t-value="0.0"/>
+                    <h4 style="text-align: center">TABLA DE USO DE EFECTIVO</h4>
+                    <table class="table table-condensed" style="border: 1px solid #ddd; width: 100%">
+                        <thead>
+                            <tr style="background-color: LAVENDER;">
+                                <th style="width:5%;">No.</th>
+                                <th style="width:10%;">Fecha</th>
+                                <th style="width:30%;">Beneficiario</th>
+                                <th style="width:45%;">Concepto</th>
+                                <th style="width:15%; text-align: right">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="cash_advance" t-as="l">
+                                <td>
+                                    <span t-esc="l_index + 1"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['user_id']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['concept']"/>
+                                </td>
+                                <td style="width:15%; text-align: right">
+                                    <span t-esc="l['amount']"/>
+                                </td>
+                                <t t-set="total_cash_advance" t-value="total_cash_advance + l['amount']"/>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="background-color: LAVENDER; text-align: right">
+                                    <span t-esc="total_cash_advance"/>
+                                </td>
+                                <t t-set="general_sum" t-value="general_sum + total_cash_advance"/>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <t t-set="vouchers" t-value="get_vouchers(o.contract_ids)"/>
+                    <t t-set="total_vouchers" t-value="0.0"/>
+                    <h4 style="text-align: center">TABLA DE VOUCHERS</h4>
+                    <table class="table table-condensed" style="border: 1px solid #ddd; width: 100%">
+                        <thead>
+                            <tr style="background-color: LAVENDER;">
+                                <th style="width:5%;">No.</th>
+                                <th style="width:10%;">Fecha</th>
+                                <th style="width:25%;">Nombre tarjeta</th>
+                                <th style="width:15%;">Nº voucher</th>
+                                <th style="width:15%;">Nº autorizacion</th>
+                                <th style="width:15%;">Nº tarjeta</th>
+                                <th style="width:15%; text-align: right">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="vouchers" t-as="l">
+                                <td>
+                                    <span t-esc="l_index + 1"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['card_name']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['voucher_number']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['auth_number']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['card_number']"/>
+                                </td>
+                                <td style="width:15%; text-align: right">
+                                    <span t-esc="l['amount']"/>
+                                </td>
+                                <t t-set="total_vouchers" t-value="total_vouchers + l['amount']"/>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="background-color: LAVENDER; text-align: right">
+                                    <span t-esc="total_vouchers"/>
+                                </td>
+                                <t t-set="general_sum" t-value="general_sum + total_vouchers"/>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <t t-set="get_cash_deposits" t-value="get_cash_deposits(o.contract_ids)"/>
+                    <t t-set="total_cash_deposits" t-value="0.0"/>
+                    <h4 style="text-align: center">TABLA DE DEPOSITOS EN EFECTIVO</h4>
+                    <table class="table table-condensed" style="border: 1px solid #ddd; width: 100%">
+                        <thead>
+                            <tr style="background-color: LAVENDER;">
+                                <th style="width:90%;">No.</th>
+                                <!--<th style="width:10%;">Fecha</th>-->
+                                <th style="width:10%; text-align: right">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_cash_deposits" t-as="l">
+                                <td>
+                                    <span t-esc="l_index + 1"/>
+                                </td>
+                                <!--<td><span t-esc="l['date']"/></td>-->
+                                <td style="width:15%; text-align: right">
+                                    <span t-esc="l['amount']"/>
+                                </td>
+                                <t t-set="total_cash_deposits" t-value="total_cash_deposits + l['amount']"/>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <!--<td></td>-->
+                                <td style="background-color: LAVENDER; text-align: right">
+                                    <span t-esc="total_cash_deposits"/>
+                                </td>
+                                <t t-set="general_sum" t-value="general_sum + total_cash_deposits"/>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <t t-set="get_transfers" t-value="get_transfers(o.contract_ids)"/>
+                    <t t-set="total_transfers" t-value="0.0"/>
+                    <h4 style="text-align: center">TABLA DE DEPOSITOS EN TRANSFERENCIA</h4>
+                    <table class="table table-condensed" style="border: 1px solid #ddd; width: 100%">
+                        <thead>
+                            <tr style="background-color: LAVENDER;">
+                                <th style="width:5%;">No.</th>
+                                <th style="width:10%;">Fecha</th>
+                                <th style="width:10%;">Beneficiario</th>
+                                <th style="width:10%;">Nº Autorizacion</th>
+                                <th style="width:10%;">Banco</th>
+                                <th style="width:15%; text-align: right">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_transfers" t-as="l">
+                                <td>
+                                    <span t-esc="l_index + 1"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['owner']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['auth_number']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['bank']"/>
+                                </td>
+                                <td style="width:15%; text-align: right">
+                                    <span t-esc="l['amount']"/>
+                                </td>
+                                <t t-set="total_transfers" t-value="total_transfers + l['amount']"/>
+                            </tr>
+                            <tr style="border: none;">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="background-color: LAVENDER; text-align: right">
+                                    <span t-esc="total_transfers"/>
+                                </td>
+                                <t t-set="general_sum" t-value="general_sum + total_transfers"/>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <t t-set="get_checks" t-value="get_checks(o.contract_ids)"/>
+                    <t t-set="total_checks" t-value="0.0"/>
+                    <h4 style="text-align: center">TABLA DE DEPOSITOS EN CHEQUE</h4>
+                    <table class="table table-condensed" style="border: 1px solid #ddd; width: 100%">
+                        <thead>
+                            <tr style="background-color: LAVENDER;">
+                                <th style="width:5%;">No.</th>
+                                <th style="width:10%;">Fecha</th>
+                                <th style="width:10%;">Nº Cheque</th>
+                                <th style="width:10%;">Banco</th>
+                                <th style="width:10%;">Beneficiario</th>
+                                <th style="width:15%; text-align: right">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_checks" t-as="l">
+                                <td>
+                                    <span t-esc="l_index + 1"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['check_number']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['bank']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="l['beneficiary']"/>
+                                </td>
+                                <td style="width:15%; text-align: right">
+                                    <span t-esc="l['amount']"/>
+                                </td>
+                                <t t-set="total_checks" t-value="total_checks + l['amount']"/>
+                            </tr>
+                            <tr style="border: none;">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="background-color: LAVENDER; text-align: right">
+                                    <span t-esc="total_checks"/>
+                                </td>
+                                <t t-set="general_sum" t-value="general_sum + total_checks"/>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <table style="border: none; width: 100%">
+                        <tr>
+                            <td style="width: 90%; text-align: right">Total General</td>
+                            <td style="padding: 1px; background-color: LAVENDER; text-align: right">
+                                <span t-esc="general_sum"/>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </t>
+        </template>
+
+        <template id="report_rpm">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="education_contract.report_rpm_document"/>
+                </t>
+            </t>
+        </template>
+
+        <!--<report
+             id="report_contract"
+             model="education_contract.contract"
+             string="RPM"
+             report_type="qweb-pdf"
+             name="education_contract.report_rpm"
+             attachment_use="False"
+             file="education_contract.report_rpm"
+        />-->
+
+        <record id="report_contract" model="ir.actions.report.xml">
+            <field name="name">report_contract</field>
+            <field name="paperformat_id" ref="paperformat_rpm"/>
+            <field name="model">education_contract.contract</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">education_contract.report_rpm</field>
+            <field name="attachment_use" eval="False"></field>
+        </record>
+
+    </data>
 </openerp>

@@ -154,7 +154,7 @@ class education_contract(models.Model):
         names = []
 
         for id in self.beneficiary_ids_2:
-            names.append('%s %s' % (id.name, id.last_name))
+            names.append('%s %s' % (id.name, id.last_name or ''))
 
         return names
 

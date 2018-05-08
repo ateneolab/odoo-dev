@@ -176,6 +176,11 @@ class education_contract(models.Model):
         if self.plan_id.type in 'cash':
             return self.plan_id.amount_pay - self.get_done_amount()
         elif self.plan_id.type in 'funded':
+            done_amount = self.get_done_amount()
+
+            if done_amount >= self.plan_id.registration_fee:
+                return 0.0
+
             return self.plan_id.registration_fee - self.get_done_amount()
         else:
             return 0.0

@@ -78,7 +78,8 @@ class advance(models.Model):
             'payment_method': self.journal_id.id,
             'company_id': self.seller_id.company_id.id,
             'reason': 'Avance de vendedor',
-            'is_seller_advance': True
+            'is_seller_advance': True,
+            'exceed_condition': True
         }
 
         advance_id = self.env['salary.advance'].create(advance_data)

@@ -208,6 +208,7 @@
                     <field name="barcode"/>
                     <field name="user_id"/>
                     <field name="owner"/>
+                    <field name="user_id"/>
                     <field name="study_company_id" required="0" invisible="1"/>
                     <field name="campus_id"/>
                     <field name="sale_order_id"/>

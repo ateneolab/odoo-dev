@@ -92,4 +92,4 @@ class Beneficiary(models.Model):
     _name = 'education_contract.beneficiary'
     _inherit = 'education_contract.beneficiary'
 
-    verification_id = fields.One2many('education_contract.verification', string=_('Contract verification'))
+    verification_id = fields.Many2one('education_contract.verification', string=_('Contract verification'))

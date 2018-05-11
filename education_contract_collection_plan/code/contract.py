@@ -76,7 +76,7 @@ class Contract(models.Model):
             #     raise e
 
             plan_data.update({
-                'beneficiary_ids': self.beneficiary_ids_2
+                'beneficiary_ids': self.beneficiary_ids_2.ids
             })
 
             verification_id = self.env['education_contract.verification'].create(plan_data)

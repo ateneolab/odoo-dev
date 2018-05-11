@@ -40,27 +40,27 @@ class Contract(models.Model):
         import pdb
         pdb.set_trace()
 
-        data = {
+        """data = {
             'beneficiary_ids': [(0, 0, self.beneficiary_ids_2.ids)]
         }
 
-        return data
+        return data"""
 
-        """b_list = []
+        b_list = []
 
         try:
-            for b in self.beneficiary_ids_2:
-                new_ben = b.copy({
+            for ben in self.beneficiary_ids_2:
+                """new_ben = b.copy({
                     'contract_id': False,
-                })
+                })"""
 
-                b_list.append((0, 0, new_ben.id))
+                b_list.append((4, ben.id))
         except Exception as e:
             raise e
 
         return {
             'beneficiary_ids': b_list
-        }"""
+        }
 
     @api.multi
     def to_assigned(self):

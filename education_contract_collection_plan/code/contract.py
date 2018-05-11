@@ -75,11 +75,10 @@ class Contract(models.Model):
             # except Exception as e:
             #     raise e
 
-            plan_data.update({
+            verification_id = self.env['education_contract.verification'].create(plan_data)
+            verification_id.write({
                 'beneficiary_ids': self.beneficiary_ids_2.ids
             })
-
-            verification_id = self.env['education_contract.verification'].create(plan_data)
 
             self.write({
                 'state': 'asigned',

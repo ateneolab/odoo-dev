@@ -40,7 +40,13 @@ class Contract(models.Model):
         import pdb
         pdb.set_trace()
 
-        b_list = []
+        data = {
+            'beneficiary_ids': [0, 0, self.beneficiary_ids_2.ids]
+        }
+
+        return data
+
+        """b_list = []
 
         try:
             for b in self.beneficiary_ids_2:
@@ -54,7 +60,7 @@ class Contract(models.Model):
 
         return {
             'beneficiary_ids': b_list
-        }
+        }"""
 
     @api.multi
     def to_assigned(self):
@@ -86,7 +92,6 @@ class Contract(models.Model):
             self.write({
                 'state': 'asigned',
                 'verification_id': verification_id.id,
-                'l': beneficiary_ids
             })
 
 class Beneficiary(models.Model):

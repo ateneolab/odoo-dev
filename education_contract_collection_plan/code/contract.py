@@ -59,7 +59,7 @@ class Contract(models.Model):
             raise e
 
         return {
-            'beneficiary_ids': b_list
+            'beneficiary_ids': self.beneficiary_ids_2.ids
         }
 
     @api.multi

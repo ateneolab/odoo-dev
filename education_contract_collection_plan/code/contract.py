@@ -1,7 +1,8 @@
 # -*- coding: iso-8859-1 -*-
 
-from openerp import models, fields, api, _
-from datetime import datetime, timedelta
+from datetime import datetime
+
+from openerp import models, fields, api
 from openerp.exceptions import ValidationError
 
 
@@ -12,32 +13,77 @@ class Contract(models.Model):
     verification_id = fields.Many2one('education_contract.verification', 'contract_id')
 
     @api.multi
+    def copy_active_plan(self):
+        self.ensure_one()
+        import pdb
+        pdb.set_trace()
+
+        active_plan_id = self.plan_id.copy({
+            'payment_term_ids': None,
+            'amount_pay': self.plan_id.residual,
+            'plan_active': True,
+            'start_date': datetime.today(),
+            'contract_id': None
+        })
+
+        active_plan_id.reschedule()
+
+        plan_data = {
+            'plan_id': active_plan_id.id,
+            'start_date': active_plan_id.start_date,
+            'contract_id': self.id,
+        }
+
+        return plan_data
+
+    @api.multi
+    def copy_beneficiaries(self):
+        self.ensure_one()
+        import pdb
+        pdb.set_trace()
+
+        b_list = []
+
+        for b in self.beneficiary_ids_2:
+            new_ben = b.copy({
+                'contract_id': False,
+            })
+
+            b_list.append((0, 0, new_ben.id))
+
+        return {
+            'beneficiary_ids': b_list
+        }
+
+    @api.multi
     def to_assigned(self):
+        self.ensure_one()
+
         filled = self.validate_filled()
 
         if not filled:
             raise ValidationError("Debe completar todos los datos del contrato para cambiar a estado 'Asignado'.")
         else:
-            active_plan_id = self.plan_id.copy({
-                'payment_term_ids': None,
-                'amount_pay': self.plan_id.residual,
-                'plan_active': True,
-                'start_date': datetime.today(),
-                'contract_id': None
+            try:
+                # verification_id = self.copy_active_plan()
+                plan_data = self.copy_active_plan()
+            except Exception as e:
+                raise e
+
+            import pdb
+            pdb.set_trace()
+
+            try:
+                beneficiary_ids = self.copy_beneficiaries()
+            except Exception as e:
+                raise e
+
+            plan_data.update(beneficiary_ids)
+
+            verification_id = self.env['education_contract.verification'].create(plan_data)
+
+            self.write({
+                'state': 'asigned',
+                'verification_id': verification_id.id,
+                'l': beneficiary_ids
             })
-
-            active_plan_id.reschedule()
-
-            verification_id = self.env['education_contract.verification'].create({
-                'plan_id': active_plan_id.id,
-                'start_date': active_plan_id.start_date,
-                'contract_id': self.id,
-            })
-
-            """self.env['collection_plan.collection_plan'].create({
-                'active_plan_id': active_plan_id.id,
-                'start_date': active_plan_id.start_date,
-                'contract_id': self.id,
-            })"""
-
-            self.write({'state': 'asigned', 'verification_id': verification_id.id})

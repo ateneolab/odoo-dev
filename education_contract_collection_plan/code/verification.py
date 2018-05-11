@@ -69,6 +69,7 @@ class ContractVerification(models.Model):
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', _('Collection plan'))
     plan_id = fields.Many2one('education_contract.plan', _('Payment plan'))
     payment_term_ids = fields.One2many(related='plan_id.payment_term_ids')
+    beneficiary_ids = fields.One2many('education_contract.beneficiary', 'verification_id', string=_('Beneficiaries'))
 
 
 class CollectionPlan(models.Model):

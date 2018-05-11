@@ -157,7 +157,7 @@
 
                             <page string="Formas de pago">
                                 <field name="payment_term_ids" context="{'default_contract_id': active_id}"
-                                       attrs="{'readonly': [('state', 'in', ['done', 'validated', 'asigned'])]}">
+                                       attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}">
                                     <tree editable="top">    <!-- editable="top" create="false" edit="false" -->
                                         <field name="type"/>
                                         <field name="cash_sub_type"

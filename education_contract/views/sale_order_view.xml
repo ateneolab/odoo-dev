@@ -134,7 +134,7 @@
 
                             <page string="Plan">
                                 <field name="plan_id"
-                                       attrs="{'readonly': [('state', 'in', ['done', 'validated', 'asigned'])]}"> <!-- context="{'default_contract_id': active_id}" -->
+                                       attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"> <!-- context="{'default_contract_id': active_id}" -->
                                     <tree>
                                         <field name="type"/>
                                         <field name="amount_pay"/>

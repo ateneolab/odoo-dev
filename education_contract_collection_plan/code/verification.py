@@ -58,7 +58,7 @@ class ContractVerification(models.Model):
         })
 
     operating_unit_id = fields.Many2one(related='contract_id.campus_id')
-    contract_id = fields.Many2one('education_contract.contract', 'verification_id', _('Education contract'))
+    contract_id = fields.Many2one('education_contract.contract', _('Education contract'))
     contract_date = fields.Date(_('Contract date'), related='contract_id.date')
     verification_date = fields.Date()
     agreement_duration = fields.Integer(_('Duration of the agreement (Months)'))

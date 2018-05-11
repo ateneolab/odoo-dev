@@ -77,7 +77,7 @@ class Contract(models.Model):
 
             verification_id = self.env['education_contract.verification'].create(plan_data)
             verification_id.write({
-                'beneficiary_ids': self.beneficiary_ids_2.ids
+                'beneficiary_ids': self.beneficiary_ids_2
             })
 
             self.write({

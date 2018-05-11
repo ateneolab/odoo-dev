@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 import controllers
 import models
-from code import verification, contract
+from code import contract, verification

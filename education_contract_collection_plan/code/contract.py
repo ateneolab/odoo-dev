@@ -15,8 +15,6 @@ class Contract(models.Model):
     @api.multi
     def copy_active_plan(self):
         self.ensure_one()
-        import pdb
-        pdb.set_trace()
 
         active_plan_id = self.plan_id.copy({
             'payment_term_ids': None,
@@ -44,12 +42,15 @@ class Contract(models.Model):
 
         b_list = []
 
-        for b in self.beneficiary_ids_2:
-            new_ben = b.copy({
-                'contract_id': False,
-            })
+        try:
+            for b in self.beneficiary_ids_2:
+                new_ben = b.copy({
+                    'contract_id': False,
+                })
 
-            b_list.append((0, 0, new_ben.id))
+                b_list.append((0, 0, new_ben.id))
+        except Exception as e:
+            raise e
 
         return {
             'beneficiary_ids': b_list

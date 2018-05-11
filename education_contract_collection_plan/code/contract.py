@@ -70,12 +70,14 @@ class Contract(models.Model):
             import pdb
             pdb.set_trace()
 
-            try:
-                beneficiary_ids = self.copy_beneficiaries()
-            except Exception as e:
-                raise e
+            # try:
+            #     beneficiary_ids = self.copy_beneficiaries()
+            # except Exception as e:
+            #     raise e
 
-            plan_data.update(beneficiary_ids)
+            plan_data.update({
+                'beneficiary_ids': self.beneficiary_ids_2
+            })
 
             verification_id = self.env['education_contract.verification'].create(plan_data)
 

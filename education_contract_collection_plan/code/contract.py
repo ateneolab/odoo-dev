@@ -41,7 +41,7 @@ class Contract(models.Model):
         pdb.set_trace()
 
         data = {
-            'beneficiary_ids': [(0, 0, self.beneficiary_ids_2)]
+            'beneficiary_ids': [(0, 0, self.beneficiary_ids_2.ids)]
         }
 
         return data

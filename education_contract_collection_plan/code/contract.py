@@ -40,26 +40,16 @@ class Contract(models.Model):
         import pdb
         pdb.set_trace()
 
-        """data = {
-            'beneficiary_ids': [(0, 0, self.beneficiary_ids_2.ids)]
-        }
-
-        return data"""
-
-        """b_list = []
+        b_list = []
 
         try:
             for ben in self.beneficiary_ids_2:
-                new_ben = b.copy({
-                    'contract_id': False,
-                })
-
                 b_list.append((4, ben.id))
         except Exception as e:
-            raise e"""
+            raise e
 
         return {
-            'beneficiary_ids': [(6, 0, self.beneficiary_ids_2.ids)]
+            'beneficiary_ids': b_list
         }
 
     @api.multi
@@ -93,6 +83,7 @@ class Contract(models.Model):
                 'state': 'asigned',
                 'verification_id': verification_id.id,
             })
+
 
 class Beneficiary(models.Model):
     _name = 'education_contract.beneficiary'

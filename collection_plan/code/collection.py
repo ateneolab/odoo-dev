@@ -91,10 +91,12 @@ class EducationContractPlan(models.Model):
     @api.one
     def remove_payment_terms(self):
         for pt in self.payment_term_fixed_ids:
-            pt.unlink()
+            if not pt.payed:
+                pt.unlink()
 
         for pt in self.payment_term_ids:
-            pt.unlink()
+            if not pt.payed:
+                pt.unlink()
 
     @api.one
     def reschedule(self):

@@ -87,3 +87,9 @@ class Contract(models.Model):
                 'verification_id': verification_id.id,
                 'l': beneficiary_ids
             })
+
+class Beneficiary(models.Model):
+    _name = 'education_contract.beneficiary'
+    _inherit = 'education_contract.beneficiary'
+
+    verification_id = fields.One2many('education_contract.verification', _(u'Contract verification'))

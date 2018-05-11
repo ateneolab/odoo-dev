@@ -50,9 +50,9 @@ class Contract(models.Model):
 
         try:
             for ben in self.beneficiary_ids_2:
-                """new_ben = b.copy({
+                new_ben = b.copy({
                     'contract_id': False,
-                })"""
+                })
 
                 b_list.append((4, ben.id))
         except Exception as e:

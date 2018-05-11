@@ -84,7 +84,9 @@
                                 </group>
                             </page>
                             <page string="Contract information"></page>
-                            <page string="Beneficiary information"></page>
+                            <page string="Beneficiary information">
+                                <field name="beneficiary_ids"/>
+                            </page>
                             <page string="Academic information"></page>
                         </notebook>
 

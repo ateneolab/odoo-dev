@@ -46,7 +46,7 @@ class Contract(models.Model):
 
         return data"""
 
-        b_list = []
+        """b_list = []
 
         try:
             for ben in self.beneficiary_ids_2:
@@ -56,10 +56,10 @@ class Contract(models.Model):
 
                 b_list.append((4, ben.id))
         except Exception as e:
-            raise e
+            raise e"""
 
         return {
-            'beneficiary_ids': self.beneficiary_ids_2.ids
+            'beneficiary_ids': [6, 0, self.beneficiary_ids_2.ids]
         }
 
     @api.multi

@@ -69,8 +69,8 @@ class account_type(models.Model):
             elif line.tax_group == 'ice':
                 self.amount_ice += line.amount
 
-        if self.amount_vat == 0 and self.amount_vat_cero == 0:
-            self.amount_vat_cero = self.amount_untaxed
+        # if self.amount_vat == 0 and self.amount_vat_cero == 0:
+        #     self.amount_vat_cero = self.amount_untaxed
 
         self.amount_total = self.amount_untaxed + self.amount_tax + self.amount_tax_retention
         self.amount_pay = self.amount_tax + self.amount_untaxed

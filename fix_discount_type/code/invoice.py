@@ -26,9 +26,6 @@ class account_type(models.Model):
     @api.one
     def compute_amount(self):
         self.amount_untaxed = sum(line.price_subtotal for line in self.invoice_line)
-        import pdb
-        pdb.set_trace()
-
         # self.write({
         #     'amount_novat': 0.0,
         #     'amount_vat': 0.0,

@@ -29,21 +29,21 @@ class account_type(models.Model):
         import pdb
         pdb.set_trace()
 
-        self.write({
-            'amount_novat': 0.0,
-            'amount_vat': 0.0,
-            'amount_tax': 0.0,
-            'amount_vat_cero': 0.0,
-            'amount_noret_ir': 0.0,
-            'amount_tax_retention': 0.0,
-            'amount_tax_ret_vatb': 0.0,
-            'taxed_ret_vatb': 0.0,
-            'amount_tax_ret_vatsrv': 0.0,
-            'taxed_ret_vatsrv': 0.0,
-            'amount_tax_ret_ir': 0.0,
-            'taxed_ret_ir': 0.0,
-            'amount_ice': 0.0
-        })
+        # self.write({
+        #     'amount_novat': 0.0,
+        #     'amount_vat': 0.0,
+        #     'amount_tax': 0.0,
+        #     'amount_vat_cero': 0.0,
+        #     'amount_noret_ir': 0.0,
+        #     'amount_tax_retention': 0.0,
+        #     'amount_tax_ret_vatb': 0.0,
+        #     'taxed_ret_vatb': 0.0,
+        #     'amount_tax_ret_vatsrv': 0.0,
+        #     'taxed_ret_vatsrv': 0.0,
+        #     'amount_tax_ret_ir': 0.0,
+        #     'taxed_ret_ir': 0.0,
+        #     'amount_ice': 0.0
+        # })
 
         for line in self.tax_line:
             if line.tax_group == 'vat':

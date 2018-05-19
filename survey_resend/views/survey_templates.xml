@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- "Thank you" message when the survey is completed -->
+        <template id="sfinished" name="Survey Finished" inherit_id="survey.sfinished">
+            <xpath expr="//div[@class='jumbotron mt32']/div[last()]" position="after">
+                <a class="btn btn-primary btn-lg" t-att-href="'/survey/fill/%s/%s' % (slug(survey), token)">
+                    Start Survey
+                </a>
+            </xpath>
+
+            <!--            <t t-call="website.layout">
+                            <div class="wrap">
+                                <div class="container">
+                                    <div class="jumbotron mt32">
+                                        <h1>Thank you!</h1>
+                                        <div t-field="survey.thank_you_message" class="oe_no_empty"/>
+                                        <div t-if='survey.quizz_mode'>You scored
+                                            <t t-esc="user_input.quizz_score"/>
+                                            points.
+                                        </div>
+                                        <div>If you wish, you can <a t-att-href="'/survey/print/%s/%s' % (slug(survey), token)">
+                                            review your answers</a>.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>-->
+        </template>
+
+    </data>
+</openerp>

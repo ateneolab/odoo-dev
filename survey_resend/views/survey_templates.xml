@@ -4,7 +4,7 @@
         <!-- "Thank you" message when the survey is completed -->
         <template id="sfinished" name="Survey Finished" inherit_id="survey.sfinished">
             <xpath expr="//div[@class='jumbotron mt32']/div[last()]" position="after">
-                <a class="btn btn-primary btn-lg" t-att-href="'/survey/fill/%s/%s' % (slug(survey), token)">
+                <a class="btn btn-primary btn-lg" t-att-href="'/survey/start/%s' % (slug(survey))">
                     Start Survey
                 </a>
             </xpath>

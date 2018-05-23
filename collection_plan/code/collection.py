@@ -86,6 +86,7 @@ class CollectionPlan(models.Model):
     payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
                                              string=_('All payed Payment terms'), compute='_compute_payed_terms',
                                              store=True)
+
     user_id = fields.Many2one('res.users', string=_('Account manager'))
     start_date = fields.Date('Start date')
     end_date = fields.Date('End date')
@@ -204,7 +205,7 @@ class PaymentTerm(models.Model):
     payed = fields.Boolean(_('Payed?'))
     order = fields.Integer('Order')
     fixed_plan_id = fields.Many2one('education_contract.plan', string=_('Payment Plan'))
-    payed_collection_plan_id = fields.One2many('collection_plan.collection_plan', string=_('Payed Collection Plan'))
+    payed_collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_('Payed Collection Plan'))
 
 
 class EducationContract(models.Model):

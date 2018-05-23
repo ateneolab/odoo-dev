@@ -108,6 +108,8 @@ class EducationContractPlan(models.Model):
 
     @api.one
     def get_payed(self):
+        import pdb
+        pdb.set_trace()
         payed = []
         for pt in self.payment_term_ids:
             if pt.payed:

@@ -60,6 +60,9 @@ class CollectionPlan(models.Model):
         if self.active_plan_id:
             self.active_plan_id.plan_active = False
 
+        import pdb
+        pdb.set_trace()
+
         payed = self.active_plan_id.get_payed()
 
         new_plan = self.active_plan_id.copy({
@@ -103,7 +106,13 @@ class EducationContractPlan(models.Model):
     _name = 'education_contract.plan'
     _inherit = 'education_contract.plan'
 
-    # residual = fields.Float(digits=(10, 4), string=_(u'Residual'), compute='compute_residual')
+    @api.one
+    def get_payed(self):
+        payed = []
+        for pt in self.payment_term_ids:
+            if pt.payed:
+                payed.append(pt)
+        return payed
 
     @api.one
     def remove_payment_terms(self):

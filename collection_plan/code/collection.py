@@ -33,6 +33,8 @@ class CollectionPlan(models.Model):
     @api.one
     @api.depends('active_plan_id', 'plan_ids', 'payment_term_ids')
     def _compute_payed_terms(self):
+        import pdb
+        pdb.set_trace()
         pts = []
         for pt in self.active_plan_id.payment_term_ids:
             if pt.payed:

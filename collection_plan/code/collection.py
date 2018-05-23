@@ -127,7 +127,8 @@ class EducationContractPlan(models.Model):
         before_date = datetime.strptime(self.start_date, '%Y-%m-%d')
 
         self.remove_payment_terms()
-
+        import pdb
+        pdb.set_trace()
         amount_monthly = self.residual / (self.qty_dues or 1)
 
         if self.qty_dues and self.plan_active:

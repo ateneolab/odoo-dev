@@ -66,7 +66,7 @@ class CollectionPlan(models.Model):
             'qty_dues': 0.0,
             'amount_monthly': self.active_plan_id.residual,
             'registration_fee': 0.0,
-            'residual': self.active_plan_id.amount_pay,
+            'residual': self.active_plan_id.residual,
             'collection_plan_id': self.id,
             'plan_active': True,
             'contract_id': None,
@@ -117,7 +117,7 @@ class EducationContractPlan(models.Model):
 
         for pt in self.payment_term_ids:
             if not pt.payed:
-                residual += 1
+                residual += pt.amount
 
         return residual
 
@@ -127,8 +127,9 @@ class EducationContractPlan(models.Model):
         before_date = datetime.strptime(self.start_date, '%Y-%m-%d')
 
         self.remove_payment_terms()
-        import pdb
-        pdb.set_trace()
+
+        self.compute_residual()
+
         amount_monthly = self.residual / (self.qty_dues or 1)
 
         if self.qty_dues and self.plan_active:

@@ -128,7 +128,7 @@ class EducationContractPlan(models.Model):
 
         self.remove_payment_terms()
 
-        amount_monthly = self.residual / self.qty_dues
+        amount_monthly = self.residual / (self.qty_dues or 1)
 
         if self.qty_dues and self.plan_active:
             for n in range(1, self.qty_dues + 1):

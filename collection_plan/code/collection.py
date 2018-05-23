@@ -119,7 +119,9 @@ class EducationContractPlan(models.Model):
             if not pt.payed:
                 residual += pt.amount
 
-        self.residual = residual
+        self.write({
+            'residual': residual
+        })
 
     @api.one
     def reschedule(self):

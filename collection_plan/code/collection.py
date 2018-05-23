@@ -66,6 +66,8 @@ class CollectionPlan(models.Model):
                 payed = payed[0]
 
         self.active_plan_id.compute_residual()
+        import pdb
+        pdb.set_trace()
 
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,
@@ -128,8 +130,6 @@ class EducationContractPlan(models.Model):
 
     @api.one
     def compute_residual(self):
-        residual = 0.0
-        import pdb
         pdb.set_trace()
         for pt in self.payment_term_ids:
             if not pt.payed:

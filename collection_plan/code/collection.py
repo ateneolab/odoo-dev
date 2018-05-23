@@ -111,15 +111,15 @@ class EducationContractPlan(models.Model):
                 pt.unlink()
 
     @api.one
-    @api.depends('payment_term_ids', 'payment_term_fixed_ids')
     def compute_residual(self):
         residual = 0.0
-
+        import pdb
+        pdb.set_trace()
         for pt in self.payment_term_ids:
             if not pt.payed:
                 residual += pt.amount
 
-        return residual
+        self.residual = residual
 
     @api.one
     def reschedule(self):
@@ -129,6 +129,9 @@ class EducationContractPlan(models.Model):
         self.remove_payment_terms()
 
         self.compute_residual()
+
+        import pdb
+        pdb.set_trace()
 
         amount_monthly = self.residual / (self.qty_dues or 1)
 

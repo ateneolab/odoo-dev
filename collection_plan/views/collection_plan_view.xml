@@ -77,7 +77,7 @@
                             </page>
 
                             <page string="Payments made">
-                                <!--<field name="payed_payment_term_ids"/>-->
+                                <field name="payment_term_ids" domain="[('payed', '=', True)]"/>
                             </page>
 
                             <page string="Old plans">

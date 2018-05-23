@@ -130,7 +130,7 @@ class EducationContractPlan(models.Model):
 
     @api.one
     def compute_residual(self):
-        pdb.set_trace()
+        residual = 0.0
         for pt in self.payment_term_ids:
             if not pt.payed:
                 residual += pt.amount

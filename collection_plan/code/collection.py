@@ -64,6 +64,9 @@ class CollectionPlan(models.Model):
         pdb.set_trace()
 
         payed = self.active_plan_id.get_payed()
+        if type(payed) is list:
+            if len(payed) and type(payed[0] is list):
+                payed = payed[0]
 
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,
@@ -108,8 +111,6 @@ class EducationContractPlan(models.Model):
 
     @api.one
     def get_payed(self):
-        import pdb
-        pdb.set_trace()
         payed = []
         for pt in self.payment_term_ids:
             if pt.payed:

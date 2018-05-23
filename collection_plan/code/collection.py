@@ -60,13 +60,12 @@ class CollectionPlan(models.Model):
         if self.active_plan_id:
             self.active_plan_id.plan_active = False
 
-        import pdb
-        pdb.set_trace()
-
         payed = self.active_plan_id.get_payed()
         if type(payed) is list:
             if len(payed) and type(payed[0] is list):
                 payed = payed[0]
+
+        self.active_plan_id.compute_residual()
 
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,

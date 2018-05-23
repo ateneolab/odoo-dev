@@ -60,6 +60,8 @@ class CollectionPlan(models.Model):
         if self.active_plan_id:
             self.active_plan_id.plan_active = False
 
+        payed = self.active_plan_id.get_payed()
+
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,
             'amount_pay': self.active_plan_id.residual,  # el total a pagar es lo que no se ha pagado hasta el momento
@@ -75,7 +77,11 @@ class CollectionPlan(models.Model):
 
         self.plan_ids = [(4, self.active_plan_id.id)]
         self.active_plan_id = new_plan
-        # self.active_plan_id.reschedule()
+
+        for pt in payed:
+            self.write({
+                'payed_payment_term_ids': [(4, pt.id)]
+            })
 
     contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
     active_plan_id = fields.Many2one('education_contract.plan')
@@ -84,9 +90,8 @@ class CollectionPlan(models.Model):
     state = fields.Selection([('created', _('New')), ('done', _('Finish'))], default='created')
     payment_term_ids = fields.One2many(related='active_plan_id.payment_term_fixed_ids',
                                        string=_('Payment terms from active plan'))
-    # payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
-    #                                          string=_('All payed Payment terms'), compute='_compute_payed_terms',
-    #                                          store=True)
+    payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
+                                             string=_('All payed Payment terms'), store=True)
 
     user_id = fields.Many2one('res.users', string=_('Account manager'))
     start_date = fields.Date('Start date')
@@ -213,7 +218,7 @@ class PaymentTerm(models.Model):
     payed = fields.Boolean(_('Payed?'))
     order = fields.Integer('Order')
     fixed_plan_id = fields.Many2one('education_contract.plan', string=_('Payment Plan'))
-    # payed_collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_('Payed Collection Plan'))
+    payed_collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_('Payed Collection Plan'))
 
 
 class EducationContract(models.Model):

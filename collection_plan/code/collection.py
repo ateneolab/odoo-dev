@@ -30,18 +30,16 @@ class CollectionPlan(models.Model):
             self.active_plan_id.start_date = self.start_date
             self.active_plan_id.reschedule()
 
-    @api.one
-    @api.depends('active_plan_id', 'plan_ids', 'payment_term_ids')
-    def _compute_payed_terms(self):
-        import pdb
-        pdb.set_trace()
-        pts = []
-        for pt in self.active_plan_id.payment_term_ids:
-            if pt.payed:
-                pts.append(pt.id)
-
-        for pt_id in pts:
-            self.payed_payment_term_ids = [(4, pt_id)]
+    # @api.one
+    # @api.depends('active_plan_id', 'plan_ids', 'payment_term_ids')
+    # def _compute_payed_terms(self):
+    #     pts = []
+    #     for pt in self.active_plan_id.payment_term_ids:
+    #         if pt.payed:
+    #             pts.append(pt.id)
+    #
+    #     for pt_id in pts:
+    #         self.payed_payment_term_ids = [(4, pt_id)]
 
     @api.one
     @api.onchange('contract_id')
@@ -85,9 +83,9 @@ class CollectionPlan(models.Model):
     state = fields.Selection([('created', _('New')), ('done', _('Finish'))], default='created')
     payment_term_ids = fields.One2many(related='active_plan_id.payment_term_fixed_ids',
                                        string=_('Payment terms from active plan'))
-    payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
-                                             string=_('All payed Payment terms'), compute='_compute_payed_terms',
-                                             store=True)
+    # payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
+    #                                          string=_('All payed Payment terms'), compute='_compute_payed_terms',
+    #                                          store=True)
 
     user_id = fields.Many2one('res.users', string=_('Account manager'))
     start_date = fields.Date('Start date')
@@ -207,7 +205,7 @@ class PaymentTerm(models.Model):
     payed = fields.Boolean(_('Payed?'))
     order = fields.Integer('Order')
     fixed_plan_id = fields.Many2one('education_contract.plan', string=_('Payment Plan'))
-    payed_collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_('Payed Collection Plan'))
+    # payed_collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_('Payed Collection Plan'))
 
 
 class EducationContract(models.Model):

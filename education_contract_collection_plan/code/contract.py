@@ -37,9 +37,6 @@ class Contract(models.Model):
     @api.multi
     def copy_beneficiaries(self):
         self.ensure_one()
-        import pdb
-        pdb.set_trace()
-
         b_list = []
 
         try:
@@ -66,9 +63,6 @@ class Contract(models.Model):
                 plan_data = self.copy_active_plan()
             except Exception as e:
                 raise e
-
-            import pdb
-            pdb.set_trace()
 
             # try:
             #     beneficiary_ids = self.copy_beneficiaries()

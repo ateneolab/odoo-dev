@@ -74,10 +74,13 @@ class CollectionPlan(models.Model):
         # _logger.info('PLAN RESIDUAL AFTER CALL compute_residual: %s' % self.residual)
         _logger.info('LOCAL RESIDUAL AFTER CALL compute_residual: %s' % residual)
 
+        qty_dues = len(self.active_plan_id.payment_term_ids) - len(payed)
+        _logger.info('QTY_DUES: %s' % qty_dues)
+
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,
             'amount_pay': residual,  # el total a pagar es lo que no se ha pagado hasta el momento
-            'qty_dues': 1,
+            'qty_dues': qty_dues,
             'amount_monthly': residual,
             'registration_fee': 0.0,
             'residual': residual,

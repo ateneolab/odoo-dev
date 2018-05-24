@@ -97,6 +97,8 @@ class CollectionPlan(models.Model):
                 'payed_payment_term_ids': [(4, pt.id)]
             })
 
+        self.active_plan_id.reschedule()
+
     contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
     active_plan_id = fields.Many2one('education_contract.plan')
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))

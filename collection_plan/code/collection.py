@@ -64,16 +64,14 @@ class CollectionPlan(models.Model):
             self.active_plan_id.plan_active = False
 
         payed = self.active_plan_id.get_payed()
-        if type(payed) is list:
-            if len(payed) and type(payed[0] is list):
-                payed = payed[0]
+        # if type(payed) is list:
+        #     if len(payed) and type(payed[0] is list):
+        #         payed = payed[0]
 
-        import pdb
-        pdb.set_trace()
         _logger.info('PAYED AFTER CALL plan.get_payed: %s' % payed)
 
         residual = self.active_plan_id.compute_residual()
-        _logger.info('PLAN RESIDUAL AFTER CALL compute_residual: %s' % self.residual)
+        # _logger.info('PLAN RESIDUAL AFTER CALL compute_residual: %s' % self.residual)
         _logger.info('LOCAL RESIDUAL AFTER CALL compute_residual: %s' % residual)
 
         new_plan = self.active_plan_id.copy({
@@ -90,6 +88,7 @@ class CollectionPlan(models.Model):
         self.env.cr.commit()
 
         self.plan_ids = [(4, self.active_plan_id.id)]
+        self.active_plan_id = False  # no se por que hay que hacer esto, algo estoy haciendo mal con las referencias
         self.active_plan_id = new_plan
 
         for pt in payed:
@@ -119,8 +118,10 @@ class EducationContractPlan(models.Model):
     _name = 'education_contract.plan'
     _inherit = 'education_contract.plan'
 
-    @api.one
+    @api.multi
     def get_payed(self):
+        self.ensure_one()
+
         payed = []
         for pt in self.payment_term_ids:
             if pt.payed:

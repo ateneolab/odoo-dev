@@ -72,8 +72,9 @@ class CollectionPlan(models.Model):
         pdb.set_trace()
         _logger.info('PAYED AFTER CALL plan.get_payed: %s' % payed)
 
-        self.active_plan_id.compute_residual()
-        _logger.info('"RESIDUAL AFTER CALL compute_residual: %s' % self.residual)
+        residual = self.active_plan_id.compute_residual()
+        _logger.info('PLAN RESIDUAL AFTER CALL compute_residual: %s' % self.residual)
+        _logger.info('LOCAL RESIDUAL AFTER CALL compute_residual: %s' % residual)
 
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,
@@ -144,6 +145,8 @@ class EducationContractPlan(models.Model):
         self.write({
             'residual': residual
         })
+
+        return residual
 
     @api.one
     def reschedule(self):

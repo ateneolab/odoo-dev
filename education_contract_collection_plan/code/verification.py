@@ -1,10 +1,14 @@
 # -*- coding: iso-8859-1 -*-
 
 from openerp import models, fields, api, _
-
+from openerp.exceptions import except_orm
 
 class ContractVerification(models.Model):
     _name = 'education_contract.verification'
+
+    @api.multi
+    def unlink(self):
+        raise except_orm('Error', _(u"You can't remove a collection plan, you can only edit it."))
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:

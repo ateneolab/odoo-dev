@@ -129,10 +129,10 @@ class EducationContractPlan(models.Model):
         self.ensure_one()
         import pdb
         pdb.set_trace()
-        residual = 0.0
+        residual = self.amount_pay
         for pt in self.payment_term_ids:
-            if not pt.payed:
-                residual += pt.amount
+            if pt.payed:
+                residual -= pt.amount
 
         return residual
 

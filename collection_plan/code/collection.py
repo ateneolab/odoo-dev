@@ -33,17 +33,6 @@ class CollectionPlan(models.Model):
             self.active_plan_id.start_date = self.start_date
             self.active_plan_id.reschedule()
 
-    # @api.one
-    # @api.depends('active_plan_id', 'plan_ids', 'payment_term_ids')
-    # def _compute_payed_terms(self):
-    #     pts = []
-    #     for pt in self.active_plan_id.payment_term_ids:
-    #         if pt.payed:
-    #             pts.append(pt.id)
-    #
-    #     for pt_id in pts:
-    #         self.payed_payment_term_ids = [(4, pt_id)]
-
     @api.one
     @api.onchange('contract_id')
     @api.depends('contract_id')
@@ -64,7 +53,6 @@ class CollectionPlan(models.Model):
             self.active_plan_id.plan_active = False
 
         payed = self.active_plan_id.get_payed()
-
         _logger.info('PAYED AFTER CALL plan.get_payed: %s' % payed)
 
         residual = self.active_plan_id.compute_residual()
@@ -154,12 +142,9 @@ class EducationContractPlan(models.Model):
         before_date = datetime.strptime(self.start_date, '%Y-%m-%d')
 
         self.remove_payment_terms()
-        self.compute_residual()
-        import pdb
-        pdb.set_trace()
-        residual = self.compute_residual()
-        import pdb
-        pdb.set_trace()
+
+        residual = self.compute_residual() if self.payment_term_ids else self.residual
+
         _logger.info('RESIDUAL ON RESCHEDULE: %s' % residual)
         amount_monthly = residual / (self.qty_dues or 1.0)
 
@@ -190,35 +175,6 @@ class EducationContractPlan(models.Model):
                 if not pt.payed:
                     sum += pt.amount
         self.balance = sum
-
-    """@api.one
-    @api.depends('qty_dues')
-    def _compute_payment_terms(self):
-        import pdb;
-        pdb.set_trace()
-        print('COMPUTE PAYMENT TERMS')
-        index = 1
-        before_date = datetime.date.today()
-
-        if self.qty_dues and self.collection_plan_id \
-                and self.amount_monthly \
-                and self.plan_active \
-                and not self.payment_term_fixed_ids:
-            for n in range(1, self.qty_dues + 1):
-                if index == 1:
-                    sd = before_date
-                else:
-                    sd = before_date + relativedelta(months=+1)
-
-                new_payment_term = self.env['education_contract.payment_term'].create({
-                    'amount': self.amount_monthly,
-                    'planned_date': sd,
-                    'plan_id': self.id
-                })
-
-                self.payment_term_fixed_ids = [(4, new_payment_term)]
-
-                before_date = sd"""
 
     payment_term_fixed_ids = fields.One2many('education_contract.payment_term', 'fixed_plan_id',
                                              string=_('Payment terms'))

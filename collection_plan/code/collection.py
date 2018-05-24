@@ -78,11 +78,11 @@ class CollectionPlan(models.Model):
 
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,
-            'amount_pay': self.active_plan_id.residual,  # el total a pagar es lo que no se ha pagado hasta el momento
+            'amount_pay': residual,  # el total a pagar es lo que no se ha pagado hasta el momento
             'qty_dues': 1,
-            'amount_monthly': self.active_plan_id.residual,
+            'amount_monthly': residual,
             'registration_fee': 0.0,
-            'residual': self.active_plan_id.residual,
+            'residual': residual,
             'collection_plan_id': self.id,
             'plan_active': True,
             'contract_id': None,
@@ -145,6 +145,8 @@ class EducationContractPlan(models.Model):
         self.write({
             'residual': residual
         })
+
+        self.env.cr.commit()
 
         return residual
 

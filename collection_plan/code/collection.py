@@ -139,15 +139,12 @@ class EducationContractPlan(models.Model):
     @api.multi
     def compute_residual(self):
         self.ensure_one()
-
+        import pdb
+        pdb.set_trace()
         residual = 0.0
         for pt in self.payment_term_ids:
             if not pt.payed:
                 residual += pt.amount
-
-        # self.write({
-        #     'residual': residual
-        # })
 
         return residual
 
@@ -158,10 +155,13 @@ class EducationContractPlan(models.Model):
 
         self.remove_payment_terms()
         self.compute_residual()
-
+        import pdb
+        pdb.set_trace()
         residual = self.compute_residual()
+        import pdb
+        pdb.set_trace()
         _logger.info('RESIDUAL ON RESCHEDULE: %s' % residual)
-        amount_monthly = residual / (self.qty_dues or 1)
+        amount_monthly = residual / (self.qty_dues or 1.0)
 
         if self.qty_dues and self.plan_active:
             for n in range(1, self.qty_dues + 1):

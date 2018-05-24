@@ -68,10 +68,12 @@ class CollectionPlan(models.Model):
             if len(payed) and type(payed[0] is list):
                 payed = payed[0]
 
+        import pdb
+        pdb.set_trace()
         _logger.info('PAYED AFTER CALL plan.get_payed: %s' % payed)
 
         self.active_plan_id.compute_residual()
-        _logger.info('"RESIDUAL AFTER CALL compute_residual: %S' % self.residual)
+        _logger.info('"RESIDUAL AFTER CALL compute_residual: %s' % self.residual)
 
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,

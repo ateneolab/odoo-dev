@@ -66,13 +66,11 @@ class CollectionPlan(models.Model):
                 payed = payed[0]
 
         self.active_plan_id.compute_residual()
-        import pdb
-        pdb.set_trace()
 
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,
             'amount_pay': self.active_plan_id.residual,  # el total a pagar es lo que no se ha pagado hasta el momento
-            'qty_dues': 0.0,
+            'qty_dues': 1,
             'amount_monthly': self.active_plan_id.residual,
             'registration_fee': 0.0,
             'residual': self.active_plan_id.residual,

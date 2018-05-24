@@ -64,14 +64,10 @@ class CollectionPlan(models.Model):
             self.active_plan_id.plan_active = False
 
         payed = self.active_plan_id.get_payed()
-        # if type(payed) is list:
-        #     if len(payed) and type(payed[0] is list):
-        #         payed = payed[0]
 
         _logger.info('PAYED AFTER CALL plan.get_payed: %s' % payed)
 
         residual = self.active_plan_id.compute_residual()
-        # _logger.info('PLAN RESIDUAL AFTER CALL compute_residual: %s' % self.residual)
         _logger.info('LOCAL RESIDUAL AFTER CALL compute_residual: %s' % residual)
 
         qty_dues = len(self.active_plan_id.payment_term_ids) - len(payed)
@@ -79,10 +75,10 @@ class CollectionPlan(models.Model):
 
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,
-            'amount_pay': residual,  # el total a pagar es lo que no se ha pagado hasta el momento
+            'amount_pay': residual,
             'qty_dues': qty_dues,
             'amount_monthly': residual,
-            'registration_fee': 0.0,
+            'registration_fee': 0.0,  # habra que calcularlo de alguna forma?
             'residual': residual,
             'collection_plan_id': self.id,
             'plan_active': True,
@@ -91,7 +87,6 @@ class CollectionPlan(models.Model):
         self.env.cr.commit()
 
         self.plan_ids = [(4, self.active_plan_id.id)]
-        self.active_plan_id = False  # no se por que hay que hacer esto, algo estoy haciendo mal con las referencias
         self.active_plan_id = new_plan
 
         for pt in payed:
@@ -162,13 +157,10 @@ class EducationContractPlan(models.Model):
         before_date = datetime.strptime(self.start_date, '%Y-%m-%d')
 
         self.remove_payment_terms()
-
         self.compute_residual()
 
-        import pdb
-        pdb.set_trace()
-
-        amount_monthly = self.residual / (self.qty_dues or 1)
+        residual = self.compute_residual()
+        amount_monthly = residual / (self.qty_dues or 1)
 
         if self.qty_dues and self.plan_active:
             for n in range(1, self.qty_dues + 1):
@@ -184,9 +176,7 @@ class EducationContractPlan(models.Model):
                 })
 
                 self.payment_term_fixed_ids = [(4, new_payment_term.id)]
-
                 before_date = sd
-
                 index += 1
 
     @api.one

@@ -57,6 +57,8 @@ class ContractVerification(models.Model):
             'start_date': plan_id.start_date
         })
 
+        plan_id.write({'collection_plan_id': collection_id.id})
+
     operating_unit_id = fields.Many2one(related='contract_id.campus_id')
     contract_id = fields.Many2one('education_contract.contract', _('Education contract'))
     contract_date = fields.Date(_('Contract date'), related='contract_id.date')

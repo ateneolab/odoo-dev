@@ -77,11 +77,11 @@
                             </page>
 
                             <page string="Payments made">
-                                <field name="payed_payment_term_ids" domain="[('payed', '=', True)]"/>
+                                <field name="payed_payment_term_ids" domain="[('payed', '=', True)]" readonly="1"/>
                             </page>
 
                             <page string="Old plans">
-                                <field name="plan_ids"/>
+                                <field name="plan_ids" readonly="1"/>
                             </page>
 
                             <page string="Internal notes">

@@ -10,9 +10,15 @@ from openerp import models, fields, api, _
 
 _logger = logging.getLogger(__name__)
 
+from openerp.exceptions import except_orm
+
 
 class CollectionPlan(models.Model):
     _name = 'collection_plan.collection_plan'
+
+    @api.multi
+    def unlink(self):
+        raise except_orm('Error', _(u"You can't remove a collection plan, you can only edit it."))
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:

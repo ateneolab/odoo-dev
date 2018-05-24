@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+import logging
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
 from openerp import models, fields, api, _
+
+_logger = logging.getLogger(__name__)
 
 
 class CollectionPlan(models.Model):
@@ -65,7 +68,10 @@ class CollectionPlan(models.Model):
             if len(payed) and type(payed[0] is list):
                 payed = payed[0]
 
+        _logger.info('PAYED AFTER CALL plan.get_payed: %s' % payed)
+
         self.active_plan_id.compute_residual()
+        _logger.info('"RESIDUAL AFTER CALL compute_residual: %S' % self.residual)
 
         new_plan = self.active_plan_id.copy({
             'payment_term_ids': None,

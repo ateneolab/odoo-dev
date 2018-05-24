@@ -135,18 +135,18 @@ class EducationContractPlan(models.Model):
             if not pt.payed:
                 pt.unlink()
 
-    @api.one
+    @api.multi
     def compute_residual(self):
+        self.ensure_one()
+
         residual = 0.0
         for pt in self.payment_term_ids:
             if not pt.payed:
                 residual += pt.amount
 
-        self.write({
-            'residual': residual
-        })
-
-        self.env.cr.commit()
+        # self.write({
+        #     'residual': residual
+        # })
 
         return residual
 

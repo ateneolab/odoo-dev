@@ -160,6 +160,7 @@ class EducationContractPlan(models.Model):
         self.compute_residual()
 
         residual = self.compute_residual()
+        _logger.info('RESIDUAL ON RESCHEDULE: %s' % residual)
         amount_monthly = residual / (self.qty_dues or 1)
 
         if self.qty_dues and self.plan_active:

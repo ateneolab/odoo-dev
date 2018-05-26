@@ -144,6 +144,10 @@ class WizardInvoice(models.TransientModel):
                     'invoice_id': inv.id
                 })
 
+            collection_plan = self.env['collection_plan.collection_plan'].browse(self._context.get('active_ids'))[:1]
+            collection_plan.write({
+                'invoice_ids': [(4, inv.id)]
+            })
 
         except Exception as e:
             raise except_orm('Error', e)

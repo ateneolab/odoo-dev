@@ -104,6 +104,12 @@
                                 </field>
                             </page>
 
+                            <page string="Invoices">
+                                <field name="invoice_ids">
+
+                                </field>
+                            </page>
+
                             <page string="Old plans">
                                 <field name="plan_ids" readonly="1">
                                     <tree>

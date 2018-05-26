@@ -92,7 +92,19 @@ class CollectionPlan(models.Model):
 
     @api.one
     def generate_invoice(self):
-        pass
+        return {
+            'name': _("Generate invoice"),
+            'view_mode': 'form',
+            'view_id': False,
+            'view_type': 'form',
+            'res_model': 'collection_plan.wizard_invoice',
+            # 'res_id': partial_id,
+            'type': 'ir.actions.act_window',
+            'nodestroy': True,
+            'target': 'new',
+            'domain': '[]',
+            # 'context': context
+        }
 
     contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
     active_plan_id = fields.Many2one('education_contract.plan')

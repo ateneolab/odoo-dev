@@ -13,6 +13,8 @@
                                 class="oe_highlight"/>
                         <button name="reschedule_plan" states="created" type="object" string="Reschedule payments"
                                 class="oe_highlight"/>
+                        <button name="generate_invoice" states="created" type="object" string="Generate Invoice"
+                                class="oe_highlight"/>
                     </header>
 
                     <field name="state" invisible="1"/>

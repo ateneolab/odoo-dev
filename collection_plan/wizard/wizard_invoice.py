@@ -87,7 +87,7 @@ class WizardInvoice(models.TransientModel):
 
         inv_date = datetime.date.today()
 
-        period_id = self.get_period(company_id, inv_date.strftime('%d/%m/%Y'))
+        period_id = self.get_period(company_id.id, inv_date.strftime('%d/%m/%Y'))
         _logger.info('period: %s' % period_id)
 
         inv_data = {

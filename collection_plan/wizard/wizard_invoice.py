@@ -12,7 +12,8 @@ class WizardInvoice(models.TransientModel):
     _name = 'collection_plan.wizard_invoice'
 
     invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
-    payment_term_ids = fields.One2many('education_contract.payment_term', 'wizard_invoice_id', string=_('Payments'))
+    payment_term_ids = fields.Many2many('education_contract.payment_term', 'wizard_invoice_payment_term',
+                                        string=_('Payments'))
     partner_id = fields.Many2one('res.partner', string=_('Customer'))
     operating_unit_id = fields.Many2one('operating_unit_id', string=_('Branch office'))
     company_id = fields.Many2one('res.company', string=_(u'Company'))
@@ -132,9 +133,3 @@ class WizardInvoice(models.TransientModel):
 
         ## como cierro el wizard y luego ir directo a la factura creada? ver como lo hace el pedido de venta
 
-
-class PaymentTerm(models.Model):
-    _name = 'education_contract.payment_term'
-    _inherit = 'education_contract.payment_term'
-
-    wizard_invoice_id = fields.Many2one('collection_plan.wizard_invoice')

@@ -129,6 +129,8 @@ class WizardInvoice(models.TransientModel):
             inv_lines = self.build_lines()
             inv_data = self.build_invoice_data(inv_lines)
 
+            _logger.info('INVOICE DATA: %s' % inv_data)
+
             inv = inv_obj.create(inv_data)
 
             _logger.info(inv)

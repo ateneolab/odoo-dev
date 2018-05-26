@@ -65,12 +65,14 @@ class WizardInvoice(models.TransientModel):
                 'account_analytic_id': False,
             }
 
-            inv_lines.append(line)
+            inv_lines.append((0, 0, line))
 
         return inv_lines
 
     @api.multi
     def build_invoice_data(self, inv_lines):
+        import pdb
+        pdb.set_trace()
         company_id = self.operating_unit_id.company_id
 
         receivable_account_id = company_id.partner_id.property_account_receivable
@@ -137,6 +139,8 @@ class WizardInvoice(models.TransientModel):
 
             _logger.info('INVOICE DATA: %s' % inv_data)
 
+            import pdb
+            pdb.set_trace()
             inv = inv_obj.create(inv_data)
 
             _logger.info(inv)

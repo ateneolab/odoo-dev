@@ -98,6 +98,7 @@
                                         <field name="planned_date"/>
                                         <field name="payment_date"/>
                                         <field name="payed"/>
+                                        <field name="invoice_id"/>
                                         <field name="invisible" invisible="1"/>
                                     </tree>
                                 </field>

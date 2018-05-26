@@ -17,7 +17,7 @@ class WizardInvoice(models.TransientModel):
                                         string=_('Payments'))
     partner_id = fields.Many2one('res.partner', string=_('Customer'))
     operating_unit_id = fields.Many2one('operating.unit', string=_('Branch office'))
-    company_id = fields.Many2one('res.company', string=_(u'Company'))
+    company_id = fields.Many2one(related='operating_unit_id.company_id', string=_(u'Company'))
 
     @api.multi
     def build_lines(self):

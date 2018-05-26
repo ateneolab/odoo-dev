@@ -30,7 +30,7 @@
 
                         <notebook>
                             <page string="Payments made">
-                                <field name="payment_term_ids"/>
+                                <field name="payment_term_ids" domain="[('payed', '=', True)]"/>
                             </page>
                         </notebook>
                     </sheet>

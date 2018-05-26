@@ -4,6 +4,7 @@ import datetime
 import logging
 
 from openerp import models, fields, api, _
+from openerp.exceptions import except_orm
 
 _logger = logging.getLogger(__name__)
 
@@ -124,12 +125,14 @@ class WizardInvoice(models.TransientModel):
     def create_invoice(self):
         inv_obj = self.env['account.invoice']
 
-        inv_lines = self.build_lines()
-        inv_data = self.build_invoice_data(inv_lines)
+        try:
+            inv_lines = self.build_lines()
+            inv_data = self.build_invoice_data(inv_lines)
 
-        inv = inv_obj.create(inv_data)
+            inv = inv_obj.create(inv_data)
 
-        _logger.info(inv)
+            _logger.info(inv)
+        except Exception as e:
+            raise except_orm('Error', e)
 
         ## como cierro el wizard y luego ir directo a la factura creada? ver como lo hace el pedido de venta
-

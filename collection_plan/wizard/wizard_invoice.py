@@ -8,11 +8,11 @@ from openerp import models, fields, api, _
 _logger = logging.getLogger(__name__)
 
 
-class WizardInvoice(models.Model):
+class WizardInvoice(models.TransientModel):
     _name = 'collection_plan.wizard_invoice'
 
     invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
-    payment_term_ids = fields.Many2many('education_contract.payment_term', string=_('Payments'))
+    payment_term_ids = fields.One2many('education_contract.payment_term', string=_('Payments'))
     partner_id = fields.Many2one('res.partner', string=_('Customer'))
     operating_unit_id = fields.Many2one('operating_unit_id', string=_('Branch office'))
     company_id = fields.Many2one('res.company', string=_(u'Company'))

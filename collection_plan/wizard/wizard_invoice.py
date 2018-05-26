@@ -71,8 +71,6 @@ class WizardInvoice(models.TransientModel):
 
     @api.multi
     def build_invoice_data(self, inv_lines):
-        import pdb
-        pdb.set_trace()
         company_id = self.operating_unit_id.company_id
 
         receivable_account_id = company_id.partner_id.property_account_receivable
@@ -139,11 +137,14 @@ class WizardInvoice(models.TransientModel):
 
             _logger.info('INVOICE DATA: %s' % inv_data)
 
-            import pdb
-            pdb.set_trace()
             inv = inv_obj.create(inv_data)
 
-            _logger.info(inv)
+            for pt in self.payment_term_ids:
+                pt.write({
+                    'invoice_id': inv.id
+                })
+
+
         except Exception as e:
             raise except_orm('Error', e)
 

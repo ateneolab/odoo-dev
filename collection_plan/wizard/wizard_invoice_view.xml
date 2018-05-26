@@ -8,7 +8,6 @@
             <field name="model">collection_plan.wizard_invoice</field>
             <field name="arch" type="xml">
                 <form string="Crear factura">
-                    <field name="state" invisible="1"/>
                     <sheet>
 
                         <group>

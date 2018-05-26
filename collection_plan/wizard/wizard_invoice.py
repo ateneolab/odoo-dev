@@ -124,12 +124,30 @@ class WizardInvoice(models.TransientModel):
         period_id = self.env['account.period'].search(domain)[:1]
         return period_id
 
+    @api.multi
+    def open_invoices(self, invoice_id):
+        """ open a view on one of the given invoice_ids """
+        ir_model_data = self.pool.get('ir.model.data')
+        form_res = ir_model_data.get_object_reference(self._cr, self._uid, 'account', 'invoice_form')
+        form_id = form_res and form_res[1] or False
+        tree_res = ir_model_data.get_object_reference(self._cr, self._uid, 'account', 'invoice_tree')
+        tree_id = tree_res and tree_res[1] or False
+
+        return {
+            'name': _('Advance Invoice'),
+            'view_type': 'form',
+            'view_mode': 'form,tree',
+            'res_model': 'account.invoice',
+            'res_id': invoice_id,
+            'view_id': False,
+            'views': [(form_id, 'form'), (tree_id, 'tree')],
+            'context': "{'type': 'out_invoice'}",
+            'type': 'ir.actions.act_window',
+        }
+
     @api.one
     def create_invoice(self):
         inv_obj = self.env['account.invoice']
-
-        import pdb
-        pdb.set_trace()
 
         try:
             inv_lines = self.build_lines()
@@ -149,7 +167,9 @@ class WizardInvoice(models.TransientModel):
                 'invoice_ids': [(4, inv.id)]
             })
 
+            import pdb
+            pdb.set_trace()
+            return self.open_invoices()
+
         except Exception as e:
             raise except_orm('Error', e)
-
-        ## como cierro el wizard y luego ir directo a la factura creada? ver como lo hace el pedido de venta

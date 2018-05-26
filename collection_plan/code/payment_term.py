@@ -17,4 +17,4 @@ class PaymentTerm(models.Model):
     _name = 'education_contract.payment_term'
     _inherit = 'education_contract.payment_term'
 
-    invoice_ids = fields.Many2many('account.invoice', string=_(u'Invoices'))
+    invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))

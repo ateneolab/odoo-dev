@@ -90,6 +90,10 @@ class CollectionPlan(models.Model):
 
         self.active_plan_id.reschedule()
 
+    @api.one
+    def generate_invoice(self):
+        pass
+
     contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
     active_plan_id = fields.Many2one('education_contract.plan')
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))
@@ -104,6 +108,8 @@ class CollectionPlan(models.Model):
     start_date = fields.Date('Start date')
     end_date = fields.Date('End date')
     notes = fields.Text('Internal notes')
+
+    invoice_ids = fields.Many2many('account.invoice', string=_(u'Invoices'))
 
 
 class EducationContractPlan(models.Model):

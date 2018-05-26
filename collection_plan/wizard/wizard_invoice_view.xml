@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<openerp>
+    <data>
+
+        <record id="view_wizard_invoice_form" model="ir.ui.view">
+            <field name="name">collection_plan.wizard_invoice.form</field>
+            <field name="model">collection_plan.wizard_invoice</field>
+            <field name="arch" type="xml">
+                <form string="Crear factura">
+                    <field name="state" invisible="1"/>
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="operating_unit_id"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Payments made">
+                                <field name="payment_term_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <group colspan="4">
+                        <button icon="gtk-cancel" name="act_cancel" special="cancel" string="Cancelar"
+                                type="object"/>
+                        <button icon="gtk-execute" name="create_invoice" string="Generar factura"
+                                type="object"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

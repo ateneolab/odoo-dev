@@ -95,7 +95,7 @@ class CollectionPlan(models.Model):
         return {
             'name': _("Generate invoice"),
             'view_mode': 'form',
-            'view_id': False,
+            'view_id': 'view_wizard_invoice_form',
             'view_type': 'form',
             'res_model': 'collection_plan.wizard_invoice',
             # 'res_id': partial_id,

@@ -76,7 +76,7 @@ class WizardInvoice(models.TransientModel):
         if receivable_account_id.company_id.id != company_id:
             receivable_account_id = self.env['account.account'].sudo().search([
                 ('code', '=', receivable_account_id.code),
-                ('company_id', '=', company_id)
+                ('company_id', '=', company_id.id)
             ])
 
         currency_id = self.env['res.currency'].search([('name', '=', 'USD')])[:1]

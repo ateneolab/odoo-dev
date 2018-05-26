@@ -90,20 +90,21 @@ class CollectionPlan(models.Model):
 
         self.active_plan_id.reschedule()
 
-    @api.one
+    @api.multi
     def generate_invoice(self):
+        wizard_form = self.env.ref('collection_plan.view_wizard_invoice_form', False)
+        view_id = self.env['collection_plan.wizard_invoice']
+        new = view_id.create({})
         return {
             'name': _("Generate invoice"),
-            'view_mode': 'form',
-            'view_id': 'view_wizard_invoice_form',
-            'view_type': 'form',
-            'res_model': 'collection_plan.wizard_invoice',
-            # 'res_id': partial_id,
             'type': 'ir.actions.act_window',
+            'res_model': 'collection_plan.wizard_invoice',
+            'res_id': new.id,
+            'view_id': wizard_form.id,
+            'view_mode': 'form',
+            'view_type': 'form',
             'nodestroy': True,
             'target': 'new',
-            'domain': '[]',
-            # 'context': context
         }
 
     contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))

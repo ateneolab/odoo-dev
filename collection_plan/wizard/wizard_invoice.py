@@ -18,11 +18,21 @@ class WizardInvoice(models.TransientModel):
 
     invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
     payment_term_ids = fields.Many2many('education_contract.payment_term', 'wizard_invoice_payment_term',
+                                        compute='_compute_payment_terms',
                                         string=_('Payments'))
     partner_id = fields.Many2one('res.partner', related='contract_id.owner', string=_('Customer'))
     operating_unit_id = fields.Many2one('operating.unit', related='contract_id.campus_id',
                                         string=_('Branch office'))
     company_id = fields.Many2one(related='operating_unit_id.company_id', string=_(u'Company'))
+
+    @api.one
+    @api.depends('collection_plan_id')
+    def _compute_payment_terms(self):
+        import pdb
+        pdb.set_trace()
+        self.payment_term_ids = [(6, 0, self.collection_plan_id.payed_payment_term_ids.ids)]
+        import pdb
+        pdb.set_trace()
 
     @api.multi
     def build_lines(self):

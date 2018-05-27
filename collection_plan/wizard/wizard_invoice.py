@@ -28,11 +28,7 @@ class WizardInvoice(models.TransientModel):
     @api.one
     @api.depends('collection_plan_id')
     def _compute_payment_terms(self):
-        import pdb
-        pdb.set_trace()
         self.payment_term_ids = [(6, 0, self.collection_plan_id.payed_payment_term_ids.ids)]
-        import pdb
-        pdb.set_trace()
 
     @api.multi
     def build_lines(self):

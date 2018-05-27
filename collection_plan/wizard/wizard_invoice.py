@@ -169,7 +169,7 @@ class WizardInvoice(models.TransientModel):
 
             import pdb
             pdb.set_trace()
-            return self.open_invoices()
+            return self.open_invoices(inv.id)
 
         except Exception as e:
             raise except_orm('Error', e)

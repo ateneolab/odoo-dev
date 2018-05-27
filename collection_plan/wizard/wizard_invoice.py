@@ -18,7 +18,7 @@ class WizardInvoice(models.TransientModel):
     partner_id = fields.Many2one('res.partner', string=_('Customer'))
     operating_unit_id = fields.Many2one('operating.unit', string=_('Branch office'))
     company_id = fields.Many2one(related='operating_unit_id.company_id', string=_(u'Company'))
-    
+
     @api.one
     @api.onchange('partner_id', 'operating_unit_id')
     def load_available_payment_terms(self):
@@ -34,7 +34,9 @@ class WizardInvoice(models.TransientModel):
                 ('invoice_id', 'in', [False, None])
             ])
 
-            self.payment_term_ids = [(6, 0, payment_term_ids.ids)]
+            self.write({
+                'payment_term_ids': [(6, 0, payment_term_ids.ids)]
+            })
 
     @api.multi
     def build_lines(self):

@@ -19,29 +19,29 @@ class WizardInvoice(models.TransientModel):
     operating_unit_id = fields.Many2one('operating.unit', string=_('Branch office'))
     company_id = fields.Many2one(related='operating_unit_id.company_id', string=_(u'Company'))
 
-    @api.one
-    @api.onchange('partner_id', 'operating_unit_id')
-    def load_available_payment_terms(self):
-        _logger.info('INTO load_available_payment_terms')
-        _logger.info('CONTEXT IS: %s' % self._context)
-
-        import pdb
-        pdb.set_trace()
-
-        if 'collection_plan_id' in self._context:
-            collection_plan_id = self._context.get('collection_plan_id')
-
-            payment_term_ids = self.env['education_contract.payment_term'].search([
-                ('collection_plan_id', '=', collection_plan_id),
-                ('payed', '=', True),
-                ('invoice_id', 'in', [False, None])
-            ])
-
-            self.write({
-                'payment_term_ids': [(6, 0, payment_term_ids.ids)]
-            })
-
-            _logger.info('SELF')
+    # @api.one
+    # @api.onchange('partner_id', 'operating_unit_id')
+    # def load_available_payment_terms(self):
+    #     _logger.info('INTO load_available_payment_terms')
+    #     _logger.info('CONTEXT IS: %s' % self._context)
+    #
+    #     import pdb
+    #     pdb.set_trace()
+    #
+    #     if 'collection_plan_id' in self._context:
+    #         collection_plan_id = self._context.get('collection_plan_id')
+    #
+    #         payment_term_ids = self.env['education_contract.payment_term'].search([
+    #             ('collection_plan_id', '=', collection_plan_id),
+    #             ('payed', '=', True),
+    #             ('invoice_id', 'in', [False, None])
+    #         ])
+    #
+    #         self.write({
+    #             'payment_term_ids': [(6, 0, payment_term_ids.ids)]
+    #         })
+    #
+    #         _logger.info('SELF')
 
     @api.multi
     def build_lines(self):

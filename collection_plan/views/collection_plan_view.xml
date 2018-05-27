@@ -9,6 +9,7 @@
             <field name="arch" type="xml">
                 <form string="Plan de Cobranzas">
                     <field name="id" invisible="1"/>
+                    <field name="contract_id" invisible="1"/>
                     <header>
                         <button name="create_new_plan" states="created" type="object" string="New plan"
                                 class="oe_highlight"/>

@@ -90,8 +90,21 @@ class CollectionPlan(models.Model):
 
         self.active_plan_id.reschedule()
 
+    @api.one
+    def update_payed(self):
+        import pdb
+        pdb.set_trace()
+        payed = self.active_plan_id.get_payed()
+        for pt in payed:
+            self.write({
+                'payed_payment_term_ids': [(4, pt.id)]
+            })
+
+
     @api.multi
     def generate_invoice(self):
+        self.update_payed()
+
         wizard_form = self.env.ref('collection_plan.view_wizard_invoice_form', False)
         view_id = self.env['collection_plan.wizard_invoice']
         new = view_id.create({})

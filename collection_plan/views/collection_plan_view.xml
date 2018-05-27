@@ -15,7 +15,7 @@
                         <button name="reschedule_plan" states="created" type="object" string="Reschedule payments"
                                 class="oe_highlight"/>
                         <button name="generate_invoice" states="created" type="object" string="Generate Invoice"
-                                context="{'collection_plan_id': id}"
+                                context="{'collection_plan_id': id, 'default_partner_id': contract_id.owner.id, 'default_operating_unit_id': contract_id.campus_id.id}"
                                 class="oe_highlight"/>
                     </header>
 

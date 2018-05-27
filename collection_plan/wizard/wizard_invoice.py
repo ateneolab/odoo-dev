@@ -34,7 +34,7 @@ class WizardInvoice(models.TransientModel):
                 ('invoice_id', 'in', [False, None])
             ])
 
-            self.payment_term_ids = [86, 0, payment_term_ids.ids]
+            self.payment_term_ids = [(6, 0, payment_term_ids.ids)]
 
     @api.multi
     def build_lines(self):

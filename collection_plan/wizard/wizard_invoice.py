@@ -13,9 +13,9 @@ class WizardInvoice(models.TransientModel):
     _name = 'collection_plan.wizard_invoice'
 
     contract_id = fields.Many2one('education_contract.contract', 'Contrato')
-    verification_id = fields.Many2one('education_contract.verification', related='contract_id.verification_id')
-    collection_plan_id = fields.Many2one('collection_plan.collection_plan',
-                                         related='verification_id.collection_plan_id')
+    # verification_id = fields.Many2one('education_contract.verification', related='contract_id.verification_id')
+    # collection_plan_id = fields.Many2one('collection_plan.collection_plan',
+    #                                      related='verification_id.collection_plan_id')
 
     invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
     payment_term_ids = fields.Many2many('education_contract.payment_term', 'wizard_invoice_payment_term',
@@ -25,37 +25,9 @@ class WizardInvoice(models.TransientModel):
                                         string=_('Branch office'))
     company_id = fields.Many2one(related='operating_unit_id.company_id', string=_(u'Company'))
 
-    # @api.one
-    # @api.onchange('partner_id', 'operating_unit_id')
-    # def load_available_payment_terms(self):
-    #     _logger.info('INTO load_available_payment_terms')
-    #     _logger.info('CONTEXT IS: %s' % self._context)
-    #
-    #     import pdb
-    #     pdb.set_trace()
-    #
-    #     if 'collection_plan_id' in self._context:
-    #         collection_plan_id = self._context.get('collection_plan_id')
-    #
-    #         payment_term_ids = self.env['education_contract.payment_term'].search([
-    #             ('collection_plan_id', '=', collection_plan_id),
-    #             ('payed', '=', True),
-    #             ('invoice_id', 'in', [False, None])
-    #         ])
-    #
-    #         self.write({
-    #             'payment_term_ids': [(6, 0, payment_term_ids.ids)]
-    #         })
-    #
-    #         _logger.info('SELF')
-
     @api.multi
     def build_lines(self):
         self.ensure_one()
-
-        import pdb
-        pdb.set_trace()
-
         inv_lines = []
 
         for payment in self.payment_term_ids:
@@ -197,8 +169,6 @@ class WizardInvoice(models.TransientModel):
                 'invoice_ids': [(4, inv.id)]
             })
 
-            import pdb
-            pdb.set_trace()
             return self.open_invoices(inv.id)
 
         except Exception as e:

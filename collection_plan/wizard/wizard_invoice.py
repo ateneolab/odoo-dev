@@ -12,11 +12,16 @@ _logger = logging.getLogger(__name__)
 class WizardInvoice(models.TransientModel):
     _name = 'collection_plan.wizard_invoice'
 
+    contract_id = fields.Many2one('education_contract.contract', 'Contrato')
+    verification_id = fields.Many2one('education_contract.verification')
+    collection_plan_id = fields.Many2one('collection_plan.collection_plan')
+
     invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
     payment_term_ids = fields.Many2many('education_contract.payment_term', 'wizard_invoice_payment_term',
                                         string=_('Payments'))
-    partner_id = fields.Many2one('res.partner', string=_('Customer'))
-    operating_unit_id = fields.Many2one('operating.unit', string=_('Branch office'))
+    partner_id = fields.Many2one('res.partner', related='collection_plan_id.contract_id.owner', string=_('Customer'))
+    operating_unit_id = fields.Many2one('operating.unit', related='collection_plan_id.contract_id.campus_id',
+                                        string=_('Branch office'))
     company_id = fields.Many2one(related='operating_unit_id.company_id', string=_(u'Company'))
 
     # @api.one

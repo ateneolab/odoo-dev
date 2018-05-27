@@ -25,6 +25,8 @@
                             </group>
                             <group>
                                 <field name="operating_unit_id"/>
+                                <field name="collection_plan_id"/>
+                                <field name="contract_id"/>
                             </group>
                         </group>
 

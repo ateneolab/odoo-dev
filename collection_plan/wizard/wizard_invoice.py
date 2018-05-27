@@ -25,6 +25,9 @@ class WizardInvoice(models.TransientModel):
         _logger.info('INTO load_available_payment_terms')
         _logger.info('CONTEXT IS: %s' % self._context)
 
+        import pdb
+        pdb.set_trace()
+
         if 'collection_plan_id' in self._context:
             collection_plan_id = self._context.get('collection_plan_id')
 

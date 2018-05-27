@@ -19,19 +19,6 @@ class WizardInvoice(models.TransientModel):
     operating_unit_id = fields.Many2one('operating.unit', string=_('Branch office'))
     company_id = fields.Many2one(related='operating_unit_id.company_id', string=_(u'Company'))
 
-    @api.cr_uid_context
-    def fields_get(self, fields=None, context=None, write_access=True, attributes=None):
-        res = super(WizardInvoice, self).fields_get(self._cr, self._uid, fields, context, write_access, attributes)
-
-        import pdb
-        pdb.set_trace()
-
-        # if 'communication2' in res:
-        #     res['communication2'].setdefault('states', {})
-        #     res['communication2']['states']['structured'] = [('readonly', True)]
-        #     res['communication2']['states']['normal'] = [('readonly', False)]
-        return res
-
     @api.multi
     def build_lines(self):
         self.ensure_one()

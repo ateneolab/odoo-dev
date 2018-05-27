@@ -31,7 +31,7 @@
                         <notebook>
                             <page string="Payments made">
                                 <field name="payment_term_ids"
-                                       domain="[('payed', '=', True), ('invoice_id', 'in', [False, None]), ('collection_plan_id', '=', collection_plan_id)]">
+                                       domain="[('payed', '=', True), ('invoice_id', 'in', [False, None])]">
                                     <tree editable="top">
                                         <field name="type"/>
                                         <field name="cash_sub_type"

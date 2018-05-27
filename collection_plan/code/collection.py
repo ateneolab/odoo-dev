@@ -112,7 +112,8 @@ class CollectionPlan(models.Model):
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))
     residual = fields.Float(digits=(10, 4), string=_('Amount'))
     state = fields.Selection([('created', _('New')), ('done', _('Finish'))], default='created')
-    payment_term_ids = fields.One2many(related='active_plan_id.payment_term_fixed_ids',
+    payment_term_ids = fields.One2many('education_contract.payment_term', 'collection_plan_id',
+                                       related='active_plan_id.payment_term_fixed_ids',
                                        string=_('Payment terms from active plan'))
     payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
                                              string=_('All payed Payment terms'), store=True)
@@ -185,7 +186,8 @@ class EducationContractPlan(models.Model):
                 new_payment_term = self.env['education_contract.payment_term'].create({
                     'amount': amount_monthly,
                     'planned_date': sd,
-                    'plan_id': self.id
+                    'plan_id': self.id,
+                    'collection_plan_id': self.collection_plan_id.id,
                 })
 
                 self.payment_term_fixed_ids = [(4, new_payment_term.id)]
@@ -221,6 +223,7 @@ class PaymentTerm(models.Model):
     order = fields.Integer('Order')
     fixed_plan_id = fields.Many2one('education_contract.plan', string=_('Payment Plan'))
     payed_collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_('Payed Collection Plan'))
+    collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_('Collection Plan'))
 
 
 class EducationContract(models.Model):

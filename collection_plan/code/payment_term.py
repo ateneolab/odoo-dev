@@ -18,3 +18,7 @@ class PaymentTerm(models.Model):
     _inherit = 'education_contract.payment_term'
 
     invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
+
+    @api.one
+    def confirm_payment(self):
+        self.generate_voucher('done')

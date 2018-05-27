@@ -92,8 +92,6 @@ class CollectionPlan(models.Model):
 
     @api.one
     def update_payed(self):
-        import pdb
-        pdb.set_trace()
         payed = self.active_plan_id.get_payed()
         for pt in payed:
             self.write({

@@ -19,8 +19,8 @@ class WizardInvoice(models.TransientModel):
     invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
     payment_term_ids = fields.Many2many('education_contract.payment_term', 'wizard_invoice_payment_term',
                                         string=_('Payments'))
-    partner_id = fields.Many2one('res.partner', related='collection_plan_id.contract_id.owner', string=_('Customer'))
-    operating_unit_id = fields.Many2one('operating.unit', related='collection_plan_id.contract_id.campus_id',
+    partner_id = fields.Many2one('res.partner', related='contract_id.owner', string=_('Customer'))
+    operating_unit_id = fields.Many2one('operating.unit', related='contract_id.campus_id',
                                         string=_('Branch office'))
     company_id = fields.Many2one(related='operating_unit_id.company_id', string=_(u'Company'))
 

@@ -41,6 +41,8 @@ class WizardInvoice(models.TransientModel):
                 'payment_term_ids': [(6, 0, payment_term_ids.ids)]
             })
 
+            _logger.info('SELF')
+
     @api.multi
     def build_lines(self):
         self.ensure_one()

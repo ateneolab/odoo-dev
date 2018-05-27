@@ -8,12 +8,14 @@
             <field name="model">collection_plan.collection_plan</field>
             <field name="arch" type="xml">
                 <form string="Plan de Cobranzas">
+                    <field name="id" invisible="1"/>
                     <header>
                         <button name="create_new_plan" states="created" type="object" string="New plan"
                                 class="oe_highlight"/>
                         <button name="reschedule_plan" states="created" type="object" string="Reschedule payments"
                                 class="oe_highlight"/>
                         <button name="generate_invoice" states="created" type="object" string="Generate Invoice"
+                                context="{'collection_plan_id': id}"
                                 class="oe_highlight"/>
                     </header>
 

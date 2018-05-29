@@ -48,7 +48,6 @@ class beneficiary(models.Model):
             if partner.sex is not None and partner.sex is not False:
                 vals.update({
                     'gender': partner.sex.lower(),
-                    'middle_name': partner.display_name,
                 })
         elif 'name' in vals:
             vals.update({
@@ -56,7 +55,6 @@ class beneficiary(models.Model):
                 'firstname': '%s %s' % (vals.get('name'), vals.get('middle_name', '')),
                 'lastname': vals.get('last_name', ''),
                 'sex': str(vals.get('gender', '')).upper(),
-                'middle_name': '%s %s' % (vals.get('name'), vals.get('middle_name', '')),
             })
         else:
             raise ValidationError("Debe seleccionar un cliente existente o proveer el nombre para crear uno nuevo.")

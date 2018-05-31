@@ -85,3 +85,10 @@ class Beneficiary(models.Model):
     _inherit = 'education_contract.beneficiary'
 
     verification_id = fields.Many2one('education_contract.verification', string=_('Contract verification'))
+
+class PaymentTerm(models.Model):
+    _name = 'education_contract.payment_term'
+    _inherit = 'education_contract.payment_term'
+
+    tax_ids = fields.Many2many('account.tax', string=_('Taxes'))
+    taxes_included = fields.Boolean(_(u'Taxes included'))

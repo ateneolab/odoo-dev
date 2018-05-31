@@ -29,6 +29,14 @@
                                 <field name="contract_id"/>
                             </group>
                         </group>
+                        <group>
+                            <group>
+                                <field name="tax_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="taxes_included"/>
+                            </group>
+                        </group>
 
                         <notebook>
                             <page string="Payments made">
@@ -49,9 +57,11 @@
                                                attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
                                         <field name="description_other"
                                                attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
-                                        <field name="planned_date"/>
+                                        <!--<field name="planned_date"/>-->
                                         <field name="payment_date"/>
-                                        <field name="payed"/>
+                                        <field name="tax_ids" widget="many2many_tags"/>
+                                        <field name="taxes_included"/>
+                                        <!--<field name="payed"/>-->
                                         <field name="invisible" invisible="1"/>
                                     </tree>
                                 </field>

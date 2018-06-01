@@ -23,7 +23,7 @@
                             <field name="taxes_included"/>
                         </group>
                         <group>
-                            <field name="company_id" invisible="1"/>
+                            <field name="company_id" invisible="0"/>
                             <field name="tax_ids" widget="many2many_tags"
                                    domain="[('company_id', '=', operating_unit_id.company_id.id)]"/>
                         </group>

@@ -28,7 +28,7 @@
                     </group>
                 </notebook>
 
-                <!--<field name="payment_term_ids" position="replace">
+                <field name="payment_term_ids" position="replace">
                     <field name="payment_term_ids"
                            domain="[('payed', '=', True), ('invoice_id', 'in', [False, None]), ('collection_plan_id', '=', collection_plan_id)]">
                         <tree editable="top">
@@ -54,7 +54,7 @@
                             <field name="invisible" invisible="1"/>
                         </tree>
                     </field>
-                </field>-->
+                </field>
 
             </field>
         </record>

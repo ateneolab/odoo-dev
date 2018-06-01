@@ -51,7 +51,7 @@
                             <field name="planned_date" invisible="1"/>
                             <field name="taxes_included"/>
                             <field name="tax_ids" widget="many2many_tags"
-                                   domain="[('company_id', '=', operating_unit_id.company_id.id)]"/>
+                                   /> <!-- domain="[('company_id', '=', operating_unit_id.company_id.id)]" -->
                             <field name="payment_date"/>
                             <field name="payed" invisible="1"/>
                             <field name="invisible" invisible="1"/>

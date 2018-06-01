@@ -58,6 +58,7 @@
                             <page string="Planned Payments">
                                 <field name="payment_term_ids" domain="[('payed', '=', False)]">
                                     <tree editable="top" colors="red:'1'=='1'">
+                                        <field name="id" invisible="1"/>
                                         <field name="type"/>
                                         <field name="cash_sub_type"
                                                attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
@@ -76,9 +77,12 @@
                                         <field name="payment_date"/>
                                         <field name="payed" invisible="1"/>
                                         <field name="invisible" invisible="1"/>
-                                        <button name="do_payment" type="object" string="Pagar" icon="gtk-apply"/> <!-- pagar sin comprobante -->
-                                        <button name="do_billing" type="object" string="Facturar" icon="gtk-ok"/> <!-- generar factura solo para este pago -->
-                                        <button name="do_saling" type="object" string="Recibo de venta" icon="gtk-print"/> <!-- generar nota de venta solo para este pago -->
+                                        <button name="do_payment" type="object" string="Pagar"
+                                                icon="gtk-apply"/> <!-- pagar sin comprobante -->
+                                        <button name="do_billing" type="object" string="Facturar" icon="gtk-ok"
+                                                context="{'payment_id': id}"/> <!-- generar factura solo para este pago -->
+                                        <button name="do_saling" type="object" string="Recibo de venta"
+                                                icon="gtk-print"/> <!-- generar nota de venta solo para este pago -->
                                     </tree>
                                 </field>
                             </page>

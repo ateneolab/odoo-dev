@@ -28,7 +28,20 @@ class WizardInvoice(models.TransientModel):
     @api.one
     @api.depends('collection_plan_id')
     def _compute_payment_terms(self):
-        self.payment_term_ids = [(6, 0, self.collection_plan_id.payed_payment_term_ids.ids)]
+        payment_ids = []
+
+        payment_id = self._context.get('payment_id', False)
+        _logger.info('PAYMENT FROM CONTEXT: %s ' % payment_id)
+
+        if not payment_id:
+            for inv in self.collection_plan_id.payed_payment_term_ids:
+                if not inv.invoice_id:
+                    payment_ids.append(inv.id)
+        else:
+            payment_ids.append(payment_id)
+
+        self.payment_term_ids = [(6, 0, payment_ids)]
+        # self.payment_term_ids = [(6, 0, self.collection_plan_id.payed_payment_term_ids.ids)]
 
     @api.multi
     def build_lines(self):

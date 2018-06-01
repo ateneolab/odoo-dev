@@ -62,7 +62,7 @@ class WizardInvoice(models.TransientModel):
             price_unit = 0.0
             taxes = self.tax_ids if self.tax_ids else payment.tax_ids
             for tax in taxes:
-                if tax.tag_group == 'vat':
+                if tax.tax_group == 'vat':
                     factor = tax.porcentaje / 100 + 1
                     if self.taxes_included or payment.taxes_included:
                         price_unit = payment.amount / factor

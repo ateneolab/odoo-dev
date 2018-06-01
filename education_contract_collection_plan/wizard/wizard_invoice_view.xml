@@ -52,7 +52,7 @@
                             <field name="taxes_included"/>
                             <field name="contract_id" invisible="1"/>
                             <field name="tax_ids" widget="many2many_tags"
-                                   domain="[('company_id', '=', contract_id.operating_unit_id.company_id)]"/>
+                                   domain="[('company_id', '=', contract_id.campus_id.company_id)]"/>
                             <field name="payment_date"/>
                             <field name="payed" invisible="1"/>
                             <field name="invisible" invisible="1"/>

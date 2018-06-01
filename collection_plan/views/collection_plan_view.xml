@@ -74,7 +74,7 @@
                                                attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
                                         <field name="planned_date"/>
                                         <field name="payment_date"/>
-                                        <field name="payed"/>
+                                        <field name="payed" invisible="1"/>
                                         <field name="invisible" invisible="1"/>
                                         <button name="do_payment" type="object" string="Pagar" icon="gtk-apply"/> <!-- pagar sin comprobante -->
                                         <button name="do_billing" type="object" string="Facturar" icon="gtk-ok"/> <!-- generar factura solo para este pago -->

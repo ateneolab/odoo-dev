@@ -22,7 +22,7 @@
                         <script>
                             $(document).ready(function(){
                             $('.ui-dialog').css({'width': '680px'});
-                            $('.oe_form_sheet_width').css({'MAXwidth': '550px'});
+                            $('.oe_form_sheet_width').css({'MAXwidth': '650px'});
                             });
                         </script>
 

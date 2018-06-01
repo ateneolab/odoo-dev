@@ -76,7 +76,9 @@
                                         <field name="payment_date"/>
                                         <field name="payed"/>
                                         <field name="invisible" invisible="1"/>
-                                        <button name="do_payment" type="object" string="Pagar" icon="gtk-apply"/>
+                                        <button name="do_payment" type="object" string="Pagar" icon="gtk-apply"/> <!-- pagar sin comprobante -->
+                                        <button name="do_billing" type="object" string="Facturar" icon="gtk-ok"/> <!-- generar factura solo para este pago -->
+                                        <button name="do_saling" type="object" string="Recibo de venta" icon="gtk-print"/> <!-- generar nota de venta solo para este pago -->
                                     </tree>
                                 </field>
                             </page>

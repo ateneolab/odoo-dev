@@ -22,3 +22,24 @@ class PaymentTerm(models.Model):
     @api.one
     def confirm_payment(self):
         self.generate_voucher('done')
+
+    @api.one
+    def do_payment(self):
+        _logger.info('do_payment')
+
+    @api.one
+    def generate_voucher(self, state):
+        voucher_data = {
+            'partner_id': self.plan_id.contract_id.owner.id,
+            'amount': abs(self.amount),
+            'journal_id': self.payment_mode_id.journal_id.id,
+            'account_id': self.payment_mode_id.journal_id.default_debit_account_id.id,
+            'type': 'receipt',
+            'reference': self.plan_id.contract_id.barcode,
+            'company_id': self.payment_mode_id.journal_id.company_id.id,
+        }
+
+        voucher_id = self.env['account.voucher'].create(voucher_data)
+        voucher_id.proforma_voucher()
+
+        self.write({'account_voucher_id': voucher_id.id, 'state': state})

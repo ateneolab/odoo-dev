@@ -76,7 +76,7 @@
                                         <field name="payment_date"/>
                                         <field name="payed"/>
                                         <field name="invisible" invisible="1"/>
-                                        <button name="do_payment" type="object" string="Pagar" icon="gtk-network"/>
+                                        <button name="do_payment" type="object" string="Pagar" icon="gtk-ok"/>
                                     </tree>
                                 </field>
                             </page>

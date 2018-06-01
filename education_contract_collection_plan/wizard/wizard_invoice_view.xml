@@ -17,7 +17,7 @@
             <field name="model">collection_plan.wizard_invoice</field>
             <field name="inherit_id" ref="collection_plan.view_collection_plan_form"/>
             <field name="arch" type="xml">
-                <notebook position="before">
+                <!--<notebook position="before">
                     <group>
                         <group>
                             <field name="taxes_included"/>
@@ -26,7 +26,7 @@
                             <field name="tax_ids"/>
                         </group>
                     </group>
-                </notebook>
+                </notebook>-->
 
                 <!--<field name="payment_term_ids" position="replace">
                     <field name="payment_term_ids"

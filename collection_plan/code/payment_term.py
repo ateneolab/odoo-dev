@@ -40,7 +40,7 @@ class PaymentTerm(models.Model):
 
     @api.multi
     def do_billing(self):
-        self.update_payed()
+        self.collection_plan_id.update_payed()
 
         wizard_form = self.env.ref('collection_plan.view_wizard_invoice_form', False)
         view_id = self.env['collection_plan.wizard_invoice']

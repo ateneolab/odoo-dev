@@ -45,6 +45,7 @@ class PaymentTerm(models.Model):
         wizard_form = self.env.ref('collection_plan.view_wizard_invoice_form', False)
         view_id = self.env['collection_plan.wizard_invoice']
         new = view_id.create({})
+        _logger.info('WIZARD ID: %s' % new.id)
         return {
             'name': _("Generate invoice"),
             'type': 'ir.actions.act_window',

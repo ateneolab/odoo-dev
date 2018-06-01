@@ -12,12 +12,12 @@
             <field name="target">new</field>
         </record>-->
 
-        <!--<record id="view_wizard_invoice_form" model="ir.ui.view">
+        <record id="view_wizard_invoice_form" model="ir.ui.view">
             <field name="name">collection_plan.wizard_invoice.form</field>
             <field name="model">collection_plan.wizard_invoice</field>
             <field name="inherit_id" ref="collection_plan.view_collection_plan_form"/>
-            <field name="arch" type="xml">-->
-                <!--<notebook position="before">
+            <field name="arch" type="xml">
+                <notebook position="before">
                     <group>
                         <group>
                             <field name="taxes_included"/>
@@ -26,7 +26,7 @@
                             <field name="tax_ids"/>
                         </group>
                     </group>
-                </notebook>-->
+                </notebook>
 
                 <!--<field name="payment_term_ids" position="replace">
                     <field name="payment_term_ids"
@@ -56,8 +56,8 @@
                     </field>
                 </field>-->
 
-            <!--</field>
-        </record>-->
+            </field>
+        </record>
 
 
     </data>

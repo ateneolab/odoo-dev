@@ -31,7 +31,7 @@
                 </notebook>
 
                 <field name="payment_term_ids" position="replace">
-                    <field name="payment_term_ids"
+                    <field name="payment_term_ids" context="{'company_id', '=', company_id}"
                            domain="[('payed', '=', True), ('invoice_id', 'in', [False, None]), ('collection_plan_id', '=', collection_plan_id)]">
                         <tree editable="top">
                             <field name="type"/>
@@ -52,7 +52,7 @@
                             <field name="taxes_included"/>
                             <field name="collection_plan_id" invisible="0"/>
                             <field name="tax_ids" widget="many2many_tags"
-                                   domain="[('company_id', '=', company_id)]"/>
+                                   domain="[('company_id', '=', context.get('company_id'))]"/>
                             <field name="payment_date"/>
                             <field name="payed" invisible="1"/>
                             <field name="invisible" invisible="1"/>

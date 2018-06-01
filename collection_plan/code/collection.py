@@ -16,6 +16,10 @@ from openerp.exceptions import except_orm
 class CollectionPlan(models.Model):
     _name = 'collection_plan.collection_plan'
 
+    @api.one
+    def do_payment(self):
+        _logger.info('do_payment')
+
     @api.multi
     def unlink(self):
         raise except_orm('Error', _(u"You can't remove a collection plan, you can only edit it."))

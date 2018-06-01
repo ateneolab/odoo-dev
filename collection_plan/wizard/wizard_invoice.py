@@ -163,6 +163,8 @@ class WizardInvoice(models.TransientModel):
             _logger.info('INVOICE DATA: %s' % inv_data)
 
             inv = inv_obj.create(inv_data)
+            inv.button_reset_taxes()
+            inv.signal_workflow('invoice_open')
 
             for pt in self.payment_term_ids:
                 pt.write({

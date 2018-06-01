@@ -23,7 +23,7 @@
                             <field name="taxes_included"/>
                         </group>
                         <group>
-                            <field name="tax_ids"/>
+                            <field name="tax_ids" widget="many2many_tags"/>
                         </group>
                     </group>
                 </notebook>
@@ -48,7 +48,7 @@
                                    attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
                             <field name="planned_date" invisible="1"/>
                             <field name="taxes_included"/>
-                            <field name="tax_ids"/>
+                            <field name="tax_ids" widget="many2many_tags"/>
                             <field name="payment_date"/>
                             <field name="payed" invisible="1"/>
                             <field name="invisible" invisible="1"/>

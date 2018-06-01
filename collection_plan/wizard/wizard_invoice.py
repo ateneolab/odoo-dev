@@ -40,6 +40,7 @@ class WizardInvoice(models.TransientModel):
         else:
             payment_ids.append(payment_id)
 
+        _logger.info('PAYMENT_IDS: %' % payment_ids)
         self.payment_term_ids = [(6, 0, payment_ids)]
         # self.payment_term_ids = [(6, 0, self.collection_plan_id.payed_payment_term_ids.ids)]
 

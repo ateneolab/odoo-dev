@@ -31,7 +31,7 @@
                 </notebook>
 
                 <field name="payment_term_ids" position="replace">
-                    <field name="payment_term_ids" context="{'company_id', '=', company_id}"
+                    <field name="payment_term_ids" context="{'company_id': company_id}"
                            domain="[('payed', '=', True), ('invoice_id', 'in', [False, None]), ('collection_plan_id', '=', collection_plan_id)]">
                         <tree editable="top">
                             <field name="type"/>

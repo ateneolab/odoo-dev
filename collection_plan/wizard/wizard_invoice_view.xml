@@ -19,6 +19,13 @@
                 <form string="Crear factura">
                     <sheet>
 
+                        <script>
+                            $(document).ready(function(){
+                            $('.ui-dialog').css({'width': '680px'});
+                            $('.oe_form_sheet_width').css({'MAXwidth': '550px'});
+                            });
+                        </script>
+
                         <group>
                             <group>
                                 <field name="partner_id"/>

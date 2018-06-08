@@ -127,9 +127,10 @@ class program(models.Model):
         selection = [(x.code, x.name) for x in courses_id]
         return selection
 
-    @api.one
+    @api.multi
     @api.onchange('name')
     def _compute_course(self):
+        self.ensure_one()
         courses_id = self.env['op.course'].search([('code', '=', self.name)])[:1]
         if courses_id:
             import pdb

@@ -138,7 +138,7 @@ class program(models.Model):
             self.write({'course_id': courses_id.id})
 
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')
-    course_id = fields.Many2many('op.course', string=_(u'Curso'), compute='_compute_course', store=True)
+    course_id = fields.Many2one('op.course', string=_(u'Curso'), compute='_compute_course', store=True)
     qty_years = fields.Integer('Anios')
     study_company_id = fields.Many2one('res.company', string='Sucursal')  ## Deprecated or related campus_id.company_id
     campus_id = fields.Many2one('operating.unit', string='Sucursal')

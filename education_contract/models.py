@@ -130,8 +130,9 @@ class program(models.Model):
     @api.one
     @api.onchange('name')
     def _compute_course(self):
-        courses_id = self.env['op.course'].search([('code', '=', self.name)])
+        courses_id = self.env['op.course'].search([('code', '=', self.name)])[:1]
         if courses_id:
+            print(courses_id)
             self.write({'course_id': courses_id.id})
 
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')

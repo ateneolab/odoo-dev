@@ -178,7 +178,7 @@
                                                 attrs="{'invisible': ['|', ('state', 'in', ['done', 'to_advance']), ('contract_state', 'not in', ['prechecked'])]}"/>
                                         <button name="advance" string="Anticipo" type="object" class="oe_highlight" icon="gtk-ok"
                                                 attrs="{'invisible': [('invisible', '=', True)]}"/>
-                                        <button name="cancel" string="Cancelar" type="object" class="oe_highlight" icon="gtk-no"
+                                        <button name="cancel" string="Cancelar" type="object" class="oe_highlight" icon="gtk-cancel"
                                                 attrs="{'invisible': ['|', ('state', 'in', ['cancel', 'draft']), ('contract_state', 'not in', ['prechecked'])]}"/>
 
                                         <field name="state" invisible="1"/>

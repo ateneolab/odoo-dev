@@ -132,7 +132,8 @@ class program(models.Model):
     def _compute_course(self):
         courses_id = self.env['op.course'].search([('code', '=', self.name)])[:1]
         if courses_id:
-            print(courses_id)
+            import pdb
+            pdb.set_trace()
             self.write({'course_id': courses_id.id})
 
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')

@@ -9,4 +9,4 @@ class RollNumber(models.Model):
     _name = 'op.roll.number'
     _inherit = 'op.roll.number'
 
-    beneficiary_id = fields.One2many('education_contract.beneficiary', 'roll_number_id', _('Roll'))
+    beneficiary_id = fields.One2many('education_contract.beneficiary', _('Roll'))

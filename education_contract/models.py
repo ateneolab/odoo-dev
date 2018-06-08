@@ -133,6 +133,8 @@ class program(models.Model):
         import pdb
         pdb.set_trace()
         courses_id = self.env['op.course'].search([('code', '=', self.name)])
+        if courses_id:
+            self.course_id = courses_id.id
         return courses_id
 
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')

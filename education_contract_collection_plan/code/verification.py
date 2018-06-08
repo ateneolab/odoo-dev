@@ -3,6 +3,7 @@
 from openerp import models, fields, api, _
 from openerp.exceptions import except_orm
 
+
 class ContractVerification(models.Model):
     _name = 'education_contract.verification'
 
@@ -62,6 +63,25 @@ class ContractVerification(models.Model):
         })
 
         plan_id.write({'collection_plan_id': collection_id.id})
+
+        self.enroll()
+
+    @api.multi
+    def enroll(self):
+        self.ensure_one()
+        program_ids = []
+        for ben in self.beneficiary_ids:
+            program_ids.append(ben.program_ids)
+        for prog in program_ids:
+            self.env['op.roll.number'].create({
+                'course_id': prog.course_id.id,
+                'division_id': prog.division_id.id,
+                'student_id': prog.beneficiary_id.student_id.id,
+                'standard_id': prog.standard_id.id,
+                'batch_id': prog.batch_id.id,
+                'roll_number': '1',
+                'beneficiary_id': prog.beneficiary_id.id,
+            })
 
     operating_unit_id = fields.Many2one(related='contract_id.campus_id')
     contract_id = fields.Many2one('education_contract.contract', _('Education contract'))

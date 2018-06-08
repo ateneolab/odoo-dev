@@ -132,7 +132,7 @@ class program(models.Model):
     def _compute_course(self):
         courses_id = self.env['op.course'].search([('code', '=', self.name)])
         if courses_id:
-            self.wirte({'course_id': courses_id.id})
+            self.write({'course_id': courses_id.id})
 
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')
     course_id = fields.Many2many('op.course', string=_(u'Curso'), compute='_compute_course', store=True)

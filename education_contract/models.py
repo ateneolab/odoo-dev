@@ -100,7 +100,7 @@ class student(models.Model):
          ('o', 'Otro')], 'Gender', required=False)
     category = fields.Many2one(
         'op.category', 'Categoria', required=False)
-    course_id = fields.Many2one('op.course', 'Curso', required=False)
+    course_id = fields.Many2one('op.course', string='Curso', required=False)
     batch_id = fields.Many2one('op.batch', 'Batch', required=False)
     standard_id = fields.Many2one(
         'op.standard', 'Standard', required=False)
@@ -131,6 +131,8 @@ class program(models.Model):
     @api.depends('name')
     @api.onchange('name')
     def _compute_course(self):
+        import pdb
+        pdb.set_trace()
         courses_id = self.env['op.course'].search([('code', '=', self.name)])
         return courses_id.id
 

@@ -373,10 +373,12 @@
                                 <field name="study_company_id" required="0" invisible="1"/>
                                 <field name="campus_id"/>
                                 <field name="qty_years" required="1"/>
+                                <field name="batch_id"/>
                             </group>
                             <group>
                                 <field name="name" required="1"/>
                                 <field name="division_id"/>
+                                <field name="standard_id"/>
                             </group>
                         </group>
                     </sheet>

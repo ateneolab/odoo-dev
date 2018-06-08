@@ -127,13 +127,23 @@ class program(models.Model):
         selection = [(x.code, x.name) for x in courses_id]
         return selection
 
+    @api.one
+    @api.depends('name')
+    @api.onchange('name')
+    def _compute_course(self):
+        courses_id = self.env['op.course'].search([('code', '=', self.name)])
+        return courses_id.id
+
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')
+    course_id = fields.Many2many('op.course', _(u'Curso'), compute='_compute_course', store=True)
     qty_years = fields.Integer('Anios')
     study_company_id = fields.Many2one('res.company', string='Sucursal')  ## Deprecated or related campus_id.company_id
     campus_id = fields.Many2one('operating.unit', string='Sucursal')
     beneficiary_id = fields.Many2one('education_contract.beneficiary', string='Estudiante')
     contract_id = fields.Many2one('education_contract.contract', string='Contrato de estudios')
     division_id = fields.Many2one('op.division', _('Grupo'))
+    batch_id = fields.Many2one('op.batch', 'Batch', required=True)
+    standard_id = fields.Many2one('op.standard', 'Standard', required=True)
 
     @api.model
     def create(self, vals):

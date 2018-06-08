@@ -130,12 +130,9 @@ class program(models.Model):
     @api.one
     @api.onchange('name')
     def _compute_course(self):
-        import pdb
-        pdb.set_trace()
         courses_id = self.env['op.course'].search([('code', '=', self.name)])
         if courses_id:
-            self.course_id = courses_id
-        return courses_id
+            self.wirte({'course_id': courses_id.id})
 
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')
     course_id = fields.Many2many('op.course', string=_(u'Curso'), compute='_compute_course', store=True)
@@ -635,7 +632,8 @@ class plan(models.Model):
 
         for object in record_name:
             res.append((object.id,
-                        '%s - %s - %s' % (object.contract_id.barcode or '', TYPE.get(object.type, ''), object.amount_pay)))
+                        '%s - %s - %s' % (
+                        object.contract_id.barcode or '', TYPE.get(object.type, ''), object.amount_pay)))
 
         return res
 
@@ -648,7 +646,6 @@ class plan(models.Model):
                 self.registration_fee = 0.0
                 self.registration_residual = 0.0
                 self.amount_monthly = 0.0
-
 
     @api.one
     @api.depends('type', 'amount_pay', 'qty_dues')

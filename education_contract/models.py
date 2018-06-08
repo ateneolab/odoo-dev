@@ -128,13 +128,12 @@ class program(models.Model):
         return selection
 
     @api.one
-    @api.depends('name')
     @api.onchange('name')
     def _compute_course(self):
         import pdb
         pdb.set_trace()
         courses_id = self.env['op.course'].search([('code', '=', self.name)])
-        return courses_id.id
+        return courses_id
 
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')
     course_id = fields.Many2many('op.course', string=_(u'Curso'), compute='_compute_course', store=True)

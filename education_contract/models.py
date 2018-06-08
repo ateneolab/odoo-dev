@@ -18,6 +18,7 @@ class beneficiary(models.Model):
     partner_id = fields.Many2one('res.partner', _(u'Related Partner'))
     create_new = fields.Boolean(_(u'Create new beneficiary'))
     contract_id = fields.Many2one('education_contract.contract', _('Contract'))
+    roll_number_ids = fields.One2many('op.roll.number', string=_('Horarios'))
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:
@@ -132,6 +133,7 @@ class program(models.Model):
     campus_id = fields.Many2one('operating.unit', string='Sucursal')
     beneficiary_id = fields.Many2one('education_contract.beneficiary', string='Estudiante')
     contract_id = fields.Many2one('education_contract.contract', string='Contrato de estudios')
+    division_id = fields.Many2one('op.division', _('Grupo'))
 
     @api.model
     def create(self, vals):

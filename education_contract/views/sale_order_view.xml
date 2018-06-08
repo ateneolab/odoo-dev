@@ -38,6 +38,9 @@
                                     </tree>
                                 </field>
                             </page>
+                            <page string="Horario">
+                                <field name="roll_number_ids"/>
+                            </page>
                         </notebook>
                     </sheet>
                 </form>
@@ -373,6 +376,7 @@
                             </group>
                             <group>
                                 <field name="name" required="1"/>
+                                <field name="division_id"/>
                             </group>
                         </group>
                     </sheet>

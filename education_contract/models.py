@@ -129,11 +129,13 @@ class program(models.Model):
 
     @api.multi
     @api.onchange('name')
+    @api.depends('name')
     def _compute_course(self):
         self.ensure_one()
         courses_id = self.env['op.course'].search([('code', '=', self.name)])[:1]
         if courses_id:
             self.course_id = courses_id
+        return courses_id
 
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')
     course_id = fields.Many2one('op.course', string=_(u'Curso'), compute='_compute_course', store=True)

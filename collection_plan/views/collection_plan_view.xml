@@ -56,7 +56,7 @@
                             <page string="Planned Payments">
                                 <field name="payment_term_ids" domain="[('payed', '=', False)]"
                                        context="{'collection_plan_id': id, 'default_contract_id': contract_id}">
-                                    <tree editable="top" colors="red:'1'=='1'">
+                                    <tree editable="top" colors="red:'1'=='1'" context="{'payment_id': id}">
                                         <field name="id" invisible="1"/>
                                         <field name="collection_plan_id" invisible="1"/>
                                         <field name="type"/>
@@ -80,8 +80,7 @@
                                         <field name="invisible" invisible="1"/>
                                         <button name="do_payment" type="object" string="Pagar"
                                                 icon="gtk-apply"/> <!-- pagar sin comprobante -->
-                                        <button name="do_billing" type="object" string="Facturar" icon="gtk-ok"
-                                                context="{'payment_id': id}"/>
+                                        <button name="do_billing" type="object" string="Facturar" icon="gtk-ok"/>
                                         <button name="do_saling" type="object" string="Recibo de venta"
                                                 icon="gtk-print"/> <!-- generar nota de venta solo para este pago -->
                                     </tree>

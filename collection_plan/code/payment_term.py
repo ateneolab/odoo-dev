@@ -63,7 +63,6 @@ class PaymentTerm(models.Model):
             'view_type': 'form',
             'nodestroy': True,
             'target': 'new',
-            # 'context': context
         }
     #
     # @api.one

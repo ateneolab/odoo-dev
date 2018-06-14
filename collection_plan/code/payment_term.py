@@ -44,6 +44,7 @@ class PaymentTerm(models.Model):
         pdb.set_trace()
         payment_id = self._context.get('payment_id', False)
         if payment_id:
+            payment_id = self.env['education_contract.payment_term'].browse([payment_id])[:1]
             contract_id = payment_id.plan_id.collection_plan_id.contract_id.id
             self.with_context({'default_contract_id': contract_id})
 

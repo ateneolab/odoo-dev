@@ -40,6 +40,8 @@ class PaymentTerm(models.Model):
 
     @api.multi
     def do_billing(self):
+        import pdb
+        pdb.set_trace()
         self.collection_plan_id.update_payed()
 
         wizard_form = self.env.ref('collection_plan.view_wizard_invoice_form', False)

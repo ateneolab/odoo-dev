@@ -13,7 +13,6 @@ class WizardInvoice(models.TransientModel):
     _name = 'collection_plan.wizard_invoice'
 
     contract_id = fields.Many2one('education_contract.contract', 'Contrato')
-    # verification_id = fields.Many2one('education_contract.verification', related='contract_id.verification_id')
     collection_plan_id = fields.Many2one('collection_plan.collection_plan')
 
     invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))

@@ -40,13 +40,13 @@ class PaymentTerm(models.Model):
 
     @api.multi
     def do_billing(self):
-        context = {}
-        payment_id = self._context.get('payment_id', False)
-        if payment_id:
-            payment_id = self.env['education_contract.payment_term'].browse([payment_id])[:1]
-            contract_id = payment_id.plan_id.collection_plan_id.contract_id.id
-            context.update({'default_contract_id': contract_id, 'payment_id': payment_id.id})
-
+        # context = {}
+        # payment_id = self._context.get('payment_id', False)
+        # if payment_id:
+        #     payment_id = self.env['education_contract.payment_term'].browse([payment_id])[:1]
+        #     contract_id = payment_id.plan_id.collection_plan_id.contract_id.id
+        #     context.update({'default_contract_id': contract_id, 'payment_id': payment_id.id})
+        #
         self.collection_plan_id.update_payed()
 
         wizard_form = self.env.ref('collection_plan.view_wizard_invoice_form', False)
@@ -63,7 +63,7 @@ class PaymentTerm(models.Model):
             'view_type': 'form',
             'nodestroy': True,
             'target': 'new',
-            'context': context
+
         }
     #
     # @api.one

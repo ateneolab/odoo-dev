@@ -81,7 +81,7 @@
                                         <button name="do_payment" type="object" string="Pagar"
                                                 icon="gtk-apply"/> <!-- pagar sin comprobante -->
                                         <button name="do_billing" type="object" string="Facturar" icon="gtk-ok"
-                                                context="{'payment_id': id, 'default_collection_plan_id': collection_plan_id}"/> <!-- 'default_contract_id': collection_plan_id.contract_id}" generar factura solo para este pago -->
+                                                context="{'payment_id': id}"/> <!-- 'default_contract_id': collection_plan_id.contract_id}" generar factura solo para este pago -->
                                         <button name="do_saling" type="object" string="Recibo de venta"
                                                 icon="gtk-print"/> <!-- generar nota de venta solo para este pago -->
                                     </tree>

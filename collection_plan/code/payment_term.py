@@ -42,6 +42,11 @@ class PaymentTerm(models.Model):
     def do_billing(self):
         import pdb
         pdb.set_trace()
+        payment_id = self._context.get('payment_id', False)
+        if payment_id:
+            contract_id = payment_id.plan_id.collection_plan_id.contract_id.id
+            self.with_context({'default_contract_id': contract_id})
+
         self.collection_plan_id.update_payed()
 
         wizard_form = self.env.ref('collection_plan.view_wizard_invoice_form', False)

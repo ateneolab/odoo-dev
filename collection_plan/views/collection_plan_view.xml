@@ -15,7 +15,7 @@
                         <button name="reschedule_plan" states="created" type="object" string="Reschedule payments"
                                 class="oe_highlight"/>
                         <button name="generate_invoice" states="created" type="object" string="Generate Invoice"
-                                context="{'collection_plan_id': id, 'default_contract_id': contract_id}"
+                                context="{'collection_plan_id': id, 'default_contract_id': contract_id, 'invoice_multi': True}"
                                 class="oe_highlight"/>
                     </header>
 
@@ -78,10 +78,11 @@
                                         <field name="payed" invisible="1"/>
                                         <field name="plan_id" invisible="1"/>
                                         <field name="invisible" invisible="1"/>
-                                        <button name="do_payment" type="object" string="Pagar"
-                                                icon="gtk-apply"/> <!-- pagar sin comprobante -->
+                                        <!--<button name="confirm_payment" type="object" string="Pagar"-->
+                                        <!--icon="gtk-apply"/> &lt;!&ndash; do_payment: pagar sin comprobante &ndash;&gt;-->
+                                        <!--<button name="invoice_pay_customer" type="object" string="Register Payment"/>-->
                                         <button name="do_billing" type="object" string="Facturar" icon="gtk-ok"/>
-                                        <button name="do_saling" type="object" string="Recibo de venta"
+                                        <button name="do_saling" type="object" string="Nota de venta"
                                                 icon="gtk-print"/> <!-- generar nota de venta solo para este pago -->
                                     </tree>
                                 </field>

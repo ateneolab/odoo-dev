@@ -41,7 +41,6 @@ class WizardInvoice(models.TransientModel):
 
         _logger.info('PAYMENT_IDS: %s' % payment_ids)
         self.payment_term_ids = [(6, 0, payment_ids)]
-        # self.payment_term_ids = [(6, 0, self.collection_plan_id.payed_payment_term_ids.ids)]
 
     @api.multi
     def build_lines(self):
@@ -179,6 +178,8 @@ class WizardInvoice(models.TransientModel):
             inv.button_reset_taxes()
             inv.signal_workflow('invoice_open')
 
+            self.reconcile_payments(inv)
+
             for pt in self.payment_term_ids:
                 pt.write({
                     'invoice_id': inv.id
@@ -193,3 +194,13 @@ class WizardInvoice(models.TransientModel):
 
         except Exception as e:
             raise except_orm('Error', e)
+
+    @api.multi
+    def reconcile_payments(self, inv):
+        self.ensure_one()
+        for pt in self.payment_term_ids:
+            if not pt.account_voucher_id:
+                pt.generate_voucher('done')
+            inv.write({'payment_id': [(4, pt.account_voucher_id.id)]})
+            pt.account_voucher_id.button_proforma_voucher()
+        # reconcile payments to update residual

@@ -13,13 +13,14 @@ class PaymentTerm(models.Model):
 
     invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
 
-    @api.one
+    @api.multi
     def confirm_payment(self):
+        self.ensure_one()
         self.generate_voucher('done')
 
     @api.one
     def do_payment(self):
-        _logger.info('do_payment')
+        _logger.info('do_payment')  # raise wizard for payment, then link it to collection plan, contract
 
     @api.one
     def generate_voucher(self, state):
@@ -36,17 +37,10 @@ class PaymentTerm(models.Model):
         voucher_id = self.env['account.voucher'].create(voucher_data)
         voucher_id.proforma_voucher()
 
-        self.write({'account_voucher_id': voucher_id.id, 'state': state})
+        self.write({'account_voucher_id': voucher_id.id, 'state': state, 'payed': True})
 
     @api.multi
     def do_billing(self):
-        # context = {}
-        # payment_id = self._context.get('payment_id', False)
-        # if payment_id:
-        #     payment_id = self.env['education_contract.payment_term'].browse([payment_id])[:1]
-        #     contract_id = payment_id.plan_id.collection_plan_id.contract_id.id
-        #     context.update({'default_contract_id': contract_id, 'payment_id': payment_id.id})
-        #
         self.collection_plan_id.update_payed()
 
         wizard_form = self.env.ref('collection_plan.view_wizard_invoice_form', False)
@@ -65,13 +59,3 @@ class PaymentTerm(models.Model):
             'target': 'new',
             'context': {'payment_id': self.id}
         }
-    #
-    # @api.one
-    # @api.depends('collection_plan_id')
-    # def _compute_payment_terms(self):
-    #     inv_ids = []
-    #     for inv in self.collection_plan_id.payed_payment_term_ids:
-    #         if not inv.invoice_id:
-    #             inv_ids.append(inv.id)
-    #     self.payment_term_ids = [(6, 0, inv_ids)]
-    #     # self.payment_term_ids = [(6, 0, self.collection_plan_id.payed_payment_term_ids.ids)]

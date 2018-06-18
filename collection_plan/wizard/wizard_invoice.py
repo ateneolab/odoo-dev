@@ -46,8 +46,6 @@ class WizardInvoice(models.TransientModel):
     def build_lines(self):
         self.ensure_one()
         inv_lines = []
-        import pdb
-        pdb.set_trace()
 
         for payment in self.payment_term_ids:
             name = 'Contrato: %s - Fecha de pago: %s' % (
@@ -87,8 +85,7 @@ class WizardInvoice(models.TransientModel):
             }
 
             inv_lines.append((0, 0, line))
-        import pdb
-        pdb.set_trace()
+
         return inv_lines
 
     @api.multi
@@ -180,8 +177,6 @@ class WizardInvoice(models.TransientModel):
         inv_obj = self.env['account.invoice']
 
         try:
-            import pdb
-            pdb.set_trace()
             # inv_lines = self.build_lines()
 
             inv_lines = []
@@ -252,12 +247,9 @@ class WizardInvoice(models.TransientModel):
     @api.multi
     def reconcile_payments(self, inv):
         self.ensure_one()
-        import pdb
-        pdb.set_trace()
         for pt in self.payment_term_ids:
             if not pt.account_voucher_id:
                 pt.generate_voucher('done')
             #inv.write({'payment_ids': [(4, pt.account_voucher_id.id)]})
             inv.payment_ids = [(4, pt.account_voucher_id.id)]
             pt.account_voucher_id.button_proforma_voucher()
-        # reconcile payments to update residual

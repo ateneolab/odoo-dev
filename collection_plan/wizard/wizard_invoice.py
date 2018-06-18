@@ -252,4 +252,5 @@ class WizardInvoice(models.TransientModel):
                 pt.generate_voucher('done')
             #inv.write({'payment_ids': [(4, pt.account_voucher_id.id)]})
             inv.payment_ids = [(4, pt.account_voucher_id.id)]
+            _logger.info('VOUCHER_ID: %s' % pt.account_voucher_id)
             pt.account_voucher_id.button_proforma_voucher()

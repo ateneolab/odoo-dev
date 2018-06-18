@@ -35,7 +35,7 @@ class PaymentTerm(models.Model):
         }
 
         voucher_id = self.env['account.voucher'].create(voucher_data)
-        voucher_id.proforma_voucher()
+        # voucher_id.proforma_voucher()
 
         self.write({'account_voucher_id': voucher_id.id, 'state': state, 'payed': True})
 

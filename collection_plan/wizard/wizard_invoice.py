@@ -167,7 +167,7 @@ class WizardInvoice(models.TransientModel):
             'type': 'ir.actions.act_window',
         }
 
-    @api.one
+    @api.multi
     def create_invoice(self):
         inv_obj = self.env['account.invoice']
 

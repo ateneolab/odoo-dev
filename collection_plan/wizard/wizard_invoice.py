@@ -46,6 +46,8 @@ class WizardInvoice(models.TransientModel):
     def build_lines(self):
         self.ensure_one()
         inv_lines = []
+        import pdb
+        pdb.set_trace()
 
         for payment in self.payment_term_ids:
             name = 'Contrato: %s - Fecha de pago: %s' % (
@@ -170,6 +172,8 @@ class WizardInvoice(models.TransientModel):
         inv_obj = self.env['account.invoice']
 
         try:
+            import pdb
+            pdb.set_trace()
             inv_lines = self.build_lines()
             _logger.info('INV_LINES: %s' % inv_lines)
 

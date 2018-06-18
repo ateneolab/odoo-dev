@@ -170,25 +170,31 @@ class WizardInvoice(models.TransientModel):
 
         try:
             inv_lines = self.build_lines()
+            _logger.info('INV_LINES: %s' % inv_lines)
+            
             inv_data = self.build_invoice_data(inv_lines)
-
-            _logger.info('INVOICE DATA: %s' % inv_data)
+            _logger.info('INV_DATA: %s' % inv_data)
 
             inv = inv_obj.create(inv_data)
+            _logger.info('INV: %s' % inv)
             inv.button_reset_taxes()
             inv.signal_workflow('invoice_open')
 
             self.reconcile_payments(inv)
+            _logger.info('RECONCILE PAYMENTS...')
 
             for pt in self.payment_term_ids:
                 pt.write({
                     'invoice_id': inv.id
                 })
+            _logger.info('UPDATED PAYMENTS...')
 
             collection_plan = self.env['collection_plan.collection_plan'].browse(self._context.get('active_ids'))[:1]
+            _logger.info('COLLECTION_PLAN: %s' % collection_plan)
             collection_plan.write({
                 'invoice_ids': [(4, inv.id)]
             })
+            _logger.info('UPDATED COLLECTION_PLAN...')
 
             return self.open_invoices(inv.id)
 

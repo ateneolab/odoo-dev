@@ -252,6 +252,8 @@ class WizardInvoice(models.TransientModel):
     @api.multi
     def reconcile_payments(self, inv):
         self.ensure_one()
+        import pdb
+        pdb.set_trace()
         for pt in self.payment_term_ids:
             if not pt.account_voucher_id:
                 pt.generate_voucher('done')

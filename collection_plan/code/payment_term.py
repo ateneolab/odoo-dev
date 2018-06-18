@@ -23,9 +23,9 @@ class PaymentTerm(models.Model):
         _logger.info('do_payment')  # raise wizard for payment, then link it to collection plan, contract
 
     @api.one
-    def generate_voucher(self, state):
+    def generate_voucher(self, state, partner_id):
         voucher_data = {
-            'partner_id': self.plan_id.contract_id.owner.id,
+            'partner_id': partner_id,
             'amount': abs(self.amount),
             'journal_id': self.payment_mode_id.journal_id.id,
             'account_id': self.payment_mode_id.journal_id.default_debit_account_id.id,

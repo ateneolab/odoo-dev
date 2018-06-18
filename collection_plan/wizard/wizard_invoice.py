@@ -257,6 +257,7 @@ class WizardInvoice(models.TransientModel):
         for pt in self.payment_term_ids:
             if not pt.account_voucher_id:
                 pt.generate_voucher('done')
-            inv.write({'payment_id': [(4, pt.account_voucher_id.id)]})
+            #inv.write({'payment_ids': [(4, pt.account_voucher_id.id)]})
+            inv.payment_ids = [(4, pt.account_voucher_id.id)]
             pt.account_voucher_id.button_proforma_voucher()
         # reconcile payments to update residual

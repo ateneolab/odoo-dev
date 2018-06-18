@@ -69,12 +69,12 @@ class WizardInvoice(models.TransientModel):
             ])
             _logger.info('account_income from company: %s' % str(account))
 
-            t_domain = [
-                ('porcentaje', '=', '0'),  # cable, se deberia tomar por parametro, igual se puede editar luego
-                ('tax_group', '=', 'vat0'),  # cable, se deberia tomar por parametro, igual se puede editar luego
-                ('company_id', '=', self.operating_unit_id.company_id.id),
-                ('type_tax_use', 'in', ['sale', 'all'])]
-            tax_id = self.env['account.tax'].search(t_domain)[:1]
+            # t_domain = [
+            #     ('porcentaje', '=', '0'),  # cable, se deberia tomar por parametro, igual se puede editar luego
+            #     ('tax_group', '=', 'vat0'),  # cable, se deberia tomar por parametro, igual se puede editar luego
+            #     ('company_id', '=', self.operating_unit_id.company_id.id),
+            #     ('type_tax_use', 'in', ['sale', 'all'])]
+            # tax_id = self.env['account.tax'].search(t_domain)[:1]
 
             line = {
                 'name': name,
@@ -174,7 +174,42 @@ class WizardInvoice(models.TransientModel):
         try:
             import pdb
             pdb.set_trace()
-            inv_lines = self.build_lines()
+            # inv_lines = self.build_lines()
+
+            inv_lines = []
+
+            for payment in self.payment_term_ids:
+                name = 'Contrato: %s - Fecha de pago: %s' % (
+                    payment.plan_id.collection_plan_id.contract_id.barcode, payment.payment_date)
+
+                default_product_id = self.env['product.template'].search([('name', '=', 'IMPORT SRI PRODUCT')])
+                default_product = self.env['product.product'].search([('product_tmpl_id', '=', default_product_id.id)])
+
+                cm_product_template_util_id = default_product_id.product_template_util_id
+                if not cm_product_template_util_id:
+                    raise _('Accounts for default product is not set correctly for multi company.')
+
+                account = cm_product_template_util_id.account_income
+                _logger.info('account_income: %s' % str(account))
+
+                account = self.env['account.account'].sudo().search([
+                    ('company_id', '=', self.operating_unit_id.company_id.id),
+                    ('code', '=', account.code)
+                ])
+                _logger.info('account_income from company: %s' % str(account))
+
+                line = {
+                    'name': name,
+                    'account_id': account.id,
+                    'price_unit': payment.amount,
+                    'quantity': float(1.0),
+                    'product_id': default_product.id,
+                    'invoice_line_tax_id': payment.tax_ids.ids,
+                    'account_analytic_id': False,
+                }
+
+                inv_lines.append((0, 0, line))
+
             _logger.info('INV_LINES: %s' % inv_lines)
 
             inv_data = self.build_invoice_data(inv_lines)
@@ -194,7 +229,7 @@ class WizardInvoice(models.TransientModel):
                 })
             _logger.info('UPDATED PAYMENTS...')
 
-            collection_plan = self.env['collection_plan.collection_plan'].browse(self._context.get('active_ids'))[:1]
+            collection_plan = self.env['collection_plan.collection_plan'].browse(self.collection_plan_id.id)
             _logger.info('COLLECTION_PLAN: %s' % collection_plan)
             collection_plan.write({
                 'invoice_ids': [(4, inv.id)]

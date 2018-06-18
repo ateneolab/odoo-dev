@@ -204,7 +204,7 @@ class WizardInvoice(models.TransientModel):
                     'price_unit': payment.amount,
                     'quantity': float(1.0),
                     'product_id': default_product.id,
-                    'invoice_line_tax_id': payment.tax_ids.ids,
+                    'invoice_line_tax_id': [(6, 0, payment.tax_ids.ids)],
                     'account_analytic_id': False,
                 }
 

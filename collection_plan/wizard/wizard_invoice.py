@@ -207,9 +207,17 @@ class WizardInvoice(models.TransientModel):
                     'price_unit': payment.amount,
                     'quantity': float(1.0),
                     'product_id': default_product.id,
-                    'invoice_line_tax_id': [(6, 0, payment.tax_ids.ids)],
                     'account_analytic_id': False,
                 }
+
+                if self.tax_ids:
+                    line.update({
+                        'invoice_line_tax_id': [(6, 0, self.tax_ids.ids)],
+                    })
+                else:
+                    line.update({
+                        'invoice_line_tax_id': [(6, 0, payment.tax_ids.ids)],
+                    })
 
                 inv_lines.append((0, 0, line))
 

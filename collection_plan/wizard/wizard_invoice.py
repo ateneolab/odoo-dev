@@ -85,7 +85,8 @@ class WizardInvoice(models.TransientModel):
             }
 
             inv_lines.append((0, 0, line))
-
+        import pdb
+        pdb.set_trace()
         return inv_lines
 
     @api.multi

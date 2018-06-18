@@ -78,6 +78,7 @@
                                         <field name="payed" invisible="1"/>
                                         <field name="plan_id" invisible="1"/>
                                         <field name="invisible" invisible="1"/>
+                                        <field name="account_voucher_id"/>
                                         <field name="invoice_id"/>
                                         <!--<button name="confirm_payment" type="object" string="Pagar"-->
                                         <!--icon="gtk-apply"/> &lt;!&ndash; do_payment: pagar sin comprobante &ndash;&gt;-->

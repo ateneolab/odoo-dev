@@ -116,6 +116,13 @@ class WizardInvoice(models.TransientModel):
         period_id = self.get_period(company_id.id, inv_date.strftime('%d/%m/%Y'))
         _logger.info('period: %s' % period_id)
 
+        auth_id = self.env['account.authorisation'].search([
+            ('operating_unit_id', '=', self.operating_unit_id.id),
+            ('type_id.code', '=', '18'),
+        ])
+        if not auth_id:
+            raise Exception(_(u'authorization document is not configured.'))
+
         inv_data = {
             'name': 'Factura generada',
             'origin': 'Cobranzas',
@@ -133,6 +140,7 @@ class WizardInvoice(models.TransientModel):
             'company_id': self.company_id.id,
             'period_id': period_id.id,
             'operating_unit_id': self.operating_unit_id.id,
+            'auth_inv_id': auth_id.id
         }
 
         return inv_data

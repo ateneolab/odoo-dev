@@ -171,7 +171,7 @@ class WizardInvoice(models.TransientModel):
         }
 
     @api.multi
-    def create_invoice(self):
+    def create_individual_invoice(self):
         inv_obj = self.env['account.invoice']
 
         try:
@@ -252,10 +252,116 @@ class WizardInvoice(models.TransientModel):
             raise except_orm('Error', e)
 
     @api.multi
+    def create_payments_and_invoice(self):
+        inv_obj = self.env['account.invoice']
+
+        try:
+            inv_lines = []
+
+            for payment in self.payment_term_ids:
+                name = 'Contrato: %s - Fecha de pago: %s' % (
+                    payment.plan_id.collection_plan_id.contract_id.barcode, payment.payment_date)
+
+                default_product_id = self.env['product.template'].search([('name', '=', 'IMPORT SRI PRODUCT')])
+                default_product = self.env['product.product'].search([('product_tmpl_id', '=', default_product_id.id)])
+
+                cm_product_template_util_id = default_product_id.product_template_util_id
+                if not cm_product_template_util_id:
+                    raise _('Accounts for default product is not set correctly for multi company.')
+
+                account = cm_product_template_util_id.account_income
+                _logger.info('account_income: %s' % str(account))
+
+                account = self.env['account.account'].sudo().search([
+                    ('company_id', '=', self.operating_unit_id.company_id.id),
+                    ('code', '=', account.code)
+                ])
+                _logger.info('account_income from company: %s' % str(account))
+
+                line = {
+                    'name': name,
+                    'account_id': account.id,
+                    'price_unit': payment.amount,
+                    'quantity': float(1.0),
+                    'product_id': default_product.id,
+                    'account_analytic_id': False,
+                }
+
+                if self.tax_ids:
+                    line.update({
+                        'invoice_line_tax_id': [(6, 0, self.tax_ids.ids)],
+                    })
+                else:
+                    line.update({
+                        'invoice_line_tax_id': [(6, 0, payment.tax_ids.ids)],
+                    })
+
+                inv_lines.append((0, 0, line))
+
+            _logger.info('INV_LINES: %s' % inv_lines)
+
+            inv_data = self.build_invoice_data(inv_lines)
+            _logger.info('INV_DATA: %s' % inv_data)
+
+            inv = inv_obj.create(inv_data)
+            _logger.info('INV: %s' % inv)
+            inv.button_reset_taxes()
+            inv.signal_workflow('invoice_open')
+
+            self.reconcile_previous_payments(inv)
+            _logger.info('RECONCILE PAYMENTS...')
+
+            for pt in self.payment_term_ids:
+                pt.write({
+                    'invoice_id': inv.id,
+                    'internal_state': 'invoiced'
+                })
+            _logger.info('UPDATED PAYMENTS...')
+
+            collection_plan = self.env['collection_plan.collection_plan'].browse(self.collection_plan_id.id)
+            _logger.info('COLLECTION_PLAN: %s' % collection_plan)
+            collection_plan.write({
+                'invoice_ids': [(4, inv.id)]
+            })
+            _logger.info('UPDATED COLLECTION_PLAN...')
+
+            return self.open_invoices(inv.id)
+
+        except Exception as e:
+            raise except_orm('Error', e)
+
+    @api.multi
+    def create_invoice(self):
+        if 'payment_id' in self._context:
+            return self.create_individual_invoice()
+        else:
+            return self.create_payments_and_invoice()
+
+    @api.multi
+    def reconcile_previous_payments(self, inv):
+        self.ensure_one()
+        # receivable account of the out_invoice
+        inv_account_id = inv.account_id
+        move_line_ids = []
+        # get invoice account.move
+        move_id = inv.move_id
+        # get invoice account.move account.move.line which account is invoice receivable account
+        for line in move_id.line_id:
+            if line.account_id.id == inv_account_id.id:
+                move_line_ids.append(line.id)
+        lines = []
+        for pt in self.payment_term_ids:
+            lines.append(pt.account_voucher_id.line_id)
+        # get payments account.move.line which account is invoice receivable account
+        for line in lines:
+            if line.account_id.id == inv_account_id.id:
+                move_line_ids.append(line.id)
+        self.env['account.move.line'].reconcile_partial(self._cr, self._uid, move_line_ids, context=self._context)
+
+    @api.multi
     def reconcile_payments(self, inv):
         self.ensure_one()
         for pt in self.payment_term_ids:
             if not pt.account_voucher_id:
                 pt.generate_voucher('done', self.partner_id.id, self.company_id.id, 'receipt', inv)
             _logger.info('VOUCHER_ID: %s' % pt.account_voucher_id)
-            # pt.account_voucher_id.button_proforma_voucher()

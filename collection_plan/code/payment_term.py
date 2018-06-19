@@ -25,8 +25,6 @@ class PaymentTerm(models.Model):
 
     @api.one
     def generate_voucher(self, state, partner_id, company_id, type, invoice):
-        import pdb
-        pdb.set_trace()
         journal = self.env['account.journal'].search([
             ('company_id', '=', company_id),
             ('type', '=', self.payment_mode_id.journal_id.type),
@@ -40,7 +38,7 @@ class PaymentTerm(models.Model):
             'partner_id': partner_id,
             'amount': abs(self.amount),
             'journal_id': journal.id,
-            'account_id': invoice.move_id.line_id[0].account_id.id,
+            'account_id': journal.default_debit_account_id.id,
             'reference': self.plan_id.collection_plan_id.contract_id.barcode,
             'company_id': company_id,
             'type': type,

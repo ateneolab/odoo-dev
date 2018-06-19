@@ -148,6 +148,27 @@ class PaymentTerm(models.Model):
             'context': {'payment_id': self.id}
         }
 
+    @api.multi
+    def do_saling(self):
+        self.collection_plan_id.update_payed()
+
+        wizard_form = self.env.ref('collection_plan.view_wizard_reeipt_form', False)
+        view_id = self.env['collection_plan.wizard_receipt']
+        new = view_id.create({})
+        _logger.info('WIZARD ID: %s' % new.id)
+        return {
+            'name': _("Generate voucher"),
+            'type': 'ir.actions.act_window',
+            'res_model': 'collection_plan.wizard_receipt',
+            'res_id': new.id,
+            'view_id': wizard_form.id,
+            'view_mode': 'form',
+            'view_type': 'form',
+            'nodestroy': True,
+            'target': 'new',
+            'context': {'payment_id': self.id}
+        }
+
 
 class Voucher(models.Model):
     _name = 'account.voucher'

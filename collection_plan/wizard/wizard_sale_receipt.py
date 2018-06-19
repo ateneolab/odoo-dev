@@ -53,6 +53,8 @@ class WizardInvoice(models.TransientModel):
 
     @api.one
     def create_voucher(self):
+        import pdb
+        pdb.set_trace()
         if len(self.payment_term_ids):
             pt = self.payment_term_ids[0]
             pt.generate_voucher_receipt('done', self.partner_id.id, self.company_id.id, 'receipt')

@@ -37,7 +37,7 @@ class PaymentTerm(models.Model):
             'company_id': company_id,
             'payment_option': 'without_writeoff'
         }
-
+        _logger.info('VOUCHER_DATA: %s' % voucher_data)
         voucher_id = self.env['account.voucher'].create(voucher_data)
         # voucher_id.proforma_voucher()
 

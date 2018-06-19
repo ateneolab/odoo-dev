@@ -40,10 +40,11 @@ class PaymentTerm(models.Model):
             'partner_id': partner_id,
             'amount': abs(self.amount),
             'journal_id': journal.id,
-            'account_id': self.payment_mode_id.journal_id.default_debit_account_id.id,
+            'account_id': journal.default_debit_account_id.id,
             'reference': self.plan_id.collection_plan_id.contract_id.barcode,
             'company_id': company_id,
             'type': type,
+            'period_id': invoice.period_id.id
         }
         _logger.info('VOUCHER_DATA: %s' % voucher_data)
         voucher_id = self.env['account.voucher'].create(voucher_data)
@@ -55,17 +56,16 @@ class PaymentTerm(models.Model):
             "amount": abs(self.amount),
             "voucher_id": voucher_id.id,
             "partner_id": partner_id,
-            "account_id": self.payment_mode_id.journal_id.default_debit_account_id.id,
+            "account_id": journal.default_debit_account_id.id,
             "type": "cr",
             "move_line_id": invoice.move_id.line_id[0].id,
             'company_id': company_id
         }
         _logger.info('VOUCHER_LINE_DATA: %s' % voucher_line)
-        self.env["account.voucher.line"].create(voucher_line)
+        voucher_line_id = self.env["account.voucher.line"].create(voucher_line)
 
-        period = self.env['account.period'].search(
-            [('name', '=', voucher_id.period_id.name), ('company_id', '=', company_id)])
-        voucher_id.write({'period_id': period.id})
+        for line in voucher_line_id:
+            line.write({'period_id': invoice.period_id.id})
 
         voucher_id.signal_workflow("proforma_voucher")
 

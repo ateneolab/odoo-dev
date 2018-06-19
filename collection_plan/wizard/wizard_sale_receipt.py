@@ -57,7 +57,7 @@ class WizardInvoice(models.TransientModel):
         if len(self.payment_term_ids):
             pt = self.payment_term_ids[0]
             pt.generate_voucher_receipt('done', self.partner_id.id, self.company_id.id, 'receipt')
-            self.open_voucher(pt.account_voucher_id.id)
+            return self.open_voucher(pt.account_voucher_id.id)
 
     @api.multi
     def open_voucher(self, voucher_id):

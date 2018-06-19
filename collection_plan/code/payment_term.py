@@ -63,7 +63,7 @@ class PaymentTerm(models.Model):
 
         voucher_line = {
             "name": "",
-            "payment_option": "without_writeoff",
+            # "payment_option": "without_writeoff",
             "amount": abs(self.amount),
             "voucher_id": voucher_id.id,
             "partner_id": partner_id,
@@ -72,10 +72,10 @@ class PaymentTerm(models.Model):
             'company_id': company_id
         }
         _logger.info('VOUCHER_LINE_DATA: %s' % voucher_line)
-        voucher_line_id = self.env["account.voucher.line"].create(voucher_line)
+        self.env["account.voucher.line"].create(voucher_line)
 
-        for line in voucher_line_id:
-            line.write({'period_id': period.id})
+        # for line in voucher_line_id:
+        #     line.write({'period_id': period.id})
 
         voucher_id.signal_workflow("proforma_voucher")
 

@@ -53,11 +53,12 @@ class WizardInvoice(models.TransientModel):
 
     @api.one
     def create_voucher(self):
-
         if len(self.payment_term_ids):
             pt = self.payment_term_ids[0]
             pt.generate_voucher_receipt('done', self.partner_id.id, self.company_id.id, 'receipt')
-            return self.open_voucher(pt.account_voucher_id.id)
+            res = self.open_voucher(pt.account_voucher_id.id)
+            _logger.info('RES TO RETURN FOR OPENING VOUCHER FORM JUST CREATED: %s' % res)
+            return res
 
     @api.multi
     def open_voucher(self, voucher_id):

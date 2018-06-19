@@ -40,7 +40,7 @@ class PaymentTerm(models.Model):
             'partner_id': partner_id,
             'amount': abs(self.amount),
             'journal_id': journal.id,
-            'account_id': journal.default_debit_account_id.id,
+            'account_id': invoice.move_id.line_id[0].account_id.id,
             'reference': self.plan_id.collection_plan_id.contract_id.barcode,
             'company_id': company_id,
             'type': type,
@@ -56,7 +56,7 @@ class PaymentTerm(models.Model):
             "amount": abs(self.amount),
             "voucher_id": voucher_id.id,
             "partner_id": partner_id,
-            "account_id": journal.default_debit_account_id.id,
+            "account_id": invoice.move_id.line_id[0].account_id.id,
             "type": "cr",
             "move_line_id": invoice.move_id.line_id[0].id,
             'company_id': company_id

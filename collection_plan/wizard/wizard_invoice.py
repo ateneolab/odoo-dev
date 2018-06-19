@@ -144,8 +144,6 @@ class WizardInvoice(models.TransientModel):
 
     @api.multi
     def get_period(self, company_id, date_str, context=None):
-        self.ensure_one()
-
         code = '%s/%s' % (date_str[3:5], date_str[6:])
         domain = [('code', '=', code), ('company_id', '=', company_id)]
         period_id = self.env['account.period'].search(domain)[:1]

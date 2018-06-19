@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import datetime
 import logging
 
 from openerp import models, fields, api, _
@@ -22,6 +23,63 @@ class PaymentTerm(models.Model):
     @api.one
     def do_payment(self):
         _logger.info('do_payment')  # raise wizard for payment, then link it to collection plan, contract
+
+    @api.multi
+    def generate_voucher_receipt(self, state, partner_id, company_id, type):
+        self.ensure_one()
+
+        journal = self.env['account.journal'].search([
+            ('company_id', '=', company_id),
+            ('type', '=', self.payment_mode_id.journal_id.type),
+            ('default_debit_account_id.code', '=', self.payment_mode_id.journal_id.default_debit_account_id.code),
+            ('default_credit_account_id.code', '=', self.payment_mode_id.journal_id.default_credit_account_id.code),
+        ])
+        if not journal:
+            raise except_orm('Error', u'Journal is not defined.')
+
+        period = self.env['collection_plan.wizard_invoice'].get_period(company_id,
+                                                                       datetime.datetime.today().strftime(
+                                                                           '%d/%m/%Y'))
+
+        voucher_data = {
+            'partner_id': partner_id,
+            'amount': abs(self.amount),
+            'journal_id': journal.id,
+            'account_id': journal.default_debit_account_id.id,
+            'reference': self.plan_id.collection_plan_id.contract_id.barcode,
+            'company_id': company_id,
+            'type': type,
+            'period_id': period.id
+        }
+        _logger.info('VOUCHER_DATA: %s' % voucher_data)
+        voucher_id = self.env['account.voucher'].create(voucher_data)
+
+        partner = self.env['res.partner'].browse([partner_id])
+        account_receivable = partner.property_account_receivable
+        account_receivable_id = self.env['account.account'].search([
+            ('code', '=', account_receivable.code),
+            ('company_id', '=', company_id),
+        ])
+
+        voucher_line = {
+            "name": "",
+            "payment_option": "without_writeoff",
+            "amount": abs(self.amount),
+            "voucher_id": voucher_id.id,
+            "partner_id": partner_id,
+            "account_id": account_receivable_id.id,
+            "type": "cr",
+            'company_id': company_id
+        }
+        _logger.info('VOUCHER_LINE_DATA: %s' % voucher_line)
+        voucher_line_id = self.env["account.voucher.line"].create(voucher_line)
+
+        for line in voucher_line_id:
+            line.write({'period_id': period.id})
+
+        voucher_id.signal_workflow("proforma_voucher")
+
+        self.write({'account_voucher_id': voucher_id.id, 'state': state, 'payed': True})
 
     @api.one
     def generate_voucher(self, state, partner_id, company_id, type, invoice):

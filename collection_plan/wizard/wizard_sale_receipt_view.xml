@@ -3,20 +3,20 @@
 <openerp>
     <data>
 
-        <record id="action_view_wizard_invoice_form" model="ir.actions.act_window">
+        <record id="action_view_wizard_receipt_form" model="ir.actions.act_window">
             <field name="name">Collection plan</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">collection_plan.wizard_invoice</field>
+            <field name="res_model">collection_plan.wizard_receipt</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
 
-        <record id="view_wizard_invoice_form" model="ir.ui.view">
-            <field name="name">collection_plan.wizard_invoice.form</field>
-            <field name="model">collection_plan.wizard_invoice</field>
+        <record id="view_wizard_reeipt_form" model="ir.ui.view">
+            <field name="name">collection_plan.wizard_receipt.form</field>
+            <field name="model">collection_plan.wizard_receipt</field>
             <field name="arch" type="xml">
-                <form string="Crear factura">
+                <form string="Crear Voucher">
                     <sheet>
 
                         <script>
@@ -69,7 +69,7 @@
                     <group colspan="4">
                         <button icon="gtk-cancel" name="act_cancel" special="cancel" string="Cancelar"
                                 type="object"/>
-                        <button icon="gtk-execute" name="create_invoice" string="Generar factura"
+                        <button icon="gtk-execute" name="create_voucher" string="Generar factura"
                                 type="object"/>
                     </group>
                 </form>

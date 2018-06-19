@@ -14,7 +14,7 @@ class PaymentTerm(models.Model):
     _inherit = 'education_contract.payment_term'
 
     invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
-    state = fields.Selection([
+    internal_state = fields.Selection([
         ('created', 'Created'),
         ('invoiced', 'Invoiced'),
         ('receipt', 'Receipt'),

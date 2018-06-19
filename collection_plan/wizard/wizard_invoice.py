@@ -235,7 +235,7 @@ class WizardInvoice(models.TransientModel):
             for pt in self.payment_term_ids:
                 pt.write({
                     'invoice_id': inv.id,
-                    'state': 'invoiced'
+                    'internal_state': 'invoiced'
                 })
             _logger.info('UPDATED PAYMENTS...')
 

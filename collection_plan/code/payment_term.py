@@ -23,11 +23,7 @@ class PaymentTerm(models.Model):
         _logger.info('do_payment')  # raise wizard for payment, then link it to collection plan, contract
 
     @api.one
-    def generate_voucher(self, state, partner_id, company_id, type, context=None):
-        #date
-        #period_id
-        #name
-        #'type': type,
+    def generate_voucher(self, state, partner_id, company_id, type, invoice):
         voucher_data = {
             'partner_id': partner_id,
             'amount': abs(self.amount),
@@ -35,12 +31,26 @@ class PaymentTerm(models.Model):
             'account_id': self.payment_mode_id.journal_id.default_debit_account_id.id,
             'reference': self.plan_id.collection_plan_id.contract_id.barcode,
             'company_id': company_id,
-            'payment_option': 'without_writeoff',
-            'pre_line': True,
             'type': type,
         }
         _logger.info('VOUCHER_DATA: %s' % voucher_data)
-        voucher_id = self.env['account.voucher'].create(voucher_data, context=context)
+        voucher_id = self.env['account.voucher'].create(voucher_data)
+
+        voucher_line = {
+            "name": "",
+            "payment_option": "without_writeoff",
+            "amount": abs(self.amount),
+            "voucher_id": voucher_id.id,
+            "partner_id": partner_id,
+            "account_id": self.payment_mode_id.journal_id.default_debit_account_id.id,
+            "type": "cr",
+            "move_line_id": invoice.move_id.line_id[0].id,
+        }
+        _logger.info('VOUCHER_LINE_DATA: %s' % voucher_line)
+        self.env["account.voucher.line"].create(voucher_line)
+
+        voucher_id.signal_workflow("proforma_voucher")
+
         self.write({'account_voucher_id': voucher_id.id, 'state': state, 'payed': True})
 
     @api.multi

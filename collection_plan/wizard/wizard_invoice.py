@@ -257,8 +257,6 @@ class WizardInvoice(models.TransientModel):
         self.ensure_one()
         for pt in self.payment_term_ids:
             if not pt.account_voucher_id:
-                pt.generate_voucher('done', self.partner_id.id, self.company_id.id, 'receipt',
-                                    context={'invoice_id': inv.id})
-            inv.payment_ids = [(4, pt.account_voucher_id.id)]
+                pt.generate_voucher('done', self.partner_id.id, self.company_id.id, 'receipt', inv)
             _logger.info('VOUCHER_ID: %s' % pt.account_voucher_id)
-            pt.account_voucher_id.button_proforma_voucher()
+            # pt.account_voucher_id.button_proforma_voucher()

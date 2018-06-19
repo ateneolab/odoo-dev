@@ -63,6 +63,10 @@ class PaymentTerm(models.Model):
         _logger.info('VOUCHER_LINE_DATA: %s' % voucher_line)
         self.env["account.voucher.line"].create(voucher_line)
 
+        period = self.env['account.period'].search(
+            [('name', '=', voucher_id.period_id.name), ('company_id', '=', company_id)])
+        voucher_id.write({'period_id': period.id})
+
         voucher_id.signal_workflow("proforma_voucher")
 
         self.write({'account_voucher_id': voucher_id.id, 'state': state, 'payed': True})

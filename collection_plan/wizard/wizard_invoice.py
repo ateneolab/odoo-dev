@@ -360,7 +360,7 @@ class WizardInvoice(models.TransientModel):
         for line in lines:
             if line.account_id.id == inv_account_id.id:
                 move_line_ids.append(line.id)
-        self.env['account.move.line'].reconcile_partial(self._cr, self._uid, move_line_ids, context=self._context)
+        self.env['account.move.line'].reconcile_partial(self._cr, self._uid, move_line_ids)
 
     @api.multi
     def reconcile_payments(self, inv):

@@ -355,12 +355,10 @@ class WizardInvoice(models.TransientModel):
             if len(pt.account_voucher_id.move_ids) > 1:
                 lines.append(pt.account_voucher_id.move_ids[1])
         # get payments account.move.line which account is invoice receivable account
-        import pdb
-        pdb.set_trace()
         for line in lines:
             if line.account_id.id == inv_account_id.id:
                 move_line_ids.append(line.id)
-        self.env['account.move.line'].reconcile_partial(self._cr, self._uid, move_line_ids)
+        self.env['account.move.line'].reconcile_partial(self._cr, self._uid, ids=move_line_ids)
 
     @api.multi
     def reconcile_payments(self, inv):

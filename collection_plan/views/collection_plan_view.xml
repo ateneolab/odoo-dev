@@ -84,7 +84,7 @@
                                         <!--icon="gtk-apply"/> &lt;!&ndash; do_payment: pagar sin comprobante &ndash;&gt;-->
                                         <!--<button name="invoice_pay_customer" type="object" string="Register Payment"/>-->
                                         <button name="do_billing"
-                                                attrs="{'invisible': [('invoice_id', 'is', None), ('account_voucher_id', 'is', None)]}"
+                                                attrs="{'invisible': [('invoice_id', 'is', False), ('account_voucher_id', 'is', False)]}"
                                                 type="object" string="Facturar" icon="gtk-apply"/>
                                         <button name="do_saling"
                                                 attrs="{'invisible': [('invoice_id', 'is', None), ('account_voucher_id', 'is', None)]}"

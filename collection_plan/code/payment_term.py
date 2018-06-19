@@ -45,6 +45,7 @@ class PaymentTerm(models.Model):
             "account_id": self.payment_mode_id.journal_id.default_debit_account_id.id,
             "type": "cr",
             "move_line_id": invoice.move_id.line_id[0].id,
+            'company_id': company_id
         }
         _logger.info('VOUCHER_LINE_DATA: %s' % voucher_line)
         self.env["account.voucher.line"].create(voucher_line)

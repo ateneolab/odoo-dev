@@ -3,6 +3,7 @@
 import logging
 
 from openerp import models, fields, api, _
+from openerp.exceptions import except_orm
 
 _logger = logging.getLogger(__name__)
 
@@ -26,10 +27,19 @@ class PaymentTerm(models.Model):
     def generate_voucher(self, state, partner_id, company_id, type, invoice):
         import pdb
         pdb.set_trace()
+        journal = self.env['account.journal'].search([
+            ('company_id', '=', company_id),
+            ('type', '=', self.payment_mode_id.journal_id.type),
+            ('default_debit_account_id.code', '=', self.payment_mode_id.journal_id.default_debit_account_id.code),
+            ('default_credit_account_id.code', '=', self.payment_mode_id.journal_id.default_credit_account_id.code),
+        ])
+        if not journal:
+            raise except_orm('Error', u'Journal is not defined.')
+
         voucher_data = {
             'partner_id': partner_id,
             'amount': abs(self.amount),
-            'journal_id': self.payment_mode_id.journal_id.id,
+            'journal_id': journal.id,
             'account_id': self.payment_mode_id.journal_id.default_debit_account_id.id,
             'reference': self.plan_id.collection_plan_id.contract_id.barcode,
             'company_id': company_id,
@@ -78,6 +88,7 @@ class PaymentTerm(models.Model):
             'context': {'payment_id': self.id}
         }
 
+
 class Voucher(models.Model):
     _name = 'account.voucher'
     _inherit = 'account.voucher'
@@ -102,11 +113,14 @@ class Voucher(models.Model):
             ctx = context.copy()
             ctx.update({'date': voucher.date})
             # Create the account move record.
-            move_id = move_pool.create(cr, uid, self.account_move_get(cr, uid, voucher.id, context=context), context=context)
+            move_id = move_pool.create(cr, uid, self.account_move_get(cr, uid, voucher.id, context=context),
+                                       context=context)
             # Get the name of the account_move just created
             name = move_pool.browse(cr, uid, move_id, context=context).name
             # Create the first line of the voucher
-            move_line_id = move_line_pool.create(cr, uid, self.first_move_line_get(cr,uid,voucher.id, move_id, company_currency, current_currency, local_context), local_context)
+            move_line_id = move_line_pool.create(cr, uid, self.first_move_line_get(cr, uid, voucher.id, move_id,
+                                                                                   company_currency, current_currency,
+                                                                                   local_context), local_context)
             move_line_brw = move_line_pool.browse(cr, uid, move_line_id, context=context)
             line_total = move_line_brw.debit - move_line_brw.credit
             rec_list_ids = []
@@ -115,10 +129,12 @@ class Voucher(models.Model):
             elif voucher.type == 'purchase':
                 line_total = line_total + self._convert_amount(cr, uid, voucher.tax_amount, voucher.id, context=ctx)
             # Create one move line per voucher line where amount is not 0.0
-            line_total, rec_list_ids = self.voucher_move_line_create(cr, uid, voucher.id, line_total, move_id, company_currency, current_currency, context)
+            line_total, rec_list_ids = self.voucher_move_line_create(cr, uid, voucher.id, line_total, move_id,
+                                                                     company_currency, current_currency, context)
 
             # Create the writeoff line if needed
-            ml_writeoff = self.writeoff_move_line_get(cr, uid, voucher.id, line_total, move_id, name, company_currency, current_currency, local_context)
+            ml_writeoff = self.writeoff_move_line_get(cr, uid, voucher.id, line_total, move_id, name, company_currency,
+                                                      current_currency, local_context)
             if ml_writeoff:
                 move_line_pool.create(cr, uid, ml_writeoff, local_context)
             # We post the voucher.
@@ -133,5 +149,8 @@ class Voucher(models.Model):
             reconcile = False
             for rec_ids in rec_list_ids:
                 if len(rec_ids) >= 2:
-                    reconcile = move_line_pool.reconcile_partial(cr, uid, rec_ids, writeoff_acc_id=voucher.writeoff_acc_id.id, writeoff_period_id=voucher.period_id.id, writeoff_journal_id=voucher.journal_id.id)
+                    reconcile = move_line_pool.reconcile_partial(cr, uid, rec_ids,
+                                                                 writeoff_acc_id=voucher.writeoff_acc_id.id,
+                                                                 writeoff_period_id=voucher.period_id.id,
+                                                                 writeoff_journal_id=voucher.journal_id.id)
         return True

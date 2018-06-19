@@ -33,14 +33,14 @@ class PaymentTerm(models.Model):
             'amount': abs(self.amount),
             'journal_id': self.payment_mode_id.journal_id.id,
             'account_id': self.payment_mode_id.journal_id.default_debit_account_id.id,
-            'reference': self.plan_id.contract_id.barcode,
+            'reference': self.plan_id.collection_plan_id.contract_id.barcode,
             'company_id': company_id,
-            'payment_option': 'without_writeoff'
+            'payment_option': 'without_writeoff',
+            'pre_line': True,
+            'type': type,
         }
         _logger.info('VOUCHER_DATA: %s' % voucher_data)
         voucher_id = self.env['account.voucher'].create(voucher_data)
-        # voucher_id.proforma_voucher()
-
         self.write({'account_voucher_id': voucher_id.id, 'state': state, 'payed': True})
 
     @api.multi

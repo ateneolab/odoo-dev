@@ -24,6 +24,8 @@ class PaymentTerm(models.Model):
 
     @api.one
     def generate_voucher(self, state, partner_id, company_id, type, invoice):
+        import pdb
+        pdb.set_trace()
         voucher_data = {
             'partner_id': partner_id,
             'amount': abs(self.amount),
@@ -35,6 +37,7 @@ class PaymentTerm(models.Model):
         }
         _logger.info('VOUCHER_DATA: %s' % voucher_data)
         voucher_id = self.env['account.voucher'].create(voucher_data)
+        _logger.info('COMPANY: %s, invoice move company: %s' % (company_id, invoice.move_id.line_id[0].company_id))
 
         voucher_line = {
             "name": "",

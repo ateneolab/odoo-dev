@@ -351,7 +351,9 @@ class WizardInvoice(models.TransientModel):
                 move_line_ids.append(line.id)
         lines = []
         for pt in self.payment_term_ids:
-            lines.append(pt.account_voucher_id.move_ids)
+            lines.append(pt.account_voucher_id.move_ids[0])
+            if len(pt.account_voucher_id.move_ids) > 1:
+                lines.append(pt.account_voucher_id.move_ids[1])
         # get payments account.move.line which account is invoice receivable account
         import pdb
         pdb.set_trace()

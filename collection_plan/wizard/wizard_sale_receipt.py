@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import datetime
 import logging
 
 from openerp import models, fields, api, _
@@ -41,7 +40,6 @@ class WizardInvoice(models.TransientModel):
         _logger.info('PAYMENT_IDS: %s' % payment_ids)
         self.payment_term_ids = [(6, 0, payment_ids)]
 
-
     @api.multi
     def get_period(self, company_id, date_str, context=None):
         self.ensure_one()
@@ -81,7 +79,6 @@ class WizardInvoice(models.TransientModel):
             'views': [(form_id, 'form'), (tree_id, 'tree')],
             'type': 'ir.actions.act_window',
         }
-
 
     @api.multi
     def reconcile_payments(self, inv):

@@ -83,9 +83,15 @@
                                         <!--<button name="confirm_payment" type="object" string="Pagar"-->
                                         <!--icon="gtk-apply"/> &lt;!&ndash; do_payment: pagar sin comprobante &ndash;&gt;-->
                                         <!--<button name="invoice_pay_customer" type="object" string="Register Payment"/>-->
-                                        <button name="do_billing" type="object" string="Facturar" icon="gtk-ok"/>
-                                        <button name="do_saling" type="object" string="Nota de venta"
-                                                icon="gtk-print"/> <!-- generar nota de venta solo para este pago -->
+                                        <button name="do_billing"
+                                                attrs="{'invisible': [('invoice_id', 'is', None), ('account_voucher_id', 'is', None)]}"
+                                                type="object" string="Facturar" icon="gtk-apply"/>
+                                        <button name="do_saling"
+                                                attrs="{'invisible': [('invoice_id', 'is', None), ('account_voucher_id', 'is', None)]}"
+                                                type="object" string="Nota de venta" icon="gtk-ok"/>
+                                        <button name="print_receipt"
+                                                attrs="{'invisible': [('account_voucher_id', 'not in', [None, False])]}"
+                                                type="object" string="Imprimir Nota de venta" icon="gtk-print"/>
                                     </tree>
                                 </field>
                             </page>

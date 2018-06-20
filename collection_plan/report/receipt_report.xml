@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--Custom report.-->
+<openerp>
+    <data>
+
+        <template id="einvoice_external_layout_footer">
+            <div class="footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <strong>
+                        <span>Solem Consulting</span>
+                    </strong>
+                    -
+                    <span>Facturación electrónica, ERP, CRM, Gestión documental</span>
+                    <br></br>
+                </div>
+                <div class="text-center">
+                    <span>info@solemconsulting.com | www.solemconsulting.com | (+593) 992894906 / 02-3360350</span>
+                </div>
+
+                <div class="text-center">
+                    <ul class="list-inline">
+                        <li>Página:</li>
+                        <li>
+                            <span class="page"/>
+                        </li>
+                        <li>/</li>
+                        <li>
+                            <span class="topage"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+
+        <template id="einvoice_external_layout_header">
+            <t t-name="report.invoice_external_layout_header">
+                <div class="header">
+                    <
+                </div>
+            </t>
+        </template>
+
+        <template id="collection_plan.receipt_external_layout">
+            <t t-name="report.invoice_external_layout">
+                <t t-call="collection_plan.einvoice_external_layout_header"/>
+                <t t-raw="0"/>
+                <t t-call="collection_plan.einvoice_external_layout_footer"/>
+            </t>
+        </template>
+
+        <template id="collection_plan.report_receipt_document">
+            <t t-call="collection_plan.receipt_external_layout">
+                <div class="page" style="font-size:10px">
+                    <span>NOTA DE VENTA IMPRESA</span>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_receipt_template">
+            <style type="text/css">
+                /*div.more_info {
+                float: left;
+                top: 21px;
+                position: relative;
+                }*/
+
+                div.logo {
+                height: 170px;
+                width: 100%;
+                padding-top: 10px;
+                padding-botton: 10px;
+                #border: 1px solid gray;
+                border: none;
+                text-align: center;
+                }
+
+                div.companyinfo {
+                height: 130px;
+                width: 100%;
+                border: 1px solid gray;
+                border-radius: 5px;
+                }
+
+                div.info {
+                padding: 5px;
+                }
+
+                div.left, div.right {
+                float: left;
+                }
+
+                div.left {
+                padding-right: 5px;
+                }
+
+                div.invoiceinfo {
+                height: 300px;
+                width:100%;
+                border: 1px solid gray;
+                border-radius: 5px;
+                font-size: 18px;
+                }
+
+                div.customer {
+                clear: both;
+                height: 60px;
+                padding-top: 5px;
+                width: 918px;
+                border: 1px solid gray;
+                position: relative;
+                top: 5px;
+                border-radius: 5px;
+                }
+
+                div.details {
+                width: 917px;
+                padding-top: 5px;
+                border: 1px solid gray;
+                top: 10px;
+                position: relative;
+                border-radius: 5px;
+                }
+
+                table.content {
+                text-align: center;
+                }
+
+                div.footer {
+                margin: 15px;
+                width: 900px;
+                }
+
+                div.fot1, div.fot2 {
+                float: left;
+                }
+
+                div.fot1 {
+                width: 400px;
+                float: left;
+                }
+
+                div.fot2 {
+                width: 325px;
+                float: left;
+                border: 1px solid gray;
+                top: 21px;
+                position: relative;
+                }
+
+                .label {
+                text-align: left;
+                padding: 4px;
+                }
+
+                .amount {
+                text-align: right;
+                padding: 4px;
+                }
+
+                td {
+                padding: 5px;
+                }
+            </style>
+
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="collection_plan.report_receipt_document"/>
+                </t>
+            </t>
+        </template>
+
+        <!--<report id="collection_plan_report_einvoice_basic"
+                name="collection_plan.report_receipt"
+                model="account.invoice"
+                string="Factura electrónica"
+                report_type="qweb-pdf"/>-->
+
+        <record id="report_receipt" model="ir.actions.report.xml">
+            <field name="name">collection_plan.report_receipt</field>
+            <field name="model">account.invoice</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">collection_plan.report_receipt_template</field>
+            <field name="attachment_use" eval="True"/>
+        </record>
+
+        <!--<report
+                id="account_invoices"
+                model="account.invoice"
+                string="Factura electrónica"
+                report_type="qweb-pdf"
+                name="collection_plan.report_receipt_template"
+                file="collection_plan.report_receipt_template"
+                attachment_use="False"
+                attachment="(object.state in ('open','paid')) and
+        ('INV'+(object.number or '').replace('/','')+'.pdf')"
+        />-->
+
+
+    </data>
+</openerp>

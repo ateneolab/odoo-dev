@@ -35,7 +35,7 @@
         <template id="einvoice_external_layout_header">
             <t t-name="report.invoice_external_layout_header">
                 <div class="header">
-                    <
+
                 </div>
             </t>
         </template>

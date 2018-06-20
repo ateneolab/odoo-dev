@@ -51,7 +51,16 @@
         <template id="collection_plan.report_receipt_document">
             <t t-call="collection_plan.receipt_external_layout">
                 <div class="page" style="font-size:10px">
-                    <span>NOTA DE VENTA IMPRESA</span>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2">Cuenta No:</div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">C<![CDATA[ó]]>digo No:</div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">Cuenta del mes:</div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
                 </div>
             </t>
         </template>

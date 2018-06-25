@@ -2,9 +2,10 @@
 
 from openerp import models, fields, api, _
 from openerp.exceptions import except_orm
+import datetime
 
 
-class ContractVerification(models.Model):
+class RollNumber(models.Model):
     _name = 'op.roll.number'
     _inherit = 'op.roll.number'
 

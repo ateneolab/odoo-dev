@@ -80,7 +80,7 @@
                                         <field name="invisible" invisible="1"/>
                                         <field name="account_voucher_id"/>
                                         <field name="invoice_id"/>
-                                        <!--<field name="internal_state" invisible="1"/>
+                                        <field name="internal_state" invisible="1"/>
                                         <button name="do_billing"
                                                 attrs="{'invisible': [('internal_state', 'not in', ['created'])]}"
                                                 type="object" string="Facturar" icon="gtk-apply"/>
@@ -89,7 +89,7 @@
                                                 type="object" string="Nota de venta" icon="gtk-ok"/>
                                         <button name="print_receipt"
                                                 attrs="{'invisible': [('internal_state', 'not in', ['receipt'])]}"
-                                                type="object" string="Imprimir Nota de venta" icon="gtk-print"/>-->
+                                                type="object" string="Imprimir Nota de venta" icon="gtk-print"/>
                                     </tree>
                                 </field>
                             </page>

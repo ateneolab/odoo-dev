@@ -153,6 +153,12 @@ class PaymentTerm(models.Model):
             'context': {'payment_id': self.id}
         }
 
+    @api.one
+    def confirm(self):
+        self.generate_voucher_receipt('done', self.plan_id.collection_plan_id.contract_id.owner.id,
+                              self.plan_id.collection_plan_id.contract_id.id, 'receipt')
+        self.validate_contract()
+
     @api.multi
     def do_saling(self):
         self.collection_plan_id.update_payed()

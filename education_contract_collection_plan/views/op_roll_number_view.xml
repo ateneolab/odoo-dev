@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_op_roll_number_form" model="ir.ui.view">
+            <field name="name">op.roll.number.form</field>
+            <field name="model">op.roll.number</field>
+            <field name="inherit_id" ref="openeducat_erp.view_op_roll_number_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="division_id" position="after">
+                    <field name="contract_id"/>
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

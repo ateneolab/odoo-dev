@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'collection_plan', 'education_contract'],
+    'depends': ['base', 'collection_plan', 'education_contract', 'openeducat_erp'],
 
     # always loaded
     'data': [
@@ -29,6 +29,7 @@
         'views/collection_plan_view.xml',
         'views/menu_view.xml',
         'wizard/wizard_invoice_view.xml',
+        'views/op_roll_number_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

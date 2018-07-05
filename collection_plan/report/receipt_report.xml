@@ -17,7 +17,7 @@
         <template id="einvoice_external_layout_receipt_header">
             <t t-name="report.invoice_external_layout_header">
                 <div class="header">
-                    <div class="text-center" style="border-top: 1px solid black;">
+                    <div class="text-center">
                         <span>CHARLOTTE <![CDATA[&]]> ILVEM</span>
                     </div>
                     <!--<div class="logo1" style="width: 20%">-->
@@ -52,7 +52,7 @@
             <t t-call="collection_plan.receipt_external_layout">
                 <div class="page" style="font-size:11px">
 
-                    <div class="text-center" style="border-top: 1px solid black; font-size: 11px">
+                    <div class="text-center" style="font-size: 11px">
                         <span>RECIBO DE DINERO No</span>
                         <span t-esc="o.id" style="color: red"/>
                     </div>

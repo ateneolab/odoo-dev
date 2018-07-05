@@ -5,7 +5,7 @@
 
         <template id="einvoice_external_layout_receipt_footer">
             <div class="footer">
-                <div class="text-center" style="font-size:10px">
+                <div class="text-center" style="font-size:9px">
                     <span>Importante: No se aceptan recibos provisionales. Obtenga siempre uno como este. Documento no
                         valido para fines o efectos tributarios. Emitimos su factura al finalizar los pagos con la
                         presentación de estos recibos.
@@ -24,7 +24,7 @@
                         <!--<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' %o.company_id.logo"-->
                                  <!--style="witdh: 50%; height: 50%; margin-bottom: 10px"/>-->
                     <!--</div>-->
-                    <div class="text" style="font-size: 10px; float: left;">
+                    <div class="text" style="font-size: 9px; float: left;">
                         <p>
                             <strong>Matriz: </strong><span>Alonso de Angulo Oe1-152 y Fco. Gomez Villa Flora - Telf.: 2652-300</span><br/>
                             <span>Av. Colon 15-13 y Foch - Telf.: 2556 133 - Quito - Ecuador</span><br/>
@@ -50,9 +50,9 @@
 
         <template id="collection_plan.report_receipt_document">
             <t t-call="collection_plan.receipt_external_layout">
-                <div class="page" style="font-size:12px">
+                <div class="page" style="font-size:11px">
 
-                    <div class="text-center" style="border-top: 1px solid black; font-size: 18px">
+                    <div class="text-center" style="border-top: 1px solid black; font-size: 11px">
                         <span>RECIBO DE DINERO No</span>
                         <span t-esc="o.id" style="color: red"/>
                     </div>
@@ -89,7 +89,7 @@
                         </tr>
                     </table>
 
-                    <div style="border: solid 1px; margin-top: 10px; width: 100%; padding: 10px">
+                    <div style="border: solid 1px; margin-top: 5px; width: 100%; padding: 5px">
                         <table style="width: 100%">
                             <tr>
                                 <td style="width: 20%">ABONO:__</td>
@@ -100,7 +100,7 @@
                             </tr>
                         </table>
 
-                        <table style="width: 100%; margin-top: 10px">
+                        <table style="width: 100%; margin-top: 5px">
                             <tr>
                                 <td style="width: 20%">Cheque No:_______________________________</td>
                             </tr>

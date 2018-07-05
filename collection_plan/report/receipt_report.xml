@@ -60,31 +60,31 @@
                     <table style="width: 100%">
                         <tr>
                             <td style="width: 50%; text-align: left">
-                                <span>Ciudad y fecha: ___________________</span>
+                                <span>Ciudad y fecha: _______________</span>
                             </td>
                             <td style="width: 50%; text-align: left">
-                                <span>Efect. Cuenta: ________________________</span>
+                                <span>Efect. Cuenta: ____________________</span>
                             </td>
                         </tr>
                         <tr>
                             <td style="width: 50%; text-align: left">
-                                <span>Nombre A: _______________________</span>
+                                <span>Nombre A: ___________________</span>
                             </td>
                             <td style="width: 50%; text-align: left">
-                                <span>Nombre R: ___________________________</span>
+                                <span>Nombre R: _______________________</span>
                             </td>
                         </tr>
                     </table>
                     <table style="width: 100%">
                         <tr>
                             <td style="width: 34%; text-align: left">
-                                <span>Cuenta No: __________</span>
+                                <span>Cuenta No: ________</span>
                             </td>
                             <td style="width: 33%; text-align: left">
-                                <span>Codigo No: __________</span>
+                                <span>Codigo No: ________</span>
                             </td>
                             <td style="width: 33%; text-align: right">
-                                <span>Cuenta del Mes: __________</span>
+                                <span>Cuenta del Mes: ________</span>
                             </td>
                         </tr>
                     </table>

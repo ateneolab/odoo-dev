@@ -60,31 +60,31 @@
                     <table style="width: 100%">
                         <tr>
                             <td style="width: 50%; text-align: left">
-                                <span>Ciudad y fecha: ____________________________</span>
+                                <span>Ciudad y fecha: _________________________</span>
                             </td>
                             <td style="width: 50%; text-align: left">
-                                <span>Efect. Cuenta: _________________________________</span>
+                                <span>Efect. Cuenta: ______________________________</span>
                             </td>
                         </tr>
                         <tr>
                             <td style="width: 50%; text-align: left">
-                                <span>Nombre A: ________________________________</span>
+                                <span>Nombre A: _____________________________</span>
                             </td>
                             <td style="width: 50%; text-align: left">
-                                <span>Nombre R: ____________________________________</span>
+                                <span>Nombre R: _________________________________</span>
                             </td>
                         </tr>
                     </table>
                     <table style="width: 100%">
                         <tr>
                             <td style="width: 34%; text-align: left">
-                                <span>Cuenta No: ________________</span>
+                                <span>Cuenta No: ______________</span>
                             </td>
                             <td style="width: 33%; text-align: left">
-                                <span>Codigo No: ________________</span>
+                                <span>Codigo No: ______________</span>
                             </td>
                             <td style="width: 33%; text-align: right">
-                                <span>Cuenta del Mes: ________________</span>
+                                <span>Cuenta del Mes: ______________</span>
                             </td>
                         </tr>
                     </table>
@@ -102,22 +102,22 @@
 
                         <table style="width: 100%; margin-top: 10px">
                             <tr>
-                                <td style="width: 20%">Cheque No:______________________________________________</td>
+                                <td style="width: 20%">Cheque No:_________________________________________</td>
                             </tr>
                             <tr>
-                                <td style="width: 20%">Banco:__________________________________________________</td>
+                                <td style="width: 20%">Banco:_____________________________________________</td>
                                 <td style="width: 20%; text-align: right"><span style="border-bottom: 1px solid black;">FIRMA RESPONSABLE</span></td>
                             </tr>
                             <tr>
-                                <td style="width: 20%">Fecha del Cheque:_________________________________________</td>
+                                <td style="width: 20%">Fecha del Cheque:____________________________________</td>
                                 <td style="width: 20%; text-align: right"><span>Subtotal $ ________</span></td>
                             </tr>
                             <tr>
-                                <td style="width: 20%">Son:____________________________________________________</td>
+                                <td style="width: 20%">Son:_______________________________________________</td>
                                 <td style="width: 20%; text-align: right"><span>Descuento $ ________</span></td>
                             </tr>
                             <tr>
-                                <td style="width: 20%">_________________________________________________ Dolares</td>
+                                <td style="width: 20%">____________________________________________ Dolares</td>
                                 <td style="width: 20%; text-align: right"><span>TOTAL $ ________</span></td>
                             </tr>
                         </table>

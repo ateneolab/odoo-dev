@@ -98,6 +98,9 @@ class ContractVerification(models.Model):
     payment_term_ids = fields.One2many(related='plan_id.payment_term_ids')
     beneficiary_ids = fields.One2many('education_contract.beneficiary', 'verification_id', string=_('Beneficiaries'))
 
+    collections_phone = fields.Char('Phone number for collections')
+    partner_id = fields.Many2one(related='contract_id.owner', string='Titular')
+
 
 class CollectionPlan(models.Model):
     _inherit = 'collection_plan.collection_plan'

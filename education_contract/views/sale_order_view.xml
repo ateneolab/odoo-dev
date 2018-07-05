@@ -15,6 +15,7 @@
                                 <field name="partner_id" string="Cliente"
                                        attrs="{'invisible': [('create_new', '=', True)]}"
                                        domain="[('customer', '=', True), ('is_company', '=', False)]"/>
+                                <field name="relationship"/>
                             </group>
                             <group></group>
                             <group attrs="{'invisible': [('create_new', '=', False)]}">
@@ -56,6 +57,7 @@
                     <field name="middle_name" string="Segundo nombre"/>
                     <field name="last_name" string="Apellido"/>
                     <field name="gender" string="Sexo"/>
+                    <field name="relationship"/>
                 </tree>
             </field>
         </record>

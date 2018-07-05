@@ -19,6 +19,7 @@ class beneficiary(models.Model):
     create_new = fields.Boolean(_(u'Create new beneficiary'))
     contract_id = fields.Many2one('education_contract.contract', _('Contract'))
     roll_number_ids = fields.One2many('op.roll.number', 'beneficiary_id', string=_('Horarios'))
+    relationship = fields.Char('Parentezco')
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:

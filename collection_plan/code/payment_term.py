@@ -19,6 +19,20 @@ class PaymentTerm(models.Model):
         ('invoiced', 'Invoiced'),
         ('receipt', 'Receipt'),
     ], default='created')
+    number = fields.Char('Secuencial')
+    company_id = fields.Many2one('res.company', compute='_compute_company', store=True)
+
+    @api.one
+    @api.depends('plan_id')
+    def _compute_company(self):
+        company_id = False
+        if self.plan_id:
+            if self.plan_id.contract_id:
+                company_id = self.plan_id.contract_id.campus_id.company_id
+            elif self.plan_id.collection_plan_id:
+                company_id = self.plan_id.collection_plan_id.contract_id.campus_id.company_id
+        self.company_id = company_id
+        return company_id
 
     @api.multi
     def confirm_payment(self):
@@ -39,6 +53,7 @@ class PaymentTerm(models.Model):
             ('default_debit_account_id.code', '=', self.payment_mode_id.journal_id.default_debit_account_id.code),
             ('default_credit_account_id.code', '=', self.payment_mode_id.journal_id.default_credit_account_id.code),
         ])
+        # journal = self.payment_mode_id.journal_id
         if not journal:
             raise except_orm('Error', u'Journal is not defined.')
 
@@ -155,8 +170,14 @@ class PaymentTerm(models.Model):
 
     @api.one
     def confirm(self):
-        self.generate_voucher_receipt('done', self.plan_id.collection_plan_id.contract_id.owner.id,
-                              self.plan_id.collection_plan_id.contract_id.id, 'receipt')
+        contract_id = self.plan_id.contract_id or self.plan_id.collection_plan_id.contract_id
+        if not contract_id:
+            raise except_orm('Error', u'El trémino de pago no tiene un contrato asociado.')
+
+        partner_id = contract_id.owner
+        company_id = contract_id.campus_id.company_id
+
+        self.generate_voucher_receipt('done', partner_id.id, company_id.id, 'receipt')
         self.validate_contract()
 
     @api.multi

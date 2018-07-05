@@ -69,7 +69,7 @@
                     <group colspan="4">
                         <button icon="gtk-cancel" name="act_cancel" special="cancel" string="Cancelar"
                                 type="object"/>
-                        <button icon="gtk-execute" name="create_voucher" string="Generar factura"
+                        <button icon="gtk-execute" name="create_voucher" string="Generar recibo"
                                 type="object"/>
                     </group>
                 </form>

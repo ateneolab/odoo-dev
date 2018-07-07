@@ -1,0 +1,124 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * partner_survey
+# 
+# Translators:
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015,2017
+msgid ""
+msgstr ""
+"Project-Id-Version: survey (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-10 11:14+0000\n"
+"PO-Revision-Date: 2017-06-14 04:50+0000\n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-survey-8-0/language/sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+
+#. module: partner_survey
+#: view:website:survey.sfinished
+msgid "Also yout can go to"
+msgstr "Lahko tudi"
+
+#. module: partner_survey
+#: view:fill.survey:partner_survey.view_fill_survey_form
+msgid "Cancel"
+msgstr "Preklic"
+
+#. module: partner_survey
+#: field:fill.survey,create_uid:0
+msgid "Created by"
+msgstr "Ustvaril"
+
+#. module: partner_survey
+#: field:fill.survey,create_date:0
+msgid "Created on"
+msgstr "Ustvarjeno"
+
+#. module: partner_survey
+#: field:fill.survey,display_name:0
+msgid "Display Name"
+msgstr "Prikazni naziv"
+
+#. module: partner_survey
+#: view:fill.survey:partner_survey.view_fill_survey_form
+#: model:ir.actions.act_window,name:partner_survey.act_fill_survey
+msgid "Fill Survey"
+msgstr "Izpolni raziskavo"
+
+#. module: partner_survey
+#: field:fill.survey,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: partner_survey
+#: field:fill.survey,__last_update:0
+msgid "Last Modified on"
+msgstr "Zadnjič spremenjeno"
+
+#. module: partner_survey
+#: field:fill.survey,write_uid:0
+msgid "Last Updated by"
+msgstr "Zadnji posodobil"
+
+#. module: partner_survey
+#: field:fill.survey,write_date:0
+msgid "Last Updated on"
+msgstr "Zadnjič posodobljeno"
+
+#. module: partner_survey
+#: view:fill.survey:partner_survey.view_fill_survey_form
+msgid "Open Survey"
+msgstr "Odpri raziskavo"
+
+#. module: partner_survey
+#: field:fill.survey,partner_id:0
+#: model:ir.model,name:partner_survey.model_res_partner
+#: field:survey.user_input_line,partner_id:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: partner_survey
+#: field:fill.survey,survey_id:0
+msgid "Survey"
+msgstr "Raziskava"
+
+#. module: partner_survey
+#: model:ir.model,name:partner_survey.model_survey_user_input_line
+msgid "Survey User Input Line"
+msgstr "Vnosna vrstica uporabnika raziskave"
+
+#. module: partner_survey
+#: field:res.partner,survey_input_count:0
+msgid "Survey number"
+msgstr "Številka raziskave"
+
+#. module: partner_survey
+#: model:ir.actions.act_window,name:partner_survey.act_partner_survey_input
+#: view:res.partner:partner_survey.view_partner_form
+#: field:res.partner,survey_inputs:0
+msgid "Surveys"
+msgstr "Raziskave"
+
+#. module: partner_survey
+#: field:res.partner,survey_input_lines:0
+msgid "Surveys answers"
+msgstr "Odgovori na raziskave"
+
+#. module: partner_survey
+#: view:fill.survey:partner_survey.view_fill_survey_form
+msgid "Use this assistant to fill survey as the partner selected."
+msgstr "Uporabi asistenta za izpolnjevanje raziskave kot izbrani partner."
+
+#. module: partner_survey
+#: view:website:survey.sfinished
+msgid "form"
+msgstr "od"
+
+#. module: partner_survey
+#: view:fill.survey:partner_survey.view_fill_survey_form
+msgid "or"
+msgstr "ali"

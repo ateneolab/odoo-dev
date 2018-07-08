@@ -33,7 +33,8 @@ import base64
 DOC_TYPE_NAME = {
     'out_invoice': 'Factura',
     'credit_note': 'Nota_Credito',
-    'debit_note': 'Nota_Debito'
+    'debit_note': 'Nota_Debito',
+    'retention': 'Retencion'
 }
 
 
@@ -44,18 +45,26 @@ class MailComposeMessage(models.TransientModel):
     def default_get(self, fields_list):
         result = super(MailComposeMessage, self).default_get(fields_list)
 
-        if 'active_model' in self._context and self._context.get('active_model') == 'account.invoice':
+        if 'active_model' in self._context and self._context.get(
+                'active_model') == 'account.invoice' or self._context.get('active_model') == 'account.retention':
             invoice = self.env[self._context.get('active_model')].browse(self._context.get('active_ids'))
 
-            if invoice.credit:
-                doc_type = 'credit_note'
-            elif invoice.debit:
-                doc_type = 'debit_note'
+            if self._context.get('active_model') == 'account.invoice':
+                if invoice.credit:
+                    doc_type = 'credit_note'
+                elif invoice.debit:
+                    doc_type = 'debit_note'
+                else:
+                    doc_type = invoice.type
+
+            if self._context.get('active_model') == 'account.retention':
+                doc_type = 'retention'
+                number = invoice.name
             else:
-                doc_type = invoice.type
+                number = invoice.number
 
             ruc = invoice.partner_id.ced_ruc
-            number = invoice.number
+            # number = invoice.number
             doc_type_name = DOC_TYPE_NAME[doc_type]
 
             dbname = self._cr.dbname
@@ -137,7 +146,6 @@ class MailComposeMessage(models.TransientModel):
     #                 'attachment_ids'] = wizard.object_attachment_ids.ids  # .extend(wizard.object_attachment_ids.ids)
     #     _logger.info('RES-3: %s' % res)
     #     return res
-
 
     # def default_get(self, cr, uid, fields, context=None):
     #     if context is None:

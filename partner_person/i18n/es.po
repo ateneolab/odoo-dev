@@ -289,7 +289,7 @@ msgstr "Esposa"
 
 #. module: partner_person
 #: view:res.partner:partner_person.view_partner_person_form
-msgid "Years)"
+msgid "Years"
 msgstr "Años"
 
 #. module: partner_person

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<openerp>
+    <data>
+
+        <record id="view_education_contract_roll_number" model="ir.ui.view">
+            <field name="name">education_contract.contract.form_rn</field>
+            <field name="model">education_contract.contract</field>
+            <field name="inherit_id" ref="education_contract.view_education_contract"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Matriculas">
+                        <field name="roll_number_ids"/>
+                    </page>
+                </notebook>
+                <button name="to_assigned" position="after">
+                    <button name="enroll" type="object" string="Crear matriculas"/>
+                </button>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -2,6 +2,7 @@
 
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
+from openerp.exceptions import except_orm
 
 
 #### Beneficiary
@@ -20,6 +21,8 @@ class beneficiary(models.Model):
     contract_id = fields.Many2one('education_contract.contract', _('Contract'))
     roll_number_ids = fields.One2many('op.roll.number', 'beneficiary_id', string=_('Horarios'))
     relationship = fields.Char('Parentezco')
+    start_date = fields.Date(u'Fecha de inicio de clases')
+    end_date = fields.Date(u'Fecha de inicio de clases')
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:
@@ -132,11 +135,12 @@ class program(models.Model):
     @api.onchange('name')
     @api.depends('name')
     def _compute_course(self):
-        self.ensure_one()
-        courses_id = self.env['op.course'].search([('code', '=', self.name)])[:1]
-        if courses_id:
-            self.course_id = courses_id
-        return courses_id
+        # self.ensure_one()
+        for rec in self:
+            courses_id = self.env['op.course'].search([('code', '=', rec.name)])[:1]
+            if courses_id:
+                rec.course_id = courses_id
+            # return courses_id
 
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')
     course_id = fields.Many2one('op.course', string=_(u'Curso'), compute='_compute_course', store=True)
@@ -398,6 +402,8 @@ class education_contract(models.Model):
     marketing_manager_id = fields.Many2one('res.users', string='Gerente de Marketing')
     contract_conciliation_id = fields.One2many('education_contract.conciliation', 'contract_id',
                                                string='Conciliacion de contrato')
+    schedule_reservation_date = fields.Date(u'Fecha de separación de horario')
+
 
     def get_kanban_state(self):
         for record in self:
@@ -491,7 +497,6 @@ class education_contract(models.Model):
         if not filled:
             raise ValidationError("Debe completar todos los datos del contrato para cambiar a estado 'Asignado'.")
         else:
-
             self.write({'state': 'asigned'})
 
     def _update_programs(self):
@@ -553,6 +558,10 @@ class education_contract(models.Model):
                     if company.id == sale_order_id.company_id.id:
                         sale_team = team
                         continue
+
+            if not sale_team:
+                raise except_orm('Error',
+                                 u'No existe un equipo de venta configurado para el contribuyente de la orden de venta.')
 
             sale_team_leader_id = sale_team.user_id.id or None
 
@@ -637,7 +646,7 @@ class plan(models.Model):
         for object in record_name:
             res.append((object.id,
                         '%s - %s - %s' % (
-                        object.contract_id.barcode or '', TYPE.get(object.type, ''), object.amount_pay)))
+                            object.contract_id.barcode or '', TYPE.get(object.type, ''), object.amount_pay)))
 
         return res
 
@@ -709,7 +718,7 @@ class plan(models.Model):
     registration_fee = fields.Float(string='Valor matricula', digits=(6, 4))
     qty_dues = fields.Integer(string='Cantidad de cuotas')
     amount_monthly = fields.Float(digits=(6, 4), string='Valor mensual', compute='_compute_dues')
-    residual = fields.Float(compute='_compute_dues', digits=(6, 4), string='Saldo total a pagar')
+    residual = fields.Float(compute='_compute_dues', digits=(6, 4), string='Saldo total a pagar', store=True)
     registration_residual = fields.Float(compute='_compute_dues', string='Saldo matricula', digits=(6, 4))
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')
     payment_term_ids = fields.One2many('education_contract.payment_term', 'plan_id',

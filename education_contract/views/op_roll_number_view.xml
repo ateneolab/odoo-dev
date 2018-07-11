@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_op_roll_number_form3" model="ir.ui.view">
+            <field name="name">op.roll.number.form3</field>
+            <field name="model">op.roll.number</field>
+            <field name="inherit_id" ref="oeducat_roll_state.view_op_roll_number_form2"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+
+                <group position="after">
+                    <notebook position="before">
+                        <page string="Congelamientos">
+                            <field name="freeze_ids"/>
+                        </page>
+                        <page string="Fechas">
+                            <group>
+                                <group>
+                                    <field name="schedule_reservation_date"/>
+                                    <field name="start_date"/>
+                                </group>
+                                <group>
+                                    <field name="end_date"/>
+                                    <field name="diploma_date"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </group>
+            </field>
+        </record>
+
+        <record id="view_op_roll_number_freeze_tree" model="ir.ui.view">
+            <field name="name">op.roll.number.freeze.tree</field>
+            <field name="model">op.roll.number.freeze</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="start_date"/>
+                    <field name="duration"/>
+                    <field name="end_date"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>

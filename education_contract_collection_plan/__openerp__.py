@@ -30,6 +30,7 @@
         'views/menu_view.xml',
         'wizard/wizard_invoice_view.xml',
         'views/op_roll_number_view.xml',
+        'views/contract_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

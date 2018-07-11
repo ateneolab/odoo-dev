@@ -20,7 +20,8 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'account', 'account_voucher', 'sale', 'openeducat_erp', 'mail', 'hr', 'advance_salary', 'operating_unit'],
+    'depends': ['base', 'account', 'account_voucher', 'sale', 'openeducat_erp', 'mail', 'hr', 'advance_salary',
+                'operating_unit', 'oeducat_roll_state'],
 
     # always loaded
     'data': [
@@ -33,6 +34,8 @@
         'views/workflow.xml',
         'views/company_view.xml',
         'views/conciliation_view.xml',
+        'views/op_roll_number_view.xml',
+        'views/op_student_view.xml',
         'wizards/report_rpm.xml',
         'report/view_report.xml',
     ],

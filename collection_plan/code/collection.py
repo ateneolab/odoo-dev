@@ -17,6 +17,14 @@ class CollectionPlan(models.Model):
     _name = 'collection_plan.collection_plan'
 
     @api.multi
+    def write(self, vals):
+        if 'user_id' in vals or 'active_plan_id' in vals:
+            if not self.env.user.has_group('collection_plan.group_admin_collection_plan'):
+                raise except_orm('Error de acceso',
+                                 u'Solo tiene permitido confirmar los pagos. No puede modificar otros datos.')
+        return super(CollectionPlan, self).write(vals)
+
+    @api.multi
     def unlink(self):
         raise except_orm('Error', _(u"You can't remove a collection plan, you can only edit it."))
 
@@ -120,7 +128,7 @@ class CollectionPlan(models.Model):
     contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
     active_plan_id = fields.Many2one('education_contract.plan')
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))
-    residual = fields.Float(digits=(10, 4), string=_('Amount'))
+    residual = fields.Float(digits=(10, 4), string=_('Amount'), compute='_compute_residual', store=True)
     state = fields.Selection([('created', _('New')), ('done', _('Finish'))], default='created')
     payment_term_ids = fields.One2many('education_contract.payment_term', 'collection_plan_id',
                                        related='active_plan_id.payment_term_fixed_ids',
@@ -134,6 +142,20 @@ class CollectionPlan(models.Model):
     notes = fields.Text('Internal notes')
 
     invoice_ids = fields.Many2many('account.invoice', string=_(u'Invoices'))
+    next_payment_date = fields.Date('Next payment date', compute='_compute_next_payment_date', store=True)
+
+
+    @api.one
+    def _compute_next_payment_date(self):
+        pass
+
+    @api.one
+    @api.depends('active_plan_id', 'payment_term_ids')
+    def _compute_residual(self):
+        for rec in self:
+            plan_id = rec.active_plan_id
+            residual = plan_id.compute_residual()
+            rec.residual = residual
 
 
 class EducationContractPlan(models.Model):
@@ -219,7 +241,7 @@ class EducationContractPlan(models.Model):
                                              string=_('Payment terms'))
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(''))
     plan_active = fields.Boolean(_('Active'))
-    balance = fields.Float(digits=(6, 4), compute='_compute_balance', string=_('Balance'))
+    balance = fields.Float(digits=(6, 4), compute='_compute_balance', string=_('Balance'), store=True)
     start_date = fields.Date(_('Start date'))
 
 

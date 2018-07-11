@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_op_student_form2" model="ir.ui.view">
+            <field name="name">op.student.form2</field>
+            <field name="model">op.student</field>
+            <field name="inherit_id" ref="openeducat_erp.view_op_student_form"/>
+            <!--<field name="priority" eval="8"/>-->
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook/page[@string='Educational']/group" position="after">
+                    <separator colspan="4" string="Datos extra"/>
+                    <group col="4" colspan="4">
+                        <field name="school_support"/>
+                        <field name="language_stimulation"/>
+                        <field name="social_club"/>
+                    </group>
+                    <field name="notes"/>
+                </xpath>
+
+                <!--<field name="course_id" position="replace"/>-->
+                <!--<field name="standard_id" position="replace"/>-->
+                <!--<field name="batch_id" position="replace"/>-->
+                <!--<field name="division_id" position="replace"/>-->
+                <!--<field name="gr_no" position="replace"/>-->
+
+                <!--<notebook position="before">-->
+                <!--<group>-->
+                <!--<field name="school_support"/>-->
+                <!--<field name="language_stimulation"/>-->
+                <!--</group>-->
+                <!--<field name="notes"/>-->
+                <!--</notebook>-->
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

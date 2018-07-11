@@ -3,6 +3,13 @@
 <openerp>
     <data>
 
+        <record id="group_admin_collection_plan" model="res.groups">
+            <field name="name">Admin Collection Plan</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
         <record id="view_collection_plan_form" model="ir.ui.view">
             <field name="name">collection_plan.form</field>
             <field name="model">collection_plan.collection_plan</field>
@@ -56,7 +63,7 @@
                             <page string="Planned Payments">
                                 <field name="payment_term_ids" domain="[('payed', '=', False)]"
                                        context="{'collection_plan_id': id, 'default_contract_id': contract_id}">
-                                    <tree editable="top">
+                                    <tree>
                                         <field name="id" invisible="1"/>
                                         <field name="collection_plan_id" invisible="1"/>
                                         <field name="type"/>
@@ -159,6 +166,37 @@
                     <field name="residual"/>
                     <field name="state"/>
                 </tree>
+            </field>
+        </record>
+
+        <record id="view_collection_plan_search" model="ir.ui.view">
+            <field name="name">collection_plan.collection_plan.search</field>
+            <field name="model">collection_plan.collection_plan</field>
+            <field name="arch" type="xml">
+                <search string="Cuentas por cobrar">
+                    <field name="user_id"/>
+                    <field name="contract_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="residual"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_user_id"
+                                string="User"
+                                domain="[]" context="{'group_by':'user_id'}"/>
+                        <filter name="group_by_contract_id"
+                                string="Contrato"
+                                domain="[]" context="{'group_by':'contract_id'}"/>
+                        <filter name="group_by_start_date"
+                                string="Fecha de inicio"
+                                domain="[]" context="{'group_by':'start_date'}"/>
+                        <filter name="group_by_end_date"
+                                string="Fecha fin"
+                                domain="[]" context="{'group_by':'end_date'}"/>
+                        <filter name="group_by_residual"
+                                string="Saldo pendiente"
+                                domain="[]" context="{'group_by':'residual'}"/>
+                    </group>
+                </search>
             </field>
         </record>
 

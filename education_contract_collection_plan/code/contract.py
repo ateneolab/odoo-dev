@@ -11,6 +11,37 @@ class Contract(models.Model):
     _inherit = 'education_contract.contract'
 
     verification_id = fields.Many2one('education_contract.verification', 'contract_id')
+    roll_number_ids = fields.One2many('op.roll.number', 'contract_id', u'Matrículas')
+
+    @api.one
+    @api.depends('beneficiary_ids_2')
+    def enroll(self):
+        program_ids = []
+        for ben in self.beneficiary_ids_2:
+            program_ids.append(ben.program_ids)
+        for prog in program_ids:
+            roll_number = self.env['op.roll.number'].search(
+                [
+                    ('course_id', '=', prog.course_id.id),
+                    ('division_id', '=', prog.division_id.id),
+                    ('student_id', '=', prog.beneficiary_id.student_id.id),
+                    ('standard_id', '=', prog.standard_id.id),
+                    ('batch_id', '=', prog.batch_id.id),
+                    ('beneficiary_id', '=', prog.beneficiary_id.id),
+                    ('contract_id', '=', self.id),
+                ]
+            )
+            if not roll_number:
+                self.env['op.roll.number'].create({
+                    'course_id': prog.course_id.id,
+                    'division_id': prog.division_id.id,
+                    'student_id': prog.beneficiary_id.student_id.id,
+                    'standard_id': prog.standard_id.id,
+                    'batch_id': prog.batch_id.id,
+                    'roll_number': '1',
+                    'beneficiary_id': prog.beneficiary_id.id,
+                    'contract_id': self.id
+                })
 
     @api.multi
     def copy_active_plan(self):

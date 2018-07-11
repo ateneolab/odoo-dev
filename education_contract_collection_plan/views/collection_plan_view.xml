@@ -15,7 +15,7 @@
                 </button>-->
 
                 <field name="active_plan_id" position="after">
-                    <field name="verification_id"/>
+                    <field name="verification_id" string="Verification"/>
                 </field>
             </field>
         </record>

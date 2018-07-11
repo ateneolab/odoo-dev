@@ -13,6 +13,14 @@ class PaymentTerm(models.Model):
     _name = 'education_contract.payment_term'
     _inherit = 'education_contract.payment_term'
 
+    @api.multi
+    def write(self, vals):
+        if 'amount' in vals or 'planned_date' in vals:
+            if not self.env.user.has_group('collection_plan.group_admin_collection_plan'):
+                raise except_orm('Error de acceso',
+                                 u'Solo tiene permitido confirmar los pagos. No puede modificar otros datos.')
+        return super(PaymentTerm, self).write(vals)
+
     invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
     internal_state = fields.Selection([
         ('created', 'Created'),

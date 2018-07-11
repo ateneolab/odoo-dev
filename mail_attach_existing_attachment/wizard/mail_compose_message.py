@@ -109,7 +109,10 @@ class MailComposeMessage(models.TransientModel):
 
                 attchs.append(attachment_pdf_id.id)
 
-                template = self.env['email.template'].browse([result['template_id']])
+                if 'template_id' in result:
+                    template = self.env['email.template'].browse([result['template_id']])
+                else:
+                    template = self.env['email.template'].browse([self._context['default_template_id']])
                 if template:
                     template.write({
                         'attachment_ids': [(6, 0, attchs)],

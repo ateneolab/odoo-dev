@@ -31,10 +31,11 @@ class PaymentTerm(models.Model):
     company_id = fields.Many2one('res.company', compute='_compute_company', store=True)
     description = fields.Char(u'Description')
 
-    @api.one
+    @api.multi
     @api.onchange('description')
     def onchange_description(self):
-        self.write({'description': self.description})
+        pt_id = self.env['education_contract.payment_term'].browse([self._origin.id])
+        pt_id.write({'description': self.description})
 
     @api.one
     @api.depends('plan_id')

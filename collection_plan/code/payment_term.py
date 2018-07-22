@@ -29,6 +29,12 @@ class PaymentTerm(models.Model):
     ], default='created')
     number = fields.Char('Secuencial')
     company_id = fields.Many2one('res.company', compute='_compute_company', store=True)
+    description = fields.Char(u'Description')
+
+    @api.one
+    @api.onchange('description')
+    def onchange_description(self):
+        self.write({'description': self.description})
 
     @api.one
     @api.depends('plan_id')

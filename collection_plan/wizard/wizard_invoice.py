@@ -48,8 +48,11 @@ class WizardInvoice(models.TransientModel):
         inv_lines = []
 
         for payment in self.payment_term_ids:
-            name = 'Contrato: %s - Fecha de pago: %s' % (
-                payment.plan_id.collection_plan_id.contract_id.barcode, payment.payment_date)
+            if payment.description:
+                name = payment.description
+            else:
+                name = 'Contrato: %s - Fecha de pago: %s' % (
+                    payment.plan_id.collection_plan_id.contract_id.barcode, payment.payment_date)
 
             default_product_id = self.env['product.template'].search([('name', '=', 'IMPORT SRI PRODUCT')])
             default_product = self.env['product.product'].search([('product_tmpl_id', '=', default_product_id.id)])
@@ -180,8 +183,11 @@ class WizardInvoice(models.TransientModel):
             inv_lines = []
 
             for payment in self.payment_term_ids:
-                name = 'Contrato: %s - Fecha de pago: %s' % (
-                    payment.plan_id.collection_plan_id.contract_id.barcode, payment.payment_date)
+                if payment.description:
+                    name = payment.description
+                else:
+                    name = 'Contrato: %s - Fecha de pago: %s' % (
+                        payment.plan_id.collection_plan_id.contract_id.barcode, payment.payment_date)
 
                 default_product_id = self.env['product.template'].search([('name', '=', 'IMPORT SRI PRODUCT')])
                 default_product = self.env['product.product'].search([('product_tmpl_id', '=', default_product_id.id)])
@@ -259,8 +265,11 @@ class WizardInvoice(models.TransientModel):
         inv_lines = []
 
         for payment in self.payment_term_ids:
-            name = 'Contrato: %s - Fecha de pago: %s' % (
-                payment.plan_id.collection_plan_id.contract_id.barcode, payment.payment_date)
+            if payment.description:
+                name = payment.description
+            else:
+                name = 'Contrato: %s - Fecha de pago: %s' % (
+                    payment.plan_id.collection_plan_id.contract_id.barcode, payment.payment_date)
 
             default_product_id = self.env['product.template'].search([('name', '=', 'IMPORT SRI PRODUCT')])
             default_product = self.env['product.product'].search([('product_tmpl_id', '=', default_product_id.id)])

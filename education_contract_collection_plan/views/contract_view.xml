@@ -9,13 +9,31 @@
             <field name="inherit_id" ref="education_contract.view_education_contract"/>
             <field name="arch" type="xml">
                 <notebook position="inside">
-                    <page string="Matriculas">
+                    <page string="Horarios separados">
                         <field name="roll_number_ids"/>
                     </page>
                 </notebook>
                 <button name="to_assigned" position="after">
-                    <button name="enroll" type="object" string="Crear matriculas"/>
+                    <button name="enroll" type="object" string="Separar horarios"
+                            confirm="Si define una fecha de separación de horarios general, todas la smatrículas que salen de este contrato tendrán la misma fecha de separación de horario. De otra manera puede definir una fecha para cada matrícula por separado. Los mismo sucede con la fecha de inicio de clases. Preciose aceptar para continuar o Cancelar para definir una fecha general."/>
                 </button>
+                <field name="sale_order_id" position="after">
+                    <field name="date_booking_schedule"/>
+                </field>
+                <field name="date" position="after">
+                    <field name="start_date"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_education_plan2" model="ir.ui.view">
+            <field name="name">education_contract.plan.form2</field>
+            <field name="model">education_contract.plan</field>
+            <field name="inherit_id" ref="education_contract.view_education_plan"/>
+            <field name="arch" type="xml">
+                <field name="qty_dues" position="after">
+                    <field name="start_date"/>
+                </field>
             </field>
         </record>
 

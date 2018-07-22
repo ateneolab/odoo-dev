@@ -26,7 +26,7 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="print" type="object" string="Print Verification Report"
+                        <button name="print_verification" type="object" string="Print Verification Report"
                                 class="oe_highlight" confirm="Are you sure Paymen plan is updated with Payment terms?"/>
                         <button name="to_signed" type="object" string="Mark as Signed"
                                 class="oe_highlight"/>

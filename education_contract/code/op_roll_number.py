@@ -1,6 +1,7 @@
 # -*- coding: iso-8859-1 -*-
 
 import datetime
+from dateutil.relativedelta import relativedelta
 
 from openerp import models, fields, api, _
 
@@ -46,4 +47,8 @@ class Freeze(models.Model):
     @api.one
     @api.depends('start_date', 'duration')
     def _compute_end_date(self):
-        pass
+        if self.start_date and self.duration:
+            before_date = datetime.datetime.strptime(self.start_date, '%Y-%m-%d')
+            self.end_date = before_date + relativedelta(months=self.duration)
+        else:
+            self.end_date = False

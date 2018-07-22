@@ -108,6 +108,7 @@
                                 <field name="beneficiary_ids_2" context="{'contract_id': id}"
                                        attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}">
                                     <tree>
+                                        <!--<field name="id" readonly="1"/>-->
                                         <field name="name"/>
                                         <field name="middle_name" string="Segundo nombre"/>
                                         <field name="last_name" string="Apellido"/>

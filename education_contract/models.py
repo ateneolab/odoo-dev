@@ -404,7 +404,6 @@ class education_contract(models.Model):
                                                string='Conciliacion de contrato')
     schedule_reservation_date = fields.Date(u'Fecha de separación de horario')
 
-
     def get_kanban_state(self):
         for record in self:
             if record.state in 'draft':
@@ -546,6 +545,9 @@ class education_contract(models.Model):
                 first_student_id = self.env['education_contract.beneficiary'].search(
                     [('student_id', '=', first_student_id.id)])
 
+            if not first_student_id.partner_id:
+                first_student_id.write({'partner_id': sale_order_id.partner_id.id})
+
             user_id = sale_order_id.user_id.id
 
             sale_team_ids = self.env['crm.case.section'].search([])
@@ -661,24 +663,27 @@ class plan(models.Model):
                 self.amount_monthly = 0.0
 
     @api.one
-    @api.depends('type', 'amount_pay', 'qty_dues')
+    @api.depends('type', 'amount_pay', 'qty_dues', 'registration_fee')
     def _compute_dues(self):
         if self.type:
             if self.type == 'funded':
                 payed = self._compute_voucher_sum()
                 if payed >= self.registration_fee:
-                    self.registration_residual = 0.0
+                    registration_residual = 0.0
                 else:
-                    self.registration_residual = self.registration_fee - payed
-
-                self.write({'registration_payed': self.registration_residual == 0})
+                    registration_residual = self.registration_fee - payed
 
                 if self.qty_dues:
-                    self.amount_monthly = round((self.amount_pay - payed) / self.qty_dues, 4)
+                    amount_monthly = round((self.amount_pay - payed) / self.qty_dues, 4)
                 else:
-                    self.amount_monthly = round((self.amount_pay - payed), 4)
+                    amount_monthly = round((self.amount_pay - payed), 4)
 
+                self.registration_payed = self.registration_residual == 0
+                self.registration_residual = registration_residual
+                self.amount_monthly = amount_monthly
                 self.residual = round(self.qty_dues * self.amount_monthly, 4)
+
+                # self.write({})
 
             if self.type in 'cash':
                 self.residual = self.amount_pay - self._compute_voucher_sum()
@@ -717,9 +722,9 @@ class plan(models.Model):
     amount_pay = fields.Float(string='Total a pagar', digits=(6, 4), required=True, default=0.00001)
     registration_fee = fields.Float(string='Valor matricula', digits=(6, 4))
     qty_dues = fields.Integer(string='Cantidad de cuotas')
-    amount_monthly = fields.Float(digits=(6, 4), string='Valor mensual', compute='_compute_dues')
+    amount_monthly = fields.Float(digits=(6, 4), string='Valor mensual', compute='_compute_dues', store=True)
     residual = fields.Float(compute='_compute_dues', digits=(6, 4), string='Saldo total a pagar', store=True)
-    registration_residual = fields.Float(compute='_compute_dues', string='Saldo matricula', digits=(6, 4))
+    registration_residual = fields.Float(compute='_compute_dues', string='Saldo matricula', digits=(6, 4), store=True)
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')
     payment_term_ids = fields.One2many('education_contract.payment_term', 'plan_id',
                                        string='Formas de pago')  # compute='_compute_payment_term',

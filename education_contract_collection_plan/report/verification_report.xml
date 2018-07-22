@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--Custom report.-->
+<openerp>
+    <data>
+
+        <template id="einvoice_external_layout_footer">
+            <div class="footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <strong>
+                        <span>Solem Consulting</span>
+                    </strong>
+                    -
+                    <span>Facturación electrónica, ERP, CRM, Gestión documental</span>
+                    <br></br>
+                </div>
+                <div class="text-center">
+                    <span>info@solemconsulting.com | www.solemconsulting.com | (+593) 992894906 / 02-3360350</span>
+                </div>
+
+                <div class="text-center">
+                    <ul class="list-inline">
+                        <li>Página:</li>
+                        <li>
+                            <span class="page"/>
+                        </li>
+                        <li>/</li>
+                        <li>
+                            <span class="topage"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+
+        <template id="einvoice_external_layout_header">
+            <t t-name="report.invoice_external_layout_header">
+                <div class="header">
+
+                </div>
+            </t>
+        </template>
+
+        <template id="education_contract_collection_plan.edoc_external_layout">
+            <t t-name="report.invoice_external_layout">
+                <t t-call="education_contract_collection_plan.einvoice_external_layout_header"/>
+                <t t-raw="0"/>
+                <t t-call="education_contract_collection_plan.einvoice_external_layout_footer"/>
+            </t>
+        </template>
+
+        <template id="education_contract_collection_plan.report_verification_document">
+            <t t-call="education_contract_collection_plan.edoc_external_layout">
+                <div class="page" style="font-size:10px">
+                    <span>REPORTE</span>
+                </div>
+            </t>
+        </template>
+
+        <template id="c">
+            <style type="text/css">
+
+            </style>
+
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="education_contract_collection_plan.report_verification_document"/>
+                </t>
+            </t>
+        </template>
+
+
+        <record id="report_verification" model="ir.actions.report.xml">
+            <field name="name">education_contract_collection_plan.report_verification</field>
+            <field name="model">education_contract.verification</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">education_contract_collection_plan.report_verification_template</field>
+            <field name="attachment_use" eval="True"/>
+        </record>
+
+        <report id="report_verification_qweb"
+                name="education_contract_collection_plan.report_verification_qweb"
+                model="education_contract.verification"
+                string="Informe de verificacion"
+                report_type="qweb-pdf"/>
+
+    </data>
+</openerp>

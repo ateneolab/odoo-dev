@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--Custom report.-->
+<openerp>
+    <data>
+
+        <template id="einvoice_external_layout_receipt_footer">
+            <div class="footer">
+                <div class="text-center" style="font-size:9px">
+                    <span>Importante: No se aceptan recibos provisionales. Obtenga siempre uno como este. Documento no
+                        valido para fines o efectos tributarios. Emitimos su factura al finalizar los pagos con la
+                        presentación de estos recibos.
+                    </span>
+                </div>
+            </div>
+        </template>
+
+        <template id="einvoice_external_layout_receipt_header">
+            <t t-name="report.invoice_external_layout_header">
+                <div class="header">
+                    <div class="text-center">
+                        <span>CHARLOTTE <![CDATA[&]]> ILVEM</span>
+                    </div>
+
+                    <div class="text" style="font-size: 9px; float: left;">
+                        <p>
+                            <strong>Matriz:</strong>
+                            <span>Alonso de Angulo Oe1-152 y Fco. Gomez Villa Flora - Telf.: 2652-300</span>
+                            <br/>
+                            <span>Av. Colon 15-13 y Foch - Telf.: 2556 133 - Quito - Ecuador</span>
+                            <br/>
+                            <span>Av. Antonio José de Sucre (Av. Occidental) OE6-121 - Telf.: 2490 085</span>
+                            <br/>
+                            <strong>Chillogallo:</strong>
+                            <span>Av. Mariscal Sucre 530-91 y Moran Valverde - Telf.: 3035 444</span>
+                            <br/>
+                            <strong>El Inca:</strong>
+                            <span>Av. El Inca y Jose Vivanco esquina - Telf.: (02) 2249 372</span>
+                            <br/>
+                            <strong>Tumbaco:</strong>
+                            <span>Tola Chica - Calle OE8B s/n Vinueza, sector La Morita - Telf.: (02) 2373 372</span>
+                            <br/>
+                            <strong>SAN RAFAEL:</strong>
+                            <span>Alfredo Davila entre Montecristi y Calceta - Telf.: (02) 2861 396 (I) (02) 2863 693
+                                (CH)
+                            </span>
+                            <br/>
+                        </p>
+                    </div>
+                    <div class="logo2"></div>
+                </div>
+            </t>
+        </template>
+
+        <template id="education_contract_collection_plan.receipt_external_layout">
+            <t t-name="report.invoice_external_layout">
+                <t t-call="education_contract_collection_plan.einvoice_external_layout_receipt_header"/>
+                <t t-raw="0"/>
+                <t t-call="education_contract_collection_plan.einvoice_external_layout_receipt_footer"/>
+            </t>
+        </template>
+
+        <template id="education_contract_collection_plan.report_receipt_document">
+            <t t-call="education_contract_collection_plan.receipt_external_layout">
+                <div class="page" style="font-size:11px">
+
+                    <div class="text-center" style="font-size: 11px">
+                        <span>RECIBO DE DINERO No</span>
+                        <span t-esc="o.id" style="color: red"/>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+
+        <template id="report_receipt_template2">
+            <style type="text/css">
+
+            </style>
+
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="education_contract_collection_plan.report_receipt_document"/>
+                </t>
+            </t>
+        </template>
+
+        <record id="paperformat_frenchcheck" model="report.paperformat">
+            <field name="name">French Bank</field>
+            <field name="default" eval="True"/>
+            <field name="format">A6</field>
+            <field name="orientation">Landscape</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <record id="report_receipt2" model="ir.actions.report.xml">
+            <field name="name">education_contract_collection_plan.report_receipt2</field>
+            <field name="model">account.invoice</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">education_contract_collection_plan.report_receipt_template2</field>
+            <field name="attachment_use" eval="True"/>
+            <field name="paperformat_id" ref="paperformat_frenchcheck"/>
+        </record>
+
+
+    </data>
+</openerp>

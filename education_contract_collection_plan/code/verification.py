@@ -9,6 +9,15 @@ class ContractVerification(models.Model):
     _name = 'education_contract.verification'
 
     @api.multi
+    def print_verification(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.report.xml',
+            'report_name': 'education_contract_collection_plan.report_receipt_template2',
+            'context': self._context,
+        }
+
+    @api.multi
     def unlink(self):
         raise except_orm('Error', _(u"You can't remove a collection plan, you can only edit it."))
 

@@ -12,6 +12,8 @@ class Contract(models.Model):
 
     verification_id = fields.Many2one('education_contract.verification', 'contract_id')
     roll_number_ids = fields.One2many('op.roll.number', 'contract_id', u'Matrículas')
+    date_booking_schedule = fields.Date(u'Fecha de separación de horario')
+    start_date = fields.Date(u'Fecha de inicio de clases')
 
     @api.one
     @api.depends('beneficiary_ids_2')
@@ -32,7 +34,7 @@ class Contract(models.Model):
                 ]
             )
             if not roll_number:
-                self.env['op.roll.number'].create({
+                data = {
                     'course_id': prog.course_id.id,
                     'division_id': prog.division_id.id,
                     'student_id': prog.beneficiary_id.student_id.id,
@@ -41,7 +43,14 @@ class Contract(models.Model):
                     'roll_number': '1',
                     'beneficiary_id': prog.beneficiary_id.id,
                     'contract_id': self.id
-                })
+                }
+                if self.date_booking_schedule:
+                    data.update({'schedule_reservation_date': self.date_booking_schedule})
+                else:
+                    data.update({'schedule_reservation_date': datetime.today()})
+                if self.start_date:
+                    data.update({'start_date': self.start_date})
+                self.env['op.roll.number'].create(data)
 
     @api.multi
     def copy_active_plan(self):
@@ -117,9 +126,22 @@ class Beneficiary(models.Model):
 
     verification_id = fields.Many2one('education_contract.verification', string=_('Contract verification'))
 
+
 class PaymentTerm(models.Model):
     _name = 'education_contract.payment_term'
     _inherit = 'education_contract.payment_term'
 
     tax_ids = fields.Many2many('account.tax', string=_('Taxes'))
     taxes_included = fields.Boolean(_(u'Taxes included'))
+
+# class Plan(models.Model):
+#     _name = 'education_contract.plan'
+#     _inherit = 'education_contract.plan'
+#
+#     start_date = fields.Date('Fecha de inicio')
+
+# class Plan(models.Model):
+#     _name = 'education_contract.plan'
+#     _inherit = 'education_contract.plan'
+#
+#     start_date = fields.Date('Fecha de inicio')

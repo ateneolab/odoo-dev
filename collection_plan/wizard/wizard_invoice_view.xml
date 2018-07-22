@@ -38,10 +38,11 @@
                         </group>
 
                         <notebook>
-                            <page string="Payments made">
+                            <page string="Payments made ok">
                                 <field name="payment_term_ids"
                                        domain="[('payed', '=', True), ('invoice_id', '=', False), ('collection_plan_id', '=', collection_plan_id)]">
                                     <tree editable="top">
+                                        <field name="description"/>
                                         <field name="type"/>
                                         <field name="cash_sub_type"
                                                attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"

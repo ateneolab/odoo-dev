@@ -31,6 +31,8 @@
         'wizard/wizard_invoice_view.xml',
         'views/op_roll_number_view.xml',
         'views/contract_view.xml',
+        'report/verification_report.xml',
+        'report/receipt_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

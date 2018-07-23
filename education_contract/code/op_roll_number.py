@@ -13,7 +13,7 @@ class RollNumber(models.Model):
     beneficiary_id = fields.Many2one('education_contract.beneficiary', string=_('Roll'))
     schedule_reservation_date = fields.Date(u'Fecha de separación de horario')
     start_date = fields.Date(u'Fecha de inicio de clases')
-    end_date = fields.Date(u'Fecha de terminación')
+    end_date = fields.Date(u'Fecha de terminación') # , compute='compute_end_date'
     diploma_date = fields.Date(u'Fecha de entrega de título')
     frozen = fields.Boolean(u'Congelado')
     freezing_ids = fields.One2many('op.roll.number.freeze', 'roll_number_id', u'Congelamientos')
@@ -27,13 +27,7 @@ class RollNumber(models.Model):
             })
         return super(RollNumber, self).create(vals)
 
-    # @api.multi
-    # def write(self, vals):
-    #     if 'end_date' in vals:
-    #         vals.update({
-    #             'active': False
-    #         })
-    #     return super(RollNumber, self).write(vals)
+
 
 
 class Freeze(models.Model):

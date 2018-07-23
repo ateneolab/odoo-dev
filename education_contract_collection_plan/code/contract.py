@@ -42,7 +42,8 @@ class Contract(models.Model):
                     'batch_id': prog.batch_id.id,
                     'roll_number': '1',
                     'beneficiary_id': prog.beneficiary_id.id,
-                    'contract_id': self.id
+                    'contract_id': self.id,
+                    'state': 'inactive'
                 }
                 if self.date_booking_schedule:
                     data.update({'schedule_reservation_date': self.date_booking_schedule})

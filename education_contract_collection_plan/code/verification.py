@@ -111,8 +111,11 @@ class ContractVerification(models.Model):
                     'batch_id': prog.batch_id.id,
                     'roll_number': '1',
                     'beneficiary_id': prog.beneficiary_id.id,
-                    'contract_id': self.contract_id.id
+                    'contract_id': self.contract_id.id,
+                    'state': 'active'
                 })
+            else:
+                roll_number.write({'state': 'active'})
 
     operating_unit_id = fields.Many2one(related='contract_id.campus_id')
     contract_id = fields.Many2one('education_contract.contract', _('Education contract'))

@@ -12,7 +12,7 @@
                 <group position="after">
                     <notebook position="before">
                         <page string="Congelamientos">
-                            <field name="freeze_ids"/>
+                            <field name="freezing_ids"/>
                         </page>
                         <page string="Fechas">
                             <group>
@@ -28,6 +28,10 @@
                         </page>
                     </notebook>
                 </group>
+
+                <field name="date_state" position="after">
+                    <field name="frozen"/>
+                </field>
             </field>
         </record>
 

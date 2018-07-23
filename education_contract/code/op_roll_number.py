@@ -15,8 +15,8 @@ class RollNumber(models.Model):
     start_date = fields.Date(u'Fecha de inicio de clases')
     end_date = fields.Date(u'Fecha de terminación')
     diploma_date = fields.Date(u'Fecha de entrega de título')
-    # active = fields.Boolean(u'Activo')
-    freeze_ids = fields.One2many('op.roll.number.freeze', 'roll_number_id', u'Congelamientos')
+    frozen = fields.Boolean(u'Congelado')
+    freezing_ids = fields.One2many('op.roll.number.freeze', 'roll_number_id', u'Congelamientos')
 
     @api.model
     def create(self, vals):

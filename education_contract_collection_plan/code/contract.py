@@ -20,7 +20,7 @@ class Contract(models.Model):
     def enroll(self):
         program_ids = []
         for ben in self.beneficiary_ids_2:
-            program_ids.append(ben.program_ids)
+            program_ids += list(ben.program_ids)
         for prog in program_ids:
             roll_number = self.env['op.roll.number'].search(
                 [

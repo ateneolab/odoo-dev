@@ -180,11 +180,14 @@
                                         <field name="description_other"
                                                attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
 
-                                        <button name="confirm" string="Confirmar" type="object" class="oe_highlight" icon="gtk-apply"
+                                        <button name="confirm" string="Confirmar" type="object" class="oe_highlight"
+                                                icon="gtk-apply"
                                                 attrs="{'invisible': ['|', ('state', 'in', ['done', 'to_advance']), ('contract_state', 'not in', ['prechecked'])]}"/>
-                                        <button name="advance" string="Anticipo" type="object" class="oe_highlight" icon="gtk-ok"
+                                        <button name="advance" string="Anticipo" type="object" class="oe_highlight"
+                                                icon="gtk-ok"
                                                 attrs="{'invisible': [('invisible', '=', True)]}"/>
-                                        <button name="cancel" string="Cancelar" type="object" class="oe_highlight" icon="gtk-cancel"
+                                        <button name="cancel" string="Cancelar" type="object" class="oe_highlight"
+                                                icon="gtk-cancel"
                                                 attrs="{'invisible': ['|', ('state', 'in', ['cancel', 'draft']), ('contract_state', 'not in', ['prechecked'])]}"/>
 
                                         <field name="state" invisible="1"/>
@@ -220,6 +223,34 @@
                     <field name="sale_order_id"/>
                     <field name="state"/>
                 </tree>
+            </field>
+        </record>
+
+        <record id="view_edu_contract_search" model="ir.ui.view">
+            <field name="name">education_contract.contract.search</field>
+            <field name="model">education_contract.contract</field>
+            <field name="arch" type="xml">
+                <search string="Contrato">
+                    <field name="barcode"/>
+                    <field name="owner"/>
+                    <field name="campus_id"/>
+                    <field name="user_id"/>
+                    <field name="marketing_manager_id"/>
+                    <field name="sale_order_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Codigo" domain="[]"
+                                context="{'group_by':'barcode'}"/>
+                        <filter string="Titular" domain="[]"
+                                context="{'group_by':'owner'}"/>
+                        <filter string="Sucursal" domain="[]" context="{'group_by':'campus_id'}"/>
+                        <filter string="Asesor de venta" domain="[]" context="{'group_by':'user_id'}"/>
+                        <filter string="Gerente de marketing" domain="[]"
+                                context="{'group_by':'marketing_manager_id'}"/>
+                        <filter string="Pedido de venta" domain="[]" context="{'group_by':'sale_order_id'}"/>
+                        <filter string="Batch" domain="[]" context="{'group_by':'batch_id'}"/>
+                    </group>
+                </search>
             </field>
         </record>
 

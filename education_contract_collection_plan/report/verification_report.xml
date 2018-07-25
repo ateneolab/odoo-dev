@@ -35,7 +35,20 @@
         <template id="einvoice_external_layout_header">
             <t t-name="report.invoice_external_layout_header">
                 <div class="header">
-
+                    <div style="width: 100%;">
+                        <div style="float: left; width: 20%; text-align: left">
+                            <img t-if="o.operating_unit_id.company_id.logo"
+                                 t-att-src="'data:image/png;base64,%s' % o.operating_unit_id.company_id.logo"
+                                 style="witdh: 30%; height: 30%;"/>
+                        </div>
+                        <div style="float: left; width: 60%; text-align: center"/>
+                        <div style="float: left; width: 20%; text-align: right">
+                            <img t-if="o.operating_unit_id.company_id.logo"
+                                 t-att-src="'data:image/png;base64,%s' % o.operating_unit_id.company_id.logo"
+                                 style="witdh: 30%; height: 30%;"/>
+                        </div>
+                        <br style="clear: left;"/>
+                    </div>
                 </div>
             </t>
         </template>
@@ -50,15 +63,444 @@
 
         <template id="education_contract_collection_plan.report_verification_document">
             <t t-call="education_contract_collection_plan.edoc_external_layout">
-                <div class="page" style="font-size:10px">
-                    <span>REPORTE</span>
+                <div class="page" style="font-size:12px">
+                    <div style="text-align: center; font-size: 24px; color: red">
+                        <span>INFORME DE VERIFICACIÓN</span>
+                    </div>
+                    <br/>
+                    <div style="text-align: center; font-size: 18px;">
+                        <span>SUCURSAL -</span>
+                        <span t-esc="o.operating_unit_id.name "/>
+                        (TEL:<span t-esc=" o.operating_unit_id.partner_id.phone"/>/<span
+                            t-esc="o.operating_unit_id.partner_id.mobile"/>)
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <div style="width: 100%;">
+                        <div style="float: left; width: 20%; text-align: left">
+                            <span style="color: red">CÓDIGO:</span>
+                            <span t-esc="o.contract_id.barcode"/>
+                        </div>
+                        <div style="float: left; width: 40%; text-align: center">
+                            <span style="color: red">FECHA DEL CONTRATO:</span>
+                            <span t-esc="o.contract_id.date"/>
+                        </div>
+                        <div style="float: left; width: 40%; text-align: right">
+                            <span style="color: red">FECHA DE VERIFICACIÓN:</span>
+                            <span t-esc="o.verification_date"/>
+                        </div>
+                        <br style="clear: left;"/>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <div style="text-align: center">
+                        <span style="text-align: center; font-size: 24px; color: red">DATOS DEL TITULAR Y/O ALUMNOS
+                        </span>
+                    </div>
+                    <br/>
+
+                    <div class="" style="width: 100%;">
+                        <table class="content" style="width: 100%;">
+                            <tr>
+                                <th style="width: 10%; text-align: left;">
+
+                                </th>
+                                <th style="width: 35%; text-align: left;">
+                                    NOMBRES Y APELLIDOS
+                                </th>
+                                <th style="width: 20%; text-align: left;">
+                                    PROG.
+                                </th>
+                                <th style="width: 10%; text-align: right;">
+                                    EDAD
+                                </th>
+                                <th style="width: 25%; text-align: right">
+                                    PARENTEZCO
+                                </th>
+                            </tr>
+
+                            <t t-foreach="o.beneficiary_ids" t-as="line">
+                                <tr>
+                                    <td style="text-align: left">
+                                        <t t-if="line.partner_id.id == o.partner_id.id">
+                                            TITULAR
+                                        </t>
+                                        <t t-if="line.partner_id.id != o.partner_id.id">
+                                            ALUMNO
+                                        </t>
+                                    </td>
+                                    <td style="text-align: left">
+                                        <span t-esc="line.partner_id.name"/>
+                                    </td>
+                                    <td style="text-align: left">
+                                        <t t-foreach="line.program_ids" t-as="prog">
+                                            <span t-esc="prog.name"/>
+                                            <br/>
+                                        </t>
+                                    </td>
+                                    <td style="text-align: right">
+                                        <span t-esc="line.partner_id.age"/>
+                                    </td>
+                                    <td style="text-align: right">
+                                        <span t-esc="line.relationship"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <div style="text-align: center; font-size: 18px">
+                        <span>DETALLE FINANCIERO, DE CREDITO Y FORMA DE PAGO DEL SUBSIDIO ESTUDIANTIL</span>
+                    </div>
+                    <br/>
+
+                    <div class="" style="width: 100%;">
+                        <table class="content" style="width: 100%;">
+                            <tr>
+                                <th style="width: 15%; text-align: left;">
+                                    <span>VALOR MATRIC.</span>
+                                </th>
+                                <th style="width: 15%; text-align: left;">
+                                    <span>EFECTIVO</span>
+                                </th>
+                                <th style="width: 15%; text-align: left;">
+                                    <span>CHEQUE</span>
+                                </th>
+                                <th style="width: 15%; text-align: right;">
+                                    <span>TARJETA DE CRÉDITO</span>
+                                </th>
+                                <th style="width: 20%; text-align: right">
+                                    <span>PLAN DE FINANCIAMIENTO</span>
+                                </th>
+                                <th style="width: 20%; text-align: right">
+                                    <span>VERIFICADO POR</span>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <td style="text-align: left">
+                                    <span t-esc="o.plan_id.registration_fee"/>
+                                </td>
+                                <td style="text-align: left">
+                                    <span t-esc="get_cash_amount"/>
+                                </td>
+                                <td style="text-align: left">
+                                    <span t-esc="get_check_amount"/>
+                                </td>
+                                <td style="text-align: right">
+                                    <span t-esc="get_credit_card_amount"/>
+                                </td>
+                                <td style="text-align: right">
+                                    <span t-esc="get_plan_detail"/>
+                                </td>
+                                <td style="text-align: right">
+                                    <span t-esc="o.verify_user_id.name"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+
+                    <div class="" style="width: 100%; font-size:16px;">
+                        <table class="content" style="width: 100%;">
+                            <tr>
+                                <th style="width: 15%; text-align: left;">
+                                    <!--<span>VALOR MATRIC.</span>-->
+                                </th>
+                                <th style="width: 15%; text-align: left;">
+                                    <span>DOMICILIO</span>
+                                </th>
+                                <th style="width: 15%; text-align: left;">
+                                    <span>TRABAJO</span>
+                                </th>
+                                <th style="width: 15%; text-align: right;">
+                                    <span>OFIC. ILV. CH.</span>
+                                </th>
+                                <th style="width: 20%; text-align: right">
+                                    <span>TIEMPO DE CAPACITACIÓN</span>
+                                </th>
+                                <th style="width: 20%; text-align: right">
+                                    <span>TELÉFONO EJECUTIVO DE COBRANZAS</span>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <td style="text-align: left">
+                                    <span>LUGAR DE VERIFICACIÓN</span>
+                                </td>
+                                <td style="text-align: left">
+                                    <t t-if="o.verification_place == 'home'">
+                                        X
+                                    </t>
+                                </td>
+                                <td style="text-align: left">
+                                    <t t-if="o.verification_place == 'work'">
+                                        X
+                                    </t>
+                                </td>
+                                <td style="text-align: right">
+                                    <t t-if="o.verification_place == 'office'">
+                                        X
+                                    </t>
+                                </td>
+                                <td style="text-align: right">
+                                    <span t-esc="o.agreement_duration"/>
+                                </td>
+                                <td style="text-align: right">
+                                    <span t-esc="o.collections_phone"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <br/>
+                    <br/>
+
+                    <div style="text-align: center; font-size: 18px">
+                        <span>INFORMACIÓN DEL TITULAR Y/O BENEFICIARIO(S)</span>
+                    </div>
+                    <br/>
+
+                    ---------
+                    FALTA LA TABLA DE LA INFORMACIÓN DEL TITULAR
+                    ---------
+
+                    <div style="text-align: center; font-size: 18px">
+                        <span>HORARIOS DEL ESTUDIANTE</span>
+                    </div>
+                    <br/>
+
+                    <div class="" style="width: 100%;">
+                        <table class="content" style="width: 100%;">
+                            <tr>
+                                <th style="width: 40%; text-align: left;">
+                                    <span>ESTUDIANTE</span>
+                                </th>
+                                <th style="width: 30%; text-align: left;">
+                                    <span>HORARIO(S)</span>
+                                </th>
+                                <th style="width: 30%; text-align: left;">
+                                    <span>FECHA DE INICIO ACADÉMICO</span>
+                                </th>
+                            </tr>
+
+                            <t t-foreach="o.beneficiary_ids" t-as="line">
+                                <tr>
+                                    <td style="text-align: left">
+                                        <span t-esc="line.partner_id.name"></span>
+                                    </td>
+                                    <td style="text-align: left">
+                                        <t t-foreach="line.roll_number_ids" t-as="sch">
+                                            <span t-esc="sch.course_id.name"/>
+                                            -
+                                            <span t-esc="sch.division_id.name"/>
+                                            <br/>
+                                        </t>
+                                    </td>
+                                    <td style="text-align: left">
+                                        <t t-foreach="line.roll_number_ids" t-as="sch">
+                                            <span t-esc="sch.course_id.name"/>
+                                            -
+                                            <span t-esc="sch.start_date"/>
+                                            <br/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+
+                    <p style="page-break-before:always;"></p>
+
+                    <div style="text-align: center; font-size: 20px">
+                        <span>SEÑOR REPRESENTANTE, PONGA ATENCION A LOS SIGUIENTES ASPECTOS:</span>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <div class="" style="width: 100%; background-color: #def4fe">
+                        <table class="content" style="width: 100%;">
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>1. En caso de congelamiento de clases, el TITULAR deberá informar con 24 horas
+                                        de anticipación
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>Se congela las clases y/o servicios prestados, mas NO el pago de las cuotas
+                                        pactadas.
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>2. Tomese en cuenta que el pago establecido en el contrato, es independiente
+                                        del uso que efectivamente realice su representada(o) de nuestros servicios.
+                                        ASISTA O NO LAS CUOTAS DEBEN SER CANCELADAS.
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>3. El valor de la matrícula es un pago muy independiente del valor de las
+                                        respectivas cuotas a pagar.
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>4. Una vez estipulada su fecha de pago, usted adquiere el compromiso de
+                                        cancelar puntualmente sus cuotas, caso contrario, se le otorga un plazo de 24
+                                        horas para la cancelación de la misma
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>5, Si su cuota no es cancelada en el tiempo establecido esta sè incrementará
+                                        un 5% al valor de las referidas cuotas pendientes o atrasadas.
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>6. Los congelamientos de clases deben efectuarse sólo en nuestras oficinas,
+                                        Caso contrario, el sistema NO reconoce las inasistencias para las
+                                        correpondientes recuperaciones.
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>7. Exija siempre su comprobante de pago(no se reconocerá ningún comprobante no
+                                        autorizado).
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>8. Cuando el estudiante este por culminar la capacitación; Usted deberá
+                                        cancelar un valor adicional de $100,00 los cuales pueden ser cancelados por
+                                        medio abonos durante el periodo de capacitacion o en su defecto en su
+                                        culminacion en las fechas establecidas.
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>9. LOS VALORES PAGADOS NO SON REEMBOLSABLES BAJO NINGUN CONCEPTO YA QUE
+                                        ESTAMOS DE ACUERDO CON TODA LA INFORMACION RECIBIDA.
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <div style="text-align: center; font-size: 20px">
+                        <span>DERECHOS ILVEM <![CDATA[&]]> CHARLOTTE ENGLISH SCHOOL Y TOMATIS</span>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <div class="" style="width: 100%; background-color: #ffffab">
+                        <table class="content" style="width: 100%;">
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>*. El Estudiante tiene derecho a cambiarse de horarios siempre y cuando se
+                                        coordine con Direccion Academica de la sucursal.
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>* El. Estudiante tiene derecho a recuperar clases perdidas, previo aviso a la
+                                        insitucion en coordinacion de Direccion Academica
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>* El estudiante de Ilvem Internacional <![CDATA[&]]> Charlotte English School
+                                        tiene
+                                        derecho nivelaciones de materias, fuera del horario de capacitacion. Para esto
+                                        deberá traer el material de estudio.
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>*. Señor Representante le damos a conocer que cada determinado tiempo, se
+                                        realiza la entrega de informes academicos, de esa manera Usted tendra la
+                                        informacion del desarrollo de su representado.
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr style="padding: 10px">
+                                <td style="text-align: left">
+                                    <span>*. El estudiante tiene derecho al uso de los laboratorios
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <div style="width: 100%;">
+                        <div style="float: left; width: 50%; text-align: center">
+                            <span>
+                                <strong>________________________________</strong>
+                            </span>
+                            <br/>
+                            <span>FIRMA REPRESENTANTE</span>
+                            <br/>
+                            <span>C.I.</span>
+                            <br/>
+                        </div>
+                        <div style="float: left; width: 50%; text-align: center">
+                            <span>
+                                <strong>________________________________</strong>
+                            </span>
+                            <br/>
+                            <span>FIRMA DEL VERIFICADOR</span>
+                            <br/>
+                            <span>ILVEM <![CDATA[&]]> CHARLOTTE-TOMATIS</span>
+                            <br/>
+                        </div>
+                        <br style="clear: left;"/>
+                    </div>
+
                 </div>
             </t>
         </template>
 
-        <template id="c">
+        <template id="report_verification_template">
             <style type="text/css">
-
             </style>
 
             <t t-call="report.html_container">
@@ -78,7 +520,7 @@
         </record>
 
         <report id="report_verification_qweb"
-                name="education_contract_collection_plan.report_verification_qweb"
+                name="education_contract_collection_plan.report_verification_document"
                 model="education_contract.verification"
                 string="Informe de verificacion"
                 report_type="qweb-pdf"/>

@@ -13,7 +13,7 @@ class ContractVerification(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.report.xml',
-            'report_name': 'education_contract_collection_plan.report_receipt_template2',
+            'report_name': 'education_contract_collection_plan.report_verification_template',
             'context': self._context,
         }
 

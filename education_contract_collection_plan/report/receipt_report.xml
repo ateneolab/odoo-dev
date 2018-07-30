@@ -65,7 +65,7 @@
 
                     <div class="text-center" style="font-size: 11px">
                         <span>RECIBO DE DINERO No</span>
-                        <span t-esc="o.id" style="color: red"/>
+                        <span t-esc="o.account_voucher_id.id" style="color: red"/>
                     </div>
 
                 </div>

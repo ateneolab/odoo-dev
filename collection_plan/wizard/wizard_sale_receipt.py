@@ -50,13 +50,14 @@ class WizardInvoice(models.TransientModel):
         return period_id
 
     @api.one
-    def create_voucher(self):
+    def create_voucher(self):   # aqui se debe aumentar la secuencia del numero de la nota de venta
         if len(self.payment_term_ids):
             pt = self.payment_term_ids[0]
             pt.generate_voucher_receipt('done', self.partner_id.id, self.company_id.id, 'receipt')
             pt.write({'internal_state': 'receipt'})
             res = self.open_voucher(pt.account_voucher_id.id)
             _logger.info('RES TO RETURN FOR OPENING VOUCHER FORM JUST CREATED: %s' % res)
+            self.collection_plan_id.update_payed()
             return res
 
     @api.multi

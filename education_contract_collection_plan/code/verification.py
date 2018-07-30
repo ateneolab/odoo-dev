@@ -11,6 +11,7 @@ class ContractVerification(models.Model):
     @api.multi
     def print_verification(self):
         self.ensure_one()
+        self.enroll()
         return {
             'type': 'ir.actions.report.xml',
             'report_name': 'education_contract_collection_plan.report_verification_template',

@@ -171,6 +171,7 @@ PLAN_TYPES = {'funded': 'Financiado', 'cash': 'Contado', 'scholarship': 'Beca'}
 class education_contract(models.Model):
     _name = 'education_contract.contract'
     _inherit = ['mail.thread']
+    _rec_name = 'barcode'
 
     def get_beneficiary_names(self):
         names = []

@@ -29,7 +29,7 @@
                     </notebook>
                 </group>
 
-                <field name="date_state" position="after">
+                <field name="state" position="after">
                     <field name="frozen"/>
                 </field>
             </field>

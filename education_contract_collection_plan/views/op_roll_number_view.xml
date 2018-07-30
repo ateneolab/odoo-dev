@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="education_contract.view_op_roll_number_form3"/>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-                <field name="date_state" position="after">
+                <field name="state" position="after">
                     <field name="contract_id"/>
                 </field>
             </field>

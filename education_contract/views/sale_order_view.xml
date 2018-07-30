@@ -311,20 +311,20 @@
                             <field name="residual"/>
                         </group>
                     </group>
-                    <notebook>
-                        <page string="Abonos">
-                            <!--<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />-->
-                            <!--<field name="payment_info_ids" />--> <!-- context="{'default_plan_id': active_id}" -->
-                            <!--<field name="payment_info_ids">-->
-                            <field name="payment_term_ids">
-                                <tree create="false" edit="false" delete="false">
-                                    <field name="amount"/>
-                                    <field name="type"/>
-                                </tree>
-                            </field>
-                            <!--<field name="payment_term_ids"/>-->
-                        </page>
-                    </notebook>
+                    <!--<notebook>-->
+                        <!--<page string="Abonos">-->
+                            <!--&lt;!&ndash;<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />&ndash;&gt;-->
+                            <!--&lt;!&ndash;<field name="payment_info_ids" />&ndash;&gt; &lt;!&ndash; context="{'default_plan_id': active_id}" &ndash;&gt;-->
+                            <!--&lt;!&ndash;<field name="payment_info_ids">&ndash;&gt;-->
+                            <!--<field name="payment_term_ids">-->
+                                <!--<tree create="false" edit="false" delete="false">-->
+                                    <!--<field name="amount"/>-->
+                                    <!--<field name="type"/>-->
+                                <!--</tree>-->
+                            <!--</field>-->
+                            <!--&lt;!&ndash;<field name="payment_term_ids"/>&ndash;&gt;-->
+                        <!--</page>-->
+                    <!--</notebook>-->
                 </form>
             </field>
         </record>

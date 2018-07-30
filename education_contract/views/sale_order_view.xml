@@ -405,14 +405,15 @@
                         <group>
                             <group>
                                 <field name="study_company_id" required="0" invisible="1"/>
-                                <field name="campus_id"/>
-                                <field name="qty_years" required="1"/>
-                                <field name="batch_id"/>
+                                <field name="name" required="1"/>
+                                <field name="batch_id" domain="[('course_id.code', '=', name)]"/>
+                                <field name="standard_id" domain="[('course_id.code', '=', name)]"/>
                             </group>
                             <group>
-                                <field name="name" required="1"/>
-                                <field name="division_id"/>
-                                <field name="standard_id"/>
+                                <field name="campus_id"/>
+                                <field name="division_id"
+                                       required="1"/>  <!--domain="[('id', 'in', standard_id.division_ids)]"-->
+                                <field name="qty_years" required="1"/>
                             </group>
                         </group>
                     </sheet>

@@ -137,30 +137,6 @@
                                     </tree>
                                 </field>
                             </page>
-
-                            <page string="Plan">
-                                <field name="plan_id"
-                                       attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"> <!-- context="{'default_contract_id': active_id}" -->
-                                    <tree>
-                                        <field name="type"/>
-                                        <field name="amount_pay"/>
-                                        <field name="registration_fee"
-                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"
-                                               string="Valor Matricula"/>
-                                        <field name="qty_dues"
-                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"
-                                               string="No. Cuotas"/>
-                                        <field name="amount_monthly"
-                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>
-                                        <field name="residual"
-                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>
-                                        <field name="registration_residual"/>
-                                        <!--<field name="initial_subscription" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>-->
-                                        <!--<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />-->
-                                    </tree>
-                                </field>
-                            </page>
-
                             <page string="Formas de pago">
                                 <field name="payment_term_ids" context="{'default_contract_id': active_id}"
                                        attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}">
@@ -193,6 +169,28 @@
                                         <field name="state" invisible="1"/>
                                         <field name="contract_state" invisible="1"/>
                                         <field name="invisible" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Plan">
+                                <field name="plan_id"
+                                       attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"> <!-- context="{'default_contract_id': active_id}" -->
+                                    <tree>
+                                        <field name="type"/>
+                                        <field name="amount_pay"/>
+                                        <field name="registration_fee"
+                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"
+                                               string="Valor Matricula"/>
+                                        <field name="qty_dues"
+                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"
+                                               string="No. Cuotas"/>
+                                        <field name="amount_monthly"
+                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>
+                                        <field name="residual"
+                                               attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>
+                                        <field name="registration_residual"/>
+                                        <!--<field name="initial_subscription" attrs="{'readonly': [('type', 'not in', ['funded'])], 'required': [('type', 'in', ['funded'])] }"/>-->
+                                        <!--<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />-->
                                     </tree>
                                 </field>
                             </page>
@@ -312,18 +310,18 @@
                         </group>
                     </group>
                     <!--<notebook>-->
-                        <!--<page string="Abonos">-->
-                            <!--&lt;!&ndash;<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />&ndash;&gt;-->
-                            <!--&lt;!&ndash;<field name="payment_info_ids" />&ndash;&gt; &lt;!&ndash; context="{'default_plan_id': active_id}" &ndash;&gt;-->
-                            <!--&lt;!&ndash;<field name="payment_info_ids">&ndash;&gt;-->
-                            <!--<field name="payment_term_ids">-->
-                                <!--<tree create="false" edit="false" delete="false">-->
-                                    <!--<field name="amount"/>-->
-                                    <!--<field name="type"/>-->
-                                <!--</tree>-->
-                            <!--</field>-->
-                            <!--&lt;!&ndash;<field name="payment_term_ids"/>&ndash;&gt;-->
-                        <!--</page>-->
+                    <!--<page string="Abonos">-->
+                    <!--&lt;!&ndash;<field name="voucher_ids" context="{'form_view_ref' : 'account_voucher.view_vendor_receipt_form', 'default_state': 'draft'}" />&ndash;&gt;-->
+                    <!--&lt;!&ndash;<field name="payment_info_ids" />&ndash;&gt; &lt;!&ndash; context="{'default_plan_id': active_id}" &ndash;&gt;-->
+                    <!--&lt;!&ndash;<field name="payment_info_ids">&ndash;&gt;-->
+                    <!--<field name="payment_term_ids">-->
+                    <!--<tree create="false" edit="false" delete="false">-->
+                    <!--<field name="amount"/>-->
+                    <!--<field name="type"/>-->
+                    <!--</tree>-->
+                    <!--</field>-->
+                    <!--&lt;!&ndash;<field name="payment_term_ids"/>&ndash;&gt;-->
+                    <!--</page>-->
                     <!--</notebook>-->
                 </form>
             </field>

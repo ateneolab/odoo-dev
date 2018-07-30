@@ -474,7 +474,16 @@ class education_contract(models.Model):
         records = self.pool.get('education_contract.contract').browse(cr, uid, ids)
         payment_terms = records.payment_term_ids
 
+        records.plan_id._compute_dues()
+
         valid = True
+
+        if records.plan_id.type == 'funded':
+            valid = not records.plan_id.registration_residual > 0.0
+            if not valid:
+                raise ValidationError(
+                    u"""Debe emitir un pago por un valor mímino igual al abono de matrícula. 
+                    Este pago debe ser confirmado o marcado como avance de efectivo.""")
 
         for pt in payment_terms:
             if pt.state not in ['done', 'processed']:
@@ -482,8 +491,9 @@ class education_contract(models.Model):
                 break
 
         if not valid:
-            raise ValidationError("""Debe conciliar todas las formas de pago del contrato para cambiar a estado 'Conciliado'.
-                                    Si existe algun anticipo pendiente, este debe ser generado antes de continuar.""")
+            raise ValidationError(u"""Debe conciliar todas las formas de pago del contrato para cambiar a estado 'Conciliado'.
+                                    Si existe algun anticipo pendiente, este debe ser generado antes de continuar. 
+                                    Si los pagos no igualan o superan el abono de matrícula no se puede conciliar el contrato.""")
         else:
             self.pool.get('education_contract.contract').browse(cr, uid, ids).write({'state': 'validated'})
 
@@ -664,7 +674,7 @@ class plan(models.Model):
                 self.amount_monthly = 0.0
 
     @api.one
-    @api.depends('type', 'amount_pay', 'qty_dues', 'registration_fee')
+    @api.depends('type', 'amount_pay', 'qty_dues', 'registration_fee', 'payment_term_ids')
     def _compute_dues(self):
         if self.type:
             if self.type == 'funded':
@@ -683,8 +693,6 @@ class plan(models.Model):
                 self.registration_residual = registration_residual
                 self.amount_monthly = amount_monthly
                 self.residual = round(self.qty_dues * self.amount_monthly, 4)
-
-                # self.write({})
 
             if self.type in 'cash':
                 self.residual = self.amount_pay - self._compute_voucher_sum()
@@ -742,7 +750,6 @@ class payment_term(models.Model):
     def validate_contract(self):
         """if self.state == 'draft':
             return"""
-
         payment_term_ids = self.plan_id.payment_term_ids
 
         all_done = True
@@ -781,6 +788,7 @@ class payment_term(models.Model):
     def confirm(self):
         self.generate_voucher('done')
         self.validate_contract()
+        self.plan_id._compute_dues()
 
     @api.one
     def cancel(self):

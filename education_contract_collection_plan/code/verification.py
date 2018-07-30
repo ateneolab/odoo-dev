@@ -18,9 +18,9 @@ class ContractVerification(models.Model):
             'context': self._context,
         }
 
-    @api.multi
-    def unlink(self):
-        raise except_orm('Error', _(u"You can't remove a collection plan, you can only edit it."))
+    # @api.multi
+    # def unlink(self):
+    #     raise except_orm('Error', _(u"You can't remove a collection plan, you can only edit it."))
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:
@@ -140,14 +140,3 @@ class CollectionPlan(models.Model):
     _inherit = 'collection_plan.collection_plan'
 
     verification_id = fields.Many2one('education_contract.verification', 'collection_plan_id')
-
-    """@api.one
-    def generate_verification(self):
-        verification_id = self.env['education_contract.verification'].create({
-            'collection_plan_id': self.id,
-            'contract_id': self.contract_id.id,
-        })
-
-        self.write({
-            'verification_id': verification_id.id
-        })"""

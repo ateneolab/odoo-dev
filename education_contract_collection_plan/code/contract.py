@@ -62,7 +62,7 @@ class Contract(models.Model):
             'amount_pay': self.plan_id.residual,
             'plan_active': True,
             'start_date': datetime.today(),
-            'contract_id': None
+            'contract_id': None,
         })
 
         active_plan_id.reschedule()
@@ -100,24 +100,18 @@ class Contract(models.Model):
             raise ValidationError("Debe completar todos los datos del contrato para cambiar a estado 'Asignado'.")
         else:
             try:
-                # verification_id = self.copy_active_plan()
+                verification_id = self.env['education_contract.verification'].create({})
+                self.write({'verification_id': verification_id.id})
                 plan_data = self.copy_active_plan()
             except Exception as e:
                 raise e
 
-            # try:
-            #     beneficiary_ids = self.copy_beneficiaries()
-            # except Exception as e:
-            #     raise e
-
-            verification_id = self.env['education_contract.verification'].create(plan_data)
-            # verification_id.write({'beneficiary_ids': self.beneficiary_ids_2})
-
-            verification_id.write({'beneficiary_ids': [(6, 0, self.beneficiary_ids_2.ids)]})
+            # verification_id = self.env['education_contract.verification'].create(plan_data)
+            plan_data.update({'beneficiary_ids': [(6, 0, self.beneficiary_ids_2.ids)]})
+            verification_id.write(plan_data)
 
             self.write({
                 'state': 'asigned',
-                'verification_id': verification_id.id,
             })
 
 
@@ -135,14 +129,37 @@ class PaymentTerm(models.Model):
     tax_ids = fields.Many2many('account.tax', string=_('Taxes'))
     taxes_included = fields.Boolean(_(u'Taxes included'))
 
-# class Plan(models.Model):
-#     _name = 'education_contract.plan'
-#     _inherit = 'education_contract.plan'
-#
-#     start_date = fields.Date('Fecha de inicio')
+class Plan(models.Model):
+    _name = 'education_contract.plan'
+    _inherit = 'education_contract.plan'
 
-# class Plan(models.Model):
-#     _name = 'education_contract.plan'
-#     _inherit = 'education_contract.plan'
-#
-#     start_date = fields.Date('Fecha de inicio')
+    @api.one
+    @api.onchange('type', 'amount_pay', 'qty_dues', 'registration_fee', 'payment_term_ids')
+    @api.depends('type', 'amount_pay', 'qty_dues', 'registration_fee', 'payment_term_ids')
+    def _compute_dues(self):
+        if self.type:
+            if self.type == 'funded':
+                payed = self._compute_voucher_sum()
+                if payed >= self.registration_fee:
+                    registration_residual = 0.0
+                else:
+                    registration_residual = self.registration_fee - payed
+
+                if not self.contract_id:
+                    if self.qty_dues:
+                        amount_monthly = round((self.amount_pay - payed) / self.qty_dues, 4)
+                    else:
+                        amount_monthly = round((self.amount_pay - payed), 4)
+                else:
+                    if self.qty_dues:
+                        amount_monthly = round((self.amount_pay - self.registration_fee) / self.qty_dues, 4)
+                    else:
+                        amount_monthly = round((self.amount_pay - self.registration_fee), 4)
+
+                self.registration_payed = self.registration_residual == 0
+                self.registration_residual = registration_residual
+                self.amount_monthly = amount_monthly
+                self.residual = round(self.qty_dues * self.amount_monthly, 4)
+
+            if self.type in 'cash':
+                self.residual = self.amount_pay - self._compute_voucher_sum()

@@ -119,8 +119,56 @@ class ContractVerification(models.Model):
             else:
                 roll_number.write({'state': 'active'})
 
+    def get_cash_amount(self):
+        plan_id = self.contract_id.plan_id
+        payment_term_ids = plan_id.payment_term_ids
+
+        sum = 0.0
+
+        for pt in payment_term_ids:
+            if pt.type == 'cash' and pt.cash_sub_type == 'cash':
+                sum += pt.amount
+
+        return sum
+
+    def get_check_amount(self):
+        plan_id = self.contract_id.plan_id
+        payment_term_ids = plan_id.payment_term_ids
+
+        sum = 0.0
+
+        for pt in payment_term_ids:
+            if pt.type == 'check':
+                sum += pt.amount
+
+        return sum
+
+    def get_credit_card_amount(self):
+        plan_id = self.contract_id.plan_id
+        payment_term_ids = plan_id.payment_term_ids
+
+        sum = 0.0
+
+        for pt in payment_term_ids:
+            if pt.type == 'credit_card':
+                sum += pt.amount
+
+        return sum
+
+    def get_plan_detail(self):
+        plan_id = self.contract_id.plan_id
+
+        data = """"""
+
+        data += 'Total: %d \n' % (plan_id.amount_pay)
+        data += 'Cuotas: %d \n' % (plan_id.qty_dues)
+        data += 'Montos: %d' % (plan_id.amount_monthly)
+
+        return data
+
     operating_unit_id = fields.Many2one(related='contract_id.campus_id')
     contract_id = fields.Many2one('education_contract.contract', _('Education contract'))
+    roll_number_ids = fields.One2many(related='contract_id.roll_number_ids')
     contract_date = fields.Date(_('Contract date'), related='contract_id.date')
     verification_date = fields.Date()
     agreement_duration = fields.Integer(_('Duration of the agreement (Months)'))

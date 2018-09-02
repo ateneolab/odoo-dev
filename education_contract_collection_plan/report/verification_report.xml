@@ -101,7 +101,7 @@
                     </div>
                     <br/>
 
-                    <div class="" style="width: 100%;">
+                    <div class="" style="width: 100%; font-size:15px">
                         <table class="content" style="width: 100%;">
                             <tr>
                                 <th style="width: 10%; text-align: left;">
@@ -136,7 +136,8 @@
                                     </td>
                                     <td style="text-align: left">
                                         <t t-foreach="line.program_ids" t-as="prog">
-                                            <span t-esc="prog.name"/>
+                                            <t t-set="name" t-value="get_course_name(prog.name)"/>
+                                            <span t-esc="name"/>
                                             <br/>
                                         </t>
                                     </td>
@@ -158,7 +159,7 @@
                     </div>
                     <br/>
 
-                    <div class="" style="width: 100%;">
+                    <div class="" style="width: 100%; font-size:15px">
                         <table class="content" style="width: 100%;">
                             <tr>
                                 <th style="width: 15%; text-align: left;">
@@ -171,10 +172,10 @@
                                     <span>CHEQUE</span>
                                 </th>
                                 <th style="width: 15%; text-align: right;">
-                                    <span>TARJETA DE CRÉDITO</span>
+                                    <span>TARJETA</span>
                                 </th>
                                 <th style="width: 20%; text-align: right">
-                                    <span>PLAN DE FINANCIAMIENTO</span>
+                                    <span>FINANCIAMIENTO</span>
                                 </th>
                                 <th style="width: 20%; text-align: right">
                                     <span>VERIFICADO POR</span>
@@ -186,16 +187,16 @@
                                     <span t-esc="o.plan_id.registration_fee"/>
                                 </td>
                                 <td style="text-align: left">
-                                    <span t-esc="get_cash_amount"/>
+                                    <span t-esc="o.get_cash_amount()"/>
                                 </td>
                                 <td style="text-align: left">
-                                    <span t-esc="get_check_amount"/>
+                                    <span t-esc="o.get_check_amount()"/>
                                 </td>
                                 <td style="text-align: right">
-                                    <span t-esc="get_credit_card_amount"/>
+                                    <span t-esc="o.get_credit_card_amount()"/>
                                 </td>
                                 <td style="text-align: right">
-                                    <span t-esc="get_plan_detail"/>
+                                    <span t-esc="o.get_plan_detail()"/>
                                 </td>
                                 <td style="text-align: right">
                                     <span t-esc="o.verify_user_id.name"/>
@@ -205,7 +206,7 @@
                     </div>
                     <br/>
 
-                    <div class="" style="width: 100%; font-size:16px;">
+                    <div class="" style="width: 100%; font-size:15px;">
                         <table class="content" style="width: 100%;">
                             <tr>
                                 <th style="width: 15%; text-align: left;">
@@ -224,7 +225,7 @@
                                     <span>TIEMPO DE CAPACITACIÓN</span>
                                 </th>
                                 <th style="width: 20%; text-align: right">
-                                    <span>TELÉFONO EJECUTIVO DE COBRANZAS</span>
+                                    <span>TELÉFONO DE COBRANZAS</span>
                                 </th>
                             </tr>
 
@@ -261,20 +262,86 @@
                     <br/>
 
                     <div style="text-align: center; font-size: 18px">
-                        <span>INFORMACIÓN DEL TITULAR Y/O BENEFICIARIO(S)</span>
+                        <span>INFORMACIÓN DEL TITULAR</span>
                     </div>
                     <br/>
 
-                    ---------
-                    FALTA LA TABLA DE LA INFORMACIÓN DEL TITULAR
-                    ---------
+                    <div class="" style="width: 100%; font-size:15px">
+                        <table class="content" style="width: 100%;">
+                            <tr>
+                                <td style="width: 20%; text-align: left;">
+                                    <span>Dirección de domicilio</span>
+                                </td>
+                                <td style="width: 80%; text-align: left;">
+                                    <span t-esc="o.contract_id.owner.street"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="" style="width: 100%; font-size:15px">
+                        <table class="content" style="width: 100%;">
+                            <tr>
+                                <td style="width: 20%; text-align: left;">
+                                    <span>Sector</span>
+                                </td>
+                                <td style="width: 25%; text-align: left;">
+                                    <span>----------</span>
+                                </td>
+                                <td style="width: 25%; text-align: left;">
+                                    <span>Ubicación referencial</span>
+                                </td>
+                                <td style="width: 30%; text-align: left;">
+                                    <span>----------</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%; text-align: left;">
+                                    <span>Teléfonos</span>
+                                </td>
+                                <td style="width: 25%; text-align: left;">
+                                    <t t-if="o.contract_id.owner.phone">
+                                        <span t-esc="o.contract_id.owner.phone"/>,
+                                    </t>
+                                    <span t-esc="o.contract_id.owner.mobile"/>
+                                </td>
+                                <td style="width: 25%; text-align: left;">
+                                    <span>Email</span>
+                                </td>
+                                <td style="width: 30%; text-align: left;">
+                                    <span t-esc="o.contract_id.owner.email"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%; text-align: left;">
+                                    <span>Lugar de trabajo</span>
+                                </td>
+                                <td style="width: 25%; text-align: left;">
+                                    <t t-if="o.contract_id.owner.parent_id">
+                                        <span t-esc="o.contract_id.owner.parent_id.name"/>
+                                    </t>
+                                </td>
+                                <td style="width: 25%; text-align: left;">
+                                    <span>Teléfonos</span>
+                                </td>
+                                <td style="width: 30%; text-align: left;">
+                                    <t t-if="o.contract_id.owner.parent_id">
+                                        <t t-if="o.contract_id.owner.parent_id.phone">
+                                            <span t-esc="o.contract_id.owner.parent_id.phone"/>,
+                                        </t>
+                                        <span t-esc="o.contract_id.owner.parent_id.mobile"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
 
                     <div style="text-align: center; font-size: 18px">
-                        <span>HORARIOS DEL ESTUDIANTE</span>
+                        <span>HORARIOS DE ESTUDIANTES</span>
                     </div>
                     <br/>
 
-                    <div class="" style="width: 100%;">
+                    <div class="" style="width: 100%; font-size:15px">
                         <table class="content" style="width: 100%;">
                             <tr>
                                 <th style="width: 40%; text-align: left;">
@@ -283,8 +350,11 @@
                                 <th style="width: 30%; text-align: left;">
                                     <span>HORARIO(S)</span>
                                 </th>
-                                <th style="width: 30%; text-align: left;">
+                                <!--<th style="width: 30%; text-align: left;">
                                     <span>FECHA DE INICIO ACADÉMICO</span>
+                                </th>-->
+                                <th style="width: 30%; text-align: left;">
+                                    <span>TELÉFONO DE EMERGENCIA</span>
                                 </th>
                             </tr>
 
@@ -301,13 +371,19 @@
                                             <br/>
                                         </t>
                                     </td>
-                                    <td style="text-align: left">
+                                    <!--<td style="text-align: left">
                                         <t t-foreach="line.roll_number_ids" t-as="sch">
                                             <span t-esc="sch.course_id.name"/>
                                             -
                                             <span t-esc="sch.start_date"/>
                                             <br/>
                                         </t>
+                                    </td>-->
+                                    <td style="text-align: left">
+                                        <t t-if="line.partner_id.phone">
+                                            <span t-esc="line.partner_id.phone"></span>,
+                                        </t>
+                                        <span t-esc="line.partner_id.mobile"></span>
                                     </td>
                                 </tr>
                             </t>

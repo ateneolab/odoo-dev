@@ -15,6 +15,11 @@ class Contract(models.Model):
     date_booking_schedule = fields.Date(u'Fecha de separación de horario')
     start_date = fields.Date(u'Fecha de inicio de clases')
 
+    @api.multi
+    def to_done(self, context=None):
+        super(Contract, self).to_done(context=context)
+        self.enroll()
+
     @api.one
     @api.depends('beneficiary_ids_2')
     def enroll(self):
@@ -61,7 +66,7 @@ class Contract(models.Model):
             'payment_term_ids': None,
             'amount_pay': self.plan_id.residual,
             'plan_active': True,
-            'start_date': datetime.today(),
+            'start_date': self.plan_id.start_date or datetime.today(),
             'contract_id': None,
         })
 

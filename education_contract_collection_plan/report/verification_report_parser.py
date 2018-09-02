@@ -18,7 +18,13 @@ class verification_report_parser(report_sxw.rml_parse):
             'get_check_amount': self._get_check_amount,
             'get_credit_card_amount': self._get_credit_card_amount,
             'get_plan_detail': self._get_plan_detail,
+            'get_course_name': self._get_course_name,
         })
+
+    def _get_course_name(self, code):
+        course_id = self.pool.get('op.course').search(self.cr, self.uid, [('code', '=', code)])[0]
+        course_id = self.pool.get('op.course').browse(self.cr, self.uid, [course_id])
+        return course_id.name
 
     def _get_cash_amount(self):
         return 'cash amount'
@@ -44,7 +50,7 @@ class verification_report_parser(report_sxw.rml_parse):
 
 
 class report_verification_parser(osv.AbstractModel):
-    _name = 'report.education_contract_collection_plan.report_verification_document'
+    _name = 'report.education_contract_collection_plan.report_verification_template'
     _inherit = 'report.abstract_report'
-    _template = 'education_contract_collection_plan.report_verification_document'
+    _template = 'education_contract_collection_plan.report_verification_template'
     _wrapped_report_class = verification_report_parser

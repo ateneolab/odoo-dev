@@ -446,6 +446,11 @@ class education_contract(models.Model):
         return True
 
     @api.multi
+    def save(self, context=None):
+        self.ensure_one()
+        self.write({})
+
+    @api.multi
     def to_draft(self, context=None):
         self.write({'state': 'draft'})
 

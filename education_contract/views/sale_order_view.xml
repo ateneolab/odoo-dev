@@ -105,6 +105,7 @@
                         <notebook>
                             <page string="Beneficiarios">
                                 <field name="id" invisible="1"/>
+                                <button name="save" states="draft,waiting,prechecked,validated" type="object" string="Update"/>
                                 <field name="beneficiary_ids_2" context="{'contract_id': id}"
                                        attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}">
                                     <tree>
@@ -138,6 +139,7 @@
                                 </field>
                             </page>
                             <page string="Formas de pago">
+                                <button name="save" states="draft,waiting,prechecked,validated" type="object" string="Update"/>
                                 <field name="payment_term_ids" context="{'default_contract_id': active_id}"
                                        attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}">
                                     <tree editable="top">    <!-- editable="top" create="false" edit="false" -->

@@ -252,6 +252,9 @@ class WizardInvoice(models.TransientModel):
             })
             _logger.info('UPDATED COLLECTION_PLAN...')
 
+            collection_plan.update_payed()
+            collection_plan.active_plan_id.compute_balance()
+
             return self.open_invoices(inv.id)
 
         except Exception as e:
@@ -334,10 +337,10 @@ class WizardInvoice(models.TransientModel):
         })
         _logger.info('UPDATED COLLECTION_PLAN...')
 
-        return self.open_invoices(inv.id)
+        collection_plan.update_payed()
+        collection_plan.active_plan_id.compute_balance()
 
-        # except Exception as e:
-        #     raise except_orm('Error', e)
+        return self.open_invoices(inv.id)
 
     @api.multi
     def create_invoice(self):

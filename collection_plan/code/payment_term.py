@@ -27,9 +27,17 @@ class PaymentTerm(models.Model):
         ('invoiced', 'Invoiced'),
         ('receipt', 'Receipt'),
     ], default='created')
-    number = fields.Char('Secuencial')
+    number = fields.Char('Secuencial', compute='_compute_number', store=True)
     company_id = fields.Many2one('res.company', compute='_compute_company', store=True)
     description = fields.Char(u'Description')
+
+    @api.one
+    @api.depends('account_voucher_id')
+    def _compute_number(self):
+        if self.account_voucher_id:
+            self.number = str(self.id)
+        else:
+            self.number = ''
 
     @api.multi
     @api.onchange('description')
@@ -187,13 +195,14 @@ class PaymentTerm(models.Model):
     def confirm(self):
         contract_id = self.plan_id.contract_id or self.plan_id.collection_plan_id.contract_id
         if not contract_id:
-            raise except_orm('Error', u'El trémino de pago no tiene un contrato asociado.')
+            raise except_orm('Error', u'El término de pago no tiene un contrato asociado.')
 
         partner_id = contract_id.owner
         company_id = contract_id.campus_id.company_id
 
         self.generate_voucher_receipt('done', partner_id.id, company_id.id, 'receipt')
         self.validate_contract()
+        self.plan_id._compute_dues()
 
     @api.multi
     def do_saling(self):
@@ -203,6 +212,7 @@ class PaymentTerm(models.Model):
         view_id = self.env['collection_plan.wizard_receipt']
         new = view_id.create({})
         _logger.info('WIZARD ID: %s' % new.id)
+
         return {
             'name': _("Generate voucher"),
             'type': 'ir.actions.act_window',

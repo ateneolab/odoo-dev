@@ -125,25 +125,45 @@ class CollectionPlan(models.Model):
             'target': 'new',
         }
 
+    # @api.one
+    # @api.depends('payment_term_ids')
+    # def _compute_balance(self):
+    #     print('COMPUTE BALANCE')
+    #     sum = 0.0
+    #     if self.payment_term_ids:
+    #         for pt in self.payment_term_ids:
+    #             if not pt.payed:
+    #                 sum += pt.amount
+    #     self.balance = sum
+
+    # @api.one
+    # @api.onchange('payment_term_ids')
+    # def _onchange_payment_term_ids(self):
+    #     print('ONCHANGE PAYMENT TERM IDS BALANCE')
+    #     sum = 0.0
+    #     if self.payment_term_ids:
+    #         for pt in self.payment_term_ids:
+    #             if not pt.payed:
+    #                 sum += pt.amount
+    #     self.balance = sum
+
     contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
     active_plan_id = fields.Many2one('education_contract.plan')
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))
     residual = fields.Float(digits=(10, 4), string=_('Amount'), compute='_compute_residual', store=True)
+    balance = fields.Float(digits=(6, 4), string=_('Balance'), related='active_plan_id.balance')
     state = fields.Selection([('created', _('New')), ('done', _('Finish'))], default='created')
     payment_term_ids = fields.One2many('education_contract.payment_term', 'collection_plan_id',
                                        related='active_plan_id.payment_term_fixed_ids',
                                        string=_('Payment terms from active plan'))
     payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
                                              string=_('All payed Payment terms'), store=True)
-
     user_id = fields.Many2one('res.users', string=_('Account manager'))
     start_date = fields.Date('Start date')
     end_date = fields.Date('End date')
     notes = fields.Text('Internal notes')
-
     invoice_ids = fields.Many2many('account.invoice', string=_(u'Invoices'))
     next_payment_date = fields.Date('Next payment date', compute='_compute_next_payment_date', store=True)
-
 
     @api.one
     def _compute_next_payment_date(self):
@@ -188,7 +208,7 @@ class EducationContractPlan(models.Model):
 
         residual = self.amount_pay
         for pt in self.payment_term_ids:
-            if pt.payed:
+            if pt.invoice_id or pt.voucher_id or pt.payed:
                 residual -= pt.amount
 
         return residual
@@ -206,10 +226,11 @@ class EducationContractPlan(models.Model):
         _logger.info('COMPUTED QTY_DUES: %s' % qty_dues)
 
         _logger.info('RESIDUAL ON RESCHEDULE: %s' % residual)
-        amount_monthly = residual / (qty_dues or 1.0)
+        # amount_monthly = residual / (qty_dues or 1.0)
+        amount_monthly = residual / (self.qty_dues or 1.0)
 
         if self.qty_dues and self.plan_active:
-            for n in range(1, qty_dues + 1):
+            for n in range(1, self.qty_dues + 1):
                 if index == 1:
                     sd = before_date
                 else:
@@ -228,7 +249,7 @@ class EducationContractPlan(models.Model):
 
     @api.one
     @api.onchange('payment_term_ids')
-    def _compute_balance(self):
+    def compute_balance(self):
         print('COMPUTE BALANCE')
         sum = 0.0
         if self.payment_term_ids:
@@ -241,7 +262,7 @@ class EducationContractPlan(models.Model):
                                              string=_('Payment terms'))
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(''))
     plan_active = fields.Boolean(_('Active'))
-    balance = fields.Float(digits=(6, 4), compute='_compute_balance', string=_('Balance'), store=True)
+    balance = fields.Float(digits=(6, 4), string=_('Balance'))
     start_date = fields.Date(_('Start date'))
 
 

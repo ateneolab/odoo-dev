@@ -40,6 +40,8 @@
                             <group>
                                 <field name="user_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
                                 <field name="end_date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="residual"/>
+                                <field name="balance"/>
                             </group>
 
                             <group>
@@ -197,6 +199,19 @@
                                 domain="[]" context="{'group_by':'residual'}"/>
                     </group>
                 </search>
+            </field>
+        </record>
+
+        <record id="view_education_plan2" model="ir.ui.view">
+            <field name="name">education_contract.plan.form2</field>
+            <field name="model">education_contract.plan</field>
+            <field name="inherit_id" ref="education_contract.view_education_plan"/>
+            <field name="arch" type="xml">
+
+                <field name="residual" position="after">
+                    <field name="balance"/>
+                </field>
+
             </field>
         </record>
 

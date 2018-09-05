@@ -224,8 +224,12 @@ class education_contract(models.Model):
                           ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done', 'to_advance'])]
 
         elif sub_type:
-            domain = [('cash_sub_type', 'in', [sub_type]), ('id', 'in', self.payment_term_ids.ids),
-                      ('state', 'in', ['done', 'to_advance', 'processed'])]
+            if sub_type in ['cash']:
+                domain = [('type', 'in', [sub_type]), ('cash_sub_type', 'in', [sub_type]),
+                          ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done', 'to_advance', 'processed'])]
+            else:
+                domain = [('cash_sub_type', 'in', [sub_type]),
+                          ('id', 'in', self.payment_term_ids.ids), ('state', 'in', ['done', 'to_advance', 'processed'])]
 
         payment_term_ids = self.env['education_contract.payment_term'].search(domain)
 

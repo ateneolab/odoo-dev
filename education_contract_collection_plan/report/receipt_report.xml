@@ -94,7 +94,7 @@
 
         <record id="report_receipt2" model="ir.actions.report.xml">
             <field name="name">education_contract_collection_plan.report_receipt2</field>
-            <field name="model">account.invoice</field>
+            <field name="model">education_contract.payment_term</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">education_contract_collection_plan.report_receipt_template2</field>
             <field name="attachment_use" eval="True"/>

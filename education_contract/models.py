@@ -503,7 +503,7 @@ class education_contract(models.Model):
         if not valid:
             raise ValidationError(u"""Debe conciliar todas las formas de pago del contrato para cambiar a estado 'Conciliado'.
                                         Si existe algun anticipo pendiente, este debe ser generado antes de continuar. 
-                                        Si los pagos no igualan o superan el abono de matrícula no se puede conciliar el contrato.""")
+                                        Si los pagos no igualan o superan el abono de matricula no se puede conciliar el contrato.""")
         else:
             self.pool.get('education_contract.contract').browse(cr, uid, ids).write({'state': 'validated'})
 

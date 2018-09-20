@@ -4,6 +4,17 @@ from datetime import datetime
 
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
+from openerp.exceptions import except_orm
+
+"""class OperatingUnit(models.Model):
+    _inherit = 'operating.unit'
+
+    @api.model
+    def create(self, vals):
+        if vals == {}:
+            return False
+        res = super(OperatingUnit, self).create(vals)
+        return res"""
 
 
 class Contract(models.Model):
@@ -20,24 +31,27 @@ class Contract(models.Model):
         super(Contract, self).to_done(context=context)
         self.enroll()
 
-    @api.one
-    @api.depends('beneficiary_ids_2')
+    # @api.one
+    # @api.depends('beneficiary_ids_2')
+    @api.multi
     def enroll(self):
+        self.ensure_one()
         program_ids = []
+        op_roll_number_obj = self.env['op.roll.number']
         for ben in self.beneficiary_ids_2:
             program_ids += list(ben.program_ids)
         for prog in program_ids:
-            roll_number = self.env['op.roll.number'].search(
-                [
-                    ('course_id', '=', prog.course_id.id),
-                    ('division_id', '=', prog.division_id.id),
-                    ('student_id', '=', prog.beneficiary_id.student_id.id),
-                    ('standard_id', '=', prog.standard_id.id),
-                    ('batch_id', '=', prog.batch_id.id),
-                    ('beneficiary_id', '=', prog.beneficiary_id.id),
-                    ('contract_id', '=', self.id),
-                ]
-            )
+            domain = [
+                ('course_id', '=', prog.course_id.id),
+                ('division_id', '=', prog.division_id.id),
+                ('student_id', '=', prog.beneficiary_id.student_id.id),
+                ('standard_id', '=', prog.standard_id.id),
+                ('batch_id', '=', prog.batch_id.id),
+                ('beneficiary_id', '=', prog.beneficiary_id.id),
+                ('contract_id', '=', self.id),
+                ('operating_unit_id', '=', prog.campus_id.id),
+            ]
+            roll_number = op_roll_number_obj.search(domain)
             if not roll_number:
                 data = {
                     'course_id': prog.course_id.id,
@@ -48,7 +62,8 @@ class Contract(models.Model):
                     'roll_number': '1',
                     'beneficiary_id': prog.beneficiary_id.id,
                     'contract_id': self.id,
-                    'state': 'inactive'
+                    'state': 'inactive',
+                    'operating_unit_id': prog.campus_id.id,
                 }
                 if self.date_booking_schedule:
                     data.update({'schedule_reservation_date': self.date_booking_schedule})
@@ -56,7 +71,11 @@ class Contract(models.Model):
                     data.update({'schedule_reservation_date': datetime.today()})
                 if self.start_date:
                     data.update({'start_date': self.start_date})
-                self.env['op.roll.number'].create(data)
+
+                try:
+                    op_roll_number_obj.create(data)
+                except Exception as e:
+                    raise except_orm('Error', u'Debe especificar una sucursal para cada grupo.')
 
     @api.multi
     def copy_active_plan(self):
@@ -133,6 +152,7 @@ class PaymentTerm(models.Model):
 
     tax_ids = fields.Many2many('account.tax', string=_('Taxes'))
     taxes_included = fields.Boolean(_(u'Taxes included'))
+
 
 class Plan(models.Model):
     _name = 'education_contract.plan'

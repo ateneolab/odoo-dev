@@ -40,7 +40,7 @@
                                 </field>
                             </page>
                             <page string="Horario">
-                                <field name="roll_number_ids"/>
+                                <field name="roll_number_ids" nocreate="True" create="false" edit="false" readonly="1"/>
                             </page>
                         </notebook>
                     </sheet>

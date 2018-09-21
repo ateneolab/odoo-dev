@@ -10,11 +10,7 @@
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page string="Horarios separados">
-                        <field name="roll_number_ids">
-                            <form>
-
-                            </form>
-                        </field>
+                        <field name="roll_number_ids"/>
                     </page>
                 </notebook>
                 <button name="to_assigned" position="after">

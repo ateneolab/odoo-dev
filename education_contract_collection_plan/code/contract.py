@@ -36,46 +36,51 @@ class Contract(models.Model):
     @api.multi
     def enroll(self):
         self.ensure_one()
-        program_ids = []
+
         op_roll_number_obj = self.env['op.roll.number']
+        domain = [
+            # ('course_id', '=', prog.course_id.id),
+            # ('division_id', '=', prog.division_id.id),
+            # ('student_id', '=', prog.beneficiary_id.student_id.id),
+            # ('standard_id', '=', prog.standard_id.id),
+            # ('batch_id', '=', prog.batch_id.id),
+            # ('beneficiary_id', '=', prog.beneficiary_id.id),
+            ('contract_id', '=', self.id),
+            # ('operating_unit_id', '=', prog.campus_id.id),
+        ]
+        roll_number = op_roll_number_obj.search(domain)
+        for rn in roll_number:
+            rn.unlink()
+
+        program_ids = []
+
         for ben in self.beneficiary_ids_2:
             program_ids += list(ben.program_ids)
         for prog in program_ids:
-            domain = [
-                ('course_id', '=', prog.course_id.id),
-                ('division_id', '=', prog.division_id.id),
-                ('student_id', '=', prog.beneficiary_id.student_id.id),
-                ('standard_id', '=', prog.standard_id.id),
-                ('batch_id', '=', prog.batch_id.id),
-                ('beneficiary_id', '=', prog.beneficiary_id.id),
-                ('contract_id', '=', self.id),
-                ('operating_unit_id', '=', prog.campus_id.id),
-            ]
-            roll_number = op_roll_number_obj.search(domain)
-            if not roll_number:
-                data = {
-                    'course_id': prog.course_id.id,
-                    'division_id': prog.division_id.id,
-                    'student_id': prog.beneficiary_id.student_id.id,
-                    'standard_id': prog.standard_id.id,
-                    'batch_id': prog.batch_id.id,
-                    'roll_number': '1',
-                    'beneficiary_id': prog.beneficiary_id.id,
-                    'contract_id': self.id,
-                    'state': 'inactive',
-                    'operating_unit_id': prog.campus_id.id,
-                }
-                if self.date_booking_schedule:
-                    data.update({'schedule_reservation_date': self.date_booking_schedule})
-                else:
-                    data.update({'schedule_reservation_date': datetime.today()})
-                if self.start_date:
-                    data.update({'start_date': self.start_date})
+            # if not roll_number:
+            data = {
+                'course_id': prog.course_id.id,
+                'division_id': prog.division_id.id,
+                'student_id': prog.beneficiary_id.student_id.id,
+                'standard_id': prog.standard_id.id,
+                'batch_id': prog.batch_id.id,
+                'roll_number': '1',
+                'beneficiary_id': prog.beneficiary_id.id,
+                'contract_id': self.id,
+                'state': 'inactive',
+                'operating_unit_id': prog.campus_id.id,
+            }
+            if self.date_booking_schedule:
+                data.update({'schedule_reservation_date': self.date_booking_schedule})
+            else:
+                data.update({'schedule_reservation_date': datetime.today()})
+            if self.start_date:
+                data.update({'start_date': self.start_date})
 
-                try:
-                    op_roll_number_obj.create(data)
-                except Exception as e:
-                    raise except_orm('Error', u'Debe especificar una sucursal para cada grupo.')
+            try:
+                op_roll_number_obj.create(data)
+            except Exception as e:
+                raise except_orm('Error', u'Contacte con el administrador para solucionar el siguiente error: (%s)' % e)
 
     @api.multi
     def copy_active_plan(self):

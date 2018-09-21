@@ -494,6 +494,8 @@ class education_contract(models.Model):
                 raise ValidationError(
                     u"""Debe emitir un pago por un valor mímino igual al abono de matrícula. 
                     Este pago debe ser confirmado o marcado como avance de efectivo.""")
+        else:
+            pass
 
         for pt in payment_terms:
             if pt.state not in ['done', 'processed']:

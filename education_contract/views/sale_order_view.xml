@@ -232,6 +232,7 @@
             <field name="arch" type="xml">
                 <search string="Contrato">
                     <field name="barcode"/>
+                    <field name="state"/>
                     <field name="owner"/>
                     <field name="campus_id"/>
                     <field name="user_id"/>
@@ -241,6 +242,8 @@
                     <group expand="0" string="Group By...">
                         <filter string="Codigo" domain="[]"
                                 context="{'group_by':'barcode'}"/>
+                        <filter string="Estado" domain="[]"
+                                context="{'group_by':'state'}"/>
                         <filter string="Titular" domain="[]"
                                 context="{'group_by':'owner'}"/>
                         <filter string="Sucursal" domain="[]" context="{'group_by':'campus_id'}"/>

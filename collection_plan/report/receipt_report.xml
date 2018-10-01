@@ -94,13 +94,16 @@
                     <table style="width: 100%">
                         <tr>
                             <td style="width: 34%; text-align: left">
-                                <span>Cuenta No: ________</span>
+                                <span>Cuenta No:</span>
+                                <span t-esc="o.plan_id.collection_plan_id.id"></span>
                             </td>
                             <td style="width: 33%; text-align: left">
-                                <span>Codigo No: ________</span>
+                                <span>Codigo No:</span>
+                                <span t-esc="o.plan_id.collection_plan_id.contract_id.barcode"></span>
                             </td>
                             <td style="width: 33%; text-align: right">
-                                <span>Cuenta del Mes: ________</span>
+                                <span>Cuenta del Mes:</span>
+                                <span t-field="o.planned_date" t-field-options='{"format": "MM"}'></span>
                             </td>
                         </tr>
                     </table>
@@ -108,28 +111,82 @@
                     <div style="border: solid 1px; margin-top: 0px; width: 100%; padding: 3px">
                         <table style="width: 100%">
                             <tr>
-                                <td style="width: 20%">ABONO:__</td>
-                                <td style="width: 20%">SALDO:__</td>
-                                <td style="width: 20%">EFECTIVO:__</td>
-                                <td style="width: 20%">CHEQUE:__</td>
-                                <td style="width: 20%">TRANSFERENCIA:__</td>
+                                <td style="width: 20%">ABONO:
+                                    <span t-if="o.plan_id.balance == 0.0">__</span>
+                                    <span t-if="o.plan_id.balance != 0.0">X</span>
+                                </td>
+                                <td style="width: 20%">SALDO:
+                                    <span t-if="o.plan_id.balance == 0.0">X</span>
+                                    <span t-if="o.plan_id.balance != 0.0">__</span>
+                                </td>
+                                <td style="width: 20%">EFECTIVO:
+                                    <span t-if="o.type == 'cash'">
+                                        <span t-if="o.cash_sub_type == 'cash'">X</span>
+                                        <span t-if="o.cash_sub_type == 'debit_card'">X</span>
+                                    </span>
+                                    <span t-if="o.type != 'cash'">__</span>
+                                </td>
+                                <td style="width: 20%">CHEQUE:
+                                    <span t-if="o.type == 'check'">X</span>
+                                    <span t-if="o.type != 'check'">__</span>
+                                </td>
+                                <td style="width: 20%">TRANSFERENCIA:
+                                    <span t-if="o.type == 'cash'">
+                                        <span t-if="o.cash_sub_type == 'transfer'">X</span>
+                                        <span t-if="o.cash_sub_type != 'transfer'">__</span>
+                                    </span>
+                                    <span t-if="o.type != 'cash'">__</span>
+                                </td>
                             </tr>
                         </table>
 
                         <table style="width: 100%; margin-top: 5px">
                             <tr>
-                                <td style="width: 20%">Cheque No:_______________________________</td>
+                                <td style="width: 20%">Cheque No:
+                                    <span t-if="o.type == 'check'">
+                                        <span t-esc="o.check_id.check_number"></span>
+                                    </span>
+                                    <span t-if="o.type != 'check'">_______________________________</span>
+                                </td>
                             </tr>
                             <tr>
-                                <td style="width: 20%">Banco:___________________________________</td>
+                                <td style="width: 20%">Banco:
+                                    <t t-set="print_line" t-value="True"/>
+
+                                    <span t-if="o.type == 'check'">
+                                        <span t-esc="o.check_id.bank.name"></span>
+                                        <t t-set="print_line" t-value="False"/>
+                                    </span>
+                                    <span t-if="o.type == 'credit_card'">
+                                        <span t-esc="o.voucher_id.bank.name"></span>
+                                        <t t-set="print_line" t-value="False"/>
+                                    </span>
+                                    <span t-if="o.type == 'cash'">
+                                        <span t-if="o.cash_sub_type == 'debit_card'">
+                                            <span t-esc="o.voucher_id.bank.name"></span>
+                                            <t t-set="print_line" t-value="False"/>
+                                        </span>
+                                        <span t-if="o.cash_sub_type == 'transfer'">
+                                            <span t-esc="o.transfer_id.bank.name"></span>
+                                            <t t-set="print_line" t-value="False"/>
+                                        </span>
+                                    </span>
+                                    <span t-if="print_line == 'True'">___________________________________</span>
+                                </td>
                                 <td style="width: 20%; text-align: right">
                                     <span style="border-bottom: 1px solid black;">FIRMA RESPONSABLE</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 20%">Fecha del Cheque:__________________________</td>
+                                <td style="width: 20%">Fecha del Cheque:
+                                    <span t-if="o.type == 'check'">
+                                        <span t-esc="o.check_id.date"></span>
+                                    </span>
+                                    <span t-if="o.type != 'check'">__________________________</span>
+                                </td>
                                 <td style="width: 20%; text-align: right">
-                                    <span>Subtotal $</span> <span t-esc="o.amount"/>
+                                    <span>Subtotal $</span>
+                                    <span t-esc="o.amount"/>
                                 </td>
                             </tr>
                             <tr>
@@ -141,7 +198,8 @@
                             <tr>
                                 <td style="width: 20%">__________________________________ Dolares</td>
                                 <td style="width: 20%; text-align: right">
-                                    <span>TOTAL $</span> <span t-esc="o.amount"/>
+                                    <span>TOTAL $</span>
+                                    <span t-esc="o.amount"/>
                                 </td>
                             </tr>
                         </table>

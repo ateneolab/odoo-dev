@@ -45,6 +45,24 @@ class PaymentTerm(models.Model):
         pt_id = self.env['education_contract.payment_term'].browse([self._origin.id])
         pt_id.write({'description': self.description})
 
+    @api.multi
+    @api.onchange('type', 'cash_sub_type', 'amount', 'check_id', 'voucher_id', 'transfer_id', 'payment_date',
+                  'planned_date', 'payed', 'description_other')
+    def onchange_fields(self):
+        pt_id = self.env['education_contract.payment_term'].browse([self._origin.id])
+        pt_id.write({
+            'type': self.type,
+            'cash_sub_type': self.cash_sub_type,
+            'amount': self.amount,
+            'check_id': self.check_id.id or False,
+            'voucher_id': self.voucher_id.id or False,
+            'transfer_id': self.transfer_id.id or False,
+            'payment_date': self.payment_date,
+            'planned_date': self.planned_date,
+            'description_other': self.description_other,
+            'payed': self.payed},
+        )
+
     @api.one
     @api.depends('plan_id')
     def _compute_company(self):

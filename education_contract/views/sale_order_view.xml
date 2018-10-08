@@ -11,7 +11,7 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="create_new"/>
+                                <!--<field name="create_new"/>-->
                                 <field name="partner_id" string="Cliente"
                                        attrs="{'invisible': [('create_new', '=', True)]}"
                                        domain="[('customer', '=', True), ('is_company', '=', False)]"/>
@@ -25,6 +25,7 @@
                             <group attrs="{'invisible': [('create_new', '=', False)]}">
                                 <field name="last_name" string="Apellido"/>
                                 <field name="gender" string="Sexo"/>
+                                <!--<field name="type_ced_ruc"/>-->
                             </group>
                         </group>
                         <notebook>

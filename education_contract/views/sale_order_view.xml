@@ -21,12 +21,15 @@
                         <notebook>
                             <page string="Programas">
                                 <field name="program_ids">
-                                    <tree>
-                                        <field name="contract_id"/>
-                                        <field name="name"/>
-                                        <field name="study_company_id" required="0" invisible="1"/>
-                                        <field name="campus_id"/>
-                                        <field name="qty_years"/>
+                                    <tree editable="top">
+                                        <field name="contract_id" invisible="1"/>
+                                        <field name="name" required="True"/>
+                                        <!--<field name="study_company_id" required="0" invisible="1"/>-->
+                                        <field name="campus_id" required="True"/>
+                                        <field name="batch_id" required="True"/>
+                                        <field name="standard_id" required="True"/>
+                                        <field name="division_id" required="True"/>
+                                        <field name="qty_years" required="True"/>
                                     </tree>
                                 </field>
                             </page>

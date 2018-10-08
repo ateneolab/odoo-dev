@@ -11,22 +11,12 @@
                     <sheet>
                         <group>
                             <group>
-                                <!--<field name="create_new"/>-->
                                 <field name="partner_id" string="Cliente"
-                                       attrs="{'invisible': [('create_new', '=', True)]}"
-                                       domain="[('customer', '=', True), ('is_company', '=', False)]"/>
+                                       domain="[('customer', '=', True), ('is_company', '=', False)]"
+                                       options="{'no_quick_create': True}"/>
                                 <field name="relationship"/>
                             </group>
                             <group></group>
-                            <group attrs="{'invisible': [('create_new', '=', False)]}">
-                                <field name="name" string="Nombre"/>
-                                <field name="middle_name" string="Segundo nombre"/>
-                            </group>
-                            <group attrs="{'invisible': [('create_new', '=', False)]}">
-                                <field name="last_name" string="Apellido"/>
-                                <field name="gender" string="Sexo"/>
-                                <!--<field name="type_ced_ruc"/>-->
-                            </group>
                         </group>
                         <notebook>
                             <page string="Programas">
@@ -106,7 +96,8 @@
                         <notebook>
                             <page string="Beneficiarios">
                                 <field name="id" invisible="1"/>
-                                <button name="save" states="draft,waiting,prechecked,validated" type="object" string="Update"/>
+                                <button name="save" states="draft,waiting,prechecked,validated" type="object"
+                                        string="Update"/>
                                 <field name="beneficiary_ids_2" context="{'contract_id': id}"
                                        attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}">
                                     <tree>
@@ -140,7 +131,8 @@
                                 </field>
                             </page>
                             <page string="Formas de pago">
-                                <button name="save" states="draft,waiting,prechecked,validated" type="object" string="Update"/>
+                                <button name="save" states="draft,waiting,prechecked,validated" type="object"
+                                        string="Update"/>
                                 <field name="payment_term_ids" context="{'default_contract_id': active_id}"
                                        attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}">
                                     <tree editable="top">    <!-- editable="top" create="false" edit="false" -->

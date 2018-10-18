@@ -11,7 +11,7 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="partner_id" string="Cliente"
+                                <field name="partner_id" string="Beneficiario"
                                        domain="[('customer', '=', True), ('is_company', '=', False)]"
                                        options="{'no_quick_create': True}"/>
                                 <field name="relationship"/>

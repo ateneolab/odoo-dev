@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="sale_discount_amount_fix">
+            <field name="name">account.invoice.fix.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="fix_discount_type.sale_discount_total_fix"/>
+            <field name="arch" type="xml">
+
+                <field name="discount_amount" position="attributes">
+                    <attribute name="readonly">False</attribute>
+                </field>
+
+                <!--<field name="discount" position='after'> &lt;!&ndash; groups="sale.group_discount_per_so_line" &ndash;&gt;-->
+                    <!--<field name="discount_amount" readonly="0"/>-->
+                <!--</field>-->
+
+                <field name="discount_type" position="attributes">
+                    <attribute name="invisible">False</attribute>
+                </field>
+
+                <field name="discount_type" position="before">
+                    <field name="discount_scope"/>
+                </field>
+
+                <field name="discount_rate" position="attributes">
+                    <attribute name="attrs">{'invisible': [('discount_scope', '=', 'per_line_before_tax')]}</attribute>
+                </field>
+
+                <!--<xpath expr="//field[@name='amount_total']" position="replace">-->
+                    <!--<field name="amount_pay" string="Total" class="oe_subtotal_footer_separator" widget="monetary"-->
+                           <!--options="{'currency_field': 'currency_id'}"/>-->
+                    <!--<field name="amount_tax_retention"/>-->
+                    <!--<field name="amount_total" string="Total a Pagar" class="oe_subtotal_footer_separator"-->
+                           <!--widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
+                <!--</xpath>-->
+
+            </field>
+        </record>
+
+        <!--<record model="ir.ui.view" id="invoice_sale_discount_invoice_fix">
+            <field name="name">account.invoice.fix.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="sales_invoices_discounts.invoice_sale_discount_invoice"/>
+            <field name="arch" type="xml">
+
+                <field name="discount_view" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </field>
+                <field name="discount_type" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </field>
+
+            </field>
+        </record>-->
+    </data>
+</openerp>

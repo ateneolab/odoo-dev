@@ -20,7 +20,6 @@ class AccountInvoice(models.Model):
         disc = 0.0
         for inv in self:
             for line in inv.invoice_line:
-                print line.discount
                 disc += (line.quantity * line.price_unit) * line.discount / 100
         self.amount_untaxed = sum(line.price_subtotal for line in self.invoice_line)
         self.amount_tax = sum(line.amount for line in self.tax_line)

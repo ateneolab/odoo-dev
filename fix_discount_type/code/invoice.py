@@ -21,26 +21,9 @@ class account_type(models.Model):
 
         self.compute_amount()
 
-        # super(account_type, self)._compute_amount()
-
     @api.one
     def compute_amount(self):
         self.amount_untaxed = sum(line.price_subtotal for line in self.invoice_line)
-        # self.write({
-        #     'amount_novat': 0.0,
-        #     'amount_vat': 0.0,
-        #     'amount_tax': 0.0,
-        #     'amount_vat_cero': 0.0,
-        #     'amount_noret_ir': 0.0,
-        #     'amount_tax_retention': 0.0,
-        #     'amount_tax_ret_vatb': 0.0,
-        #     'taxed_ret_vatb': 0.0,
-        #     'amount_tax_ret_vatsrv': 0.0,
-        #     'taxed_ret_vatsrv': 0.0,
-        #     'amount_tax_ret_ir': 0.0,
-        #     'taxed_ret_ir': 0.0,
-        #     'amount_ice': 0.0
-        # })
 
         for line in self.tax_line:
             if line.tax_group == 'vat':
@@ -65,9 +48,6 @@ class account_type(models.Model):
                     self.taxed_ret_ir += line.amount
             elif line.tax_group == 'ice':
                 self.amount_ice += line.amount
-
-        # if self.amount_vat == 0 and self.amount_vat_cero == 0:
-        #     self.amount_vat_cero = self.amount_untaxed
 
         self.amount_total = self.amount_untaxed + self.amount_tax + self.amount_tax_retention
         self.amount_pay = self.amount_tax + self.amount_untaxed

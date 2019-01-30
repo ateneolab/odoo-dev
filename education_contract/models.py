@@ -49,7 +49,7 @@ class beneficiary(models.Model):
         if 'partner_id' in vals and vals.get('partner_id'):
             id_partner = vals.get('partner_id')
             partner = self.env['res.partner'].browse([id_partner])
-            vals.update({'name': partner.name, 'middle_name': partner.name})
+            vals.update({'name': partner.name})  # , 'middle_name': partner.name
             if partner.sex is not None and partner.sex is not False:
                 vals.update({
                     'gender': partner.sex.lower(),
@@ -61,6 +61,15 @@ class beneficiary(models.Model):
                 'lastname': vals.get('last_name', ''),
                 'sex': str(vals.get('gender', '')).upper(),
             })
+        elif 'student_id' in vals:
+            student_id = self.env['op.student'].browse([vals['student_id']])
+            if student_id is not None:
+                vals.update({
+                    'name': student_id.name,
+                    'firstname': '%s %s' % (student_id.name, student_id.middle_name or ''),
+                    'lastname': student_id.last_name or '',
+                    'sex': str(student_id.gender or 'm').upper(),
+                })
         else:
             raise ValidationError("Debe seleccionar un cliente existente o proveer el nombre para crear uno nuevo.")
 
@@ -562,6 +571,8 @@ class education_contract(models.Model):
             first_student_id = self.env['op.student'].search(
                 [('partner_id', '=', sale_order_id.partner_id.id)])
 
+            sid = first_student_id.id
+
             if not first_student_id:
                 first_student_id = self.env['education_contract.beneficiary'].create({
                     'firstname': sale_order_id.partner_id.firstname,
@@ -570,6 +581,9 @@ class education_contract(models.Model):
             else:
                 first_student_id = self.env['education_contract.beneficiary'].search(
                     [('student_id', '=', first_student_id.id)])
+
+            if not first_student_id:
+                first_student_id = self.env['education_contract.beneficiary'].create({'student_id': sid})
 
             if not first_student_id.partner_id:
                 first_student_id.write({'partner_id': sale_order_id.partner_id.id})

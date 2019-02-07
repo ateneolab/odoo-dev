@@ -43,48 +43,46 @@ class beneficiary(models.Model):
         :param vals:
         :return:
         """
-        id_partner = False
-        partner = False
+        # id_partner = False
+        # partner = False
 
         if 'partner_id' in vals and vals.get('partner_id'):
             id_partner = vals.get('partner_id')
-            partner = self.env['res.partner'].browse([id_partner])
-            vals.update({'name': partner.name})  # , 'middle_name': partner.name
-            if partner.sex is not None and partner.sex is not False:
-                vals.update({
-                    'gender': partner.sex.lower(),
-                })
-        elif 'name' in vals:
-            vals.update({
-                'name': vals.get('name'),
-                'firstname': '%s %s' % (vals.get('name'), vals.get('middle_name', '')),
-                'lastname': vals.get('last_name', ''),
-                'sex': str(vals.get('gender', '')).upper(),
-            })
+            student = self.env['op.student'].search([('partner_id', '=', id_partner)])
+            if not student or student is None:
+                partner_id = self.env['res.partner'].browse([id_partner])
+                if partner_id.lastname:
+                    lastnames = partner_id.lastname.split(' ')
+                    if len(lastnames) > 0:
+                        middle_name = lastnames[0]
+                    if len(lastnames) > 1:
+                        last_name = lastnames[1]
+            student = self.env['op.student'].create({'partner_id': id_partner, 'name': partner_id.firstname,
+                                                     'middle_name': middle_name,
+                                                     'last_name': last_name})
+            res = super(beneficiary, self).create({'student_id': student.id})
+            return res
         elif 'student_id' in vals:
-            student_id = self.env['op.student'].browse([vals['student_id']])
-            if student_id is not None:
-                vals.update({
-                    'name': student_id.name,
-                    'firstname': '%s %s' % (student_id.name, student_id.middle_name or ''),
-                    'lastname': student_id.last_name or '',
-                    'sex': str(student_id.gender or 'm').upper(),
-                })
+            res = super(beneficiary, self).create(vals)
+            return res
         else:
             raise ValidationError("Debe seleccionar un cliente existente o proveer el nombre para crear uno nuevo.")
 
-        vals.update({'customer': True})
 
-        res = super(beneficiary, self).create(vals)
-
-        if id_partner and partner:
-            new_id_partner = res.student_id.partner_id
-
-            if new_id_partner.id != id_partner:
-                res.student_id.partner_id = partner
-                new_id_partner.unlink()
-
-        return res
+# vals.update({'customer': True})
+#
+# if 'partner_id' in vals:
+#     vals['partner_id'] = False
+# res = super(beneficiary, self).create(vals)
+#
+# if id_partner and partner:
+#     new_id_partner = res.student_id.partner_id
+#
+#     if new_id_partner.id != id_partner:
+#         res.student_id.partner_id = partner
+#         new_id_partner.unlink()
+#
+# return res
 
 
 #### Student
@@ -577,7 +575,8 @@ class education_contract(models.Model):
                 first_student_id = self.env['education_contract.beneficiary'].create({
                     'firstname': sale_order_id.partner_id.firstname,
                     'name': sale_order_id.partner_id.firstname,
-                    'last_name': sale_order_id.partner_id.lastname})
+                    'last_name': sale_order_id.partner_id.lastname,
+                    'partner_id': sale_order_id.partner_id.id})
             else:
                 first_student_id = self.env['education_contract.beneficiary'].search(
                     [('student_id', '=', first_student_id.id)])

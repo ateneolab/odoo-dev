@@ -11,11 +11,11 @@ class email_trigger(models.Model):
     def create_send_mail(self, user):
         template_id = self.env.ref('birthday_mail_schedular.email_template_customer_form')
         email = user['work_email']
-        name = user['name']
+        # name = user['name']
         if template_id:
             template_id.write({
                 'email_to': email,
-                'record_name': name
+                # 'record_name': name
             })
 
             company_id = user.company_id.id

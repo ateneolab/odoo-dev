@@ -24,7 +24,7 @@
             <field name="email_from">admin@techspawn.com</field>
             <field name="subject">Happy Birthday To You</field>
             <field name="auto_delete" eval="True"/>
-            <field name="record_name">Customer_name</field>
+            <!--<field name="record_name">Customer_name</field>-->
             <field name="model_id" ref="hr.model_hr_employee"/>
             <field name="body_html"><![CDATA[
                

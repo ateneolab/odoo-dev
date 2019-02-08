@@ -1,0 +1,28 @@
+<openerp>
+	<data noupdate="1">
+		<record id="ir_email_connector_action" model="ir.cron">
+			<field name="name">Birthday email</field>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="active">False</field>
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field eval="False" name="doall"/>
+			<!--<field eval="'email.send'" name="model">-->
+			<field name="model">birthday_mail_schedular.email.send</field>
+			<field eval="'email_trigger_action'" name="function"/>
+		</record>
+
+		<!--<record id="cron_fe_send_process" model="ir.cron">-->
+            <!--<field name="name">Envio de documentos electronicos</field>-->
+            <!--&lt;!&ndash;<field name="active" eval="True" />&ndash;&gt;-->
+            <!--<field name="user_id" ref="base.user_root" />-->
+            <!--<field name="interval_number">1</field>-->
+            <!--<field name="interval_type">minutes</field>-->
+            <!--<field name="numbercall">-1</field>-->
+            <!--<field name="doal" eval="False"/>-->
+            <!--<field name="model">l10n_ec_invoice_offline.cron_fe</field>-->
+            <!--<field name="function" eval="'exec_document'" />-->
+        <!--</record>-->
+	</data>
+</openerp>

@@ -1,0 +1,69 @@
+# -*- coding: utf-8 -*-
+
+from openerp import models, fields, api
+import datetime
+
+
+class email_trigger(models.Model):
+    _name = 'email.send'
+    # _inherit = 'hr.employee'
+    # _inherit = 'email.send'
+
+    @api.multi
+    def create_send_mail(self, user):
+        # email_template_obj = self.env['email.template']
+        # template_ids = self.env['ir.model.data'].get_object_reference(
+        #     cr, uid, 'email_trigger', 'email_template_customer_form')[1]
+        template_id = self.env.ref('birthday_mail_schedular.email_template_customer_form')
+        email = user['work_email']
+        name = user['name']
+        # data = self.browse(cr, uid, ids, context=context)[0]
+        if template_id:
+            template_id.write({
+                'email_to': email,
+                'record_name': name
+            })
+
+            company_id = user.company_id.id
+            mail_server_id = self.env['ir.mail_server'].search([('company_id', '=', company_id)])
+
+            message_id = False
+            for server in mail_server_id:
+                if not message_id:
+                    try:
+                        message_id = template_id.send_mail(user.id, force_send=True, server_id=server.id or False)
+                    except Exception as e:
+                        print (e)
+                        message_id = False
+
+            # values = email_template_obj.generate_email(template_id, user.id)
+            #
+            # values['email_to'] = email
+            # values['record_name'] = name
+            # mail_mail_obj = self.env['mail.mail']
+            # msg_id = mail_mail_obj.create(values)
+            #
+            # if msg_id:
+            #     mail_mail_obj.send(cr, uid, [msg_id], context=context)
+
+        return True
+
+    @api.model
+    def email_trigger_action(self):
+        today = datetime.datetime.now().date()  #.today().strftime('%Y-%m-%d')
+        emp_data = self.env['hr.employee'].search([('id', '>', "0")])
+        for val in emp_data:
+            if val.birthday:
+                # birth_date = val.birthday
+                birth_date = datetime.datetime.strptime(val.birthday, '%Y-%m-%d').date()
+                if birth_date.month == today.month and birth_date.day == today.day:
+                    # print val
+                    self.create_send_mail(val)
+                    # mail_values = {
+                    #     'email_to': val.work_email,
+                    #     'subject': 'Happy Birthday To You ',
+                    #     'body_html': '<h2>Dear %s,</h2><h3>Happy Birthday %s</h3>' % (val.name, today),
+                    #     'notification': True,
+                    # }
+                    # mail = self.env['mail.mail'].create(mail_values)
+                    # mail.send()

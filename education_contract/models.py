@@ -38,28 +38,22 @@ class beneficiary(models.Model):
 
     @api.model
     def create(self, vals):
-        """
-        If create_new is True and partner_id is selected, it creates a student from that partner and then attach that student to beneficiary.
-        :param vals:
-        :return:
-        """
-        # id_partner = False
-        # partner = False
-
         if 'partner_id' in vals and vals.get('partner_id'):
             id_partner = vals.get('partner_id')
             student = self.env['op.student'].search([('partner_id', '=', id_partner)])
             if not student or student is None:
                 partner_id = self.env['res.partner'].browse([id_partner])
+                datas = {}
                 if partner_id.lastname:
                     lastnames = partner_id.lastname.split(' ')
                     if len(lastnames) > 0:
                         middle_name = lastnames[0]
+                        datas.update({'middle_name': middle_name})
                     if len(lastnames) > 1:
                         last_name = lastnames[1]
-            student = self.env['op.student'].create({'partner_id': id_partner, 'name': partner_id.firstname,
-                                                     'middle_name': middle_name,
-                                                     'last_name': last_name})
+                        datas.update({'last_name': last_name})
+            datas.update({'partner_id': id_partner, 'name': partner_id.firstname})
+            student = self.env['op.student'].create(datas)
             res = super(beneficiary, self).create({'student_id': student.id})
             return res
         elif 'student_id' in vals:

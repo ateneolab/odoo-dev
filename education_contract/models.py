@@ -43,8 +43,7 @@ class beneficiary(models.Model):
             student = self.env['op.student'].search([('partner_id', '=', id_partner)])
             datas = {}
             if not student or student is None:
-                partner_id = self.env['res.padatas = {}rtner'].browse([id_partner])
-
+                partner_id = self.env['res.partner'].browse([id_partner])
                 if partner_id.lastname:
                     lastnames = partner_id.lastname.split(' ')
                     if len(lastnames) > 0:

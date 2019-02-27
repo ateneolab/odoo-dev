@@ -171,7 +171,7 @@ class ContractVerification(models.Model):
     roll_number_ids = fields.One2many(related='contract_id.roll_number_ids')
     contract_date = fields.Date(_('Contract date'), related='contract_id.date')
     verification_date = fields.Date()
-    agreement_duration = fields.Integer(_('Duration of the agreement (Months)'))
+    agreement_duration = fields.Integer(_('Duration of the agreement (Months)'), default=24)
     verification_place = fields.Selection([('office', _('Office')), ('home', _('Home')), ('work', _('Work'))],
                                           default='home')
     user_id = fields.Many2one(related='contract_id.seller_id')

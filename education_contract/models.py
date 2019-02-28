@@ -151,8 +151,8 @@ class program(models.Model):
     beneficiary_id = fields.Many2one('education_contract.beneficiary', string='Estudiante')
     contract_id = fields.Many2one('education_contract.contract', string='Contrato de estudios')
     division_id = fields.Many2one('op.division', _('Grupo'))
-    batch_id = fields.Many2one('op.batch', 'Batch', required=True)
-    standard_id = fields.Many2one('op.standard', 'Standard', required=True)
+    batch_id = fields.Many2one('op.batch', 'Batch')
+    standard_id = fields.Many2one('op.standard', 'Standard')
 
     @api.model
     def create(self, vals):

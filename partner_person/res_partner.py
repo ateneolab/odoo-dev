@@ -78,8 +78,14 @@ class res_partner(models.Model):
     firstname = fields.Char(
         string='First Name'
     )
+    secondname = fields.Char(
+        string='Segundo nombre'
+    )
     lastname = fields.Char(
-        string='Last Name'
+        string='Apellido'
+    )
+    secondlastname = fields.Char(
+        string='Segundo apellido'
     )
     national_identity = fields.Char(
         string='National Identity'

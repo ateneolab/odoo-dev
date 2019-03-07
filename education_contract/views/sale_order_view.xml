@@ -11,7 +11,7 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="contract_id" invisible="0"/>
+                                <field name="contract_id" invisible="1"/>
                                 <!--<field name="partner_id" string="Beneficiario"-->
                                 <!--domain="[('customer', '=', True), ('is_company', '=', False)]"-->
                                 <!--options="{'no_quick_create': True}" context="{'contract_id': contract_id}"/>-->

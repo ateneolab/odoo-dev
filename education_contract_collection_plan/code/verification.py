@@ -7,6 +7,7 @@ import datetime
 
 class ContractVerification(models.Model):
     _name = 'education_contract.verification'
+    _description = u'Verificación de contrato'
 
     @api.multi
     def print_verification(self):
@@ -166,26 +167,31 @@ class ContractVerification(models.Model):
 
         return data
 
-    operating_unit_id = fields.Many2one(related='contract_id.campus_id')
-    contract_id = fields.Many2one('education_contract.contract', _('Education contract'))
-    roll_number_ids = fields.One2many(related='contract_id.roll_number_ids')
-    contract_date = fields.Date(_('Contract date'), related='contract_id.date')
-    verification_date = fields.Date()
-    agreement_duration = fields.Integer(_('Duration of the agreement (Months)'), default=24)
-    verification_place = fields.Selection([('office', _('Office')), ('home', _('Home')), ('work', _('Work'))],
-                                          default='home')
-    user_id = fields.Many2one(related='contract_id.seller_id')
-    verify_user_id = fields.Many2one('res.users', string=_('Verified by'))
-    collection_plan_id = fields.Many2one('collection_plan.collection_plan', _('Collection plan'))
-    plan_id = fields.Many2one('education_contract.plan', _('Payment plan'))
-    payment_term_ids = fields.One2many(related='plan_id.payment_term_ids')
-    beneficiary_ids = fields.One2many('education_contract.beneficiary', 'verification_id', string=_('Beneficiaries'))
+    @api.one
+    def to_signed(self):
+        self.verify_user_id = self._uid
 
-    collections_phone = fields.Char('Phone number for collections')
+    operating_unit_id = fields.Many2one(related='contract_id.campus_id', store=True, string='Sucursal')
+    contract_id = fields.Many2one('education_contract.contract', _('Contrato'))
+    roll_number_ids = fields.One2many(related='contract_id.roll_number_ids', string=u'Matrículas')
+    contract_date = fields.Date(_('Fecha de contrato'), related='contract_id.date')
+    verification_date = fields.Date(u'Fecha de verificación')
+    agreement_duration = fields.Integer(_(u'Duración del acuerdo (Meses)'), default=24)
+    verification_place = fields.Selection([('office', _('Oficina')), ('home', _('Domicilio')), ('work', _('Trabajo'))],
+                                          default='home')
+    user_id = fields.Many2one(related='contract_id.seller_id', string=u'Vendedor')
+    verify_user_id = fields.Many2one('res.users', string=_('Verificado por'))
+    collection_plan_id = fields.Many2one('collection_plan.collection_plan', _('Plan de cobranzas'))
+    plan_id = fields.Many2one('education_contract.plan', _('Plan de pagos'))
+    payment_term_ids = fields.One2many(related='plan_id.payment_term_ids', string=u'Pagos')
+    beneficiary_ids = fields.One2many('education_contract.beneficiary', 'verification_id', string=_('Beneficiarios'))
+
+    collections_phone = fields.Char(u'Teléfono de cobranzas')
     partner_id = fields.Many2one(related='contract_id.owner', string='Titular')
 
 
 class CollectionPlan(models.Model):
     _inherit = 'collection_plan.collection_plan'
+    _description = 'Plan de cobranzas'
 
     verification_id = fields.Many2one('education_contract.verification', 'collection_plan_id')

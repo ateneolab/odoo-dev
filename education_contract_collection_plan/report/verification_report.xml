@@ -132,7 +132,7 @@
                                         </t>
                                     </td>
                                     <td style="text-align: left">
-                                        <span t-esc="line.partner_id.name"/>
+                                        <span t-esc="line.student_id.full_name"/>
                                     </td>
                                     <td style="text-align: left">
                                         <t t-foreach="line.program_ids" t-as="prog">
@@ -142,7 +142,7 @@
                                         </t>
                                     </td>
                                     <td style="text-align: right">
-                                        <span t-esc="line.partner_id.age"/>
+                                        <span t-esc="line.student_id.age"/>
                                     </td>
                                     <td style="text-align: right">
                                         <span t-esc="line.relationship"/>
@@ -361,7 +361,7 @@
                             <t t-foreach="o.beneficiary_ids" t-as="line">
                                 <tr>
                                     <td style="text-align: left">
-                                        <span t-esc="line.partner_id.name"></span>
+                                        <span t-esc="line.student_id.full_name"></span>
                                     </td>
                                     <td style="text-align: left">
                                         <t t-foreach="line.roll_number_ids" t-as="sch">
@@ -380,10 +380,10 @@
                                         </t>
                                     </td>-->
                                     <td style="text-align: left">
-                                        <t t-if="line.partner_id.phone">
-                                            <span t-esc="line.partner_id.phone"></span>,
+                                        <t t-if="line.student_id.phone">
+                                            <span t-esc="line.student_id.phone"></span>,
                                         </t>
-                                        <span t-esc="line.partner_id.mobile"></span>
+                                        <span t-esc="line.student_id.mobile"></span>
                                     </td>
                                 </tr>
                             </t>

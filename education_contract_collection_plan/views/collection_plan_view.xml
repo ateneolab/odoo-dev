@@ -15,8 +15,27 @@
                 </button>-->
 
                 <field name="active_plan_id" position="after">
-                    <field name="verification_id" string="Verification"/>
+                    <field name="verification_id" string="Verificación"/>
                 </field>
+            </field>
+        </record>
+
+        <record id="view_verification_serch" model="ir.ui.view">
+            <field name="name">education_contract.verification.search</field>
+            <field name="model">education_contract.verification</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Buscar">
+                    <field name="contract_id"/>
+                    <field name="operating_unit_id"/>
+                    <field name="beneficiary_ids"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Contrato" domain="[]" context="{'group_by':'contract_id'}"/>
+                        <filter string="Sucursal" domain="[]" context="{'group_by':'operating_unit_id'}"/>
+                        <!--<filter string="Beneficiario" domain="[]" context="{'group_by':'beneficiary_ids'}"/>-->
+                    </group>
+                </search>
             </field>
         </record>
 
@@ -26,43 +45,43 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="print_verification" type="object" string="Print Verification Report"
-                                class="oe_highlight" confirm="Are you sure Paymen plan is updated with Payment terms?"/>
-                        <button name="to_signed" type="object" string="Mark as Signed"
+                        <button name="print_verification" type="object" string="Imprimir reporte"
+                                class="oe_highlight" confirm="Seguro que los acuerdos de pagos están actualizados?"/>
+                        <button name="to_signed" type="object" string="Marcar como firmado"
                                 class="oe_highlight"/>
-                        <button name="generate_collection_plan" type="object" string="Generate collection plan"
-                                class="oe_highlight" confirm="Are you sure Paymen plan is updated with Payment terms?"/>
+                        <button name="generate_collection_plan" type="object" string="Generar plan de cobranzas"
+                                class="oe_highlight" confirm="Seguro que los acuerdos de pagos están actualizados?"/>
                     </header>
 
                     <sheet>
                         <group>
                             <group>
-                                <field name="contract_id"/>
-                                <field name="collection_plan_id"/>
-                                <field name="operating_unit_id"/>
-                                <field name="verify_user_id" readonly="1"/>
+                                <field name="contract_id" string="Contrato"/>
+                                <field name="collection_plan_id" string="Plan de cobranzas"/>
+                                <field name="operating_unit_id" string="Sucursal"/>
+                                <field name="verify_user_id" readonly="1" string="Verificado por"/>
                             </group>
                             <group>
-                                <field name="partner_id"/>
-                                <field name="user_id"/>
-                                <field name="verification_date"/>
-                                <field name="verification_place"/>
-                                <field name="agreement_duration"/>
+                                <field name="partner_id" string="Titular"/>
+                                <field name="user_id" string="Vendedor"/>
+                                <field name="verification_date" string="Fecha de verificación"/>
+                                <field name="verification_place" string="Lugar de verificción"/>
+                                <field name="agreement_duration" string="Duración del contrato"/>
                             </group>
                         </group>
 
                         <notebook>
-                            <page string="Planned Payments">
+                            <page string="Plan de pagos">
                                 <group>
                                     <group>
-                                        <field name="plan_id"/>
-                                        <button name="reschedule_plan" type="object" string="Reschedule plan"/>
+                                        <field name="plan_id" string="Plan"/>
+                                        <button name="reschedule_plan" type="object" string="Replanificar"/>
                                     </group>
                                     <group>
                                         <field name="payment_term_ids" nolabel="1">
                                             <tree editable="top">
-                                                <field name="amount"/>
-                                                <field name="planned_date"/>
+                                                <field name="amount" string="Monto"/>
+                                                <field name="planned_date" string="Fech planeada"/>
                                                 <field name="invisible" invisible="1"/>
                                             </tree>
                                         </field>
@@ -70,15 +89,15 @@
                                 </group>
                             </page>
                             <!--<page string="Contract information"></page>-->
-                            <page string="Beneficiary information">
-                                <field name="beneficiary_ids"/>
-                                <field name="roll_number_ids"/>
+                            <page string="Información de beneficiarios">
+                                <field name="beneficiary_ids" string="Beneficiarios" context="{'default_contract_id': contract_id}"/>
+                                <field name="roll_number_ids" string="Matrículas"/>
                             </page>
                             <!--<page string="Academic information"></page>-->
-                            <page string="Collections">
+                            <page string="Cobranzas">
                                 <group>
                                     <group>
-                                        <field name="collections_phone"/>
+                                        <field name="collections_phone" string="Teléfono de cobranzas"/>
                                     </group>
                                     <group></group>
                                 </group>
@@ -94,11 +113,11 @@
             <field name="name">education_contract.verification.tree</field>
             <field name="model">education_contract.verification</field>
             <field name="arch" type="xml">
-                <tree string="Contract Verification">
-                    <field name="contract_id"/>
-                    <field name="collection_plan_id"/>
-                    <field name="operating_unit_id"/>
-                    <field name="user_id"/>
+                <tree string="Verificación">
+                    <field name="contract_id" string="Contrato"/>
+                    <field name="collection_plan_id" string="Plan de cobranzas"/>
+                    <field name="operating_unit_id" string="Sucursal"/>
+                    <field name="user_id" string="Vendedor"/>
                 </tree>
             </field>
         </record>

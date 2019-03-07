@@ -62,12 +62,10 @@
         <template id="education_contract_collection_plan.report_receipt_document">
             <t t-call="education_contract_collection_plan.receipt_external_layout">
                 <div class="page" style="font-size:11px">
-
                     <div class="text-center" style="font-size: 10px">
                         <span>RECIBO DE DINERO No</span>
                         <span t-esc="o.account_voucher_id.id" style="color: red"/>
                     </div>
-
                 </div>
             </t>
         </template>

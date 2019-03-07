@@ -11,16 +11,17 @@ class beneficiary(models.Model):
     _inherits = {
         'op.student': 'student_id',
     }  # , 'res.partner': 'partner_id'
+    _description = 'Beneficiario'
 
     program_ids = fields.One2many('education_contract.program', 'beneficiary_id', string=u'Programas')
     student_id = fields.Many2one('op.student', required=True,
                                  string=u'Estudiante relacionado', ondelete='restrict',
                                  help=u'Estudiate relacionado del beneficiario', auto_join=True)
-    partner_id = fields.Many2one('res.partner', _(u'Related Partner'))
-    create_new = fields.Boolean(_(u'Create new beneficiary'))
-    contract_id = fields.Many2one('education_contract.contract', _('Contract'))
-    roll_number_ids = fields.One2many('op.roll.number', 'beneficiary_id', string=_('Horarios'))
-    relationship = fields.Char('Parentezco')
+    partner_id = fields.Many2one('res.partner', _(u'Socio'))
+    create_new = fields.Boolean(_(u'Crear nuevo beneficiario'))
+    contract_id = fields.Many2one('education_contract.contract', _(u'Contracto'))
+    roll_number_ids = fields.One2many('op.roll.number', 'beneficiary_id', string=_(u'Horarios'))
+    relationship = fields.Char(u'Parentezco')
     start_date = fields.Date(u'Fecha de inicio de clases')
     end_date = fields.Date(u'Fecha de inicio de clases')
 
@@ -83,6 +84,7 @@ class beneficiary(models.Model):
 class student(models.Model):
     _name = 'op.student'
     _inherit = 'op.student'
+    _description = 'Estudiante'
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:
@@ -99,18 +101,18 @@ class student(models.Model):
     name = fields.Char('Nombre', size=128, required=False)
     middle_name = fields.Char('Segundo nombre', size=128, required=False)
     last_name = fields.Char('Apellido', size=128, required=False)
-    birth_date = fields.Date('Birth Date', required=False)
+    birth_date = fields.Date(u'Fecha de nacimiento', required=False)
     gender = fields.Selection(
         [('m', 'Hombre'), ('f', 'Mujer'),
-         ('o', 'Otro')], 'Gender', required=False)
+         ('o', 'Otro')], u'Género', required=False)
     category = fields.Many2one(
-        'op.category', 'Categoria', required=False)
+        'op.category', u'Categoría', required=False)
     course_id = fields.Many2one('op.course', string='Curso', required=False)
     batch_id = fields.Many2one('op.batch', 'Batch', required=False)
     standard_id = fields.Many2one(
         'op.standard', 'Standard', required=False)
     partner_id = fields.Many2one(
-        'res.partner', 'Partner', required=False, ondelete="cascade")
+        'res.partner', 'Socio', required=False, ondelete="cascade")
 
     @api.model
     def create(self, vals):
@@ -125,6 +127,7 @@ class student(models.Model):
 #### Program
 class program(models.Model):
     _name = 'education_contract.program'
+    _description = 'Programa de estudio'
 
     @api.model
     def _get_courses_selection(self):
@@ -145,7 +148,7 @@ class program(models.Model):
 
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')
     course_id = fields.Many2one('op.course', string=_(u'Curso'), compute='_compute_course', store=True)
-    qty_years = fields.Integer('Anios')
+    qty_years = fields.Integer(u'Años')
     study_company_id = fields.Many2one('res.company', string='Sucursal')  ## Deprecated or related campus_id.company_id
     campus_id = fields.Many2one('operating.unit', string='Sucursal')
     beneficiary_id = fields.Many2one('education_contract.beneficiary', string='Estudiante')
@@ -173,6 +176,7 @@ class education_contract(models.Model):
     _name = 'education_contract.contract'
     _inherit = ['mail.thread']
     _rec_name = 'barcode'
+    _description = 'Contrato'
 
     def get_beneficiary_names(self):
         names = []

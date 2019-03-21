@@ -13,3 +13,5 @@ class Student(models.Model):
     language_stimulation = fields.Boolean(u'Estimulación del lenguaje')
     notes = fields.Text(u'Notas relacionadas')
     social_club = fields.Char(u'Club social')
+    emotional_support = fields.Char(u'Apoyo emocional')
+    psico_support = fields.Char(u'Apoyo psico pedagógico')

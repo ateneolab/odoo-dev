@@ -293,13 +293,13 @@
                                     <span>Sector</span>
                                 </td>
                                 <td style="width: 25%; text-align: left;">
-                                    <span>----------</span>
+                                    <span t-esc="o.contract_id.owner.sector"/>
                                 </td>
                                 <td style="width: 25%; text-align: left;">
                                     <span>Ubicación referencial</span>
                                 </td>
                                 <td style="width: 30%; text-align: left;">
-                                    <span>----------</span>
+                                    <span t-esc="o.contract_id.owner.reference"/>
                                 </td>
                             </tr>
                             <tr>
@@ -324,19 +324,14 @@
                                     <span>Lugar de trabajo</span>
                                 </td>
                                 <td style="width: 25%; text-align: left;">
-                                    <t t-if="o.contract_id.owner.parent_id">
-                                        <span t-esc="o.contract_id.owner.parent_id.name"/>
-                                    </t>
+                                    <span t-esc="o.contract_id.owner.job_place"/>
                                 </td>
                                 <td style="width: 25%; text-align: left;">
                                     <span>Teléfonos</span>
                                 </td>
                                 <td style="width: 30%; text-align: left;">
-                                    <t t-if="o.contract_id.owner.parent_id">
-                                        <t t-if="o.contract_id.owner.parent_id.phone">
-                                            <span t-esc="o.contract_id.owner.parent_id.phone"/>,
-                                        </t>
-                                        <span t-esc="o.contract_id.owner.parent_id.mobile"/>
+                                    <t t-if="o.contract_id.owner.parent_id.job_phone">
+                                        <span t-esc="o.contract_id.owner.job_phone"/>,
                                     </t>
                                 </td>
                             </tr>

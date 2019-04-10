@@ -330,9 +330,7 @@
                                     <span>Teléfonos</span>
                                 </td>
                                 <td style="width: 30%; text-align: left;">
-                                    <t t-if="o.contract_id.owner.parent_id.job_phone">
-                                        <span t-esc="o.contract_id.owner.job_phone"/>,
-                                    </t>
+                                    <span t-esc="o.contract_id.owner.job_phone"/>
                                 </td>
                             </tr>
                         </table>

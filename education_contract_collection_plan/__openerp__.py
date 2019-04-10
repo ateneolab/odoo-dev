@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'collection_plan', 'education_contract', 'openeducat_erp'],
+    'depends': ['base', 'collection_plan', 'education_contract', 'openeducat_erp', 'l10n_ec_partner'],
 
     # always loaded
     'data': [

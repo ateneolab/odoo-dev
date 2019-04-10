@@ -123,12 +123,7 @@
                             <t t-foreach="o.beneficiary_ids" t-as="line">
                                 <tr>
                                     <td style="text-align: left">
-                                        <t t-if="line.partner_id.id == o.partner_id.id">
-                                            TITULAR
-                                        </t>
-                                        <t t-if="line.partner_id.id != o.partner_id.id">
-                                            ALUMNO
-                                        </t>
+                                        <span>ALUMNO</span>
                                     </td>
                                     <td style="text-align: left">
                                         <span t-esc="line.student_id.full_name"/>
@@ -279,6 +274,20 @@
                     </div>
                     <div class="" style="width: 100%; font-size:15px">
                         <table class="content" style="width: 100%;">
+                            <tr>
+                                <td style="width: 20%; text-align: left;">
+                                    <span>Nombre</span>
+                                </td>
+                                <td style="width: 25%; text-align: left;">
+                                    <span t-esc="o.contract_id.owner.full_name"/>
+                                </td>
+                                <td style="width: 25%; text-align: left;">
+                                    <span>Cédula</span>
+                                </td>
+                                <td style="width: 30%; text-align: left;">
+                                    <span t-esc="o.contract_id.owner.ced_ruc"/>
+                                </td>
+                            </tr>
                             <tr>
                                 <td style="width: 20%; text-align: left;">
                                     <span>Sector</span>

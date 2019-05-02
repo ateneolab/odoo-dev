@@ -5,7 +5,7 @@
 
         <template id="einvoice_external_layout_receipt_footer">
             <div class="footer">
-                <div class="text-center" style="font-size:9px">
+                <div class="text-center" style="font-size:8px">
                     <span>Importante: No se aceptan recibos provisionales. Obtenga siempre uno como este. Documento no
                         valido para fines o efectos tributarios. Emitimos su factura al finalizar los pagos con la
                         presentación de estos recibos.
@@ -21,7 +21,7 @@
                         <span>CHARLOTTE <![CDATA[&]]> ILVEM</span>
                     </div>
 
-                    <div class="text" style="font-size: 9px; float: left;">
+                    <div class="text" style="font-size: 8px; float: left;">
                         <p>
                             <strong>Matriz:</strong>
                             <span>Alonso de Angulo Oe1-152 y Fco. Gomez Villa Flora - Telf.: 2652-300</span>
@@ -62,7 +62,7 @@
         <template id="education_contract_collection_plan.report_receipt_document">
             <t t-call="education_contract_collection_plan.receipt_external_layout">
                 <div class="page" style="font-size:11px">
-                    <div class="text-center" style="font-size: 10px">
+                    <div class="text-center" style="font-size: 9px">
                         <span>RECIBO DE DINERO No</span>
                         <span t-esc="o.account_voucher_id.id" style="color: red"/>
                     </div>

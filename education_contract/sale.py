@@ -14,7 +14,6 @@ class sale_order(models.Model):
 
     def action_button_confirm(self, cr, uid, ids, context=None):
         res = super(sale_order, self).action_button_confirm(cr, uid, ids, context=context)
-
         sale_o = self.pool.get('sale.order').browse(cr, uid, ids, context=context)
 
         if res and sale_o and sale_o.generate_contract:

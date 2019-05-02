@@ -159,12 +159,12 @@ class res_partner(models.Model):
     )
 
     @api.one
-    @api.onchange('firstname', 'lastname')
-    @api.constrains('firstname', 'lastname')
+    @api.onchange('firstname', 'lastname', 'secondname', 'secondlastname')
+    @api.constrains('firstname', 'lastname', 'secondname', 'secondlastname')
     def build_name(self):
-        if self.lastname and self.firstname:
-            self.name = '%s %s' % (
-                self.lastname or '', self.firstname or '')
+        self.name = '%s %s %s %s' % (
+            self.firstname or '', self.secondname or '', self.lastname or '', self.secondlastname or ''
+        )
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:
@@ -175,7 +175,7 @@ class res_partner(models.Model):
         for record in self.browse(cr, uid, ids, context=context):
             """display_name = record.name
             national_identity = ''
-            
+
             if record.national_identity:
                 national_identity = '[' + record.national_identity + ']'
                 display_name = "%s %s" % (display_name, national_identity)"""
@@ -223,8 +223,8 @@ class res_partner(models.Model):
             query = ('''SELECT partner.id FROM res_partner partner
                                           LEFT JOIN res_partner company
                                                ON partner.parent_id = company.id
-                        WHERE   partner.national_identity ''' + operator + ''' %(name)s OR 
-                                partner.email ''' + operator + ''' %(name)s OR 
+                        WHERE   partner.national_identity ''' + operator + ''' %(name)s OR
+                                partner.email ''' + operator + ''' %(name)s OR
                               CASE
                                    WHEN company.id IS NULL OR partner.is_company
                                        THEN partner.name

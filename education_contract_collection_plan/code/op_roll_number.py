@@ -11,6 +11,10 @@ class RollNumber(models.Model):
 
     contract_id = fields.Many2one('education_contract.contract', string=u'Education Contract')
     end_date = fields.Date(u'Fecha de terminación', compute='compute_end_date')
+    state = fields.Selection(
+        selection_add=[('new', u'Nuevo')],
+        default='new'
+    )
 
     @api.depends('start_date', 'freezing_ids', 'contract_id.verification_id')
     def compute_end_date(self):

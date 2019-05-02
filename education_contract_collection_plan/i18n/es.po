@@ -1,0 +1,979 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* education_contract_collection_plan
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-26 17:40+0000\n"
+"PO-Revision-Date: 2019-04-26 17:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "(TEL:"
+msgstr "(TEL:"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "* El estudiante de Ilvem Internacional & Charlotte English School\n"
+"                                        tiene\n"
+"                                        derecho nivelaciones de materias, fuera del horario de capacitacion. Para esto\n"
+"                                        deberá traer el material de estudio."
+msgstr "* El estudiante de Ilvem Internacional & Charlotte English School\n"
+"                                        tiene\n"
+"                                        derecho nivelaciones de materias, fuera del horario de capacitacion. Para esto\n"
+"                                        deberá traer el material de estudio."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "* El. Estudiante tiene derecho a recuperar clases perdidas, previo aviso a la\n"
+"                                        insitucion en coordinacion de Direccion Academica"
+msgstr "* El. Estudiante tiene derecho a recuperar clases perdidas, previo aviso a la\n"
+"                                        insitucion en coordinacion de Direccion Academica"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "*. El Estudiante tiene derecho a cambiarse de horarios siempre y cuando se\n"
+"                                        coordine con Direccion Academica de la sucursal."
+msgstr "*. El Estudiante tiene derecho a cambiarse de horarios siempre y cuando se\n"
+"                                        coordine con Direccion Academica de la sucursal."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "*. El estudiante tiene derecho al uso de los laboratorios"
+msgstr "*. El estudiante tiene derecho al uso de los laboratorios"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "*. Señor Representante le damos a conocer que cada determinado tiempo, se\n"
+"                                        realiza la entrega de informes academicos, de esa manera Usted tendra la\n"
+"                                        informacion del desarrollo de su representado."
+msgstr "*. Señor Representante le damos a conocer que cada determinado tiempo, se\n"
+"                                        realiza la entrega de informes academicos, de esa manera Usted tendra la\n"
+"                                        informacion del desarrollo de su representado."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "1. En caso de congelamiento de clases, el TITULAR deberá informar con 24 horas\n"
+"                                        de anticipación"
+msgstr "1. En caso de congelamiento de clases, el TITULAR deberá informar con 24 horas\n"
+"                                        de anticipación"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "2. Tomese en cuenta que el pago establecido en el contrato, es independiente\n"
+"                                        del uso que efectivamente realice su representada(o) de nuestros servicios.\n"
+"                                        ASISTA O NO LAS CUOTAS DEBEN SER CANCELADAS."
+msgstr "2. Tomese en cuenta que el pago establecido en el contrato, es independiente\n"
+"                                        del uso que efectivamente realice su representada(o) de nuestros servicios.\n"
+"                                        ASISTA O NO LAS CUOTAS DEBEN SER CANCELADAS."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "3. El valor de la matrícula es un pago muy independiente del valor de las\n"
+"                                        respectivas cuotas a pagar."
+msgstr "3. El valor de la matrícula es un pago muy independiente del valor de las\n"
+"                                        respectivas cuotas a pagar."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "4. Una vez estipulada su fecha de pago, usted adquiere el compromiso de\n"
+"                                        cancelar puntualmente sus cuotas, caso contrario, se le otorga un plazo de 24\n"
+"                                        horas para la cancelación de la misma"
+msgstr "4. Una vez estipulada su fecha de pago, usted adquiere el compromiso de\n"
+"                                        cancelar puntualmente sus cuotas, caso contrario, se le otorga un plazo de 24\n"
+"                                        horas para la cancelación de la misma"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "5, Si su cuota no es cancelada en el tiempo establecido esta sè incrementará\n"
+"                                        un 5% al valor de las referidas cuotas pendientes o atrasadas."
+msgstr "5, Si su cuota no es cancelada en el tiempo establecido esta sè incrementará\n"
+"                                        un 5% al valor de las referidas cuotas pendientes o atrasadas."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "6. Los congelamientos de clases deben efectuarse sólo en nuestras oficinas,\n"
+"                                        Caso contrario, el sistema NO reconoce las inasistencias para las\n"
+"                                        correpondientes recuperaciones."
+msgstr "6. Los congelamientos de clases deben efectuarse sólo en nuestras oficinas,\n"
+"                                        Caso contrario, el sistema NO reconoce las inasistencias para las\n"
+"                                        correpondientes recuperaciones."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "7. Exija siempre su comprobante de pago(no se reconocerá ningún comprobante no\n"
+"                                        autorizado)."
+msgstr "7. Exija siempre su comprobante de pago(no se reconocerá ningún comprobante no\n"
+"                                        autorizado)."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "8. Cuando el estudiante este por culminar la capacitación; Usted deberá\n"
+"                                        cancelar un valor adicional de $100,00 los cuales pueden ser cancelados por\n"
+"                                        medio abonos durante el periodo de capacitacion o en su defecto en su\n"
+"                                        culminacion en las fechas establecidas."
+msgstr "8. Cuando el estudiante este por culminar la capacitación; Usted deberá\n"
+"                                        cancelar un valor adicional de $100,00 los cuales pueden ser cancelados por\n"
+"                                        medio abonos durante el periodo de capacitacion o en su defecto en su\n"
+"                                        culminacion en las fechas establecidas."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "9. LOS VALORES PAGADOS NO SON REEMBOLSABLES BAJO NINGUN CONCEPTO YA QUE\n"
+"                                        ESTAMOS DE ACUERDO CON TODA LA INFORMACION RECIBIDA."
+msgstr "9. LOS VALORES PAGADOS NO SON REEMBOLSABLES BAJO NINGUN CONCEPTO YA QUE\n"
+"                                        ESTAMOS DE ACUERDO CON TODA LA INFORMACION RECIBIDA."
+
+#. module: education_contract_collection_plan
+#: model:ir.actions.act_window,help:education_contract_collection_plan.action_collections
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic to create a Collection plan.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Solem Collections te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic to create a Collection plan.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Solem Collections te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+
+#. module: education_contract_collection_plan
+#: model:ir.actions.act_window,help:education_contract_collection_plan.action_verifications
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic to create a Contract Verification.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Solem Collections te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic to create a Contract Verification.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Solem Collections te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "ALUMNO"
+msgstr "ALUMNO"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/wizard/wizard_invoice.py:41
+#, python-format
+msgid "Accounts for default product is not set correctly for multi company."
+msgstr "Accounts for default product is not set correctly for multi company."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "Alfredo Davila entre Montecristi y Calceta - Telf.: (02) 2861 396 (I) (02) 2863 693\n"
+"                                (CH)"
+msgstr "Alfredo Davila entre Montecristi y Calceta - Telf.: (02) 2861 396 (I) (02) 2863 693\n"
+"                                (CH)"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "Alonso de Angulo Oe1-152 y Fco. Gomez Villa Flora - Telf.: 2652-300"
+msgstr "Alonso de Angulo Oe1-152 y Fco. Gomez Villa Flora - Telf.: 2652-300"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.beneficiary,attendance_ids:0
+msgid "Asistencias"
+msgstr "Asistencias"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "Av. Antonio José de Sucre (Av. Occidental) OE6-121 - Telf.: 2490 085"
+msgstr "Av. Antonio José de Sucre (Av. Occidental) OE6-121 - Telf.: 2490 085"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "Av. Colon 15-13 y Foch - Telf.: 2556 133 - Quito - Ecuador"
+msgstr "Av. Colon 15-13 y Foch - Telf.: 2556 133 - Quito - Ecuador"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "Av. El Inca y Jose Vivanco esquina - Telf.: (02) 2249 372"
+msgstr "Av. El Inca y Jose Vivanco esquina - Telf.: (02) 2249 372"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "Av. Mariscal Sucre 530-91 y Moran Valverde - Telf.: 3035 444"
+msgstr "Av. Mariscal Sucre 530-91 y Moran Valverde - Telf.: 3035 444"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:189
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+#: field:education_contract.verification,beneficiary_ids:0
+#, python-format
+msgid "Beneficiarios"
+msgstr "Beneficiarios"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_serch
+msgid "Buscar"
+msgstr "Buscar"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "C.I."
+msgstr "C.I."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "CHARLOTTE & ILVEM"
+msgstr "CHARLOTTE & ILVEM"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "CHEQUE"
+msgstr "CHEQUE"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:198
+#: selection:education_contract.verification,state:0
+#, python-format
+msgid "Cancelado"
+msgstr "Cancelado"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "Chillogallo:"
+msgstr "Chillogallo:"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Cobranzas"
+msgstr "Cobranzas"
+
+#. module: education_contract_collection_plan
+#: model:ir.actions.act_window,name:education_contract_collection_plan.action_collections
+#: model:ir.ui.menu,name:education_contract_collection_plan.collections_menu
+#: model:ir.ui.menu,name:education_contract_collection_plan.menu_collections
+msgid "Collections"
+msgstr "Cobranza"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/contract.py:151
+#: field:education_contract.beneficiary,verification_id:0
+#, python-format
+msgid "Contract verification"
+msgstr "Contract verification"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:177
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_serch
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_tree
+#: field:education_contract.verification,contract_id:0
+#: view:op.roll.number:education_contract_collection_plan.view_op_roll_number_form
+#, python-format
+msgid "Contrato"
+msgstr "Contrato"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.verification,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.verification,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "CÓDIGO:"
+msgstr "CÓDIGO:"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "Cédula"
+msgstr "Cédula"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "DATOS DE ALUMNOS"
+msgstr "DATOS DE ALUMNOS"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "DERECHOS ILVEM & CHARLOTTE ENGLISH SCHOOL Y TOMATIS"
+msgstr "DERECHOS ILVEM & CHARLOTTE ENGLISH SCHOOL Y TOMATIS"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "DETALLE FINANCIERO, DE CREDITO Y FORMA DE PAGO DEL SUBSIDIO ESTUDIANTIL"
+msgstr "DETALLE FINANCIERO, DE CREDITO Y FORMA DE PAGO DEL SUBSIDIO ESTUDIANTIL"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "DOMICILIO"
+msgstr "DOMICILIO"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "Dirección de domicilio"
+msgstr "Dirección de domicilio"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.verification,display_name:0
+#: field:report.education_contract_collection_plan.report_receipt_template2,display_name:0
+#: field:report.education_contract_collection_plan.report_verification_template,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:182
+#: selection:education_contract.verification,verification_place:0
+#, python-format
+msgid "Domicilio"
+msgstr "Domicilio"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:181
+#: field:education_contract.verification,agreement_duration:0
+#, python-format
+msgid "Duración del acuerdo (Meses)"
+msgstr "Duración del acuerdo (Meses)"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Duración del contrato"
+msgstr "Duración del contrato"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "EDAD"
+msgstr "EDAD"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "EFECTIVO"
+msgstr "EFECTIVO"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "ESTUDIANTE"
+msgstr "ESTUDIANTE"
+
+#. module: education_contract_collection_plan
+#: field:op.roll.number,contract_id:0
+msgid "Education Contract"
+msgstr "Contrato de educación"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "El Inca:"
+msgstr "El Inca:"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "Email"
+msgstr "Correo electrónico"
+
+#. module: education_contract_collection_plan
+#: model:ir.model,name:education_contract_collection_plan.model_education_contract_contract
+msgid "Email Thread"
+msgstr "Hilo de mensajes"
+
+#. module: education_contract_collection_plan
+#: view:op.roll.number:education_contract_collection_plan.view_op_roll_number_tree_ext
+msgid "Estado"
+msgstr "Estado"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.beneficiary,exam_attendance_ids:0
+msgid "Exámenes"
+msgstr "Exámenes"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "FECHA DE VERIFICACIÓN:"
+msgstr "FECHA DE VERIFICACIÓN:"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "FECHA DEL CONTRATO:"
+msgstr "FECHA DEL CONTRATO:"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "FECHAS Y ACUERDOS DE PAGO"
+msgstr "FECHAS Y ACUERDOS DE PAGO"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "FINANCIAMIENTO"
+msgstr "FINANCIAMIENTO"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "FIRMA DEL VERIFICADOR"
+msgstr "FIRMA DEL VERIFICADOR"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "FIRMA REPRESENTANTE"
+msgstr "FIRMA REPRESENTANTE"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_footer
+msgid "Facturación electrónica, ERP, CRM, Gestión documental"
+msgstr "Facturación electrónica, ERP, CRM, Gestión documental"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:179
+#: field:education_contract.verification,contract_date:0
+#, python-format
+msgid "Fecha de contrato"
+msgstr "Fecha de contrato"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.contract,start_date:0
+#: field:op.roll.number,start_date:0
+msgid "Fecha de inicio de clases"
+msgstr "Fecha de inicio de clases"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "Fecha de pago"
+msgstr "Fecha de pago"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.contract,date_booking_schedule:0
+msgid "Fecha de separación de horario"
+msgstr "Fecha de separación de horario"
+
+#. module: education_contract_collection_plan
+#: field:op.roll.number,end_date:0
+msgid "Fecha de terminación"
+msgstr "Fecha de terminación"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+#: field:education_contract.verification,verification_date:0
+msgid "Fecha de verificación"
+msgstr "Fecha de verificación"
+
+#. module: education_contract_collection_plan
+#: help:education_contract.verification,contract_date:0
+msgid "Fecha del contrato. Por defecto es la fecha del pedido de venta."
+msgstr "Fecha del contrato. Por defecto es la fecha del pedido de venta."
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Fecha planeada"
+msgstr "Fecha planeada"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:197
+#: selection:education_contract.verification,state:0
+#, python-format
+msgid "Firmado"
+msgstr "Firmado"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:196
+#: selection:education_contract.verification,state:0
+#, python-format
+msgid "Generado"
+msgstr "Generado"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Generar plan de cobranzas"
+msgstr "Generar plan de cobranzas"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_serch
+msgid "Group By..."
+msgstr "Group By..."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "HORARIO(S)"
+msgstr "HORARIO(S)"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "HORARIOS DE ESTUDIANTES"
+msgstr "HORARIOS DE ESTUDIANTES"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.beneficiary,roll_number_ids:0
+msgid "Horarios"
+msgstr "Horarios"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.contract:education_contract_collection_plan.view_education_contract_roll_number
+msgid "Horarios separados"
+msgstr "Horarios separados"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.verification,id:0
+#: field:report.education_contract_collection_plan.report_receipt_template2,id:0
+#: field:report.education_contract_collection_plan.report_verification_template,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "ILVEM & CHARLOTTE-TOMATIS"
+msgstr "ILVEM & CHARLOTTE-TOMATIS"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "INFORMACIÓN DEL TITULAR"
+msgstr "INFORMACIÓN DEL TITULAR"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "INFORME DE VERIFICACIÓN"
+msgstr "INFORME DE VERIFICACIÓN"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_footer
+msgid "Importante: No se aceptan recibos provisionales. Obtenga siempre uno como este. Documento no\n"
+"                        valido para fines o efectos tributarios. Emitimos su factura al finalizar los pagos con la\n"
+"                        presentación de estos recibos."
+msgstr "Importante: No se aceptan recibos provisionales. Obtenga siempre uno como este. Documento no\n"
+"                        valido para fines o efectos tributarios. Emitimos su factura al finalizar los pagos con la\n"
+"                        presentación de estos recibos."
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Imprimir reporte"
+msgstr "Imprimir reporte"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Información de beneficiarios"
+msgstr "Información de beneficiarios"
+
+#. module: education_contract_collection_plan
+#: model:ir.actions.report.xml,name:education_contract_collection_plan.report_verification_qweb
+msgid "Informe de verificacion"
+msgstr "Informe de verificacion"
+
+#. module: education_contract_collection_plan
+#: model:ir.actions.act_window,name:education_contract_collection_plan.action_verifications
+#: model:ir.ui.menu,name:education_contract_collection_plan.menu_commodity2
+msgid "Informes de verificación"
+msgstr "Informe de verificación"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "LUGAR DE VERIFICACIÓN"
+msgstr "LUGAR DE VERIFICACIÓN"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.verification,__last_update:0
+#: field:report.education_contract_collection_plan.report_receipt_template2,__last_update:0
+#: field:report.education_contract_collection_plan.report_verification_template,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.verification,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.verification,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.beneficiary,job_place:0
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "Lugar de trabajo"
+msgstr "Lugar de trabajo"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Lugar de verificación"
+msgstr "Lugar de verificación"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Marcar como firmado"
+msgstr "Marcar como firmado"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "Matriz:"
+msgstr "Matriz:"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.contract,roll_number_ids:0
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+#: field:education_contract.verification,roll_number_ids:0
+msgid "Matrículas"
+msgstr "Matrículas"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Monto"
+msgstr "Monto"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "NOMBRES Y APELLIDOS"
+msgstr "NOMBRES Y APELLIDOS"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "No. cuota"
+msgstr "No. cuota"
+
+#. module: education_contract_collection_plan
+#: field:collection_plan.collection_plan,account_number:0
+msgid "No. de cuenta"
+msgstr "No. de cuenta"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "Nombre"
+msgstr "Nombre"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:195
+#: selection:education_contract.verification,state:0
+#, python-format
+msgid "Nuevo"
+msgstr "Nuevo"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "OFIC. ILV. CH."
+msgstr "OFIC. ILV. CH."
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:182
+#: selection:education_contract.verification,verification_place:0
+#, python-format
+msgid "Oficina"
+msgstr "Oficina"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.beneficiary,operating_unit_ids:0
+msgid "Operating unit ids"
+msgstr "Operating unit ids"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "PARENTEZCO"
+msgstr "PARENTEZCO"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "PROG."
+msgstr "PROG."
+
+#. module: education_contract_collection_plan
+#: field:education_contract.verification,payment_term_ids:0
+msgid "Pagos"
+msgstr "Pagos"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Plan"
+msgstr "Plan"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:186
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_tree
+#: field:education_contract.verification,collection_plan_id:0
+#, python-format
+msgid "Plan de cobranzas"
+msgstr "Plan de cobranzas"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:187
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+#: field:education_contract.verification,plan_id:0
+#, python-format
+msgid "Plan de pagos"
+msgstr "Plan de pagos"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_footer
+msgid "Página:"
+msgstr "Página:"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_receipt_document
+msgid "RECIBO DE DINERO No"
+msgstr "RECIBO DE DINERO No"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.beneficiary,reference:0
+msgid "Referencia"
+msgstr "Referencia"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Replanificar"
+msgstr "Replanificar"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Restablecer a nuevo"
+msgstr "Restablecer a nuevo"
+
+#. module: education_contract_collection_plan
+#: field:op.roll.number,beneficiary_id:0
+msgid "Roll"
+msgstr "Roll"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "SAN RAFAEL:"
+msgstr "SAN RAFAEL:"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "SEÑOR REPRESENTANTE, PONGA ATENCION A LOS SIGUIENTES ASPECTOS:"
+msgstr "SEÑOR REPRESENTANTE, PONGA ATENCION A LOS SIGUIENTES ASPECTOS:"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "SUCURSAL -"
+msgstr "SUCURSAL -"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "Se congela las clases y/o servicios prestados, mas NO el pago de las cuotas\n"
+"                                        pactadas."
+msgstr "Se congela las clases y/o servicios prestados, mas NO el pago de las cuotas\n"
+"                                        pactadas."
+
+#. module: education_contract_collection_plan
+#: field:education_contract.beneficiary,sector:0
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "Sector"
+msgstr "Sector"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+msgid "Seguro que los acuerdos de pagos están actualizados?"
+msgstr "Seguro que los acuerdos de pagos están actualizados?"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.contract:education_contract_collection_plan.view_education_contract_roll_number
+msgid "Separar horarios"
+msgstr "Separar horarios"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.contract:education_contract_collection_plan.view_education_contract_roll_number
+msgid "Si define una fecha de separación de horarios general, todas la smatrículas que salen de este contrato tendrán la misma fecha de separación de horario. De otra manera puede definir una fecha para cada matrícula por separado. Los mismo sucede con la fecha de inicio de clases. Preciose aceptar para continuar o Cancelar para definir una fecha general."
+msgstr "Si define una fecha de separación de horarios general, todas la smatrículas que salen de este contrato tendrán la misma fecha de separación de horario. De otra manera puede definir una fecha para cada matrícula por separado. Los mismo sucede con la fecha de inicio de clases. Preciose aceptar para continuar o Cancelar para definir una fecha general."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_footer
+msgid "Solem Consulting"
+msgstr "Solem Consulting"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.verification,state:0
+msgid "State"
+msgstr "State"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_serch
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_tree
+#: field:education_contract.verification,operating_unit_id:0
+msgid "Sucursal"
+msgstr "Sucursal"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "TARJETA"
+msgstr "TARJETA"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "TELÉFONO DE COBRANZAS"
+msgstr "TELÉFONO DE COBRANZAS"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "TELÉFONO DE EMERGENCIA"
+msgstr "TELÉFONO DE EMERGENCIA"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "TIEMPO DE CAPACITACIÓN"
+msgstr "TIEMPO DE CAPACITACIÓN"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "TRABAJO"
+msgstr "TRABAJO"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/contract.py:158
+#: code:addons/education_contract_collection_plan/wizard/wizard_invoice.py:19
+#: field:collection_plan.wizard_invoice,tax_ids:0
+#: field:education_contract.payment_term,tax_ids:0
+#, python-format
+msgid "Taxes"
+msgstr "Taxes"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/contract.py:159
+#: code:addons/education_contract_collection_plan/wizard/wizard_invoice.py:20
+#: field:collection_plan.wizard_invoice,taxes_included:0
+#: field:education_contract.payment_term,taxes_included:0
+#, python-format
+msgid "Taxes included"
+msgstr "Taxes included"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+#: field:education_contract.verification,collections_phone:0
+msgid "Teléfono de cobranzas"
+msgstr "Teléfono de cobranzas"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "Teléfonos"
+msgstr "Teléfonos"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.beneficiary,job_phone:0
+msgid "Teléfonos de trabajo"
+msgstr "Teléfonos de trabajo"
+
+#. module: education_contract_collection_plan
+#: view:collection_plan.wizard_invoice:education_contract_collection_plan.view_wizard_invoice_form2
+msgid "Tipo de efectivo"
+msgstr "Tipo de efectivo"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+#: field:education_contract.verification,partner_id:0
+msgid "Titular"
+msgstr "Titular"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "Tola Chica - Calle OE8B s/n Vinueza, sector La Morita - Telf.: (02) 2373 372"
+msgstr "Tola Chica - Calle OE8B s/n Vinueza, sector La Morita - Telf.: (02) 2373 372"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:182
+#: selection:education_contract.verification,verification_place:0
+#, python-format
+msgid "Trabajo"
+msgstr "Trabajo"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_receipt_header
+msgid "Tumbaco:"
+msgstr "Tumbaco:"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "Ubicación referencial"
+msgstr "Ubicación referencial"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "VALOR MATRIC."
+msgstr "VALOR MATRIC."
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "VERIFICADO POR"
+msgstr "VERIFICADO POR"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "Valor de cuotas"
+msgstr "Valor de cuotas"
+
+#. module: education_contract_collection_plan
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_tree
+#: field:education_contract.verification,user_id:0
+msgid "Vendedor"
+msgstr "Vendedor"
+
+#. module: education_contract_collection_plan
+#: view:collection_plan.collection_plan:education_contract_collection_plan.view_collection_plan_form2
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_tree
+#: model:ir.ui.menu,name:education_contract_collection_plan.education_contract_menu
+#: model:ir.ui.menu,name:education_contract_collection_plan.verifications_menu
+msgid "Verificación"
+msgstr "Verificación"
+
+#. module: education_contract_collection_plan
+#: code:addons/education_contract_collection_plan/code/verification.py:185
+#: view:education_contract.verification:education_contract_collection_plan.view_verification_form
+#: field:education_contract.verification,verify_user_id:0
+#, python-format
+msgid "Verificado por"
+msgstr "Verificado por"
+
+#. module: education_contract_collection_plan
+#: field:education_contract.verification,verification_place:0
+msgid "Verification place"
+msgstr "Verification place"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.report_verification_document
+msgid "________________________________"
+msgstr "________________________________"
+
+#. module: education_contract_collection_plan
+#: field:collection_plan.collection_plan,verification_id:0
+msgid "collection_plan_id"
+msgstr "collection_plan_id"
+
+#. module: education_contract_collection_plan
+#: field:collection_plan.wizard_invoice,verification_id:0
+#: field:education_contract.contract,verification_id:0
+msgid "contract_id"
+msgstr "contract_id"
+
+#. module: education_contract_collection_plan
+#: model:ir.actions.report.xml,name:education_contract_collection_plan.report_receipt2
+msgid "education_contract_collection_plan.report_receipt2"
+msgstr "education_contract_collection_plan.report_receipt2"
+
+#. module: education_contract_collection_plan
+#: model:ir.actions.report.xml,name:education_contract_collection_plan.report_verification
+msgid "education_contract_collection_plan.report_verification"
+msgstr "education_contract_collection_plan.report_verification"
+
+#. module: education_contract_collection_plan
+#: view:website:education_contract_collection_plan.einvoice_external_layout_footer
+msgid "info@solemconsulting.com | www.solemconsulting.com | (+593) 992894906 / 02-3360350"
+msgstr "info@solemconsulting.com | www.solemconsulting.com | (+593) 992894906 / 02-3360350"
+

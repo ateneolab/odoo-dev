@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <openerp>
-    <data>
+  <data>
+
+    <record id="view_op_division_form_ext" model="ir.ui.view">
+      <field name="name">view.op.division.form.ext</field>
+      <field name="model">op.division</field>
+      <field name="inherit_id" ref="openeducat_erp.view_op_division_form"/>
+      <field name="priority" eval="8" />
+      <field name="arch" type="xml">
+	<xpath expr="//field[@name='company_id']" position="after">
+	  <field name="standard_id" invisible="1"/>
+	</xpath>
+      </field>
+    </record>
+
 
         <record id="view_beneficiary_form" model="ir.ui.view">
             <field name="name">education_contract.beneficiary.form</field>
@@ -25,13 +38,18 @@
                             <page string="Programas">
                                 <field name="program_ids">
                                     <tree editable="top">
-                                        <field name="contract_id" invisible="1"/>
+				      <field name="contract_id" invisible="1"/>
+				      <field name="course_id" invisible="1"/>
                                         <field name="name" required="True"/>
                                         <!--<field name="study_company_id" required="0" invisible="1"/>-->
                                         <field name="campus_id" required="True"/>
-                                        <field name="batch_id" required="True"/>
-                                        <field name="standard_id" required="True"/>
-                                        <field name="division_id" required="True"/>
+					<field name="batch_id" required="True"
+					       domain="[('course_id', '=', course_id)]"/>
+					<field name="standard_id" required="True"
+					       domain="[('course_id', '=', course_id)]"/>
+					<field name="division_id" required="True"
+					       domain="[('standard_id', '=', standard_id)]"
+					       context="{'default_standard_id': standard_id}"/>
                                         <field name="qty_years" required="True"/>
                                     </tree>
                                 </field>
@@ -82,7 +100,7 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="barcode" required="1"
+                                <field name="barcode" required="1" string="Código"
                                        attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"/>
                                 <field name="user_id" attrs="{'readonly': [('state', 'in', ['done', 'asigned'])]}"/>
                                 <field name="marketing_manager_id"
@@ -110,7 +128,7 @@
                                         <!--<field name="id" readonly="1"/>-->
                                         <field name="name"/>
                                         <field name="middle_name" string="Segundo nombre"/>
-                                        <field name="last_name" string="Apellido"/>
+					<field name="surnames" string="Apellidos"/>
                                         <field name="gender" string="Sexo"/>
                                     </tree>
                                 </field>
@@ -147,12 +165,15 @@
                                                attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
                                                string="Tipo de efectivo"/>
                                         <field name="amount"/>
-                                        <field name="voucher_id"
+					<field name="voucher_id"
+					       domain="[('contract_id', '=', context.get('default_contract_id'))]"
                                                attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
                                         </field>
-                                        <field name="check_id"
+					<field name="check_id"
+					       domain="[('contract_id', '=', context.get('default_contract_id'))]"
                                                attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
-                                        <field name="transfer_id"
+					<field name="transfer_id"
+					       domain="[('contract_id', '=', context.get('default_contract_id'))]"
                                                attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
                                         <field name="description_other"
                                                attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
@@ -169,7 +190,8 @@
 
                                         <field name="state" invisible="1"/>
                                         <field name="contract_state" invisible="1"/>
-                                        <field name="invisible" invisible="1"/>
+					<field name="invisible" invisible="1"/>
+					<field name="contract_id" invisible="1"/>
                                     </tree>
                                 </field>
                             </page>
@@ -310,7 +332,7 @@
                         </group>
                         <group>
                             <field name="amount_pay"/>
-                            <field name="registration_payed" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
+                            <field name="registration_payed" invisible="1"/>
                             <field name="amount_monthly" attrs="{'invisible': [('type', 'not in', ['funded'])]}"/>
                             <field name="registration_residual"
                                    invisible="1"/>
@@ -343,12 +365,14 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="voucher_number" required="1"/>
+			      <field name="voucher_number" string="Número de voucher"
+				     required="1"/>
                                 <field name="date" required="1"/>
                                 <field name="card_name" required="1"/>
                             </group>
                             <group>
-                                <field name="auth_number" required="1"/>
+			      <field name="auth_number" string="Número de autorización"
+				     required="1"/>
                                 <field name="bank" required="1"/>
                                 <field name="amount" readonly="1"/>
                             </group>
@@ -390,7 +414,8 @@
                             <group>
                                 <field name="date" required="1"/>
                                 <field name="owner" required="1"/>
-                                <field name="auth_number" required="1"/>
+				<field name="auth_number" string="Número de autorización"
+				       required="1"/>
                             </group>
                             <group>
                                 <field name="bank" required="1"/>
@@ -496,10 +521,10 @@
                     <attribute name="options">{'no_quick_create': True}</attribute>
                 </field>
                 <xpath expr="//notebook/page[last()]" position="after">
-                    <page string="Educacion" atts="{'invisible': [('generate_contract', '=', False)]}">
+                    <page string="Educación" atts="{'invisible': [('generate_contract', '=', False)]}">
                         <group class="col-2 col-span-2">
                             <group class="col-2 col-span-2">
-                                <field name="education_contract_id"/>
+                                <field name="education_contract_id" readonly="1"/>
                             </group>
                         </group>
                     </page>

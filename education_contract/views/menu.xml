@@ -1,6 +1,30 @@
 <openerp>
     <data>
 
+      <menuitem id="openeducat_erp.menu_op_school_root" name="AteneoERP"
+		web_icon="images/openeducat.png" web_icon_hover="images/openeducat-hover.png"
+		parent="" sequence="20" groups="openeducat_erp.group_op_back_office,openeducat_erp.group_op_back_office_admin" />
+
+
+      <menuitem id="openeducat_erp.menu_op_school_main" name="Estudiantes"
+		parent="openeducat_erp.menu_op_school_root"
+		sequence="20"
+		groups="openeducat_erp.group_op_back_office,openeducat_erp.group_op_back_office_admin" />
+
+      <menuitem id="openeducat_erp.menu_op_roll_number_sub" name="Matrícula"
+		parent="openeducat_erp.menu_op_school_main" sequence="320"
+		action="openeducat_erp.act_open_op_roll_number_view" groups="openeducat_erp.group_op_back_office,openeducat_erp.group_op_back_office_admin" />
+
+      <record model="ir.actions.act_window" id="openeducat_erp.act_open_op_roll_number_view">
+	<field name="name">Matrícula</field>
+	<field name="type">ir.actions.act_window</field>
+	<field name="res_model">op.roll.number</field>
+	<field name="view_type">form</field>
+	<field name="view_mode">tree,form</field>
+	<field name="search_view_id" ref="openeducat_erp.view_op_roll_number_search" />
+	<field name="domain">[]</field>
+	<field name="context">{}</field>
+      </record>
 
         <record id="action_contracts" model="ir.actions.act_window">
             <field name="name">Contratos de estudios</field>
@@ -43,7 +67,7 @@
                 </p>
             </field>
         </record>
-        
+
         <menuitem action="action_conciliations" id="menu_edu_conciliation" parent="base.menu_sales" sequence="6" />-->
 
         <record id="action_advance" model="ir.actions.act_window">
@@ -85,7 +109,7 @@
         <menuitem action="action_payment_mode" id="menu_edu_payment_mode" parent="account.menu_configuration_misc"
                   sequence="6"/>
 
-        <!-- 
+        <!--
         <record id="action_voucher" model="ir.actions.act_window">
             <field name="name">Pagos</field>
             <field name="type">ir.actions.act_window</field>

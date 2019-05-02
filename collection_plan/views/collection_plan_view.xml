@@ -3,6 +3,18 @@
 <openerp>
     <data>
 
+        <record id="sequence_collection_plan_type" model="ir.sequence.type">
+            <field name="name">Plan de cobranzas</field>
+            <field name="code">collection_plan.collection_plan</field>
+        </record>
+        <record id="sequence_collection_plan_seq" model="ir.sequence">
+            <field name="name">Secuencia de Plan de cobranzas</field>
+            <field name="code">collection_plan.collection_plan</field>
+            <field name="padding" eval="4"/>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+        </record>
+
         <record id="group_admin_collection_plan" model="res.groups">
             <field name="name">Admin Collection Plan</field>
             <field name="category_id" ref="base.module_category_accounting_and_finance"/>
@@ -14,16 +26,18 @@
             <field name="name">collection_plan.form</field>
             <field name="model">collection_plan.collection_plan</field>
             <field name="arch" type="xml">
-                <form string="Plan de Cobranzas">
+                <form string="Plan de Cobranzas" create="0" import="0">
                     <field name="id" invisible="1"/>
                     <header>
                         <!--<button name="create_new_plan" states="created" type="object" string="New plan"-->
                         <!--class="oe_highlight"/>-->
-                        <button name="reschedule_plan" states="created" type="object" string="Replanificar"
+                        <button name="reschedule_plan" states="new,cancelled_parcial,cancelled" type="object" string="Replanificar"
                                 class="oe_highlight"/>
-                        <button name="generate_invoice" states="created" type="object" string="Generar factura"
+                        <button name="generate_invoice" states="new,cancelled_parcial,cancelled" type="object" string="Generar factura"
                                 context="{'collection_plan_id': id, 'default_contract_id': contract_id, 'invoice_multi': True}"
-                                class="oe_highlight"/>
+				class="oe_highlight"/>
+
+			<field name="state" widget="statusbar"/>
                     </header>
 
                     <field name="state" invisible="1"/>
@@ -33,19 +47,22 @@
                             </group>
                             <group/>
                             <group>
-                                <field name="contract_id" required="1"
+                                <field name="contract_id" string="Contrato de educación" required="1"
                                        attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                                <field name="start_date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+				<field name="start_date" string="Fecha de inicio"
+				       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
                             </group>
                             <group>
-                                <field name="user_id" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                                <field name="end_date" attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                                <field name="residual"/>
-                                <field name="balance"/>
+			      <field name="user_id" string="Gerente de cuenta"
+				     attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+				<field name="end_date" string="Fecha de fin"
+				       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                                <field name="residual" string="Monto"/>
+                                <field name="balance" string="Balance"/>
                             </group>
 
                             <group>
-                                <field name="active_plan_id" required="1"
+                                <field name="active_plan_id" required="1" string="Plan activo"
                                        attrs="{'readonly': [('state', 'in', ['done'])]}"
                                        domain="[('contract_id', '=', contract_id)]">
                                     <tree editable="top">
@@ -62,7 +79,7 @@
                         </group>
 
                         <notebook>
-                            <page string="Planned Payments">
+                            <page string="Pagos planificados">
                                 <field name="payment_term_ids" domain="[('payed', '=', False)]"
                                        context="{'collection_plan_id': id, 'default_contract_id': contract_id}">
                                     <tree>
@@ -82,13 +99,13 @@
                                                attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
                                         <field name="description_other"
                                                attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
-                                        <field name="planned_date"/>
-                                        <field name="payment_date"/>
+                                        <field name="planned_date" string="Fecha planeada"/>
+                                        <field name="payment_date" string="Fecha de pago"/>
                                         <field name="payed" invisible="1"/>
                                         <field name="plan_id" invisible="1"/>
                                         <field name="invisible" invisible="1"/>
                                         <field name="account_voucher_id"/>
-                                        <field name="invoice_id"/>
+                                        <field name="invoice_id" string="Factura"/>
                                         <field name="internal_state" invisible="1"/>
                                         <button name="do_billing"
                                                 attrs="{'invisible': [('internal_state', 'not in', ['created'])]}"
@@ -103,7 +120,7 @@
                                 </field>
                             </page>
 
-                            <page string="Payments made">
+                            <page string="Pagos realizaos">
                                 <field name="payed_payment_term_ids" domain="[('payed', '=', True)]" readonly="1">
                                     <tree>
                                         <field name="type"/>
@@ -120,22 +137,22 @@
                                                attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
                                         <field name="description_other"
                                                attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
-                                        <field name="planned_date"/>
-                                        <field name="payment_date"/>
-                                        <field name="payed"/>
-                                        <field name="invoice_id"/>
+                                        <field name="planned_date" string="Fecha planeada"/>
+                                        <field name="payment_date" string="Fecha de pago"/>
+                                        <field name="payed" string="Pagado?"/>
+                                        <field name="invoice_id" string="Facturas"/>
                                         <field name="invisible" invisible="1"/>
                                     </tree>
                                 </field>
                             </page>
 
-                            <page string="Invoices">
+                            <page string="Facturas">
                                 <field name="invoice_ids">
 
                                 </field>
                             </page>
 
-                            <page string="Old plans">
+                            <page string="Planes antiguos">
                                 <field name="plan_ids" readonly="1">
                                     <tree>
                                         <field name="type"/>
@@ -147,7 +164,7 @@
                                 </field>
                             </page>
 
-                            <page string="Internal notes">
+                            <page string="Notas internas">
                                 <field name="notes"/>
                             </page>
 
@@ -157,19 +174,21 @@
             </field>
         </record>
 
-        <record id="view_collection_plan_tree" model="ir.ui.view">
-            <field name="name">collection_plan.collection_plan.tree</field>
-            <field name="model">collection_plan.collection_plan</field>
-            <field name="arch" type="xml">
-                <tree string="Collection plan">
-                    <field name="user_id"/>
-                    <field name="start_date"/>
-                    <field name="end_date"/>
-                    <field name="residual"/>
-                    <field name="state"/>
-                </tree>
-            </field>
-        </record>
+	<record id="view_collection_plan_tree" model="ir.ui.view">
+	  <field name="name">collection_plan.collection_plan.tree</field>
+	  <field name="model">collection_plan.collection_plan</field>
+	  <field name="arch" type="xml">
+	    <tree string="Collection plan" create="0" import="0">
+	      <field name="barcode"/>
+	      <field name="user_id"/>
+	      <field name="start_date"/>
+	      <field name="end_date"/>
+	      <field name="residual"/>
+	      <field name="state"/>
+	      <field name="all_payed"/>
+	    </tree>
+	  </field>
+	</record>
 
         <record id="view_collection_plan_search" model="ir.ui.view">
             <field name="name">collection_plan.collection_plan.search</field>
@@ -180,7 +199,9 @@
                     <field name="contract_id"/>
                     <field name="start_date"/>
                     <field name="end_date"/>
-                    <field name="residual"/>
+		    <field name="residual"/>
+		    <field name="barcode" select="True"/>
+		    <field name="state" select="True"/>
                     <group expand="0" string="Group By...">
                         <filter name="group_by_user_id"
                                 string="User"
@@ -196,7 +217,10 @@
                                 domain="[]" context="{'group_by':'end_date'}"/>
                         <filter name="group_by_residual"
                                 string="Saldo pendiente"
-                                domain="[]" context="{'group_by':'residual'}"/>
+				domain="[]" context="{'group_by':'residual'}"/>
+                        <filter name="group_by_state"
+                                string="Estado"
+				domain="[]" context="{'group_by':'state'}"/>
                     </group>
                 </search>
             </field>
@@ -209,7 +233,7 @@
             <field name="arch" type="xml">
 
                 <field name="residual" position="after">
-                    <field name="balance"/>
+                    <field name="balance" readonly="1"/>
                 </field>
 
             </field>

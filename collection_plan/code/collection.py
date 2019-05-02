@@ -147,10 +147,13 @@ class CollectionPlan(models.Model):
     #                 sum += pt.amount
     #     self.balance = sum
 
-    contract_id = fields.Many2one('education_contract.contract', string=_('Education contract'))
+    contract_id = fields.Many2one(
+        'education_contract.contract',
+        string=_(u'Contrato de educación')
+    )
     active_plan_id = fields.Many2one('education_contract.plan')
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))
-    residual = fields.Float(digits=(10, 4), string=_('Amount'), compute='_compute_residual', store=True)
+    residual = fields.Float(digits=(10, 4), string=_(u'Cantidad'), compute='_compute_residual', store=True)
     balance = fields.Float(digits=(6, 4), string=_('Balance'), related='active_plan_id.balance')
     state = fields.Selection([('created', _('New')), ('done', _('Finish'))], default='created')
     payment_term_ids = fields.One2many('education_contract.payment_term', 'collection_plan_id',
@@ -158,12 +161,49 @@ class CollectionPlan(models.Model):
                                        string=_('Payment terms from active plan'))
     payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
                                              string=_('All payed Payment terms'), store=True)
-    user_id = fields.Many2one('res.users', string=_('Account manager'))
-    start_date = fields.Date('Start date')
-    end_date = fields.Date('End date')
-    notes = fields.Text('Internal notes')
-    invoice_ids = fields.Many2many('account.invoice', string=_(u'Invoices'))
+    user_id = fields.Many2one('res.users', string=_(u'Gerente de cuenta'))
+    start_date = fields.Date(_(u'Fecha de inicio'))
+    end_date = fields.Date(_(u'Fecha de fin'))
+    notes = fields.Text(_(u'Notas internas'))
+    invoice_ids = fields.Many2many('account.invoice', string=_(u'Facturas'))
     next_payment_date = fields.Date('Next payment date', compute='_compute_next_payment_date', store=True)
+    account_number = fields.Char('No. de cuenta', compute='_compute_account_number')
+    barcode = fields.Char(related='contract_id.barcode', string=_(u'Código de contrato'))
+    state = fields.Selection(
+        [
+            ('new', _(u'Nuevo')),
+            ('cancelled_parcial', _(u'Cancelado parcial')),
+            ('cancelled', _(u'Cancelado'))
+        ],
+        required=True,
+        default='draft'
+    )
+    all_payed = fields.Boolean(
+        compute='_compute_all_payed'
+    )
+
+    @api.depends('payment_term_ids', 'payment_term_ids.payed', 'payment_term_ids.invoice_id')
+    def _compute_all_payed(self):
+        for record in self:
+            if record.payment_term_ids:
+                if all(item.payed for item in record.payment_term_ids):
+                    record.all_payed = True
+                else:
+                    record.all_payed = False
+                if record.all_payed:
+                    record.write({'state': 'cancelled'})
+                else:
+                    record.write({'state': 'cancelled_parcial'})
+            else:
+                record.write({'state': 'new'})
+
+
+    @api.one
+    def _compute_account_number(self):
+        sequence_id = self.env['ir.sequence'].get('collection_plan.collection_plan')
+        account_number = u'{}-{}'.format(str(self.contract_id.barcode), str(sequence_id))
+        self.account_number = account_number
+        return account_number
 
     @api.one
     def _compute_next_payment_date(self):
@@ -270,13 +310,13 @@ class PaymentTerm(models.Model):
     _name = 'education_contract.payment_term'
     _inherit = 'education_contract.payment_term'
 
-    planned_date = fields.Date(_('Planned date'))
-    payment_date = fields.Date(_('Payment date'))
-    payed = fields.Boolean(_('Payed?'))
+    planned_date = fields.Date(_(u'Fecha planificada'))
+    payment_date = fields.Date(_(u'Fecha de pago'))
+    payed = fields.Boolean(_(u'Pagado?'))
     order = fields.Integer('Order')
-    fixed_plan_id = fields.Many2one('education_contract.plan', string=_('Payment Plan'))
-    payed_collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_('Payed Collection Plan'))
-    collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_('Collection Plan'))
+    fixed_plan_id = fields.Many2one('education_contract.plan', string=_(u'Plan de pago'))
+    payed_collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(u'Plan de pago de cobranza'))
+    collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(u'Plan de cobranza'))
 
 
 class EducationContract(models.Model):

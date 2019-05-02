@@ -2,27 +2,21 @@
     <data>
 
         <record id="action_collections" model="ir.actions.act_window">
-            <field name="name">Collections</field>
+            <field name="name">Cobranzas</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">collection_plan.collection_plan</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
-                    Clic to create a Collection plan.
+                    Clic para crear un plan de cobranza
                 </p>
                 <p>
-                    Solem Collections te ayuda a administrar los contratos de forma eficiente durante todo el flujo:
+                    Solem Cobranzas te ayuda a administrar los contratos de forma eficiente durante todo el flujo:
                     creacion, verificacion, aprobacion, asignacion.
                 </p>
             </field>
         </record>
-
-        <menuitem name="Collections" id="collection_plan.collections"/>
-        <menuitem name="Collections" id="collection_plan.collections_menu"
-                  parent="collection_plan.collections"/>
-        <menuitem action="action_collections" id="menu_collections" parent="collection_plan.collections_menu"
-                  sequence="6"/>
 
     </data>
 </openerp>

@@ -2,7 +2,7 @@
     <data>
 
         <record id="action_verifications" model="ir.actions.act_window">
-            <field name="name">Verifications</field>
+            <field name="name">Informes de verificación</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">education_contract.verification</field>
             <field name="view_type">form</field>
@@ -16,17 +16,22 @@
                     creacion, verificacion, aprobacion, asignacion.
                 </p>
             </field>
-        </record>
+	</record>
 
-        <menuitem name="Education Contract" id="education_contract_menu"/>
-        <menuitem name="Verifications" id="verifications_menu"
-                  parent="education_contract_menu"/>
-        <menuitem action="action_verifications" id="menu_verifications" parent="verifications_menu"
-                  sequence="6"/>
+	<menuitem id="education_contract_menu"
+	      name="Verificación"/>
+
+	<menuitem id="verifications_menu"
+              parent="education_contract_menu"
+              name="Verificación"/>
+
+	<menuitem id="menu_commodity2"
+		  parent="verifications_menu"
+		  action="action_verifications"/>
 
         <!-- -->
         <record id="action_collections" model="ir.actions.act_window">
-            <field name="name">Collections</field>
+            <field name="name">Cobranza de contratos de estudio</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">collection_plan.collection_plan</field>
             <field name="view_type">form</field>
@@ -42,7 +47,7 @@
             </field>
         </record>
 
-        <menuitem name="Collections" id="collections_menu"
+        <menuitem name="Cobranza" id="collections_menu"
                   parent="education_contract_menu"/>
         <menuitem action="action_collections" id="menu_collections" parent="collections_menu"
                   sequence="6"/>

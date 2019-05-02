@@ -22,7 +22,14 @@
                 </field>
                 <field name="date" position="after">
                     <field name="start_date"/>
-                </field>
+		</field>
+		<notebook position="inside">
+		  <page string="Verificación">
+		    <group>
+		      <field name="verification_id" string="Verificación" readonly="1"/>
+		    </group>
+		  </page>
+                </notebook>
             </field>
         </record>
 

@@ -24,6 +24,17 @@ class beneficiary(models.Model):
     relationship = fields.Char(u'Parentezco')
     start_date = fields.Date(u'Fecha de inicio de clases')
     end_date = fields.Date(u'Fecha de inicio de clases')
+    surnames = fields.Char(
+        _(u'Apellidos'),
+        compute='_compute_surnames'
+    )
+
+    @api.depends('lastname', 'secondlastname')
+    def _compute_surnames(self):
+        for record in self:
+            record.surnames = '%s %s' % (
+                record.lastname or '', record.secondlastname or ''
+            )
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:
@@ -48,12 +59,14 @@ class beneficiary(models.Model):
                 if partner_id.lastname:
                     lastnames = partner_id.lastname.split(' ')
                     if len(lastnames) > 0:
-                        middle_name = lastnames[0]
-                        datas.update({'middle_name': middle_name})
-                    if len(lastnames) > 1:
-                        last_name = lastnames[1]
-                        datas.update({'last_name': last_name})
-            datas.update({'partner_id': id_partner, 'name': partner_id.firstname})
+                        datas.update({'last_name': " ".join(last for last in lastnames)})
+            datas.update(
+                {
+                    'partner_id': id_partner,
+                    'name': partner_id.firstname,
+                    'middle_name': partner_id.secondname
+                }
+            )
             student = self.env['op.student'].create(datas)
             res = super(beneficiary, self).create({'student_id': student.id})
             return res
@@ -148,14 +161,31 @@ class program(models.Model):
 
     name = fields.Selection(selection='_get_courses_selection', string='Nombre del Programa')
     course_id = fields.Many2one('op.course', string=_(u'Curso'), compute='_compute_course', store=True)
-    qty_years = fields.Integer(u'Años')
+    qty_years = fields.Integer(_(u'Años'))
     study_company_id = fields.Many2one('res.company', string='Sucursal')  ## Deprecated or related campus_id.company_id
     campus_id = fields.Many2one('operating.unit', string='Sucursal')
     beneficiary_id = fields.Many2one('education_contract.beneficiary', string='Estudiante')
     contract_id = fields.Many2one('education_contract.contract', string='Contrato de estudios')
     division_id = fields.Many2one('op.division', _('Grupo'))
-    batch_id = fields.Many2one('op.batch', 'Batch')
-    standard_id = fields.Many2one('op.standard', 'Standard')
+    batch_id = fields.Many2one('op.batch', _(u'Edición'))
+    standard_id = fields.Many2one('op.standard', _(u'Módulo'))
+
+    @api.onchange('name')
+    def onchange_change_course(self):
+        '''Cuando cambio el curso realizar los filtros de nuevo.
+        '''
+        for record in self:
+            record.batch_id = False
+            record.standard_id = False
+            record.division_id = False
+
+    @api.onchange('standard_id')
+    def onchange_change_standard(self):
+        '''Cuando cambio el módulo realizo filtro nuevo del grupo.
+        '''
+        for record in self:
+            record.division_id = False
+
 
     @api.model
     def create(self, vals):
@@ -386,7 +416,7 @@ class education_contract(models.Model):
     campus_id = fields.Many2one('operating.unit', string='Sucursal')
     company_id = fields.Many2one('res.company', string='Compania', help='Interno para multiempresa')
     owner = fields.Many2one('res.partner', string='Titular')
-    barcode = fields.Char('Codigo')
+    barcode = fields.Char(_(u'Código'))
     sale_order_id = fields.Many2one('sale.order', string='Pedido de venta')
     beneficiary_ids = fields.Many2many('education_contract.beneficiary', relation='contract_beneficiary_rel',
                                        string='Beneficiarios Tmp')
@@ -497,7 +527,7 @@ class education_contract(models.Model):
             valid = not records.plan_id.registration_residual > 0.0
             if not valid:
                 raise ValidationError(
-                    u"""Debe emitir un pago por un valor mímino igual al abono de matrícula. 
+                    u"""Debe emitir un pago por un valor mímino igual al abono de matrícula.
                     Este pago debe ser confirmado o marcado como avance de efectivo.""")
         else:
             pass
@@ -509,7 +539,7 @@ class education_contract(models.Model):
 
         if not valid:
             raise ValidationError(u"""Debe conciliar todas las formas de pago del contrato para cambiar a estado 'Conciliado'.
-                                        Si existe algun anticipo pendiente, este debe ser generado antes de continuar. 
+                                        Si existe algun anticipo pendiente, este debe ser generado antes de continuar.
                                         Si los pagos no igualan o superan el abono de matricula no se puede conciliar el contrato.""")
         else:
             self.pool.get('education_contract.contract').browse(cr, uid, ids).write({'state': 'validated'})
@@ -572,6 +602,7 @@ class education_contract(models.Model):
             if not first_student_id:
                 first_student_id = self.env['education_contract.beneficiary'].create({
                     'firstname': sale_order_id.partner_id.firstname,
+                    'secondname': sale_order_id.partner_id.secondname,
                     'name': sale_order_id.partner_id.firstname,
                     'last_name': sale_order_id.partner_id.lastname,
                     'partner_id': sale_order_id.partner_id.id})
@@ -626,7 +657,6 @@ class education_contract(models.Model):
 
                 if plan_id:
                     vals.update({'plan_id': [(6, False, [plan_id.id])]})
-
                 res = super(education_contract, self).create(vals)
 
                 return res
@@ -914,11 +944,11 @@ class payment_term(models.Model):
             record.invisible = invisible
 
     type = fields.Selection(
-        [('credit_card', 'Tarjeta de credito'), ('cash', 'Efectivo'), ('check', 'Cheque'), ('other', 'Otro')],
+        [('credit_card', _(u'Tarjeta de crédito')), ('cash', 'Efectivo'), ('check', 'Cheque'), ('other', 'Otro')],
         default='cash', string='Forma de pago', required=True)
-    description_other = fields.Char('Especificacion')
+    description_other = fields.Char(_(u'Especificación'))
     cash_sub_type = fields.Selection(
-        [('debit_card', 'Tarjeta de debito'), ('transfer', 'Transferencia'), ('cash', 'Efectivo')], default='cash')
+        [('debit_card', _(u'Tarjeta de débito')), ('transfer', 'Transferencia'), ('cash', 'Efectivo')], default='cash')
     sub_type = fields.Selection(
         [('debit_card', 'Tarjeta de debito'), ('transfer', 'Transferencia'), ('cash', 'Efectivo')])
     voucher_id = fields.Many2one('education_contract.voucher', string='Voucher')
@@ -957,11 +987,12 @@ class voucher(models.Model):
 
     date = fields.Date('Fecha')
     card_name = fields.Char('Nombre de tarjeta')  # revisar que sea un nomenclador
-    voucher_number = fields.Char('Numero de voucher')
-    auth_number = fields.Char('Numero de autorizacion')
+    voucher_number = fields.Char(_(u'Número de voucher'))
+    auth_number = fields.Char(_(u'Número de autorizacion'))
     bank = fields.Many2one('res.bank', string='Banco')
     payment_term_id = fields.Many2one('education_contract.payment_term', string='Forma de pago')
     amount = fields.Float(related='payment_term_id.amount', string='Monto')
+    contract_id = fields.Many2one(related='payment_term_id.contract_id')
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:
@@ -983,10 +1014,11 @@ class check(models.Model):
 
     date = fields.Date('Fecha')
     bank = fields.Many2one('res.bank', string='Banco')
-    check_number = fields.Char('Numero de cheque')
+    check_number = fields.Char(_(u'Número de cheque'))
     beneficiary = fields.Char('Beneficiario')
     payment_term_id = fields.Many2one('education_contract.payment_term', string='Forma de pago')
     amount = fields.Float(related='payment_term_id.amount', string='Monto')
+    contract_id = fields.Many2one(related='payment_term_id.contract_id')
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:
@@ -1008,9 +1040,10 @@ class transfer(models.Model):
     date = fields.Date('Fecha')
     bank = fields.Many2one('res.bank', string='Banco')
     owner = fields.Char('Titular')
-    auth_number = fields.Char('Numero de autorizacion')
+    auth_number = fields.Char(_(u'Número de autorización'))
     payment_term_id = fields.Many2one('education_contract.payment_term', string='Forma de pago')
     amount = fields.Float(related='payment_term_id.amount', string='Monto')
+    contract_id = fields.Many2one(related='payment_term_id.contract_id')
 
     def name_get(self, cr, uid, ids, context=None):
         if context is None:

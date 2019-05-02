@@ -12,6 +12,33 @@
                     <field name="contract_id" string="Contrato" required="1"/>
                 </field>
             </field>
+	</record>
+
+        <record id="view_op_roll_number_tree_ext" model="ir.ui.view">
+            <field name="name">op.roll.number.tree.ext</field>
+            <field name="model">op.roll.number</field>
+            <field name="inherit_id" ref="openeducat_erp.view_op_roll_number_tree"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="division_id" position="after">
+                    <field name="state" string="Estado"/>
+                </field>
+            </field>
+	</record>
+
+        <record id="view_op_roll_number_search_ext" model="ir.ui.view">
+            <field name="name">op.roll.number.search.ext</field>
+            <field name="model">op.roll.number</field>
+            <field name="inherit_id" ref="openeducat_erp.view_op_roll_number_search"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="student_id" position="after">
+                    <field name="state" string="Estado"/>
+		</field>
+		<xpath expr="//group" position="inside">
+		  <filter string="Estado" domain="[]" context="{'group_by':'state'}" />
+		</xpath>
+            </field>
         </record>
 
     </data>

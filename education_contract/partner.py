@@ -12,27 +12,27 @@ from dateutil import parser
 class partner(models.Model):
     _name = 'res.partner'
     _inherit = 'res.partner'
-    
+
     education_contract_id = fields.One2many('education_contract.contract', 'owner', string='Contrato de estudios')
     display_name = fields.Char(compute='_compute_display_name')
-    
+
     @api.one
     @api.depends('name', 'is_company')
     def _compute_display_name(self):
         self.display_name = self.name
-    
-    
+
+
     def name_get(self,cr,uid,ids,context=None):
         if context is None:
             context ={}
         res=[]
-        
+
         record_name=self.browse(cr,uid,ids,context)
-        
+
         for object in record_name:
             display_name = object.name
             res.append((object.id, '%s' % (display_name or 'Nombre no visible')))
-            
+
         return res
 
     @api.model
@@ -42,4 +42,3 @@ class partner(models.Model):
             vals.update({'name': name})
         res = super(partner, self).create(vals)
         return res
-    

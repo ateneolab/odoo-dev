@@ -71,7 +71,8 @@ class ContractVerification(models.Model):
         self.write({
             'collection_plan_id': collection_id.id,
             'contract_id': self.contract_id.id,
-            'start_date': plan_id.start_date
+            'start_date': plan_id.start_date,
+            'state': 'generated'
         })
 
         plan_id.write({'collection_plan_id': collection_id.id})
@@ -170,6 +171,7 @@ class ContractVerification(models.Model):
     @api.one
     def to_signed(self):
         self.verify_user_id = self._uid
+        self.write({'state': 'signed'})
 
     operating_unit_id = fields.Many2one(related='contract_id.campus_id', store=True, string='Sucursal')
     contract_id = fields.Many2one('education_contract.contract', _('Contrato'))
@@ -188,6 +190,24 @@ class ContractVerification(models.Model):
 
     collections_phone = fields.Char(u'Teléfono de cobranzas')
     partner_id = fields.Many2one(related='contract_id.owner', string='Titular')
+    state = fields.Selection(
+        [
+            ('new', _(u'Nuevo')),
+            ('generated', _(u'Generado')),
+            ('signed', _(u'Firmado')),
+            ('cancelled', _(u'Cancelado'))
+        ],
+        required=True,
+        default='new'
+    )
+
+    @api.multi
+    def do_cancel(self):
+        self.write({'state': 'cancelled'})
+
+    @api.multi
+    def do_reset(self):
+        self.write({'state': 'new'})
 
 
 class CollectionPlan(models.Model):

@@ -1,0 +1,2257 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* education_contract
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-19 15:29+0000\n"
+"PO-Revision-Date: 2019-04-19 15:29+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,claim_count:0
+msgid "# Claims"
+msgstr "# Claims"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,meeting_count:0
+msgid "# Meetings"
+msgstr "# Meetings"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,supplier_invoice_count:0
+#: field:op.student,supplier_invoice_count:0
+#: field:res.users,supplier_invoice_count:0
+msgid "# Supplier Invoices"
+msgstr "# Supplier Invoices"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,task_count:0
+msgid "# Tasks"
+msgstr "# Tasks"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,purchase_order_count:0
+#: field:op.student,purchase_order_count:0
+#: field:res.users,purchase_order_count:0
+msgid "# of Purchase Order"
+msgstr "# of Purchase Order"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,sale_order_count:0
+msgid "# of Sales Order"
+msgstr "# of Sales Order"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "#Cheque"
+msgstr "#Cheque"
+
+#. module: education_contract
+#: model:ir.actions.act_window,help:education_contract.action_advance
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic para crear un Anticipo a un vendedor.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Odoo te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic para crear un Anticipo a un vendedor.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Odoo te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+
+#. module: education_contract
+#: model:ir.actions.act_window,help:education_contract.action_contracts
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic para crear un Contrato de estudios.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Odoo te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic para crear un Contrato de estudios.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Odoo te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+
+#. module: education_contract
+#: model:ir.actions.act_window,help:education_contract.action_payment_mode
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic para crear un Modo de pago.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Odoo te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic para crear un Modo de pago.\n"
+"                </p>\n"
+"                <p>\n"
+"                    Odoo te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+
+#. module: education_contract
+#: view:education_contract.advance:education_contract.view_advance_form
+#: field:education_contract.advance,base_payment_term_ids:0
+msgid "Abonos base"
+msgstr "Abonos base"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,property_account_payable:0
+msgid "Account Payable"
+msgstr "Account Payable"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,property_account_receivable:0
+msgid "Account Receivable"
+msgstr "Account Receivable"
+
+#. module: education_contract
+#: model:ir.model,name:education_contract.model_account_voucher
+msgid "Accounting Voucher"
+msgstr "Comprobantes contables"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,active:0
+msgid "Active"
+msgstr "Active"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,activity_log:0
+msgid "Activity Log"
+msgstr "Activity Log"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,type:0
+msgid "Address Type"
+msgstr "Address Type"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,age:0
+msgid "Age"
+msgstr "Age"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,alumni_boolean:0
+msgid "Alumni Student"
+msgstr "Alumni Student"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Alumnos"
+msgstr "Alumnos"
+
+#. module: education_contract
+#: view:education_contract.conciliation:education_contract.view_conciliation_form
+#: view:education_contract.contract:education_contract.view_education_contract
+#: view:education_contract.payment_term:education_contract.view_education_payment_term_tree
+msgid "Anticipo"
+msgstr "Anticipo"
+
+#. module: education_contract
+#: model:ir.actions.act_window,name:education_contract.action_advance
+#: model:ir.ui.menu,name:education_contract.menu_edu_advance
+msgid "Anticipo de vendedor"
+msgstr "Anticipo de vendedor"
+
+#. module: education_contract
+#: selection:education_contract.contract,state:0
+msgid "Anulado"
+msgstr "Anulado"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+msgid "Anular"
+msgstr "Anular"
+
+#. module: education_contract
+#: view:education_contract.beneficiary:education_contract.view_beneficiary_tree
+#: field:education_contract.beneficiary,last_name:0
+#: field:education_contract.beneficiary,lastname:0
+msgid "Apellido"
+msgstr "Apellido"
+
+#. module: education_contract
+#: code:addons/education_contract/models.py:28
+#: field:education_contract.beneficiary,surnames:0
+#: view:education_contract.contract:education_contract.view_education_contract
+#, python-format
+msgid "Apellidos"
+msgstr "Apellidos"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,emotional_support:0
+#: field:op.student,emotional_support:0
+msgid "Apoyo emocional"
+msgstr "Apoyo emocional"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,school_support:0
+#: field:op.student,school_support:0
+msgid "Apoyo escolar"
+msgstr "Apoyo escolar"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,psico_support:0
+#: field:op.student,psico_support:0
+msgid "Apoyo psico pedagógico"
+msgstr "Apoyo psico pedagógico"
+
+#. module: education_contract
+#: selection:education_contract.contract,state:0
+msgid "Aprobado"
+msgstr "Aprobado"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+msgid "Aprobar"
+msgstr "Aprobar"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Asesor"
+msgstr "Asesor"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_edu_contract_search
+msgid "Asesor de venta"
+msgstr "Asesor de venta"
+
+#. module: education_contract
+#: selection:education_contract.contract,state:0
+msgid "Asignado"
+msgstr "Asignado"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+msgid "Asignar"
+msgstr "Asignar"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,allocation_ids:0
+msgid "Assignment"
+msgstr "Assignment"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,authorisation_ids:0
+msgid "Autorizaciones"
+msgstr "Autorizaciones"
+
+#. module: education_contract
+#: view:education_contract.advance:education_contract.view_advance_form
+#: view:education_contract.advance:education_contract.view_advance_tree
+#: field:education_contract.advance,salary_advance_id:0
+msgid "Avance de salario"
+msgstr "Avance de salario"
+
+#. module: education_contract
+#: field:education_contract.payment_term,salary_advance_id:0
+msgid "Avanse de salario"
+msgstr "Avanse de salario"
+
+#. module: education_contract
+#: field:education_contract.program,qty_years:0
+msgid "Años"
+msgstr "Años"
+
+#. module: education_contract
+#: field:education_contract.check,bank:0
+#: field:education_contract.transfer,bank:0
+#: field:education_contract.voucher,bank:0
+#: view:website:education_contract.report_rpm_document
+msgid "Banco"
+msgstr "Banco"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,bank_acc_num:0
+msgid "Bank Acc Number"
+msgstr "Bank Acc Number"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,bank_ids:0
+msgid "Banks"
+msgstr "Banks"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,batch_id:0
+#: view:education_contract.contract:education_contract.view_edu_contract_search
+#: field:education_contract.program,batch_id:0
+msgid "Batch"
+msgstr "Edición"
+
+#. module: education_contract
+#: selection:education_contract.plan,type:0
+msgid "Beca"
+msgstr "Beca"
+
+#. module: education_contract
+#: code:addons/education_contract/models.py:404
+#: field:education_contract.contract,beneficiary_ids_2:0
+#, python-format
+msgid "Beneficiaries"
+msgstr "Beneficiaries"
+
+#. module: education_contract
+#: field:education_contract.check,beneficiary:0
+#: view:website:education_contract.report_rpm_document
+msgid "Beneficiario"
+msgstr "Beneficiario"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+msgid "Beneficiarios"
+msgstr "Beneficiarios"
+
+#. module: education_contract
+#: field:education_contract.contract,beneficiary_ids:0
+msgid "Beneficiarios Tmp"
+msgstr "Beneficiarios Tmp"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,birthdate_date:0
+msgid "Birthdate"
+msgstr "Birthdate"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,birthdate:0
+msgid "Birthdate (OLD)"
+msgstr "Birthdate (OLD)"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,blood_group:0
+msgid "Blood Group"
+msgstr "Blood Group"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "CONSTANCIA DE DEPOSITOS, VOUCHERS Y EGRESOS"
+msgstr "CONSTANCIA DE DEPOSITOS, VOUCHERS Y EGRESOS"
+
+#. module: education_contract
+#: view:education_contract.rpm_wizard:education_contract.view_report_rpm_wizard
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: education_contract
+#: selection:education_contract.advance,state:0
+#: selection:education_contract.payment_term,state:0
+#: view:website:education_contract.report_rpm_document
+msgid "Cancelado"
+msgstr "Cancelado"
+
+#. module: education_contract
+#: view:education_contract.conciliation:education_contract.view_conciliation_form
+#: view:education_contract.contract:education_contract.view_education_contract
+#: view:education_contract.payment_term:education_contract.view_education_payment_term_tree
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: education_contract
+#: field:education_contract.plan,qty_dues:0
+msgid "Cantidad de cuotas"
+msgstr "Cantidad de cuotas"
+
+#. module: education_contract
+#: field:education_contract.payment_term,cash_sub_type:0
+msgid "Cash sub type"
+msgstr "Cash sub type"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,category:0
+msgid "Categoría"
+msgstr "Categoría"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,ced_ruc:0
+msgid "Cedula/ RUC"
+msgstr "Cedula/ RUC"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,is_company:0
+msgid "Check if the contact is a company, otherwise it is a person"
+msgstr "Check if the contact is a company, otherwise it is a person"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,vat_subjected:0
+msgid "Check this box if the partner is subjected to the VAT. It will be used for the VAT legal statement."
+msgstr "Check this box if the partner is subjected to the VAT. It will be used for the VAT legal statement."
+
+#. module: education_contract
+#: help:education_contract.beneficiary,customer:0
+msgid "Check this box if this contact is a customer."
+msgstr "Check this box if this contact is a customer."
+
+#. module: education_contract
+#: help:education_contract.beneficiary,supplier:0
+msgid "Check this box if this contact is a supplier. If it's not checked, purchase people will not see it when encoding a purchase order."
+msgstr "Check this box if this contact is a supplier. If it's not checked, purchase people will not see it when encoding a purchase order."
+
+#. module: education_contract
+#: help:education_contract.beneficiary,employee:0
+msgid "Check this box if this contact is an Employee."
+msgstr "Check this box if this contact is an Employee."
+
+#. module: education_contract
+#: view:education_contract.check:education_contract.view_education_check
+#: field:education_contract.payment_term,check_id:0
+#: selection:education_contract.payment_term,type:0
+#: view:website:education_contract.report_rpm_document
+msgid "Cheque"
+msgstr "Cheque"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,father_child_ids:0
+#: field:education_contract.beneficiary,mother_child_ids:0
+msgid "Childs"
+msgstr "Childs"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,city:0
+msgid "City"
+msgstr "City"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,social_club:0
+#: field:op.student,social_club:0
+msgid "Club social"
+msgstr "Club social"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_edu_contract_search
+#: field:education_contract.payment_mode,code:0
+msgid "Codigo"
+msgstr "Codigo"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,color:0
+msgid "Color Index"
+msgstr "Color Index"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,commercial_partner_id:0
+msgid "Commercial Entity"
+msgstr "Commercial Entity"
+
+#. module: education_contract
+#: field:education_contract.contract,company_id:0
+msgid "Compania"
+msgstr "Compania"
+
+#. module: education_contract
+#: model:ir.model,name:education_contract.model_res_company
+msgid "Companies"
+msgstr "Companies"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,ref_companies:0
+msgid "Companies that refers to partner"
+msgstr "Companies that refers to partner"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,company_id:0
+msgid "Company"
+msgstr "Company"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,contact_address:0
+msgid "Complete Address"
+msgstr "Complete Address"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Concepto"
+msgstr "Concepto"
+
+#. module: education_contract
+#: field:education_contract.contract,contract_conciliation_id:0
+#: field:res.users,contract_conciliation_id:0
+msgid "Conciliacion de contrato"
+msgstr "Conciliacion de contrato"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+#: selection:education_contract.contract,state:0
+msgid "Conciliado"
+msgstr "Conciliado"
+
+#. module: education_contract
+#: selection:education_contract.payment_term,state:0
+msgid "Confirmado"
+msgstr "Confirmado"
+
+#. module: education_contract
+#: view:education_contract.conciliation:education_contract.view_conciliation_form
+#: view:education_contract.contract:education_contract.view_education_contract
+#: view:education_contract.payment_term:education_contract.view_education_payment_term_tree
+msgid "Confirmar"
+msgstr "Confirmar"
+
+#. module: education_contract
+#: field:op.roll.number,frozen:0
+msgid "Congelado"
+msgstr "Congelado"
+
+#. module: education_contract
+#: view:op.roll.number:education_contract.view_op_roll_number_form3
+#: field:op.roll.number,freezing_ids:0
+msgid "Congelamientos"
+msgstr "Congelamientos"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,ref:0
+msgid "Contact Reference"
+msgstr "Contact Reference"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,child_ids:0
+msgid "Contacts"
+msgstr "Contacts"
+
+#. module: education_contract
+#: selection:education_contract.plan,type:0
+msgid "Contado"
+msgstr "Contado"
+
+#. module: education_contract
+#: code:addons/education_contract/models.py:22
+#: field:education_contract.beneficiary,contract_id:0
+#, python-format
+msgid "Contracto"
+msgstr "Contracto"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,contracts_count:0
+msgid "Contracts"
+msgstr "Contracts"
+
+#. module: education_contract
+#: field:education_contract.conciliation,contract_id:0
+#: view:education_contract.contract:education_contract.view_edu_contract_search
+#: field:education_contract.payment_term,contract_id:0
+#: field:education_contract.plan,contract_id:0
+msgid "Contrato"
+msgstr "Contrato"
+
+#. module: education_contract
+#: field:account.voucher,education_contract_id:0
+#: field:education_contract.beneficiary,education_contract_id:0
+#: view:education_contract.contract:education_contract.view_education_contract
+#: view:education_contract.contract:education_contract.view_education_contract_tree
+#: field:education_contract.program,contract_id:0
+#: field:op.student,education_contract_id:0
+#: field:res.partner,education_contract_id:0
+#: field:res.users,education_contract_id:0
+#: field:sale.order,education_contract_id:0
+msgid "Contrato de estudios"
+msgstr "Contrato de estudios"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,contract_ids:0
+#: field:education_contract.rpm_wizard,contract_ids:0
+msgid "Contratos"
+msgstr "Contratos"
+
+#. module: education_contract
+#: model:ir.actions.act_window,name:education_contract.action_contracts
+#: model:ir.ui.menu,name:education_contract.menu_edu_contract
+msgid "Contratos de estudios"
+msgstr "Contratos de estudios"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,country_id:0
+msgid "Country"
+msgstr "Country"
+
+#. module: education_contract
+#: code:addons/education_contract/models.py:21
+#: field:education_contract.beneficiary,create_new:0
+#, python-format
+msgid "Crear nuevo beneficiario"
+msgstr "Crear nuevo beneficiario"
+
+#. module: education_contract
+#: field:education_contract.advance,create_uid:0
+#: field:education_contract.beneficiary,create_uid:0
+#: field:education_contract.check,create_uid:0
+#: field:education_contract.conciliation,create_uid:0
+#: field:education_contract.contract,create_uid:0
+#: field:education_contract.payment_info,create_uid:0
+#: field:education_contract.payment_mode,create_uid:0
+#: field:education_contract.payment_term,create_uid:0
+#: field:education_contract.plan,create_uid:0
+#: field:education_contract.program,create_uid:0
+#: field:education_contract.rpm_wizard,create_uid:0
+#: field:education_contract.transfer,create_uid:0
+#: field:education_contract.voucher,create_uid:0
+#: field:op.roll.number.freeze,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: education_contract
+#: field:education_contract.advance,create_date:0
+#: field:education_contract.beneficiary,create_date:0
+#: field:education_contract.check,create_date:0
+#: field:education_contract.conciliation,create_date:0
+#: field:education_contract.contract,create_date:0
+#: field:education_contract.payment_info,create_date:0
+#: field:education_contract.payment_mode,create_date:0
+#: field:education_contract.payment_term,create_date:0
+#: field:education_contract.plan,create_date:0
+#: field:education_contract.program,create_date:0
+#: field:education_contract.rpm_wizard,create_date:0
+#: field:education_contract.transfer,create_date:0
+#: field:education_contract.voucher,create_date:0
+#: field:op.roll.number.freeze,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,credit_limit:0
+msgid "Credit Limit"
+msgstr "Credit Limit"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,current_job:0
+msgid "Current Job"
+msgstr "Current Job"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,current_position:0
+msgid "Current Position"
+msgstr "Current Position"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,roll_number:0
+msgid "Current Roll Number"
+msgstr "Current Roll Number"
+
+#. module: education_contract
+#: code:addons/education_contract/models.py:161
+#: field:education_contract.beneficiary,course_id:0
+#: field:education_contract.program,course_id:0
+#, python-format
+msgid "Curso"
+msgstr "Curso"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,customer:0
+msgid "Customer"
+msgstr "Customer"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,property_stock_customer:0
+msgid "Customer Location"
+msgstr "Customer Location"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,property_payment_term:0
+msgid "Customer Payment Term"
+msgstr "Customer Payment Term"
+
+#. module: education_contract
+#: field:education_contract.contract,barcode:0
+#: view:website:education_contract.report_rpm_document
+msgid "Código"
+msgstr "Código"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,date:0
+msgid "Date"
+msgstr "Date"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,message_last_post:0
+#: help:education_contract.contract,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date of the last message posted on the record."
+
+#. module: education_contract
+#: help:education_contract.beneficiary,last_reconciliation_date:0
+msgid "Date on which the partner accounting entries were fully reconciled last time. It differs from the last date where a reconciliation has been made for this partner, as here we depict the fact that nothing more was to be reconciled at this date. This can be achieved in 2 different ways: either the last unreconciled debit/credit entry of this partner was reconciled, either the user pressed the button \"Nothing more to reconcile\" during the manual reconciliation process."
+msgstr "Date on which the partner accounting entries were fully reconciled last time. It differs from the last date where a reconciliation has been made for this partner, as here we depict the fact that nothing more was to be reconciled at this date. This can be achieved in 2 different ways: either the last unreconciled debit/credit entry of this partner was reconciled, either the user pressed the button \"Nothing more to reconcile\" during the manual reconciliation process."
+
+#. module: education_contract
+#: view:op.student:education_contract.view_op_student_form2
+msgid "Datos extra"
+msgstr "Datos extra"
+
+#. module: education_contract
+#: field:education_contract.payment_term,account_voucher_id:0
+msgid "Deposito abono"
+msgstr "Deposito abono"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Depósito en Cheques"
+msgstr "Depósito en Cheques"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Depósito en Efectivo"
+msgstr "Depósito en Efectivo"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Depósito en Transferencias"
+msgstr "Depósito en Transferencias"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Depósito en Vouchers"
+msgstr "Depósito en Vouchers"
+
+#. module: education_contract
+#: field:education_contract.payment_mode,journal_id:0
+msgid "Diario contable"
+msgstr "Diario contable"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,disabled_person:0
+msgid "Disabled Person?"
+msgstr "Disabled Person?"
+
+#. module: education_contract
+#: field:education_contract.advance,display_name:0
+#: field:education_contract.beneficiary,display_name:0
+#: field:education_contract.check,display_name:0
+#: field:education_contract.conciliation,display_name:0
+#: field:education_contract.contract,display_name:0
+#: field:education_contract.payment_info,display_name:0
+#: field:education_contract.payment_mode,display_name:0
+#: field:education_contract.payment_term,display_name:0
+#: field:education_contract.plan,display_name:0
+#: field:education_contract.program,display_name:0
+#: field:education_contract.rpm_wizard,display_name:0
+#: field:education_contract.transfer,display_name:0
+#: field:education_contract.voucher,display_name:0
+#: field:op.roll.number.freeze,display_name:0
+#: field:report.education_contract.report_rpm,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,division_id:0
+msgid "Division"
+msgstr "Division"
+
+#. module: education_contract
+#: field:op.roll.number.freeze,duration:0
+msgid "Duración en meses"
+msgstr "Duración en meses"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,ean13:0
+msgid "EAN13"
+msgstr "EAN13"
+
+#. module: education_contract
+#: view:sale.order:education_contract.view_order_form_educ
+msgid "Educación"
+msgstr "Educación"
+
+#. module: education_contract
+#: selection:education_contract.payment_term,cash_sub_type:0
+#: selection:education_contract.payment_term,sub_type:0
+#: selection:education_contract.payment_term,type:0
+#: view:website:education_contract.report_rpm_document
+msgid "Efectivo"
+msgstr "Efectivo"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,email:0
+msgid "Email"
+msgstr "Email"
+
+#. module: education_contract
+#: model:ir.model,name:education_contract.model_education_contract_contract
+msgid "Email Thread"
+msgstr "Hilo de mensajes"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,emergency_contact:0
+msgid "Emergency Contact"
+msgstr "Emergency Contact"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,employee:0
+msgid "Employee"
+msgstr "Employee"
+
+#. module: education_contract
+#: field:education_contract.contract,study_company_id:0
+msgid "Empresa o sucursal principal"
+msgstr "Empresa o sucursal principal"
+
+#. module: education_contract
+#: field:education_contract.payment_term,description_other:0
+msgid "Especificación"
+msgstr "Especificación"
+
+#. module: education_contract
+#: field:education_contract.advance,state:0
+#: view:education_contract.contract:education_contract.view_edu_contract_search
+#: field:education_contract.contract,kanban_state:0
+#: field:education_contract.contract,state:0
+#: field:education_contract.payment_term,contract_state:0
+#: field:education_contract.payment_term,state:0
+msgid "Estado"
+msgstr "Estado"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,language_stimulation:0
+#: field:op.student,language_stimulation:0
+msgid "Estimulación del lenguaje"
+msgstr "Estimulación del lenguaje"
+
+#. module: education_contract
+#: view:education_contract.beneficiary:education_contract.view_beneficiary_form
+#: field:education_contract.program,beneficiary_id:0
+msgid "Estudiante"
+msgstr "Estudiante"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,student_id:0
+msgid "Estudiante relacionado"
+msgstr "Estudiante relacionado"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,student_id:0
+msgid "Estudiate relacionado del beneficiario"
+msgstr "Estudiate relacionado del beneficiario"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,father_id:0
+msgid "Father"
+msgstr "Father"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,fax:0
+msgid "Fax"
+msgstr "Fax"
+
+#. module: education_contract
+#: field:education_contract.advance,date:0
+#: field:education_contract.check,date:0
+#: field:education_contract.conciliation,date:0
+#: field:education_contract.transfer,date:0
+#: field:education_contract.voucher,date:0
+#: view:website:education_contract.report_rpm_document
+msgid "Fecha"
+msgstr "Fecha"
+
+#. module: education_contract
+#: field:education_contract.contract,date:0
+msgid "Fecha contrato"
+msgstr "Fecha contrato"
+
+#. module: education_contract
+#: field:op.roll.number,diploma_date:0
+msgid "Fecha de entrega de título"
+msgstr "Fecha de entrega de título"
+
+#. module: education_contract
+#: field:op.roll.number.freeze,start_date:0
+msgid "Fecha de inicio"
+msgstr "Fecha de inicio"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,end_date:0
+#: field:education_contract.beneficiary,start_date:0
+msgid "Fecha de inicio de clases"
+msgstr "Fecha de inicio de clases"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,birth_date:0
+msgid "Fecha de nacimiento"
+msgstr "Fecha de nacimiento"
+
+#. module: education_contract
+#: field:education_contract.contract,schedule_reservation_date:0
+#: field:op.roll.number,schedule_reservation_date:0
+msgid "Fecha de separación de horario"
+msgstr "Fecha de separación de horario"
+
+#. module: education_contract
+#: help:education_contract.contract,date:0
+msgid "Fecha del contrato. Por defecto es la fecha del pedido de venta."
+msgstr "Fecha del contrato. Por defecto es la fecha del pedido de venta."
+
+#. module: education_contract
+#: field:education_contract.rpm_wizard,date_end:0
+#: field:op.roll.number.freeze,end_date:0
+msgid "Fecha fin"
+msgstr "Fecha fin"
+
+#. module: education_contract
+#: field:education_contract.rpm_wizard,date_start:0
+msgid "Fecha inicio"
+msgstr "Fecha inicio"
+
+#. module: education_contract
+#: view:op.roll.number:education_contract.view_op_roll_number_form3
+msgid "Fechas"
+msgstr "Fechas"
+
+#. module: education_contract
+#: view:education_contract.rpm_wizard:education_contract.view_report_rpm_wizard
+msgid "Filtrar por gerentes de marketing"
+msgstr "Filtrar por gerentes de marketing"
+
+#. module: education_contract
+#: view:education_contract.rpm_wizard:education_contract.view_report_rpm_wizard
+msgid "Filtrar por sucursales"
+msgstr "Filtrar por sucursales"
+
+#. module: education_contract
+#: view:education_contract.rpm_wizard:education_contract.view_report_rpm_wizard
+msgid "Filtrar por vendedores"
+msgstr "Filtrar por vendedores"
+
+#. module: education_contract
+#: selection:education_contract.plan,type:0
+msgid "Financiado"
+msgstr "Financiado"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,property_account_position:0
+msgid "Fiscal Position"
+msgstr "Fiscal Position"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,message_follower_ids:0
+#: field:education_contract.contract,message_follower_ids:0
+msgid "Followers"
+msgstr "Followers"
+
+#. module: education_contract
+#: field:account.voucher,payment_term_id:0
+#: field:education_contract.check,payment_term_id:0
+#: view:education_contract.payment_term:education_contract.view_payment_term_form
+#: field:education_contract.payment_term,type:0
+#: field:education_contract.transfer,payment_term_id:0
+#: field:education_contract.voucher,payment_term_id:0
+msgid "Forma de pago"
+msgstr "Forma de pago"
+
+#. module: education_contract
+#: view:education_contract.conciliation:education_contract.view_conciliation_form
+#: field:education_contract.conciliation,payment_term:0
+#: view:education_contract.contract:education_contract.view_education_contract
+#: field:education_contract.contract,payment_term_ids:0
+#: field:education_contract.plan,payment_term_ids:0
+msgid "Formas de pago"
+msgstr "Formas de pago"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,gr_no:0
+msgid "GR Number"
+msgstr "GR Number"
+
+#. module: education_contract
+#: selection:education_contract.advance,state:0
+msgid "Generado"
+msgstr "Generado"
+
+#. module: education_contract
+#: view:education_contract.advance:education_contract.view_advance_form
+msgid "Generar anticipo"
+msgstr "Generar anticipo"
+
+#. module: education_contract
+#: code:addons/education_contract/sale.py:13
+#, python-format
+msgid "Generate contract"
+msgstr "Generate contract"
+
+#. module: education_contract
+#: field:education_contract.rpm_wizard,manager_id:0
+msgid "Gerenete de Marketing"
+msgstr "Gerenete de Marketing"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Gerente Marketing"
+msgstr "Gerente Marketing"
+
+#. module: education_contract
+#: field:education_contract.contract,marketing_manager_id:0
+#: field:res.company,marketing_manager_id:0
+msgid "Gerente de Marketing"
+msgstr "Gerente de Marketing"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_edu_contract_search
+msgid "Gerente de marketing"
+msgstr "Gerente de marketing"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Gerentes"
+msgstr "Gerentes"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_edu_contract_search
+msgid "Group By..."
+msgstr "Group By..."
+
+#. module: education_contract
+#: code:addons/education_contract/models.py:167
+#: field:education_contract.program,division_id:0
+#, python-format
+msgid "Grupo"
+msgstr "Grupo"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,gender:0
+msgid "Género"
+msgstr "Género"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,health_lines:0
+msgid "Health Detail"
+msgstr "Health Detail"
+
+#. module: education_contract
+#: selection:education_contract.contract,priority:0
+msgid "High"
+msgstr "High"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,message_summary:0
+#: help:education_contract.contract,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+
+#. module: education_contract
+#: view:education_contract.beneficiary:education_contract.view_beneficiary_form
+msgid "Horario"
+msgstr "Horario"
+
+#. module: education_contract
+#: code:addons/education_contract/models.py:23
+#, python-format
+msgid "Horarios"
+msgstr "Horarios"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,husband_id:0
+msgid "Husband"
+msgstr "Husband"
+
+#. module: education_contract
+#: field:education_contract.advance,id:0
+#: field:education_contract.beneficiary,id:0
+#: field:education_contract.check,id:0
+#: field:education_contract.conciliation,id:0
+#: field:education_contract.contract,id:0
+#: field:education_contract.payment_info,id:0
+#: field:education_contract.payment_mode,id:0
+#: field:education_contract.payment_term,id:0
+#: field:education_contract.plan,id:0
+#: field:education_contract.program,id:0
+#: field:education_contract.rpm_wizard,id:0
+#: field:education_contract.transfer,id:0
+#: field:education_contract.voucher,id:0
+#: field:op.roll.number.freeze,id:0
+#: field:report.education_contract.report_rpm,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,id_number:0
+msgid "ID Card Number"
+msgstr "ID Card Number"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "ILVEM & CHARLOTTE"
+msgstr "ILVEM & CHARLOTTE"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,ced_ruc:0
+msgid "Identificación o Registro Unico de Contribuyentes"
+msgstr "Identificación o Registro Unico de Contribuyentes"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,message_unread:0
+#: help:education_contract.contract,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "If checked new messages require your attention."
+
+#. module: education_contract
+#: help:education_contract.beneficiary,opt_out:0
+msgid "If opt-out is checked, this contact has refused to receive emails for mass mailing and marketing campaign. Filter 'Available for Mass Mailing' allows users to filter the partners when performing mass mailing."
+msgstr "If opt-out is checked, this contact has refused to receive emails for mass mailing and marketing campaign. Filter 'Available for Mass Mailing' allows users to filter the partners when performing mass mailing."
+
+#. module: education_contract
+#: help:education_contract.beneficiary,lang:0
+msgid "If the selected language is loaded in the system, all documents related to this contact will be printed in this language. If not, it will be English."
+msgstr "If the selected language is loaded in the system, all documents related to this contact will be printed in this language. If not, it will be English."
+
+#. module: education_contract
+#: field:education_contract.beneficiary,image:0
+msgid "Image"
+msgstr "Image"
+
+#. module: education_contract
+#: view:education_contract.rpm_wizard:education_contract.view_report_rpm_wizard
+msgid "Imprimir RPM"
+msgstr "Imprimir RPM"
+
+#. module: education_contract
+#: help:education_contract.contract,company_id:0
+msgid "Interno para multiempresa"
+msgstr "Interno para multiempresa"
+
+#. module: education_contract
+#: field:education_contract.payment_term,invisible:0
+msgid "Invisible"
+msgstr "Invisible"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,invoice_exists:0
+msgid "Invoice"
+msgstr "Invoice"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,invoice_ids:0
+msgid "Invoices"
+msgstr "Invoices"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,is_company:0
+msgid "Is a Company"
+msgstr "Is a Company"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,message_is_follower:0
+#: field:education_contract.contract,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Is a Follower"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,function:0
+msgid "Job Position"
+msgstr "Job Position"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,journal_item_count:0
+msgid "Journal Items"
+msgstr "Journal Items"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,lang:0
+msgid "Language"
+msgstr "Language"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,message_last_post:0
+#: field:education_contract.contract,message_last_post:0
+msgid "Last Message Date"
+msgstr "Last Message Date"
+
+#. module: education_contract
+#: field:education_contract.advance,__last_update:0
+#: field:education_contract.beneficiary,__last_update:0
+#: field:education_contract.check,__last_update:0
+#: field:education_contract.conciliation,__last_update:0
+#: field:education_contract.contract,__last_update:0
+#: field:education_contract.payment_info,__last_update:0
+#: field:education_contract.payment_mode,__last_update:0
+#: field:education_contract.payment_term,__last_update:0
+#: field:education_contract.plan,__last_update:0
+#: field:education_contract.program,__last_update:0
+#: field:education_contract.rpm_wizard,__last_update:0
+#: field:education_contract.transfer,__last_update:0
+#: field:education_contract.voucher,__last_update:0
+#: field:op.roll.number.freeze,__last_update:0
+#: field:report.education_contract.report_rpm,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: education_contract
+#: field:education_contract.advance,write_uid:0
+#: field:education_contract.beneficiary,write_uid:0
+#: field:education_contract.check,write_uid:0
+#: field:education_contract.conciliation,write_uid:0
+#: field:education_contract.contract,write_uid:0
+#: field:education_contract.payment_info,write_uid:0
+#: field:education_contract.payment_mode,write_uid:0
+#: field:education_contract.payment_term,write_uid:0
+#: field:education_contract.plan,write_uid:0
+#: field:education_contract.program,write_uid:0
+#: field:education_contract.rpm_wizard,write_uid:0
+#: field:education_contract.transfer,write_uid:0
+#: field:education_contract.voucher,write_uid:0
+#: field:op.roll.number.freeze,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: education_contract
+#: field:education_contract.advance,write_date:0
+#: field:education_contract.beneficiary,write_date:0
+#: field:education_contract.check,write_date:0
+#: field:education_contract.conciliation,write_date:0
+#: field:education_contract.contract,write_date:0
+#: field:education_contract.payment_info,write_date:0
+#: field:education_contract.payment_mode,write_date:0
+#: field:education_contract.payment_term,write_date:0
+#: field:education_contract.plan,write_date:0
+#: field:education_contract.program,write_date:0
+#: field:education_contract.rpm_wizard,write_date:0
+#: field:education_contract.transfer,write_date:0
+#: field:education_contract.voucher,write_date:0
+#: field:op.roll.number.freeze,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,calendar_last_notif_ack:0
+#: field:op.student,calendar_last_notif_ack:0
+#: field:res.users,calendar_last_notif_ack:0
+msgid "Last notification marked as read from base Calendar"
+msgstr "Last notification marked as read from base Calendar"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,last_reconciliation_date:0
+msgid "Latest Full Reconciliation Date"
+msgstr "Latest Full Reconciliation Date"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,opportunity_ids:0
+msgid "Leads and Opportunities"
+msgstr "Leads and Opportunities"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,library_card:0
+#: field:education_contract.beneficiary,library_card_ids:0
+msgid "Library Card"
+msgstr "Library Card"
+
+#. module: education_contract
+#: selection:education_contract.contract,priority:0
+msgid "Low"
+msgstr "Low"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,marital_status:0
+msgid "Marital Status"
+msgstr "Marital Status"
+
+#. module: education_contract
+#: field:op.roll.number.freeze,roll_number_id:0
+msgid "Matrícula"
+msgstr "Matrícula"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,image_medium:0
+msgid "Medium-sized image"
+msgstr "Medium-sized image"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,image_medium:0
+msgid "Medium-sized image of this contact. It is automatically resized as a 128x128px image, with aspect ratio preserved. Use this field in form views or some kanban views."
+msgstr "Medium-sized image of this contact. It is automatically resized as a 128x128px image, with aspect ratio preserved. Use this field in form views or some kanban views."
+
+#. module: education_contract
+#: field:education_contract.beneficiary,meeting_ids:0
+msgid "Meetings"
+msgstr "Meetings"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Mensualidad"
+msgstr "Mensualidad"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,message_ids:0
+#: field:education_contract.contract,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,message_ids:0
+#: help:education_contract.contract,message_ids:0
+msgid "Messages and communication history"
+msgstr "Messages and communication history"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,mobile:0
+msgid "Mobile"
+msgstr "Mobile"
+
+#. module: education_contract
+#: field:education_contract.advance,journal_id:0
+#: field:education_contract.payment_term,payment_mode_id:0
+msgid "Modo de pago"
+msgstr "Modo de pago"
+
+#. module: education_contract
+#: model:ir.actions.act_window,name:education_contract.action_payment_mode
+#: model:ir.ui.menu,name:education_contract.menu_edu_payment_mode
+msgid "Modo de pago contratos"
+msgstr "Modo de pago contratos"
+
+#. module: education_contract
+#: field:education_contract.advance,amount:0
+#: field:education_contract.check,amount:0
+#: field:education_contract.payment_term,amount:0
+#: field:education_contract.transfer,amount:0
+#: field:education_contract.voucher,amount:0
+msgid "Monto"
+msgstr "Monto"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,mother_id:0
+msgid "Mother"
+msgstr "Mother"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,language:0
+msgid "Mother Tongue"
+msgstr "Mother Tongue"
+
+#. module: education_contract
+#: field:education_contract.payment_info,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,national_identity:0
+msgid "National Identity"
+msgstr "National Identity"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,nationality:0
+#: field:education_contract.beneficiary,nationality_id:0
+msgid "Nationality"
+msgstr "Nationality"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "No."
+msgstr "No."
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+msgid "No. Cuotas"
+msgstr "No. Cuotas"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,firstname:0
+#: field:education_contract.beneficiary,name:0
+#: field:education_contract.payment_mode,name:0
+msgid "Nombre"
+msgstr "Nombre"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,full_name:0
+#: field:res.users,full_name:0
+msgid "Nombre completo"
+msgstr "Nombre completo"
+
+#. module: education_contract
+#: field:education_contract.voucher,card_name:0
+msgid "Nombre de tarjeta"
+msgstr "Nombre de tarjeta"
+
+#. module: education_contract
+#: field:education_contract.program,name:0
+msgid "Nombre del Programa"
+msgstr "Nombre del Programa"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Nombre tarjeta"
+msgstr "Nombre tarjeta"
+
+#. module: education_contract
+#: selection:education_contract.contract,priority:0
+msgid "Normal"
+msgstr "Normal"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+#: field:education_contract.contract,notes:0
+msgid "Notas internas"
+msgstr "Notas internas"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,notes:0
+#: field:op.student,notes:0
+msgid "Notas relacionadas"
+msgstr "Notas relacionadas"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,comment:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: education_contract
+#: selection:education_contract.advance,state:0
+#: selection:education_contract.contract,state:0
+#: selection:education_contract.payment_term,state:0
+msgid "Nuevo"
+msgstr "Nuevo"
+
+#. module: education_contract
+#: field:education_contract.transfer,auth_number:0
+#: field:education_contract.voucher,auth_number:0
+msgid "Número de autorización"
+msgstr "Número de autorización"
+
+#. module: education_contract
+#: field:education_contract.check,check_number:0
+msgid "Número de cheque"
+msgstr "Número de cheque"
+
+#. module: education_contract
+#: field:education_contract.voucher,voucher_number:0
+msgid "Número de voucher"
+msgstr "Número de voucher"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Nº Autorización"
+msgstr "Nº Autorización"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Nº Cheque"
+msgstr "Nº Cheque"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Nº autorización"
+msgstr "Nº autorización"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Nº tarjeta"
+msgstr "Nº tarjeta"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Nº voucher"
+msgstr "Nº voucher"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+#: field:education_contract.contract,observations:0
+#: view:website:education_contract.report_rpm_document
+msgid "Observaciones"
+msgstr "Observaciones"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,opportunity_count:0
+msgid "Opportunity"
+msgstr "Opportunity"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,opt_out:0
+msgid "Opt-Out"
+msgstr "Opt-Out"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,origin:0
+msgid "Origen"
+msgstr "Origen"
+
+#. module: education_contract
+#: selection:education_contract.payment_term,type:0
+msgid "Otro"
+msgstr "Otro"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,pan_card:0
+msgid "PAN Card"
+msgstr "PAN Card"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "PROGRAMA"
+msgstr "PROGRAMA"
+
+#. module: education_contract
+#: view:education_contract.payment_term:education_contract.view_education_payment_term_tree
+msgid "Pago"
+msgstr "Pago"
+
+#. module: education_contract
+#: selection:education_contract.payment_term,state:0
+msgid "Para anticipo"
+msgstr "Para anticipo"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,parent_ids:0
+msgid "Parent"
+msgstr "Parent"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,parent_name:0
+msgid "Parent name"
+msgstr "Parent name"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,relationship:0
+msgid "Parentezco"
+msgstr "Parentezco"
+
+#. module: education_contract
+#: model:ir.model,name:education_contract.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,passing_year:0
+msgid "Passing Year"
+msgstr "Passing Year"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,passport:0
+msgid "Passport"
+msgstr "Passport"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,debit_limit:0
+msgid "Payable Limit"
+msgstr "Payable Limit"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_edu_contract_search
+#: field:education_contract.contract,sale_order_id:0
+msgid "Pedido de venta"
+msgstr "Pedido de venta"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+#: selection:education_contract.contract,state:0
+msgid "Pendiente"
+msgstr "Pendiente"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,tipo_persona:0
+msgid "Persona"
+msgstr "Persona"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,phone:0
+msgid "Phone Number"
+msgstr "Phone Number"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,phonecall_count:0
+#: field:education_contract.beneficiary,phonecall_ids:0
+msgid "Phonecalls"
+msgstr "Phonecalls"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,photo:0
+msgid "Photo"
+msgstr "Photo"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,placement_line:0
+msgid "Placement Details"
+msgstr "Placement Details"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+#: field:education_contract.contract,plan_id:0
+#: view:website:education_contract.report_rpm_document
+msgid "Plan"
+msgstr "Plan"
+
+#. module: education_contract
+#: view:education_contract.plan:education_contract.view_education_plan
+msgid "Plan de financiamiento"
+msgstr "Plan de financiamiento"
+
+#. module: education_contract
+#: field:account.voucher,plan_id:0
+#: field:education_contract.payment_term,plan_id:0
+#: field:education_contract.payment_term,plan_id_ref:0
+msgid "Plan de pagos"
+msgstr "Plan de pagos"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,notify_email:0
+msgid "Policy to receive emails for new messages pushed to your personal Inbox:\n"
+"- Never: no emails are sent\n"
+"- All Messages: for every notification you receive in your Inbox"
+msgstr "Policy to receive emails for new messages pushed to your personal Inbox:\n"
+"- Never: no emails are sent\n"
+"- All Messages: for every notification you receive in your Inbox"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Por cancelar"
+msgstr "Por cancelar"
+
+#. module: education_contract
+#: help:education_contract.contract,user_id:0
+msgid "Por defecto es el creador del pedido de venta que da origen al contrato."
+msgstr "Por defecto es el creador del pedido de venta que da origen al contrato."
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+msgid "Pre-verificar"
+msgstr "Pre-verificar"
+
+#. module: education_contract
+#: selection:education_contract.contract,state:0
+msgid "Preverificado"
+msgstr "Preverificado"
+
+#. module: education_contract
+#: field:education_contract.contract,priority:0
+msgid "Priority"
+msgstr "Priority"
+
+#. module: education_contract
+#: selection:education_contract.payment_term,state:0
+msgid "Procesado"
+msgstr "Procesado"
+
+#. module: education_contract
+#: field:op.batch,program_id:0
+#: field:op.standard,program_id:0
+msgid "Program"
+msgstr "Program"
+
+#. module: education_contract
+#: view:education_contract.program:education_contract.view_education_program
+msgid "Programa"
+msgstr "Programa"
+
+#. module: education_contract
+#: view:education_contract.beneficiary:education_contract.view_beneficiary_form
+#: field:education_contract.beneficiary,program_ids:0
+#: view:education_contract.contract:education_contract.view_education_contract
+msgid "Programas"
+msgstr "Programas"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,property_product_pricelist_purchase:0
+#: field:op.student,property_product_pricelist_purchase:0
+#: field:res.users,property_product_pricelist_purchase:0
+msgid "Purchase Pricelist"
+msgstr "Purchase Pricelist"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "REPORTE DE PRODUCCIÓN POR MATRÍCULA - RPM"
+msgstr "REPORTE DE PRODUCCIÓN POR MATRÍCULA - RPM"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,notify_email:0
+msgid "Receive Inbox Notifications by Email"
+msgstr "Receive Inbox Notifications by Email"
+
+#. module: education_contract
+#: code:addons/education_contract/models.py:777
+#: field:education_contract.plan,registration_payed:0
+#, python-format
+msgid "Registration payed?"
+msgstr "Registration payed?"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,parent_id:0
+msgid "Related Company"
+msgstr "Related Company"
+
+#. module: education_contract
+#: help:salary.advance,user_id:0
+msgid "Related user name for the resource to manage its access."
+msgstr "Related user name for the resource to manage its access."
+
+#. module: education_contract
+#: field:education_contract.beneficiary,religion:0
+msgid "Religion"
+msgstr "Religion"
+
+#. module: education_contract
+#: model:ir.actions.act_window,name:education_contract.contract
+#: model:ir.ui.menu,name:education_contract.menu_rpm_report
+msgid "Reporte RPM"
+msgstr "Reporte RPM"
+
+#. module: education_contract
+#: field:education_contract.contract,program_ids:0
+msgid "Resumen de Programas"
+msgstr "Resumen de Programas"
+
+#. module: education_contract
+#: code:addons/education_contract/code/op_roll_number.py:13
+#, python-format
+msgid "Roll"
+msgstr "Roll"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,roll_number_line:0
+msgid "Roll Number"
+msgstr "Matrícula"
+
+#. module: education_contract
+#: field:education_contract.plan,registration_residual:0
+msgid "Saldo matricula"
+msgstr "Saldo matricula"
+
+#. module: education_contract
+#: field:education_contract.plan,residual:0
+msgid "Saldo total a pagar"
+msgstr "Saldo total a pagar"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,property_product_pricelist:0
+msgid "Sale Pricelist"
+msgstr "Sale Pricelist"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,sale_order_ids:0
+#: model:ir.model,name:education_contract.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,section_id:0
+msgid "Sales Team"
+msgstr "Sales Team"
+
+#. module: education_contract
+#: field:education_contract.contract,seller_id:0
+msgid "Salesperson"
+msgstr "Salesperson"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Sede"
+msgstr "Sede"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,secondlastname:0
+#: field:res.users,secondlastname:0
+msgid "Segundo apellido"
+msgstr "Segundo apellido"
+
+#. module: education_contract
+#: view:education_contract.beneficiary:education_contract.view_beneficiary_tree
+#: field:education_contract.beneficiary,middle_name:0
+#: field:education_contract.beneficiary,secondname:0
+#: view:education_contract.contract:education_contract.view_education_contract
+#: field:res.users,secondname:0
+msgid "Segundo nombre"
+msgstr "Segundo nombre"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,use_parent_address:0
+msgid "Select this if you want to set company's address information  for this contact"
+msgstr "Select this if you want to set company's address information  for this contact"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,sex:0
+msgid "Sex"
+msgstr "Sex"
+
+#. module: education_contract
+#: view:education_contract.beneficiary:education_contract.view_beneficiary_tree
+#: view:education_contract.contract:education_contract.view_education_contract
+msgid "Sexo"
+msgstr "Sexo"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,signup_expiration:0
+msgid "Signup Expiration"
+msgstr "Signup Expiration"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,signup_token:0
+msgid "Signup Token"
+msgstr "Signup Token"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,signup_type:0
+msgid "Signup Token Type"
+msgstr "Signup Token Type"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,signup_valid:0
+msgid "Signup Token is Valid"
+msgstr "Signup Token is Valid"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,signup_url:0
+msgid "Signup URL"
+msgstr "Signup URL"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,image_small:0
+msgid "Small-sized image"
+msgstr "Small-sized image"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,image_small:0
+msgid "Small-sized image of this contact. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+msgstr "Small-sized image of this contact. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+
+#. module: education_contract
+#: code:addons/education_contract/models.py:20
+#: field:education_contract.beneficiary,partner_id:0
+#, python-format
+msgid "Socio"
+msgstr "Socio"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,standard_id:0
+#: field:education_contract.program,standard_id:0
+msgid "Standard"
+msgstr "Módulo"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,state_id:0
+msgid "State"
+msgstr "State"
+
+#. module: education_contract
+#: field:education_contract.contract,state_to_show:0
+msgid "State to show"
+msgstr "State to show"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,street:0
+msgid "Street"
+msgstr "Street"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,street2:0
+msgid "Street2"
+msgstr "Street2"
+
+#. module: education_contract
+#: field:education_contract.payment_term,sub_type:0
+msgid "Sub type"
+msgstr "Sub type"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_edu_contract_search
+#: field:education_contract.contract,campus_id:0
+#: field:education_contract.program,campus_id:0
+#: field:education_contract.program,study_company_id:0
+#: field:education_contract.rpm_wizard,campus_id:0
+msgid "Sucursal"
+msgstr "Sucursal"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Sucursales"
+msgstr "Sucursales"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,message_summary:0
+#: field:education_contract.contract,message_summary:0
+msgid "Summary"
+msgstr "Summary"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,supplier:0
+msgid "Supplier"
+msgstr "Supplier"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,property_stock_supplier:0
+msgid "Supplier Location"
+msgstr "Supplier Location"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,property_supplier_payment_term:0
+msgid "Supplier Payment Term"
+msgstr "Supplier Payment Term"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "TABLA DE DEPOSITOS EN CHEQUE"
+msgstr "TABLA DE DEPOSITOS EN CHEQUE"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "TABLA DE DEPOSITOS EN EFECTIVO"
+msgstr "TABLA DE DEPOSITOS EN EFECTIVO"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "TABLA DE DEPOSITOS EN TRANSFERENCIA"
+msgstr "TABLA DE DEPOSITOS EN TRANSFERENCIA"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "TABLA DE USO DE EFECTIVO"
+msgstr "TABLA DE USO DE EFECTIVO"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "TABLA DE VOUCHERS"
+msgstr "TABLA DE VOUCHERS"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,vat:0
+msgid "TIN"
+msgstr "TIN"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "TODOS"
+msgstr "TODOS"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,category_id:0
+msgid "Tags"
+msgstr "Tags"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Tarjeta"
+msgstr "Tarjeta"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Tarjeta - Voucher - Banco"
+msgstr "Tarjeta - Voucher - Banco"
+
+#. module: education_contract
+#: selection:education_contract.payment_term,type:0
+msgid "Tarjeta de credito"
+msgstr "Tarjeta de credito"
+
+#. module: education_contract
+#: selection:education_contract.payment_term,cash_sub_type:0
+#: selection:education_contract.payment_term,sub_type:0
+msgid "Tarjeta de debito"
+msgstr "Tarjeta de debito"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,task_ids:0
+msgid "Tasks"
+msgstr "Tasks"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,vat:0
+msgid "Tax Identification Number. Check the box if this contact is subjected to taxes. Used by the some of the legal statements."
+msgstr "Tax Identification Number. Check the box if this contact is subjected to taxes. Used by the some of the legal statements."
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Teléfonos"
+msgstr "Teléfonos"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,property_account_position:0
+msgid "The fiscal position will determine taxes and accounts used for the partner."
+msgstr "The fiscal position will determine taxes and accounts used for the partner."
+
+#. module: education_contract
+#: help:education_contract.beneficiary,tz:0
+msgid "The partner's timezone, used to output proper date and time values inside printed reports. It is important to set a value for this field. You should use the same timezone that is otherwise used to pick and render date and time values: your computer's timezone."
+msgstr "The partner's timezone, used to output proper date and time values inside printed reports. It is important to set a value for this field. You should use the same timezone that is otherwise used to pick and render date and time values: your computer's timezone."
+
+#. module: education_contract
+#: help:education_contract.beneficiary,property_account_payable:0
+msgid "This account will be used instead of the default one as the payable account for the current partner"
+msgstr "This account will be used instead of the default one as the payable account for the current partner"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,property_account_receivable:0
+msgid "This account will be used instead of the default one as the receivable account for the current partner"
+msgstr "This account will be used instead of the default one as the receivable account for the current partner"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,image:0
+msgid "This field holds the image used as avatar for this contact, limited to 1024x1024px"
+msgstr "This field holds the image used as avatar for this contact, limited to 1024x1024px"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,property_supplier_payment_term:0
+msgid "This payment term will be used instead of the default one for purchase orders and supplier invoices"
+msgstr "This payment term will be used instead of the default one for purchase orders and supplier invoices"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,property_payment_term:0
+msgid "This payment term will be used instead of the default one for sale orders and customer invoices"
+msgstr "This payment term will be used instead of the default one for sale orders and customer invoices"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,property_product_pricelist_purchase:0
+#: help:op.student,property_product_pricelist_purchase:0
+#: help:res.users,property_product_pricelist_purchase:0
+msgid "This pricelist will be used, instead of the default one, for purchases from the current partner"
+msgstr "This pricelist will be used, instead of the default one, for purchases from the current partner"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,property_product_pricelist:0
+msgid "This pricelist will be used, instead of the default one, for sales to the current partner"
+msgstr "This pricelist will be used, instead of the default one, for sales to the current partner"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,property_stock_customer:0
+msgid "This stock location will be used, instead of the default one, as the destination location for goods you send to this partner"
+msgstr "This stock location will be used, instead of the default one, as the destination location for goods you send to this partner"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,property_stock_supplier:0
+msgid "This stock location will be used, instead of the default one, as the source location for goods you receive from the current partner"
+msgstr "This stock location will be used, instead of the default one, as the source location for goods you receive from the current partner"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,tz:0
+msgid "Timezone"
+msgstr "Timezone"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,tz_offset:0
+msgid "Timezone offset"
+msgstr "Timezone offset"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,type_ced_ruc:0
+msgid "Tipo ID"
+msgstr "Tipo ID"
+
+#. module: education_contract
+#: field:education_contract.plan,type:0
+msgid "Tipo de Plan"
+msgstr "Tipo de Plan"
+
+#. module: education_contract
+#: view:education_contract.advance:education_contract.view_advance_form
+#: view:education_contract.conciliation:education_contract.view_conciliation_form
+#: view:education_contract.contract:education_contract.view_education_contract
+#: view:education_contract.payment_term:education_contract.view_education_payment_term_tree
+#: view:education_contract.payment_term:education_contract.view_payment_term_form
+msgid "Tipo de efectivo"
+msgstr "Tipo de efectivo"
+
+#. module: education_contract
+#: view:education_contract.payment_term:education_contract.view_payment_term_form
+msgid "Tipos en Efectivo"
+msgstr "Tipos en Efectivo"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,title:0
+msgid "Title"
+msgstr "Title"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_edu_contract_search
+#: field:education_contract.contract,owner:0
+#: field:education_contract.transfer,owner:0
+#: view:website:education_contract.report_rpm_document
+msgid "Titular"
+msgstr "Titular"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Total General"
+msgstr "Total General"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,total_invoiced:0
+msgid "Total Invoiced"
+msgstr "Total Invoiced"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,debit:0
+msgid "Total Payable"
+msgstr "Total Payable"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,credit:0
+msgid "Total Receivable"
+msgstr "Total Receivable"
+
+#. module: education_contract
+#: field:education_contract.plan,amount_pay:0
+msgid "Total a pagar"
+msgstr "Total a pagar"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,credit:0
+msgid "Total amount this customer owes you."
+msgstr "Total amount this customer owes you."
+
+#. module: education_contract
+#: help:education_contract.beneficiary,debit:0
+msgid "Total amount you have to pay to this supplier."
+msgstr "Total amount you have to pay to this supplier."
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Totales"
+msgstr "Totales"
+
+#. module: education_contract
+#: selection:education_contract.payment_term,cash_sub_type:0
+#: selection:education_contract.payment_term,sub_type:0
+#: field:education_contract.payment_term,transfer_id:0
+#: view:education_contract.transfer:education_contract.view_education_transfer
+msgid "Transferencia"
+msgstr "Transferencia"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,message_unread:0
+#: field:education_contract.contract,message_unread:0
+msgid "Unread Messages"
+msgstr "Unread Messages"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+msgid "Update"
+msgstr "Update"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,use_parent_address:0
+msgid "Use Company Address"
+msgstr "Use Company Address"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,type:0
+msgid "Used to select automatically the right address according to the context in sales and purchases documents."
+msgstr "Used to select automatically the right address according to the context in sales and purchases documents."
+
+#. module: education_contract
+#: field:education_contract.beneficiary,user_id:0
+#: field:salary.advance,user_id:0
+msgid "User"
+msgstr "User"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,user_ids:0
+#: model:ir.model,name:education_contract.model_res_users
+msgid "Users"
+msgstr "Users"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Uso de Efectivo"
+msgstr "Uso de Efectivo"
+
+#. module: education_contract
+#: field:salary.advance,is_seller_advance:0
+msgid "Uso de efectivo"
+msgstr "Uso de efectivo"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,vat_subjected:0
+msgid "VAT Legal Statement"
+msgstr "VAT Legal Statement"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Valor"
+msgstr "Valor"
+
+#. module: education_contract
+#: view:education_contract.contract:education_contract.view_education_contract
+msgid "Valor Matricula"
+msgstr "Valor Matricula"
+
+#. module: education_contract
+#: field:education_contract.plan,registration_fee:0
+msgid "Valor matricula"
+msgstr "Valor matricula"
+
+#. module: education_contract
+#: field:education_contract.plan,amount_monthly:0
+msgid "Valor mensual"
+msgstr "Valor mensual"
+
+#. module: education_contract
+#: field:education_contract.advance,seller_id:0
+#: field:education_contract.conciliation,seller_id:0
+#: field:education_contract.contract,user_id:0
+#: field:education_contract.rpm_wizard,user_id:0
+msgid "Vendedor"
+msgstr "Vendedor"
+
+#. module: education_contract
+#: view:website:education_contract.report_rpm_document
+msgid "Vendedores"
+msgstr "Vendedores"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,visa_info:0
+msgid "Visa Info"
+msgstr "Visa Info"
+
+#. module: education_contract
+#: field:education_contract.payment_term,voucher_id:0
+#: view:education_contract.voucher:education_contract.view_education_voucher
+msgid "Voucher"
+msgstr "Voucher"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,website:0
+msgid "Website"
+msgstr "Website"
+
+#. module: education_contract
+#: field:account.voucher,website_message_ids:0
+#: field:education_contract.contract,website_message_ids:0
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: education_contract
+#: help:account.voucher,website_message_ids:0
+#: help:education_contract.contract,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: education_contract
+#: help:education_contract.beneficiary,website:0
+msgid "Website of Partner or Company"
+msgstr "Website of Partner or Company"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,wife_id:0
+msgid "Wife"
+msgstr "Wife"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,zip:0
+msgid "Zip"
+msgstr "Zip"
+
+#. module: education_contract
+#: model:ir.actions.report.xml,name:education_contract.report_contract
+msgid "report_contract"
+msgstr "report_contract"
+
+#. module: education_contract
+#: field:education_contract.beneficiary,has_image:0
+msgid "unknown"
+msgstr "unknown"
+
+#. module: education_contract
+#: view:sale.order:education_contract.view_order_form_educ
+msgid "{'no_quick_create': True}"
+msgstr "{'no_quick_create': True}"
+

@@ -21,7 +21,7 @@ class PaymentTerm(models.Model):
                                  u'Solo tiene permitido confirmar los pagos. No puede modificar otros datos.')
         return super(PaymentTerm, self).write(vals)
 
-    invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
+    invoice_id = fields.Many2one('account.invoice', string=_(u'Factura'))
     internal_state = fields.Selection([
         ('created', 'Created'),
         ('invoiced', 'Invoiced'),

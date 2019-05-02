@@ -10,3 +10,4 @@ class Division(models.Model):
     _inherit = 'op.division'
 
     program_id = fields.One2many('education_contract.program', 'division_id', 'Program')
+    standard_id = fields.Many2one('op.standard', _(u'Módulo'))

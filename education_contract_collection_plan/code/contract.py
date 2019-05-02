@@ -21,7 +21,7 @@ class Contract(models.Model):
     _name = 'education_contract.contract'
     _inherit = 'education_contract.contract'
 
-    verification_id = fields.Many2one('education_contract.verification', 'contract_id')
+    verification_id = fields.Many2one('education_contract.verification', string=_(u'Verificación'))
     roll_number_ids = fields.One2many('op.roll.number', 'contract_id', u'Matrículas')
     date_booking_schedule = fields.Date(u'Fecha de separación de horario')
     start_date = fields.Date(u'Fecha de inicio de clases')
@@ -67,7 +67,7 @@ class Contract(models.Model):
                 'roll_number': '1',
                 'beneficiary_id': prog.beneficiary_id.id,
                 'contract_id': self.id,
-                'state': 'inactive',
+                'state': 'new',
                 'operating_unit_id': prog.campus_id.id,
             }
             if self.date_booking_schedule:

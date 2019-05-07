@@ -194,20 +194,11 @@ class ContractVerification(models.Model):
         [
             ('new', _(u'Nuevo')),
             ('generated', _(u'Generado')),
-            ('signed', _(u'Firmado')),
-            ('cancelled', _(u'Cancelado'))
+            ('signed', _(u'Firmado'))
         ],
         required=True,
         default='new'
     )
-
-    @api.multi
-    def do_cancel(self):
-        self.write({'state': 'cancelled'})
-
-    @api.multi
-    def do_reset(self):
-        self.write({'state': 'new'})
 
 
 class CollectionPlan(models.Model):

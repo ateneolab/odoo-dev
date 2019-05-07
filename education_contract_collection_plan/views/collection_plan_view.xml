@@ -52,8 +52,6 @@
                                 class="oe_highlight"/>
                         <button name="generate_collection_plan" type="object" states="new" string="Generar plan de cobranzas" context="{'generated_no_edit': False}"
 				class="oe_highlight" confirm="Seguro que los acuerdos de pagos están actualizados?"/>
-			<button string="Cancelar" type="object" states="new" name="do_cancel"/>
-			<button string="Restablecer a nuevo " states="cancelled" type="object" name="do_reset"/>
 			<field name="state" widget="statusbar"/>
                     </header>
 

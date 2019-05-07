@@ -176,7 +176,7 @@ class CollectionPlan(models.Model):
             ('cancelled', _(u'Cancelado'))
         ],
         required=True,
-        default='draft'
+        default='new'
     )
     all_payed = fields.Boolean(
         compute='_compute_all_payed'

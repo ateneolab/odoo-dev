@@ -51,7 +51,7 @@
 			<button name="to_signed" type="object" states="generated" string="Marcar como firmado"
                                 class="oe_highlight"/>
                         <button name="generate_collection_plan" type="object" states="new" string="Generar plan de cobranzas" context="{'generated_no_edit': False}"
-				class="oe_highlight" confirm="Seguro que los acuerdos de pagos están actualizados?"/>
+				class="oe_highlight" confirm="Solo podrá generarlo una vez y no podrá volver a editar el informe de verificación"/>
 			<field name="state" widget="statusbar"/>
                     </header>
 

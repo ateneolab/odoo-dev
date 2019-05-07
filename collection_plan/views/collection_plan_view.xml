@@ -37,7 +37,7 @@
                                 context="{'collection_plan_id': id, 'default_contract_id': contract_id, 'invoice_multi': True}"
 				class="oe_highlight"/>
 
-			<field name="state" widget="statusbar"/>
+			<field name="state" widget="statusbar" options="{'always_reload': True}"/>
                     </header>
                     <sheet>
                         <group>
@@ -183,7 +183,6 @@
 	      <field name="end_date"/>
 	      <field name="residual"/>
 	      <field name="state"/>
-	      <field name="all_payed"/>
 	    </tree>
 	  </field>
 	</record>

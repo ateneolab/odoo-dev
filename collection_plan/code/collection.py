@@ -175,11 +175,9 @@ class CollectionPlan(models.Model):
             ('cancelled_parcial', _(u'Cancelado parcial')),
             ('cancelled', _(u'Cancelado'))
         ],
-        required=True,
-        default='new'
-    )
-    all_payed = fields.Boolean(
-        compute='_compute_all_payed'
+        compute='_compute_all_payed',
+        default='new',
+        store=True
     )
 
     @api.depends('payment_term_ids', 'payment_term_ids.payed', 'payment_term_ids.invoice_id')
@@ -187,16 +185,13 @@ class CollectionPlan(models.Model):
         for record in self:
             if record.payment_term_ids:
                 if all(item.payed for item in record.payment_term_ids):
-                    record.all_payed = True
-                else:
-                    record.all_payed = False
-                if record.all_payed:
-                    record.write({'state': 'cancelled'})
-                else:
-                    record.write({'state': 'cancelled_parcial'})
+                    record.state = 'cancelled'
+                if any(not item.payed for item in record.payment_term_ids):
+                    record.state = 'cancelled_parcial'
+                if all(not item.payed for item in record.payment_term_ids):
+                    record.state = 'new'
             else:
-                record.write({'state': 'new'})
-
+                record.state = 'new'
 
     @api.one
     def _compute_account_number(self):

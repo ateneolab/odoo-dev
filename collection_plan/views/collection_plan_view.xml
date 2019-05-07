@@ -120,7 +120,7 @@
                                 </field>
                             </page>
 
-                            <page string="Pagos realizaos">
+                            <page string="Pagos realizados">
                                 <field name="payed_payment_term_ids" domain="[('payed', '=', True)]" readonly="1">
                                     <tree>
                                         <field name="type"/>

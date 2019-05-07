@@ -39,8 +39,6 @@
 
 			<field name="state" widget="statusbar"/>
                     </header>
-
-                    <field name="state" invisible="1"/>
                     <sheet>
                         <group>
                             <group>

@@ -48,7 +48,6 @@
 					<field name="standard_id" required="True"
 					       domain="[('course_id', '=', course_id)]"/>
 					<field name="division_id" required="True"
-					       domain="[('standard_id', '=', standard_id)]"
 					       context="{'default_standard_id': standard_id}"/>
                                         <field name="qty_years" required="True"/>
                                     </tree>

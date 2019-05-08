@@ -118,7 +118,7 @@
                                 </field>
                             </page>
 
-                            <page string="Pagos realizados">
+                            <page string="Pagos realizados" invisible="1">
                                 <field name="payed_payment_term_ids" domain="[('payed', '=', True)]" readonly="1">
                                     <tree>
                                         <field name="type"/>
@@ -150,7 +150,7 @@
                                 </field>
                             </page>
 
-                            <page string="Planes antiguos">
+                            <page string="Planes antiguos" invisible="1">
                                 <field name="plan_ids" readonly="1">
                                     <tree>
                                         <field name="type"/>

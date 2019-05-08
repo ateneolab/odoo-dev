@@ -99,6 +99,8 @@
                                                attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
                                         <field name="planned_date" string="Fecha planeada"/>
                                         <field name="payment_date" string="Fecha de pago"/>
+					<field name="discount" string="Descuento"/>
+					<field name="amount_paid" string="Valor a pagar"/>
                                         <field name="payed" invisible="1"/>
                                         <field name="plan_id" invisible="1"/>
                                         <field name="invisible" invisible="1"/>

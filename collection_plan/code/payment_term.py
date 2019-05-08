@@ -3,6 +3,8 @@
 import datetime
 import logging
 
+import math
+
 from openerp import models, fields, api, _
 from openerp.exceptions import except_orm
 
@@ -30,6 +32,33 @@ class PaymentTerm(models.Model):
     number = fields.Char('Secuencial', compute='_compute_number', store=True)
     company_id = fields.Many2one('res.company', compute='_compute_company', store=True)
     description = fields.Char(u'Description')
+    discount = fields.Float(string=_(u'Descuento'))
+    discount_type = fields.Selection(
+        [
+            ('fixed_amount', 'Monto Fijo'),
+            ('percentage', 'Porcentage')
+        ],
+        string=_(u'Tipo de descuento')
+    )
+    amount_paid = fields.Float(
+        string=_(u'Monto a pagar'),
+        compute='_compute_amount_to_paid'
+    )
+    # Use en la vista solamente
+    is_discount = fields.Boolean(string=_(u'Descuento'))
+
+    @api.depends('discount', 'discount_type', 'amount')
+    def _compute_amount_to_paid(self):
+        for record in self:
+            if record.discount:
+                if record.discount_type == 'fixed_amount':
+                    record.amount_paid = abs(record.amount - record.discount)
+                if record.discount_type == 'percentage':
+                    record.amount_paid = abs(
+                        record.amount - (record.amount * record.discount / 100)
+                    )
+            else:
+                record.amount_paid = record.amount
 
     @api.one
     @api.depends('account_voucher_id')

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<openerp>
+  <data>
+    <record id="view_payment_term_form_ext" model="ir.ui.view">
+      <field name="name">view_payment_term_form_ext</field>
+      <field name="model">education_contract.payment_term</field>
+      <field name="inherit_id" ref="education_contract.view_payment_term_form"/>
+      <field name="arch" type="xml">
+	<xpath expr="/form/group[1]/group[2]" position="after">
+	  <div>
+	    <span>
+	      <strong>
+		<label for="is_discount" string="Descuento"/>
+		<field name="is_discount"/>
+	      </strong>
+	    </span>
+	  </div>
+	  <div attrs="{'invisible': [('is_discount', '!=', True)]}">
+	    <group>
+	      <field name="discount_type"/>
+	      <field name="discount"/>
+	    </group>
+	  </div>
+	</xpath>
+	<xpath expr="//field[@name='amount']" position="after">
+	  <field name="amount_paid"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</openerp>

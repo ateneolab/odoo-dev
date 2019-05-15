@@ -627,9 +627,9 @@
         </record>
 
         <report id="report_verification_qweb"
-                name="education_contract_collection_plan.report_verification_document"
+                name="education_contract_collection_plan.report_verification_template"
                 model="education_contract.verification"
-                string="Informe de verificacion"
+                string="Informe de verificación"
                 report_type="qweb-pdf"/>
 
     </data>

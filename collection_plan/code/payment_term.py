@@ -226,7 +226,7 @@ class PaymentTerm(models.Model):
         new = view_id.create({})
         _logger.info('WIZARD ID: %s' % new.id)
         return {
-            'name': _("Generate invoice"),
+            'name': _("Generar factura"),
             'type': 'ir.actions.act_window',
             'res_model': 'collection_plan.wizard_invoice',
             'res_id': new.id,
@@ -261,7 +261,7 @@ class PaymentTerm(models.Model):
         _logger.info('WIZARD ID: %s' % new.id)
 
         return {
-            'name': _("Generate voucher"),
+            'name': _("Generar recibo"),
             'type': 'ir.actions.act_window',
             'res_model': 'collection_plan.wizard_receipt',
             'res_id': new.id,

@@ -158,7 +158,7 @@ class CollectionPlan(models.Model):
     state = fields.Selection([('created', _('New')), ('done', _('Finish'))], default='created')
     payment_term_ids = fields.One2many('education_contract.payment_term', 'collection_plan_id',
                                        related='active_plan_id.payment_term_fixed_ids',
-                                       string=_('Payment terms from active plan'))
+                                       string=_(u'Información de pago'))
     payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
                                              string=_('All payed Payment terms'), store=True)
     user_id = fields.Many2one('res.users', string=_(u'Gerente de cuenta'))

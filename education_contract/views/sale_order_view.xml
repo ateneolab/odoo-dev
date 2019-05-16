@@ -535,17 +535,15 @@
             <field name="name">education_contract.payment_term.form</field>
             <field name="model">education_contract.payment_term</field>
             <field name="arch" type="xml">
-                <form string="Forma de pago">
+                <form string="Información de pago">
                     <group>
                         <group>
                             <field name="contract_id"/>
-                            <!--<field name="payment_info_id" domain="[('contract_id', '=', contract_id.id)]"/>-->
                         </group>
                         <group>
                             <field name="type"/>
                         </group>
                     </group>
-
                     <group>
                         <group attrs="{'invisible': [('type', 'not in', ['cash'])]}" string="Tipos en Efectivo">
                             <field name="cash_sub_type"

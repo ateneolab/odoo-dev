@@ -471,7 +471,7 @@ class education_contract(models.Model):
 
     def validate_filled(self):
         if not self.beneficiary_ids_2:
-            return False
+            raise ValidationError("Debe agregar al menos un beneficiario.")
 
         if not self.program_ids:
             return False
@@ -589,11 +589,6 @@ class education_contract(models.Model):
 
         if 'sale_order_id' in vals:
             sale_order_id = self.env['sale.order'].browse(vals['sale_order_id'])
-
-            """first_student_id = self.env['education_contract.beneficiary'].search(
-                [('firstname', '=', sale_order_id.partner_id.firstname),
-                 ('last_name', '=', sale_order_id.partner_id.lastname)])"""
-
             first_student_id = self.env['op.student'].search(
                 [('partner_id', '=', sale_order_id.partner_id.id)])
 
@@ -642,8 +637,6 @@ class education_contract(models.Model):
                     'company_id': sale_order_id.company_id.id,
                     'owner': sale_order_id.partner_id.id,
                     'sale_order_id': sale_order_id.id,
-                    # 'beneficiary_ids': [(6, 0, [first_student_id.id])],
-                    'beneficiary_ids_2': [(4, first_student_id.id)],
                     'marketing_manager_id': sale_team_leader_id,
                     'state': 'draft'
                 }

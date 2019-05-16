@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-
 <openerp>
   <data>
-
     <record id="action_view_wizard_invoice_form" model="ir.actions.act_window">
       <field name="name">Collection plan</field>
       <field name="type">ir.actions.act_window</field>
@@ -16,7 +14,7 @@
       <field name="name">collection_plan.wizard_invoice.form</field>
       <field name="model">collection_plan.wizard_invoice</field>
       <field name="arch" type="xml">
-        <form string="Crear factura">
+        <form string="Generar factura">
           <sheet>
 
             <script>
@@ -77,7 +75,5 @@
         </form>
       </field>
     </record>
-
-
   </data>
 </openerp>

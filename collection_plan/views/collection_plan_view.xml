@@ -104,7 +104,7 @@
                                         <field name="payed" invisible="1"/>
                                         <field name="plan_id" invisible="1"/>
                                         <field name="invisible" invisible="1"/>
-                                        <field name="account_voucher_id"/>
+                                        <field name="account_voucher_id" string="No. recibo"/>
                                         <field name="invoice_id" string="Factura"/>
                                         <field name="internal_state" invisible="1"/>
                                         <button name="do_billing"

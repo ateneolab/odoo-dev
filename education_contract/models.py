@@ -948,7 +948,7 @@ class payment_term(models.Model):
     check_id = fields.Many2one('education_contract.check', string='Cheque')
     transfer_id = fields.Many2one('education_contract.transfer', string='Transferencia')
     contract_id = fields.Many2one('education_contract.contract', string='Contrato')
-    account_voucher_id = fields.Many2one('account.voucher', string='Deposito abono')
+    account_voucher_id = fields.Many2one('account.voucher', string='No. recibo')
     # payment_info_id = fields.Many2one('education_contract.payment_info', string='Informacion de abono')
     amount = fields.Float(digits=(6, 4), string='Monto')
     plan_id = fields.Many2one('education_contract.plan', string='Plan de pagos')

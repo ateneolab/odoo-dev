@@ -73,7 +73,7 @@ class WizardInvoice(models.TransientModel):
         tree_id = tree_res and tree_res[1] or False
 
         return {
-            'name': _('Generated Voucher'),
+            'name': _('Generar recibo'),
             'view_type': 'form',
             'view_mode': 'form,tree',
             'res_model': 'account.voucher',

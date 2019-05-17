@@ -8,10 +8,13 @@
       <field name="inherit_id" ref="education_contract.view_payment_term_form"/>
       <field name="arch" type="xml">
 	<xpath expr="//field[@name='contract_id']" position="after">
-	  <field name="planned_date" string="Fecha planeada"/>
+	  <field name="planned_date"
+		 required="1"
+		 string="Fecha planeada"/>
         </xpath>
 	<xpath expr="//field[@name='type']" position="after">
-	  <field name="payment_date" string="Fecha de pago"/>
+	  <field name="payment_date"
+		 string="Fecha de pago"/>
         </xpath>
 	<xpath expr="/form/group[1]/group[2]" position="after">
 	  <div>

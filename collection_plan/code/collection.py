@@ -304,6 +304,7 @@ class EducationContractPlan(models.Model):
 class PaymentTerm(models.Model):
     _name = 'education_contract.payment_term'
     _inherit = 'education_contract.payment_term'
+    _order = 'planned_date,payment_date'
 
     planned_date = fields.Date(_(u'Fecha planificada'))
     payment_date = fields.Date(_(u'Fecha de pago'))

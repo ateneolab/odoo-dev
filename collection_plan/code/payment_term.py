@@ -46,6 +46,20 @@ class PaymentTerm(models.Model):
     )
     # Use en la vista solamente
     is_discount = fields.Boolean(string=_(u'Descuento'))
+    literal = fields.Text(
+        string=_(u'Literal'),
+        compute='_convert_amount_to_literal'
+    )
+    quantity = fields.Integer(
+        string=_(u'Número de cuota'),
+    )
+
+    @api.depends('amount_paid')
+    def _convert_amount_to_literal(self):
+        for record in self:
+            number = record.amount_paid
+            literal = record.numero_to_letras(number)
+            record.literal = literal
 
     @api.depends('discount', 'discount_type', 'amount')
     def _compute_amount_to_paid(self):

@@ -79,7 +79,7 @@
                         <notebook>
                             <page string="Pagos planificados">
                                 <field name="payment_term_ids" domain="[('payed', '=', False)]"
-                                       context="{'collection_plan_id': id, 'default_contract_id': contract_id}">
+                                       context="{'default_collection_plan_id': id, 'default_contract_id': contract_id}">
                                     <tree>
                                         <field name="id" invisible="1"/>
                                         <field name="collection_plan_id" invisible="1"/>

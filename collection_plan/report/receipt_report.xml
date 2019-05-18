@@ -75,31 +75,37 @@
                         <tr>
                             <td style="width: 50%; text-align: left">
                                 <span>Ciudad y fecha:</span>
-                                <span t-esc="o.plan_id.collection_plan_id.contract_id.campus_id.partner_id.city"/>,
+                                <span t-esc="o.contract_id.campus_id.company_id.city"/>,
                                 <span t-esc="o.planned_date"/>
                             </td>
                             <td style="width: 50%; text-align: left">
-                                <span>Efect. Cuenta: ____________________</span>
-                            </td>
+			      <span>No. cuota:</span>
+			      <span t-esc="o.order"/> -
+			      <span t-esc="o.quantity"/>
+			    </td>
                         </tr>
                         <tr>
-                            <td style="width: 50%; text-align: left">
-                                <span>Nombre A: ___________________</span>
-                            </td>
-                            <td style="width: 50%; text-align: left">
-                                <span>Nombre R: _______________________</span>
-                            </td>
-                        </tr>
+			  <td style="width: 50%; text-align: left">
+			    <span>Nombre A:</span>
+			    <span t-esc="o.contract_id.beneficiary_ids_2[0].name"/>
+			    <span t-esc="o.contract_id.beneficiary_ids_2[0].middle_name"/>
+			    <span t-esc="o.contract_id.beneficiary_ids_2[0].surnames"/>
+			  </td>
+			  <td style="width: 50%; text-align: left">
+			    <span>Nombre R:</span>
+			    <span t-esc="o.contract_id.owner.name"></span>
+			  </td>
+			</tr>
                     </table>
                     <table style="width: 100%">
                         <tr>
                             <td style="width: 34%; text-align: left">
-                                <span>Cuenta No:</span>
-                                <span t-esc="o.plan_id.collection_plan_id.id"></span>
+                                <span>No. cuenta:</span>
+                                <span t-esc="o.fixed_plan_id.collection_plan_id.account_number"></span>
                             </td>
                             <td style="width: 33%; text-align: left">
                                 <span>Codigo No:</span>
-                                <span t-esc="o.plan_id.collection_plan_id.contract_id.barcode"></span>
+                                <span t-esc="o.contract_id.barcode"></span>
                             </td>
                             <td style="width: 33%; text-align: right">
                                 <span>Cuenta del Mes:</span>
@@ -190,17 +196,38 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width: 20%">Son:_____________________________________</td>
-                                <td style="width: 20%; text-align: right">
-                                    <span>Descuento $ ________</span>
-                                </td>
+			      <td style="width: 20%">
+				<span>Son:</span>
+				<span t-esc="o.literal"></span>
+				<span>Dolares</span>
+			      </td>
+			    </tr>
+			    <tr>
+			      <td style="width: 20%; text-align: right">
+				<span t-if="o.is_discount != False">
+				  <span>Descuento $:</span>
+				  <span t-esc="o.discount"/>
+				</span>
+			      </td>
+			    </tr>
+			    <tr>
+			      <td style="width: 50%; text-align: right">
+				<span t-if="o.is_discount != False">
+				  <span>Tipo de descuento:</span>
+				  <span t-if="o.discount_type == 'percentage'">
+				    <span>Porciento</span>
+				  </span>
+				  <span t-if="o.discount_type == 'fixed_amount'">
+				    <span>Monto fijo</span>
+				  </span>
+				</span>
+			      </td>
                             </tr>
                             <tr>
-                                <td style="width: 20%">__________________________________ Dolares</td>
-                                <td style="width: 20%; text-align: right">
-                                    <span>TOTAL $</span>
-                                    <span t-esc="o.amount"/>
-                                </td>
+			      <td style="width: 150%; text-align: right">
+				<span>TOTAL $</span>
+				<span t-esc="o.amount_paid"/>
+			      </td>
                             </tr>
                         </table>
                     </div>
@@ -245,7 +272,7 @@
 
         <record id="report_receipt" model="ir.actions.report.xml">
             <field name="name">collection_plan.report_receipt</field>
-            <field name="model">account.invoice</field>
+            <field name="model">education_contract.payment_term</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">collection_plan.report_receipt_template</field>
             <field name="attachment_use" eval="True"/>

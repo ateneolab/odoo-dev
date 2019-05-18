@@ -44,7 +44,9 @@
                             <group>
                             </group>
                             <group/>
-                            <group>
+			    <group>
+			      <field name="account_number"
+				     string="No. Cuenta"/>
                                 <field name="contract_id" string="Contrato de educación" required="1"
                                        attrs="{'readonly': [('state', 'in', ['done'])]}"/>
 				<field name="start_date" string="Fecha de inicio"
@@ -179,6 +181,7 @@
 	  <field name="model">collection_plan.collection_plan</field>
 	  <field name="arch" type="xml">
 	    <tree string="Collection plan" create="0" import="0">
+	      <field name="account_number"/>
 	      <field name="barcode"/>
 	      <field name="user_id"/>
 	      <field name="start_date"/>

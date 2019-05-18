@@ -125,28 +125,6 @@ class CollectionPlan(models.Model):
             'target': 'new',
         }
 
-    # @api.one
-    # @api.depends('payment_term_ids')
-    # def _compute_balance(self):
-    #     print('COMPUTE BALANCE')
-    #     sum = 0.0
-    #     if self.payment_term_ids:
-    #         for pt in self.payment_term_ids:
-    #             if not pt.payed:
-    #                 sum += pt.amount
-    #     self.balance = sum
-
-    # @api.one
-    # @api.onchange('payment_term_ids')
-    # def _onchange_payment_term_ids(self):
-    #     print('ONCHANGE PAYMENT TERM IDS BALANCE')
-    #     sum = 0.0
-    #     if self.payment_term_ids:
-    #         for pt in self.payment_term_ids:
-    #             if not pt.payed:
-    #                 sum += pt.amount
-    #     self.balance = sum
-
     contract_id = fields.Many2one(
         'education_contract.contract',
         string=_(u'Contrato de educación')

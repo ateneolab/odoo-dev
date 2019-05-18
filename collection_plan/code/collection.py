@@ -114,7 +114,7 @@ class CollectionPlan(models.Model):
         view_id = self.env['collection_plan.wizard_invoice']
         new = view_id.create({})
         return {
-            'name': _("Generate invoice"),
+            'name': _("Generar factura"),
             'type': 'ir.actions.act_window',
             'res_model': 'collection_plan.wizard_invoice',
             'res_id': new.id,

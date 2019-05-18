@@ -34,7 +34,10 @@
 	</xpath>
 	<xpath expr="//field[@name='amount']" position="after">
 	  <field name="amount_paid"/>
-        </xpath>
+	</xpath>
+	<xpath expr="//field[@name='amount_paid']" position="after">
+	  <field name="collection_plan_id" invisible="1"/>
+	</xpath>
       </field>
     </record>
   </data>

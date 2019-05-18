@@ -48,17 +48,16 @@ class ContractVerification(models.Model):
         plan_id = self.plan_id.copy({
             'contract_id': None
         })
-
         for pt in self.plan_id.payment_term_ids:
             new_pt = pt.copy({
                 'plan_id': plan_id.id,
                 'fixed_plan_id': plan_id.id,
+                'contract_id': self.contract_id.id
             })
 
             plan_id.write({
                 'payment_term_ids': [(4, new_pt.id)]
             })
-
         data = {
             'active_plan_id': plan_id.id,
             'start_date': plan_id.start_date,

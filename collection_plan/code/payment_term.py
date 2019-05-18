@@ -51,7 +51,8 @@ class PaymentTerm(models.Model):
         compute='_convert_amount_to_literal'
     )
     quantity = fields.Integer(
-        string=_(u'Número de cuota'),
+        string=_(u'Total de cuotas'),
+        related='fixed_plan_id.qty_payment'
     )
 
     @api.depends('amount_paid')

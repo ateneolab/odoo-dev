@@ -302,6 +302,16 @@ class EducationContractPlan(models.Model):
     plan_active = fields.Boolean(_('Active'))
     balance = fields.Float(digits=(6, 4), string=_('Balance'))
     start_date = fields.Date(_('Start date'))
+    qty_payment = fields.Integer(
+        string=_(u'Cantidad de pagos'),
+        compute='_compute_qty_payment'
+    )
+
+    @api.depends('payment_term_fixed_ids')
+    def _compute_qty_payment(self):
+        for record in self:
+            qty = len(record.payment_term_fixed_ids)
+            record.qty_payment = qty;
 
 
 class PaymentTerm(models.Model):

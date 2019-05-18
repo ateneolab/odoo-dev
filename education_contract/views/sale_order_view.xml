@@ -527,9 +527,20 @@
                             </group>
                         </group>
                     </page>
-                </xpath>
+		</xpath>
             </field>
-        </record>
+	</record>
+
+	<record id="view_order_form_educ_ext" model="ir.ui.view">
+	  <field name="name">sale.order.form.educ.ext</field>
+	  <field name="model">sale.order</field>
+	  <field name="inherit_id" ref="l10n_ec_multicompany.view_order_form_mc"/>
+	  <field name="arch" type="xml">
+	    <xpath expr="//field[@name='operating_unit_id']" position="attributes">
+	      <attribute name="required">1</attribute>
+	    </xpath>
+	  </field>
+	</record>
 
         <record id="view_payment_term_form" model="ir.ui.view">
             <field name="name">education_contract.payment_term.form</field>

@@ -17,14 +17,6 @@ class CollectionPlan(models.Model):
     _name = 'collection_plan.collection_plan'
 
     @api.multi
-    def write(self, vals):
-        if 'user_id' in vals or 'active_plan_id' in vals:
-            if not self.env.user.has_group('collection_plan.group_admin_collection_plan'):
-                raise except_orm('Error de acceso',
-                                 u'Solo tiene permitido confirmar los pagos. No puede modificar otros datos.')
-        return super(CollectionPlan, self).write(vals)
-
-    @api.multi
     def unlink(self):
         raise except_orm('Error', _(u"You can't remove a collection plan, you can only edit it."))
 
@@ -193,6 +185,36 @@ class CollectionPlan(models.Model):
             residual = plan_id.compute_residual()
             rec.residual = residual
 
+    @api.model
+    def create(self, vals):
+        res = super(CollectionPlan, self).create(vals)
+        res.update_order_payment(values=vals)
+        return res
+
+    @api.multi
+    def write(self, vals):
+        if 'user_id' in vals or 'active_plan_id' in vals:
+            if not self.env.user.has_group('collection_plan.group_admin_collection_plan'):
+                raise except_orm('Error de acceso',
+                                 u'Solo tiene permitido confirmar los pagos. No puede modificar otros datos.')
+        res = super(CollectionPlan, self).write(vals)
+        self.update_order_payment(values=vals)
+        return res
+
+    def update_order_payment(self, values=None):
+        self._update_order_payment()
+        return True
+
+    def _update_order_payment(self):
+        payments = self.payment_term_ids
+        order_payments = payments.sorted(
+            key=lambda r: r.planned_date, reverse=False
+        )
+        count = 1
+        for item in order_payments:
+            item.order = count
+            count = count + 1
+
 
 class EducationContractPlan(models.Model):
     _name = 'education_contract.plan'
@@ -300,7 +322,7 @@ class PaymentTerm(models.Model):
     planned_date = fields.Date(_(u'Fecha planificada'))
     payment_date = fields.Date(_(u'Fecha de pago'))
     payed = fields.Boolean(_(u'Pagado?'))
-    order = fields.Integer('Order')
+    order = fields.Integer(string=_(u'Order'))
     fixed_plan_id = fields.Many2one('education_contract.plan', string=_(u'Plan de pago'))
     payed_collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(u'Plan de pago de cobranza'))
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(u'Plan de cobranza'))

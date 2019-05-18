@@ -101,7 +101,8 @@
                                         <field name="description_other"
                                                attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
                                         <field name="planned_date" string="Fecha planeada"/>
-                                        <field name="payment_date" string="Fecha de pago"/>
+					<field name="payment_date" string="Fecha de pago"/>
+					<field name="discount_type" string="Tipo de descuento"/>
 					<field name="discount" string="Descuento"/>
 					<field name="amount_paid" string="Valor a pagar"/>
                                         <field name="payed" invisible="1"/>

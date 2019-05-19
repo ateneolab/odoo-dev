@@ -1,11 +1,6 @@
 <openerp>
     <data>
 
-      <menuitem id="openeducat_erp.menu_op_school_root" name="AteneoERP"
-		web_icon="images/openeducat.png" web_icon_hover="images/openeducat-hover.png"
-		parent="" sequence="20" groups="openeducat_erp.group_op_back_office,openeducat_erp.group_op_back_office_admin" />
-
-
       <menuitem id="openeducat_erp.menu_op_school_main" name="Estudiantes"
 		parent="openeducat_erp.menu_op_school_root"
 		sequence="20"

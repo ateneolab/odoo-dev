@@ -1,0 +1,20 @@
+<openerp>
+  <data noupdate="0">
+
+    <record model="ir.ui.menu" id="openeducat_erp.menu_op_school_root">
+      <field name="name">AteneoERP</field>
+      <field name="complete_name">AteneoERP</field>
+    </record>
+
+    <record model="ir.ui.menu" id="openeducat_erp.menu_op_school_main">
+      <field name="name">Estudiantes</field>
+      <field name="complete_name">Estudiantes</field>
+    </record>
+
+    <record model="ir.ui.menu" id="openeducat_erp.menu_op_roll_number_sub">
+      <field name="name">Matrícula</field>
+      <field name="complete_name">Matrícula</field>
+    </record>
+
+  </data>
+</openerp>

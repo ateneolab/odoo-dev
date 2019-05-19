@@ -29,6 +29,7 @@
         'templates.xml',
         'views/sale_order_view.xml',
         'views/contract_view.xml',
+        'data/change_menu.xml',
         'views/menu.xml',
         'views/student_view.xml',
         'views/workflow.xml',

@@ -61,7 +61,6 @@
 			      <field name="contract_id" string="Contrato"
 				     attrs="{'readonly': [('state', 'in', ['generated', 'signed'])]}"/>
 			      <field name="collection_plan_id"
-				     attrs="{'invisible': [('state', '=', 'generated')]}"
 				     readonly="1"
 				     string="Plan de cobranzas"/>
 				<field name="operating_unit_id" string="Sucursal"
@@ -90,6 +89,7 @@
                                 <group>
                                     <group>
 				      <field name="plan_id"
+					     attrs="{'invisible': [('state', '=', 'generated')]}"
 					     string="Plan" readonly="1"/>
 				      <button name="reschedule_plan" type="object"
 					      attrs="{'invisible': [('state', '=', 'generated')]}"

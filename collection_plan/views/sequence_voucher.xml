@@ -1,0 +1,17 @@
+<openerp>
+    <data>
+
+        <record id="sequence_account_voucher" model="ir.sequence.type">
+            <field name="name">Recibo de pago</field>
+            <field name="code">account.voucher</field>
+        </record>
+        <record id="sequence_voucher_seq" model="ir.sequence">
+            <field name="name">Secuencia de recibo de pago</field>
+            <field name="code">account.voucher</field>
+            <field name="padding" eval="5"/>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+        </record>
+
+    </data>
+</openerp>

@@ -29,6 +29,7 @@
         'views/collection_plan_view.xml',
         'views/menu_view.xml',
         'views/pyment_term_views.xml',
+        'views/sequence_voucher.xml',
         'wizard/wizard_invoice_view.xml',
         'wizard/wizard_sale_receipt_view.xml',
         'report/receipt_report.xml',

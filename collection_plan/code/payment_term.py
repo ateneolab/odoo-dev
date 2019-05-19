@@ -54,6 +54,7 @@ class PaymentTerm(models.Model):
         string=_(u'Total de cuotas'),
         related='fixed_plan_id.qty_payment'
     )
+    voucher_number = fields.Char(related='account_voucher_id.voucher_number')
 
     @api.depends('amount_paid')
     def _convert_amount_to_literal(self):

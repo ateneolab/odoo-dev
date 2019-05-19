@@ -297,7 +297,7 @@ class EducationContractPlan(models.Model):
         self.balance = sum
 
     payment_term_fixed_ids = fields.One2many('education_contract.payment_term', 'fixed_plan_id',
-                                             string=_('Payment terms'))
+                                             string=_('Información de pago'))
     collection_plan_id = fields.Many2one('collection_plan.collection_plan', string=_(''))
     plan_active = fields.Boolean(_('Active'))
     balance = fields.Float(digits=(6, 4), string=_('Balance'))

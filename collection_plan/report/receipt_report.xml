@@ -63,12 +63,12 @@
         </template>
 
         <template id="collection_plan.report_receipt_document">
-            <t t-call="collection_plan.receipt_external_layout">
+            <t>
                 <div class="page" style="font-size:11px">
 
                     <div class="text-center" style="font-size: 11px">
                         <span>RECIBO DE DINERO No</span>
-                        <span t-esc="o.account_voucher_id.id" style="color: red"/>
+                        <span t-esc="o.voucher_number" style="color: red"/>
                     </div>
 
                     <table style="width: 100%; font-size: 9px">
@@ -104,7 +104,7 @@
                                 <span t-esc="o.fixed_plan_id.collection_plan_id.account_number"></span>
                             </td>
                             <td style="width: 33%; text-align: left">
-                                <span>Codigo No:</span>
+                                <span>Código No:</span>
                                 <span t-esc="o.contract_id.barcode"></span>
                             </td>
                             <td style="width: 33%; text-align: right">
@@ -158,7 +158,6 @@
                             <tr>
                                 <td style="width: 20%">Banco:
                                     <t t-set="print_line" t-value="True"/>
-
                                     <span t-if="o.type == 'check'">
                                         <span t-esc="o.check_id.bank.name"></span>
                                         <t t-set="print_line" t-value="False"/>
@@ -177,30 +176,40 @@
                                             <t t-set="print_line" t-value="False"/>
                                         </span>
                                     </span>
-                                    <span t-if="print_line == 'True'">___________________________________</span>
-                                </td>
-                                <td style="width: 20%; text-align: right">
-                                    <span style="border-bottom: 1px solid black;">FIRMA RESPONSABLE</span>
-                                </td>
-                            </tr>
+                                    <span t-if="print_line == True">____________________</span>
+				</td>
+			    </tr>
+			    <tr>
+			      <td style="width: 20%; text-align: right">
+				<span style="border-bottom: 1px solid black;">FIRMA RESPONSABLE</span>
+			      </td>
+			    </tr>
+			    <tr>
+			      <td></td>
+			    </tr>
+			    <tr>
+			      <td></td>
+			    </tr>
                             <tr>
                                 <td style="width: 20%">Fecha del Cheque:
                                     <span t-if="o.type == 'check'">
                                         <span t-esc="o.check_id.date"></span>
                                     </span>
                                     <span t-if="o.type != 'check'">__________________________</span>
-                                </td>
-                                <td style="width: 20%; text-align: right">
-                                    <span>Subtotal $</span>
-                                    <span t-esc="o.amount"/>
-                                </td>
+				</td>
                             </tr>
                             <tr>
 			      <td style="width: 20%">
 				<span>Son:</span>
 				<span t-esc="o.literal"></span>
-				<span>Dolares</span>
+				<span>Dólares</span>
 			      </td>
+			    </tr>
+			    <tr>
+			      <td style="width: 20%; text-align: right">
+                                    <span>Subtotal $</span>
+                                    <span t-esc="o.amount"/>
+                                </td>
 			    </tr>
 			    <tr>
 			      <td style="width: 20%; text-align: right">
@@ -261,12 +270,12 @@
             <!--<field name="page_height">80</field>-->
             <!--<field name="page_width">175</field>-->
             <field name="orientation">Landscape</field>
-            <!--<field name="margin_top">3</field>-->
+            <field name="margin_top">10</field>
             <!--<field name="margin_bottom">3</field>-->
             <!--<field name="margin_left">3</field>-->
             <!--<field name="margin_right">3</field>-->
-            <!--<field name="header_line" eval="False"/>-->
-            <!--<field name="header_spacing">3</field>-->
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">3</field>
             <field name="dpi">80</field>
         </record>
 

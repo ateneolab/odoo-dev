@@ -562,14 +562,18 @@
                                    string="Tipo de efectivo"/>
                         </group>
                         <group attrs="{'invisible': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])]}">
-                            <field name="voucher_id"
-                                   attrs="{'required': [('cash_sub_type', 'in', ['debit_card'])] }"
+			  <field name="voucher_id"
+				 domain="[('payment_term_id', '=', 0)]"
+				 options="{'no_open': 1}"
+				 attrs="{'required': [('cash_sub_type', 'in', ['debit_card'])] }"
                                    context="{'default_payment_term_id': active_id}"/>
                         </group>
                         <group attrs="{'invisible': [('type', 'not in', ['check'])]}">
-                            <field name="check_id"
-                                   attrs="{'required': [('type', 'in', ['check'])] }"
-                                   context="{'default_payment_term_id': active_id}"/>
+			  <field name="check_id"
+				 domain="[('payment_term_id', '=', 0)]"
+				 options="{'no_open': 1}"
+				 attrs="{'required': [('type', 'in', ['check'])] }"
+				 context="{'default_payment_term_id': active_id}"/>
                         </group>
                         <group attrs="{'invisible': [('cash_sub_type', 'not in', ['transfer'])]}">
                             <field name="transfer_id"

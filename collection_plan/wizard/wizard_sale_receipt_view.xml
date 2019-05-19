@@ -23,20 +23,14 @@
               $('.oe_form_sheet_width').css({'MAXwidth': '650px'});
               });
             </script>
-
-            <group>
-              <group>
-                <field name="partner_id"/>
-              </group>
-              <group>
-                <field name="operating_unit_id"/>
-                <field name="collection_plan_id" invisible="1"/>
-                <field name="contract_id" invisible="1"/>
-              </group>
-            </group>
-
+	    <group colspan="4" col="4">
+	      <field name="partner_id" string="Cliente"/>
+	      <field name="operating_unit_id" string="Sucursal"/>
+	      <field name="collection_plan_id" invisible="1"/>
+	      <field name="contract_id" invisible="1"/>
+	    </group>
             <notebook>
-              <page string="Payments made">
+              <page string="Pagos realizados">
                 <field name="payment_term_ids"
                        domain="[('payed', '=', True), ('invoice_id', '=', False), ('collection_plan_id', '=', collection_plan_id)]">
                   <tree editable="top">
@@ -54,9 +48,9 @@
                            attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
                     <field name="description_other"
                            attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
-                    <field name="planned_date"/>
-                    <field name="payment_date"/>
-                    <field name="payed"/>
+                    <field name="planned_date" string="Fecha planeada"/>
+                    <field name="payment_date" string="Fecha de pago"/>
+                    <field name="payed" string="Pagado"/>
                     <field name="invisible" invisible="1"/>
                   </tree>
                 </field>

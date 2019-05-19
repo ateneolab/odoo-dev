@@ -185,11 +185,11 @@
 	    <tree string="Collection plan" create="0" import="0">
 	      <field name="account_number"/>
 	      <field name="barcode"/>
-	      <field name="user_id"/>
-	      <field name="start_date"/>
-	      <field name="end_date"/>
-	      <field name="residual"/>
-	      <field name="state"/>
+	      <field name="user_id" string="Gerente de cuenta"/>
+	      <field name="start_date" string="Fecha de inicio"/>
+	      <field name="end_date" string="Fecha de fin"/>
+	      <field name="residual" string="Monto"/>
+	      <field name="state" string="Estado"/>
 	    </tree>
 	  </field>
 	</record>
@@ -199,16 +199,16 @@
             <field name="model">collection_plan.collection_plan</field>
             <field name="arch" type="xml">
                 <search string="Cuentas por cobrar">
-                    <field name="user_id"/>
-                    <field name="contract_id"/>
-                    <field name="start_date"/>
-                    <field name="end_date"/>
-		    <field name="residual"/>
-		    <field name="barcode" select="True"/>
-		    <field name="state" select="True"/>
+                    <field name="user_id" string="Gerente de cuenta"/>
+                    <field name="contract_id" string="Contrato"/>
+                    <field name="start_date" string="Fecha de inicio"/>
+                    <field name="end_date" string="Fecha de fin"/>
+		    <field name="residual" string="Monto"/>
+		    <field name="barcode" select="True" string="Código"/>
+		    <field name="state" select="True" string="Estado"/>
                     <group expand="0" string="Group By...">
                         <filter name="group_by_user_id"
-                                string="User"
+                                string="Gerente de cuenta"
                                 domain="[]" context="{'group_by':'user_id'}"/>
                         <filter name="group_by_contract_id"
                                 string="Contrato"
@@ -220,7 +220,7 @@
                                 string="Fecha fin"
                                 domain="[]" context="{'group_by':'end_date'}"/>
                         <filter name="group_by_residual"
-                                string="Saldo pendiente"
+                                string="Monto"
 				domain="[]" context="{'group_by':'residual'}"/>
                         <filter name="group_by_state"
                                 string="Estado"

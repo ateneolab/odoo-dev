@@ -5,7 +5,7 @@
 
         <template id="einvoice_external_layout_receipt_footer">
             <div class="footer">
-                <div class="text-center" style="font-size:9px">
+                <div class="text-center" style="font-size:6px">
                     <span>Importante: No se aceptan recibos provisionales. Obtenga siempre uno como este. Documento no
                         valido para fines o efectos tributarios. Emitimos su factura al finalizar los pagos con la
                         presentación de estos recibos.
@@ -24,7 +24,7 @@
                     <!--<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' %o.company_id.logo"-->
                     <!--style="witdh: 50%; height: 50%; margin-bottom: 10px"/>-->
                     <!--</div>-->
-                    <div class="text" style="font-size: 9px; float: left;">
+                    <div class="text" style="font-size: 6px; float: left;">
                         <p>
                             <strong>Matriz:</strong>
                             <span>Alonso de Angulo Oe1-152 y Fco. Gomez Villa Flora - Telf.: 2652-300</span>
@@ -62,8 +62,9 @@
             </t>
         </template>
 
-        <template id="collection_plan.report_receipt_document">
-            <t>
+	<template id="collection_plan.report_receipt_document">
+	  <t t-call="collection_plan.receipt_external_layout">
+	    <t>
                 <div class="page" style="font-size:11px">
 
                     <div class="text-center" style="font-size: 11px">
@@ -242,7 +243,8 @@
                     </div>
 
                 </div>
-            </t>
+	      </t>
+	    </t>
         </template>
 
         <template id="report_receipt_template">
@@ -270,12 +272,12 @@
             <!--<field name="page_height">80</field>-->
             <!--<field name="page_width">175</field>-->
             <field name="orientation">Landscape</field>
-            <field name="margin_top">10</field>
+            <field name="margin_top">30</field>
             <!--<field name="margin_bottom">3</field>-->
             <!--<field name="margin_left">3</field>-->
             <!--<field name="margin_right">3</field>-->
-            <field name="header_line" eval="False"/>
-            <field name="header_spacing">3</field>
+	    <!--<field name="header_line" eval="False"/>-->
+            <!--<field name="header_spacing">3</field>-->
             <field name="dpi">80</field>
         </record>
 

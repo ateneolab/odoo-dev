@@ -121,7 +121,10 @@ class CollectionPlan(models.Model):
         'education_contract.contract',
         string=_(u'Contrato de educación')
     )
-    active_plan_id = fields.Many2one('education_contract.plan')
+    active_plan_id = fields.Many2one(
+        'education_contract.plan',
+        string=_(u'Plan activo')
+    )
     plan_ids = fields.One2many('education_contract.plan', 'collection_plan_id', string=_('Old plans'))
     residual = fields.Float(digits=(10, 4), string=_(u'Cantidad'), compute='_compute_residual', store=True)
     balance = fields.Float(digits=(6, 4), string=_('Balance'), related='active_plan_id.balance')
@@ -130,7 +133,7 @@ class CollectionPlan(models.Model):
                                        related='active_plan_id.payment_term_fixed_ids',
                                        string=_(u'Información de pago'))
     payed_payment_term_ids = fields.One2many('education_contract.payment_term', 'payed_collection_plan_id',
-                                             string=_('All payed Payment terms'), store=True)
+                                             string=_('Formas de pago pagadas'), store=True)
     user_id = fields.Many2one('res.users', string=_(u'Gerente de cuenta'))
     start_date = fields.Date(_(u'Fecha de inicio'))
     end_date = fields.Date(_(u'Fecha de fin'))

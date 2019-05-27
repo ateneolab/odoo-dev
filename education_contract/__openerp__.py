@@ -21,7 +21,7 @@
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'account', 'account_voucher', 'sale', 'openeducat_erp', 'mail', 'hr', 'advance_salary',
-                'operating_unit', 'oeducat_roll_state', 'scrollable_tree_view'],
+                'operating_unit', 'oeducat_roll_state', 'scrollable_tree_view', 'oeducat_attendance'],
 
     # always loaded
     'data': [

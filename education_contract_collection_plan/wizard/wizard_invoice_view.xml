@@ -1,68 +1,52 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-
 <openerp>
-    <data>
+  <data>
 
-        <!--<record id="action_view_wizard_invoice_form" model="ir.actions.act_window">
-            <field name="name">Collection plan</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">collection_plan.wizard_invoice</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>-->
-
-        <record id="view_wizard_invoice_form2" model="ir.ui.view">
-            <field name="name">collection_plan.wizard_invoice.form</field>
-            <field name="model">collection_plan.wizard_invoice</field>
-            <field name="inherit_id" ref="collection_plan.view_wizard_invoice_form"/>
-            <field name="arch" type="xml">
-                <notebook position="before">
-                    <group>
-                        <group>
-                            <field name="taxes_included"/>
-                        </group>
-                        <group>
-                            <field name="company_id" invisible="1"/>
-                            <field name="tax_ids" widget="many2many_tags"
-                                   domain="[('company_id', '=', company_id)]"/>
-                        </group>
-                    </group>
-                </notebook>
-
-                <field name="payment_term_ids" position="replace">
-                    <field name="payment_term_ids" context="{'company_id': company_id}"
-                           domain="[('payed', '=', True), ('invoice_id', '=', False), ('collection_plan_id', '=', collection_plan_id)]">
-                        <tree editable="top">
-                            <field name="description"/>
-                            <field name="type"/>
-                            <field name="cash_sub_type"
-                                   attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
-                                   string="Tipo de efectivo"/>
-                            <field name="amount"/>
-                            <field name="voucher_id"
-                                   attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
-                            </field>
-                            <field name="check_id"
-                                   attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
-                            <field name="transfer_id"
-                                   attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
-                            <field name="description_other"
-                                   attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
-                            <field name="planned_date" invisible="1"/>
-                            <field name="taxes_included"/>
-                            <field name="tax_ids" widget="many2many_tags"
-                                   domain="[('company_id', '=', context.get('company_id'))]"/>
-                            <field name="payment_date"/>
-                            <field name="payed" invisible="1"/>
-                            <field name="invisible" invisible="1"/>
-                        </tree>
-                    </field>
-                </field>
-
-            </field>
-        </record>
-
-
-    </data>
+    <record id="view_wizard_invoice_form2" model="ir.ui.view">
+      <field name="name">collection_plan.wizard_invoice.form</field>
+      <field name="model">collection_plan.wizard_invoice</field>
+      <field name="inherit_id" ref="collection_plan.view_wizard_invoice_form"/>
+      <field name="arch" type="xml">
+        <notebook position="before">
+          <group colspan="4" col="4">
+	    <field name="taxes_included" string="Incluye impuestos"/>
+	    <field name="tax_ids" string="Impuestos" widget="many2many_tags"
+		   attrs="{'invisible': [('taxes_included', '=', False)]}"
+		   domain="[('company_id', '=', company_id)]"/>
+	    <field name="company_id" invisible="1"/>
+          </group>
+        </notebook>
+        <field name="payment_term_ids" position="replace">
+          <field name="payment_term_ids" context="{'company_id': company_id}"
+                 domain="[('payed', '=', True), ('invoice_id', '=', False), ('collection_plan_id', '=', collection_plan_id)]">
+            <tree editable="top">
+              <field name="description" string="Descripción"/>
+              <field name="type"/>
+              <field name="cash_sub_type"
+                     attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
+                     string="Tipo de efectivo"/>
+              <field name="amount"/>
+              <field name="voucher_id"
+                     attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
+              </field>
+              <field name="check_id"
+                     attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
+              <field name="transfer_id"
+                     attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
+              <field name="description_other"
+                     attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
+              <field name="planned_date" invisible="1"/>
+              <field name="taxes_included" string="Impuestos?"/>
+	      <field name="tax_ids" string="Impuestos" widget="many2many_tags"
+		     attrs="{'invisible': [('taxes_included', '=', False)]}"
+                     domain="[('company_id', '=', context.get('company_id'))]"/>
+              <field name="payment_date" string="Fecha de pago"/>
+              <field name="payed" invisible="1"/>
+              <field name="invisible" invisible="1"/>
+            </tree>
+          </field>
+        </field>
+      </field>
+    </record>
+  </data>
 </openerp>

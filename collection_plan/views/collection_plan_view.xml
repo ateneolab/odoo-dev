@@ -1,257 +1,254 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-
 <openerp>
-    <data>
+  <data>
 
-        <record id="sequence_collection_plan_type" model="ir.sequence.type">
-            <field name="name">Plan de cobranzas</field>
-            <field name="code">collection_plan.collection_plan</field>
-        </record>
-        <record id="sequence_collection_plan_seq" model="ir.sequence">
-            <field name="name">Secuencia de Plan de cobranzas</field>
-            <field name="code">collection_plan.collection_plan</field>
-            <field name="padding" eval="4"/>
-            <field eval="1" name="number_next"/>
-            <field eval="1" name="number_increment"/>
-        </record>
+    <record id="sequence_collection_plan_type" model="ir.sequence.type">
+      <field name="name">Plan de cobranzas</field>
+      <field name="code">collection_plan.collection_plan</field>
+    </record>
+    <record id="sequence_collection_plan_seq" model="ir.sequence">
+      <field name="name">Secuencia de Plan de cobranzas</field>
+      <field name="code">collection_plan.collection_plan</field>
+      <field name="padding" eval="4"/>
+      <field eval="1" name="number_next"/>
+      <field eval="1" name="number_increment"/>
+    </record>
 
-        <record id="group_admin_collection_plan" model="res.groups">
-            <field name="name">Admin Collection Plan</field>
-            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
-            <field name="users" eval="[(4, ref('base.user_root'))]"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
-        </record>
+    <record id="group_admin_collection_plan" model="res.groups">
+      <field name="name">Admin Collection Plan</field>
+      <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+      <field name="users" eval="[(4, ref('base.user_root'))]"/>
+      <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
 
-        <record id="view_collection_plan_form" model="ir.ui.view">
-            <field name="name">collection_plan.form</field>
-            <field name="model">collection_plan.collection_plan</field>
-            <field name="arch" type="xml">
-                <form string="Plan de Cobranzas" create="0" import="0">
-                    <field name="id" invisible="1"/>
-                    <header>
-                        <!--<button name="create_new_plan" states="created" type="object" string="New plan"-->
-                        <!--class="oe_highlight"/>-->
-                        <button name="reschedule_plan" states="new,cancelled_parcial,cancelled" type="object" string="Replanificar"
-                                class="oe_highlight"/>
-                        <button name="generate_invoice" states="new,cancelled_parcial,cancelled" type="object" string="Generar factura"
-                                context="{'collection_plan_id': id, 'default_contract_id': contract_id, 'invoice_multi': True}"
-				class="oe_highlight"/>
+    <record id="view_collection_plan_form" model="ir.ui.view">
+      <field name="name">collection_plan.form</field>
+      <field name="model">collection_plan.collection_plan</field>
+      <field name="arch" type="xml">
+        <form string="Plan de Cobranzas" create="0" import="0">
+          <field name="id" invisible="1"/>
+          <header>
+            <!--<button name="create_new_plan" states="created" type="object" string="New plan"-->
+            <!--class="oe_highlight"/>-->
+            <button name="reschedule_plan" states="new,cancelled_parcial,cancelled" type="object" string="Replanificar"
+                    class="oe_highlight"/>
+            <button name="generate_invoice" states="new,cancelled_parcial,cancelled" type="object" string="Generar factura"
+                    context="{'collection_plan_id': id, 'default_contract_id': contract_id, 'invoice_multi': True}"
+                    class="oe_highlight"/>
 
-			<field name="state" widget="statusbar" options="{'always_reload': True}"/>
-                    </header>
-                    <sheet>
-                        <group>
-                            <group>
-                            </group>
-                            <group/>
-			    <group>
-			      <field name="account_number"
-				     string="No. Cuenta"/>
-			      <field name="contract_id" string="Contrato de educación" required="1"
-				     attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-			      <field name="campus_id" string="Sucursal"
-				     attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-			      <field name="start_date" string="Fecha de inicio"
-				     attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-			    </group>
-			    <group>
-			      <field name="user_id" string="Gerente de cuenta"
-				     attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-			      <field name="end_date" string="Fecha de fin"
-				     attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-			      <field name="residual" string="Monto"/>
-			      <field name="balance" string="Balance"/>
-			    </group>
+            <field name="state" widget="statusbar" options="{'always_reload': True}"/>
+          </header>
+          <sheet>
+            <group>
+              <group>
+              </group>
+              <group/>
+              <group>
+                <field name="account_number"
+                       string="No. Cuenta"/>
+                <field name="contract_id" string="Contrato de educación" required="1"
+                       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                <field name="campus_id" string="Sucursal"
+                       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                <field name="start_date" string="Fecha de inicio"
+                       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+              </group>
+              <group>
+                <field name="user_id" string="Gerente de cuenta"
+                       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                <field name="end_date" string="Fecha de fin"
+                       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                <field name="residual" string="Monto"/>
+                <field name="balance" string="Balance"/>
+              </group>
 
-			    <group>
-			      <field name="active_plan_id" required="1" string="Plan activo"
-				     attrs="{'readonly': [('state', 'in', ['done'])]}"
-				     domain="[('contract_id', '=', contract_id)]">
-				<tree editable="top">
-				  <field name="balance"/>
-				  <field name="qty_dues"/>
-				  <field name="amount_monthly"/>
-				  <field name="residual"/>
-				</tree>
-				<form>
-				  <field name="id"/>
-				</form>
-			      </field>
-			    </group>
-			</group>
-
-                        <notebook>
-                            <page string="Pagos planificados">
-			      <field name="payment_term_ids"
-				     domain="[('payed', '=', False)]"
-				     string="Información de pago"
-				     context="{'default_collection_plan_id': id, 'default_contract_id': contract_id}">
-                                    <tree>
-                                        <field name="id" invisible="1"/>
-					<field name="collection_plan_id" invisible="1"/>
-					<field name="order" string="Orden"/>
-                                        <field name="type"/>
-                                        <field name="cash_sub_type"
-                                               attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
-                                               string="Tipo de efectivo"/>
-                                        <field name="amount"/>
-                                        <field name="voucher_id"
-                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
-                                        </field>
-                                        <field name="check_id"
-                                               attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
-                                        <field name="transfer_id"
-                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
-                                        <field name="description_other"
-                                               attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
-                                        <field name="planned_date" string="Fecha planeada"/>
-					<field name="payment_date" string="Fecha de pago"/>
-					<field name="discount_type" string="Tipo de descuento"/>
-					<field name="discount" string="Descuento"/>
-					<field name="amount_paid" string="Valor a pagar"/>
-                                        <field name="payed" invisible="1"/>
-                                        <field name="plan_id" invisible="1"/>
-                                        <field name="invisible" invisible="1"/>
-                                        <field name="voucher_number" string="No. recibo"/>
-                                        <field name="invoice_id" string="Factura"/>
-                                        <field name="internal_state" invisible="1"/>
-                                        <button name="do_billing"
-                                                attrs="{'invisible': [('internal_state', 'not in', ['created'])]}"
-                                                type="object" string="Facturar" icon="gtk-apply"/>
-                                        <button name="do_saling"
-                                                attrs="{'invisible': [('internal_state', 'not in', ['created'])]}"
-                                                type="object" string="Nota de venta" icon="gtk-ok"/>
-                                        <button name="print_receipt"
-                                                attrs="{'invisible': [('internal_state', 'not in', ['receipt'])]}"
-                                                type="object" string="Imprimir Nota de venta" icon="gtk-print"/>
-                                    </tree>
-                                </field>
-                            </page>
-
-                            <page string="Pagos realizados" invisible="1">
-                                <field name="payed_payment_term_ids" domain="[('payed', '=', True)]" readonly="1">
-                                    <tree>
-                                        <field name="type"/>
-                                        <field name="cash_sub_type"
-                                               attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
-                                               string="Tipo de efectivo"/>
-                                        <field name="amount"/>
-                                        <field name="voucher_id"
-                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
-                                        </field>
-                                        <field name="check_id"
-                                               attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
-                                        <field name="transfer_id"
-                                               attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
-                                        <field name="description_other"
-                                               attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
-                                        <field name="planned_date" string="Fecha planeada"/>
-                                        <field name="payment_date" string="Fecha de pago"/>
-                                        <field name="payed" string="Pagado?"/>
-                                        <field name="invoice_id" string="Facturas"/>
-                                        <field name="invisible" invisible="1"/>
-                                    </tree>
-                                </field>
-                            </page>
-
-                            <page string="Facturas">
-                                <field name="invoice_ids">
-
-                                </field>
-                            </page>
-
-                            <page string="Planes antiguos" invisible="1">
-                                <field name="plan_ids" readonly="1">
-                                    <tree>
-                                        <field name="type"/>
-                                        <field name="amount_pay"/>
-                                        <field name="amount_monthly"/>
-                                        <field name="residual"/>
-                                        <field name="qty_dues"/>
-                                    </tree>
-                                </field>
-                            </page>
-
-                            <page string="Notas internas">
-                                <field name="notes"/>
-                            </page>
-
-                        </notebook>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-	<record id="view_collection_plan_tree" model="ir.ui.view">
-	  <field name="name">collection_plan.collection_plan.tree</field>
-	  <field name="model">collection_plan.collection_plan</field>
-	  <field name="arch" type="xml">
-	    <tree string="Collection plan" create="0" import="0">
-	      <field name="account_number"/>
-	      <field name="barcode"/>
-	      <field name="campus_id"/>
-	      <field name="user_id" string="Gerente de cuenta"/>
-	      <field name="start_date" string="Fecha de inicio"/>
-	      <field name="end_date" string="Fecha de fin"/>
-	      <field name="residual" string="Monto"/>
-	      <field name="state" string="Estado"/>
-	    </tree>
-	  </field>
-	</record>
-
-        <record id="view_collection_plan_search" model="ir.ui.view">
-            <field name="name">collection_plan.collection_plan.search</field>
-            <field name="model">collection_plan.collection_plan</field>
-            <field name="arch" type="xml">
-                <search string="Cuentas por cobrar">
-                    <field name="user_id" string="Gerente de cuenta"/>
-                    <field name="contract_id" string="Contrato"/>
-                    <field name="start_date" string="Fecha de inicio"/>
-                    <field name="end_date" string="Fecha de fin"/>
-		    <field name="residual" string="Monto"/>
-		    <field name="barcode" select="True" string="Código"/>
-		    <field name="state" select="True" string="Estado"/>
-		    <field name="campus_id"/>
-                    <group expand="0" string="Group By...">
-                        <filter name="group_by_user_id"
-                                string="Gerente de cuenta"
-                                domain="[]" context="{'group_by':'user_id'}"/>
-                        <filter name="group_by_contract_id"
-                                string="Contrato"
-                                domain="[]" context="{'group_by':'contract_id'}"/>
-                        <filter name="group_by_start_date"
-                                string="Fecha de inicio"
-                                domain="[]" context="{'group_by':'start_date'}"/>
-                        <filter name="group_by_end_date"
-                                string="Fecha fin"
-                                domain="[]" context="{'group_by':'end_date'}"/>
-                        <filter name="group_by_residual"
-                                string="Monto"
-				domain="[]" context="{'group_by':'residual'}"/>
-                        <filter name="group_by_state"
-                                string="Estado"
-				domain="[]" context="{'group_by':'state'}"/>
-                        <filter name="group_by_campus_id"
-                                string="Sucursal"
-				domain="[]" context="{'group_by':'campus_id'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
-
-        <record id="view_education_plan2" model="ir.ui.view">
-            <field name="name">education_contract.plan.form2</field>
-            <field name="model">education_contract.plan</field>
-            <field name="inherit_id" ref="education_contract.view_education_plan"/>
-            <field name="arch" type="xml">
-
-                <field name="residual" position="after">
-                    <field name="balance" readonly="1"/>
+              <group>
+                <field name="active_plan_id" required="1" string="Plan activo"
+                       attrs="{'readonly': [('state', 'in', ['done'])]}"
+                       domain="[('contract_id', '=', contract_id)]">
+                  <tree editable="top">
+                    <field name="balance"/>
+                    <field name="qty_dues"/>
+                    <field name="amount_monthly"/>
+                    <field name="residual"/>
+                  </tree>
+                  <form>
+                    <field name="id"/>
+                  </form>
                 </field>
+              </group>
+            </group>
 
-            </field>
-        </record>
+            <notebook>
+              <page string="Pagos planificados">
+                <field name="payment_term_ids"
+                       domain="[('payed', '=', False)]"
+                       string="Información de pago"
+                       context="{'default_collection_plan_id': id, 'default_contract_id': contract_id}">
+                  <tree>
+                    <field name="id" invisible="1"/>
+                    <field name="collection_plan_id" invisible="1"/>
+                    <field name="order" string="Orden"/>
+                    <field name="type"/>
+                    <field name="cash_sub_type"
+                           attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
+                           string="Tipo de efectivo"/>
+                    <field name="amount"/>
+                    <field name="voucher_id"
+                           attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
+                    </field>
+                    <field name="check_id"
+                           attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
+                    <field name="transfer_id"
+                           attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
+                    <field name="description_other"
+                           attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
+                    <field name="planned_date" string="Fecha planeada"/>
+                    <field name="payment_date" string="Fecha de pago"/>
+                    <field name="discount_type" string="Tipo de descuento"/>
+                    <field name="discount" string="Descuento"/>
+                    <field name="amount_paid" string="Valor a pagar"/>
+                    <field name="payed" invisible="1"/>
+                    <field name="plan_id" invisible="1"/>
+                    <field name="invisible" invisible="1"/>
+                    <field name="voucher_number" string="No. recibo"/>
+                    <field name="invoice_id" string="Factura"/>
+                    <field name="internal_state" invisible="1"/>
+                    <button name="do_billing"
+                            attrs="{'invisible': [('internal_state', 'not in', ['created'])]}"
+                            type="object" string="Facturar" icon="gtk-apply"/>
+                    <button name="do_saling"
+                            attrs="{'invisible': [('internal_state', 'not in', ['created'])]}"
+                            type="object" string="Nota de venta" icon="gtk-ok"/>
+                    <button name="print_receipt"
+                            attrs="{'invisible': [('internal_state', 'not in', ['receipt'])]}"
+                            type="object" string="Imprimir Nota de venta" icon="gtk-print"/>
+                  </tree>
+                </field>
+              </page>
 
+              <page string="Pagos realizados" invisible="1">
+                <field name="payed_payment_term_ids" domain="[('payed', '=', True)]" readonly="1">
+                  <tree>
+                    <field name="type"/>
+                    <field name="cash_sub_type"
+                           attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"
+                           string="Tipo de efectivo"/>
+                    <field name="amount"/>
+                    <field name="voucher_id"
+                           attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
+                    </field>
+                    <field name="check_id"
+                           attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
+                    <field name="transfer_id"
+                           attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
+                    <field name="description_other"
+                           attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
+                    <field name="planned_date" string="Fecha planeada"/>
+                    <field name="payment_date" string="Fecha de pago"/>
+                    <field name="payed" string="Pagado?"/>
+                    <field name="invoice_id" string="Facturas"/>
+                    <field name="invisible" invisible="1"/>
+                  </tree>
+                </field>
+              </page>
 
-    </data>
+              <page string="Facturas">
+                <field name="invoice_ids">
+
+                </field>
+              </page>
+
+              <page string="Planes antiguos" invisible="1">
+                <field name="plan_ids" readonly="1">
+                  <tree>
+                    <field name="type"/>
+                    <field name="amount_pay"/>
+                    <field name="amount_monthly"/>
+                    <field name="residual"/>
+                    <field name="qty_dues"/>
+                  </tree>
+                </field>
+              </page>
+
+              <page string="Notas internas">
+                <field name="notes"/>
+              </page>
+
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_collection_plan_tree" model="ir.ui.view">
+      <field name="name">collection_plan.collection_plan.tree</field>
+      <field name="model">collection_plan.collection_plan</field>
+      <field name="arch" type="xml">
+        <tree string="Collection plan" create="0" import="0">
+          <field name="account_number"/>
+          <field name="barcode"/>
+          <field name="campus_id"/>
+          <field name="user_id" string="Gerente de cuenta"/>
+          <field name="start_date" string="Fecha de inicio"/>
+          <field name="end_date" string="Fecha de fin"/>
+          <field name="residual" string="Monto"/>
+          <field name="state" string="Estado"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_collection_plan_search" model="ir.ui.view">
+      <field name="name">collection_plan.collection_plan.search</field>
+      <field name="model">collection_plan.collection_plan</field>
+      <field name="arch" type="xml">
+        <search string="Cuentas por cobrar">
+          <field name="user_id" string="Gerente de cuenta"/>
+          <field name="contract_id" string="Contrato"/>
+          <field name="start_date" string="Fecha de inicio"/>
+          <field name="end_date" string="Fecha de fin"/>
+          <field name="residual" string="Monto"/>
+          <field name="barcode" select="True" string="Código"/>
+          <field name="state" select="True" string="Estado"/>
+          <field name="campus_id"/>
+          <group expand="0" string="Group By...">
+            <filter name="group_by_user_id"
+                    string="Gerente de cuenta"
+                    domain="[]" context="{'group_by':'user_id'}"/>
+            <filter name="group_by_contract_id"
+                    string="Contrato"
+                    domain="[]" context="{'group_by':'contract_id'}"/>
+            <filter name="group_by_start_date"
+                    string="Fecha de inicio"
+                    domain="[]" context="{'group_by':'start_date'}"/>
+            <filter name="group_by_end_date"
+                    string="Fecha fin"
+                    domain="[]" context="{'group_by':'end_date'}"/>
+            <filter name="group_by_residual"
+                    string="Monto"
+                    domain="[]" context="{'group_by':'residual'}"/>
+            <filter name="group_by_state"
+                    string="Estado"
+                    domain="[]" context="{'group_by':'state'}"/>
+            <filter name="group_by_campus_id"
+                    string="Sucursal"
+                    domain="[]" context="{'group_by':'campus_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="view_education_plan2" model="ir.ui.view">
+      <field name="name">education_contract.plan.form2</field>
+      <field name="model">education_contract.plan</field>
+      <field name="inherit_id" ref="education_contract.view_education_plan"/>
+      <field name="arch" type="xml">
+
+        <field name="residual" position="after">
+          <field name="balance" readonly="1"/>
+        </field>
+
+      </field>
+    </record>
+  </data>
 </openerp>

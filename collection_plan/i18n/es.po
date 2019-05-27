@@ -1,0 +1,945 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* collection_plan
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-23 10:38+0000\n"
+"PO-Revision-Date: 2019-05-23 10:38+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: collection_plan
+#: model:ir.actions.act_window,help:collection_plan.action_collections
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic para crear un plan de cobranza\n"
+"                </p>\n"
+"                <p>\n"
+"                    Solem Cobranzas te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                    Clic para crear un plan de cobranza\n"
+"                </p>\n"
+"                <p>\n"
+"                    Solem Cobranzas te ayuda a administrar los contratos de forma eficiente durante todo el flujo:\n"
+"                    creacion, verificacion, aprobacion, asignacion.\n"
+"                </p>\n"
+"            "
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "ABONO:"
+msgstr "ABONO:"
+
+#. module: collection_plan
+#: model:ir.model,name:collection_plan.model_account_voucher
+msgid "Accounting Voucher"
+msgstr "Comprobantes contables"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_invoice.py:62
+#: code:addons/collection_plan/wizard/wizard_invoice.py:197
+#: code:addons/collection_plan/wizard/wizard_invoice.py:284
+#, python-format
+msgid "Accounts for default product is not set correctly for multi company."
+msgstr "Accounts for default product is not set correctly for multi company."
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:305
+#: field:education_contract.plan,plan_active:0
+#, python-format
+msgid "Active"
+msgstr "Active"
+
+#. module: collection_plan
+#: field:collection_plan.collection_plan,active_plan_id:0
+msgid "Active plan id"
+msgstr "Plan activo"
+
+#. module: collection_plan
+#: model:res.groups,name:collection_plan.group_admin_collection_plan
+msgid "Admin Collection Plan"
+msgstr "Admin Collection Plan"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "Alfredo Davila entre Montecristi y Calceta - Telf.: (02) 2861 396 (I) (02) 2863 693\n"
+"                                (CH)"
+msgstr "Alfredo Davila entre Montecristi y Calceta - Telf.: (02) 2861 396 (I) (02) 2863 693\n"
+"                                (CH)"
+
+#. module: collection_plan
+#: field:collection_plan.collection_plan,payed_payment_term_ids:0
+msgid "All payed Payment terms"
+msgstr "Formas de pago pagadas"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "Alonso de Angulo Oe1-152 y Fco. Gomez Villa Flora - Telf.: 2652-300"
+msgstr "Alonso de Angulo Oe1-152 y Fco. Gomez Villa Flora - Telf.: 2652-300"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "Av. Antonio José de Sucre (Av. Occidental) OE6-121 - Telf.: 2490 085"
+msgstr "Av. Antonio José de Sucre (Av. Occidental) OE6-121 - Telf.: 2490 085"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "Av. Colon 15-13 y Foch - Telf.: 2556 133 - Quito - Ecuador"
+msgstr "Av. Colon 15-13 y Foch - Telf.: 2556 133 - Quito - Ecuador"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "Av. El Inca y Jose Vivanco esquina - Telf.: (02) 2249 372"
+msgstr "Av. El Inca y Jose Vivanco esquina - Telf.: (02) 2249 372"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "Av. Mariscal Sucre 530-91 y Moran Valverde - Telf.: 3035 444"
+msgstr "Av. Mariscal Sucre 530-91 y Moran Valverde - Telf.: 3035 444"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:130
+#: code:addons/collection_plan/code/collection.py:306
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: field:collection_plan.collection_plan,balance:0
+#: field:education_contract.plan,balance:0
+#, python-format
+msgid "Balance"
+msgstr "Balance"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Banco:"
+msgstr "Banco:"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_invoice.py:24
+#: field:collection_plan.wizard_invoice,operating_unit_id:0
+#, python-format
+msgid "Branch office"
+msgstr "Branch office"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "CHARLOTTE & ILVEM"
+msgstr "CHARLOTTE & ILVEM"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "CHEQUE:"
+msgstr "CHEQUE:"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:152
+#: selection:collection_plan.collection_plan,state:0
+#, python-format
+msgid "Cancelado"
+msgstr "Cancelado"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:151
+#: selection:collection_plan.collection_plan,state:0
+#, python-format
+msgid "Cancelado parcial"
+msgstr "Cancelado parcial"
+
+#. module: collection_plan
+#: view:collection_plan.wizard_invoice:collection_plan.view_wizard_invoice_form
+#: view:collection_plan.wizard_receipt:collection_plan.view_wizard_reeipt_form
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:129
+#: field:collection_plan.collection_plan,residual:0
+#, python-format
+msgid "Cantidad"
+msgstr "Cantidad"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:309
+#: field:education_contract.plan,qty_payment:0
+#, python-format
+msgid "Cantidad de pagos"
+msgstr "Cantidad de pagos"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Cheque No:"
+msgstr "Cheque No:"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "Chillogallo:"
+msgstr "Chillogallo:"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Ciudad y fecha:"
+msgstr "Ciudad y fecha:"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_sale_receipt.py:20
+#: view:collection_plan.wizard_receipt:collection_plan.view_wizard_reeipt_form
+#: field:collection_plan.wizard_receipt,partner_id:0
+#, python-format
+msgid "Cliente"
+msgstr "Cliente"
+
+#. module: collection_plan
+#: model:ir.actions.act_window,name:collection_plan.action_collections
+msgid "Cobranzas"
+msgstr "Cobranzas"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:337
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_tree
+#: field:education_contract.contract,collection_id:0
+#: model:ir.actions.act_window,name:collection_plan.action_view_wizard_invoice_form
+#: model:ir.actions.act_window,name:collection_plan.action_view_wizard_receipt_form
+#, python-format
+msgid "Collection plan"
+msgstr "Collection plan"
+
+#. module: collection_plan
+#: field:collection_plan.wizard_receipt,collection_plan_id:0
+#: field:education_contract.plan,collection_plan_id:0
+msgid "Collection plan id"
+msgstr "Collection plan id"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_invoice.py:25
+#: field:collection_plan.wizard_invoice,company_id:0
+#, python-format
+msgid "Company"
+msgstr "Compañia"
+
+#. module: collection_plan
+#: field:education_contract.payment_term,company_id:0
+msgid "Company id"
+msgstr "Company id"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_sale_receipt.py:23
+#: field:collection_plan.wizard_receipt,company_id:0
+#, python-format
+msgid "Compañia"
+msgstr "Compañia"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_search
+#: field:collection_plan.wizard_invoice,contract_id:0
+#: field:collection_plan.wizard_receipt,contract_id:0
+msgid "Contrato"
+msgstr "Contrato"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:122
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: field:collection_plan.collection_plan,contract_id:0
+#, python-format
+msgid "Contrato de educación"
+msgstr "Contrato de educación"
+
+#. module: collection_plan
+#: view:collection_plan.wizard_receipt:collection_plan.view_wizard_reeipt_form
+msgid "Crear recibo"
+msgstr "Crear recibo"
+
+#. module: collection_plan
+#: selection:education_contract.payment_term,internal_state:0
+msgid "Created"
+msgstr "Created"
+
+#. module: collection_plan
+#: field:collection_plan.collection_plan,create_uid:0
+#: field:collection_plan.wizard_invoice,create_uid:0
+#: field:collection_plan.wizard_receipt,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: collection_plan
+#: field:collection_plan.collection_plan,create_date:0
+#: field:collection_plan.wizard_invoice,create_date:0
+#: field:collection_plan.wizard_receipt,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Cuenta del Mes:"
+msgstr "Cuenta del Mes:"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_search
+msgid "Cuentas por cobrar"
+msgstr "Cuentas por cobrar"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_invoice.py:22
+#: field:collection_plan.wizard_invoice,partner_id:0
+#, python-format
+msgid "Customer"
+msgstr "Customer"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_search
+msgid "Código"
+msgstr "Código"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Código No:"
+msgstr "Código No:"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:147
+#: field:collection_plan.collection_plan,barcode:0
+#, python-format
+msgid "Código de contrato"
+msgstr "Código de contrato"
+
+#. module: collection_plan
+#: field:education_contract.payment_term,description:0
+msgid "Description"
+msgstr "Description"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/payment_term.py:35
+#: code:addons/collection_plan/code/payment_term.py:48
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: view:education_contract.payment_term:collection_plan.view_payment_term_form_ext
+#: field:education_contract.payment_term,discount:0
+#: field:education_contract.payment_term,is_discount:0
+#, python-format
+msgid "Descuento"
+msgstr "Descuento"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Descuento $:"
+msgstr "Descuento $:"
+
+#. module: collection_plan
+#: field:collection_plan.collection_plan,display_name:0
+#: field:collection_plan.wizard_invoice,display_name:0
+#: field:collection_plan.wizard_receipt,display_name:0
+#: field:report.collection_plan.report_receipt_template,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Dólares"
+msgstr "Dólares"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "EFECTIVO:"
+msgstr "EFECTIVO:"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "El Inca:"
+msgstr "El Inca:"
+
+#. module: collection_plan
+#: model:ir.model,name:collection_plan.model_education_contract_contract
+msgid "Email Thread"
+msgstr "Hilo de mensajes"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_search
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_tree
+msgid "Estado"
+msgstr "Estado"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "FIRMA RESPONSABLE"
+msgstr "FIRMA RESPONSABLE"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/payment_term.py:26
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: field:education_contract.payment_term,invoice_id:0
+#, python-format
+msgid "Factura"
+msgstr "Factura"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+msgid "Facturar"
+msgstr "Facturar"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:141
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: field:collection_plan.collection_plan,invoice_ids:0
+#, python-format
+msgid "Facturas"
+msgstr "Facturas"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:139
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_search
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_tree
+#: field:collection_plan.collection_plan,end_date:0
+#, python-format
+msgid "Fecha de fin"
+msgstr "Fecha de fin"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:138
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_search
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_tree
+#: field:collection_plan.collection_plan,start_date:0
+#, python-format
+msgid "Fecha de inicio"
+msgstr "Fecha de inicio"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:326
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: view:collection_plan.wizard_receipt:collection_plan.view_wizard_reeipt_form
+#: view:education_contract.payment_term:collection_plan.view_payment_term_form_ext
+#: field:education_contract.payment_term,payment_date:0
+#, python-format
+msgid "Fecha de pago"
+msgstr "Fecha de pago"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Fecha del Cheque:"
+msgstr "Fecha del Cheque:"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_search
+msgid "Fecha fin"
+msgstr "Fecha fin"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: view:collection_plan.wizard_receipt:collection_plan.view_wizard_reeipt_form
+#: view:education_contract.payment_term:collection_plan.view_payment_term_form_ext
+msgid "Fecha planeada"
+msgstr "Fecha planeada"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:325
+#: field:education_contract.payment_term,planned_date:0
+#, python-format
+msgid "Fecha planificada"
+msgstr "Fecha planificada"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:131
+#, python-format
+msgid "Finish"
+msgstr "Finish"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_invoice.py:112
+#, python-format
+msgid "Fiscal position is not configured por partner: %s"
+msgstr "Fiscal position is not configured por partner: %s"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:136
+#, python-format
+msgid "Formas de pago pagadas"
+msgstr "Formas de pago pagadas"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:109
+#: code:addons/collection_plan/code/payment_term.py:245
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: view:collection_plan.wizard_invoice:collection_plan.view_wizard_invoice_form
+#, python-format
+msgid "Generar factura"
+msgstr "Generar factura"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/payment_term.py:280
+#: code:addons/collection_plan/wizard/wizard_sale_receipt.py:76
+#: view:collection_plan.wizard_receipt:collection_plan.view_wizard_reeipt_form
+#, python-format
+msgid "Generar recibo"
+msgstr "Generar recibo"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_invoice.py:165
+#, python-format
+msgid "Generated Invoice"
+msgstr "Generated Invoice"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:137
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_search
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_tree
+#: field:collection_plan.collection_plan,user_id:0
+#, python-format
+msgid "Gerente de cuenta"
+msgstr "Gerente de cuenta"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_search
+msgid "Group By..."
+msgstr "Group By..."
+
+#. module: collection_plan
+#: field:collection_plan.collection_plan,id:0
+#: field:collection_plan.wizard_invoice,id:0
+#: field:collection_plan.wizard_receipt,id:0
+#: field:report.collection_plan.report_receipt_template,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_footer
+msgid "Importante: No se aceptan recibos provisionales. Obtenga siempre uno como este. Documento no\n"
+"                        valido para fines o efectos tributarios. Emitimos su factura al finalizar los pagos con la\n"
+"                        presentación de estos recibos."
+msgstr "Importante: No se aceptan recibos provisionales. Obtenga siempre uno como este. Documento no\n"
+"                        valido para fines o efectos tributarios. Emitimos su factura al finalizar los pagos con la\n"
+"                        presentación de estos recibos."
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+msgid "Imprimir Nota de venta"
+msgstr "Imprimir Nota de venta"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:134
+#: code:addons/collection_plan/code/collection.py:303
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: field:collection_plan.collection_plan,payment_term_ids:0
+#: field:education_contract.plan,payment_term_fixed_ids:0
+#, python-format
+msgid "Información de pago"
+msgstr "Información de pago"
+
+#. module: collection_plan
+#: field:education_contract.payment_term,internal_state:0
+msgid "Internal state"
+msgstr "Internal state"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/invoice.py:20
+#, python-format
+msgid "Invoice"
+msgstr "Invoice"
+
+#. module: collection_plan
+#: selection:education_contract.payment_term,internal_state:0
+msgid "Invoiced"
+msgstr "Invoiced"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_invoice.py:18
+#: code:addons/collection_plan/wizard/wizard_sale_receipt.py:16
+#: field:collection_plan.wizard_invoice,invoice_id:0
+#: field:collection_plan.wizard_receipt,invoice_id:0
+#, python-format
+msgid "Invoices"
+msgstr "Invoices"
+
+#. module: collection_plan
+#: field:collection_plan.collection_plan,__last_update:0
+#: field:collection_plan.wizard_invoice,__last_update:0
+#: field:collection_plan.wizard_receipt,__last_update:0
+#: field:report.collection_plan.report_receipt_template,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: collection_plan
+#: field:collection_plan.collection_plan,write_uid:0
+#: field:collection_plan.wizard_invoice,write_uid:0
+#: field:collection_plan.wizard_receipt,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: collection_plan
+#: field:collection_plan.collection_plan,write_date:0
+#: field:collection_plan.wizard_invoice,write_date:0
+#: field:collection_plan.wizard_receipt,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/payment_term.py:50
+#: field:education_contract.payment_term,literal:0
+#, python-format
+msgid "Literal"
+msgstr "Literal"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "Matriz:"
+msgstr "Matriz:"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_search
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_tree
+msgid "Monto"
+msgstr "Monto"
+
+#. module: collection_plan
+#: selection:education_contract.payment_term,discount_type:0
+msgid "Monto Fijo"
+msgstr "Monto Fijo"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/payment_term.py:44
+#: field:education_contract.payment_term,amount_paid:0
+#, python-format
+msgid "Monto a pagar"
+msgstr "Monto a pagar"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Monto fijo"
+msgstr "Monto fijo"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:131
+#, python-format
+msgid "New"
+msgstr "New"
+
+#. module: collection_plan
+#: field:collection_plan.collection_plan,next_payment_date:0
+msgid "Next payment date"
+msgstr "Next payment date"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+msgid "No. Cuenta"
+msgstr "No. Cuenta"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "No. cuenta:"
+msgstr "No. cuenta:"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "No. cuota:"
+msgstr "No. cuota:"
+
+#. module: collection_plan
+#: field:account.voucher,voucher_number:0
+#: code:addons/collection_plan/code/account_voucher.py:11
+#: field:education_contract.payment_term,voucher_number:0
+#, python-format
+msgid "No. de recibo"
+msgstr "No. de recibo"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+msgid "No. recibo"
+msgstr "No. recibo"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Nombre A:"
+msgstr "Nombre A:"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Nombre R:"
+msgstr "Nombre R:"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+msgid "Nota de venta"
+msgstr "Nota de venta"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:140
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: field:collection_plan.collection_plan,notes:0
+#, python-format
+msgid "Notas internas"
+msgstr "Notas internas"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:150
+#: selection:collection_plan.collection_plan,state:0
+#, python-format
+msgid "Nuevo"
+msgstr "Nuevo"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:128
+#: field:collection_plan.collection_plan,plan_ids:0
+#, python-format
+msgid "Old plans"
+msgstr "Old plans"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+msgid "Orden"
+msgstr "Orden"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:328
+#: field:education_contract.payment_term,order:0
+#, python-format
+msgid "Order"
+msgstr "Order"
+
+#. module: collection_plan
+#: view:collection_plan.wizard_receipt:collection_plan.view_wizard_reeipt_form
+msgid "Pagado"
+msgstr "Pagado"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:327
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: field:education_contract.payment_term,payed:0
+#, python-format
+msgid "Pagado?"
+msgstr "Pagado?"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+msgid "Pagos planificados"
+msgstr "Pagos planificados"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: view:collection_plan.wizard_receipt:collection_plan.view_wizard_reeipt_form
+msgid "Pagos realizados"
+msgstr "Pagos realizados"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_invoice.py:100
+#, python-format
+msgid "Payable account for company is not set correctly"
+msgstr "Payable account for company is not set correctly"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_invoice.py:21
+#: code:addons/collection_plan/wizard/wizard_sale_receipt.py:19
+#: field:collection_plan.wizard_invoice,payment_term_ids:0
+#: field:collection_plan.wizard_receipt,payment_term_ids:0
+#, python-format
+msgid "Payments"
+msgstr "Payments"
+
+#. module: collection_plan
+#: view:collection_plan.wizard_invoice:collection_plan.view_wizard_invoice_form
+msgid "Payments made"
+msgstr "Payments made"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:126
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#, python-format
+msgid "Plan activo"
+msgstr "Plan activo"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+msgid "Plan de Cobranzas"
+msgstr "Plan de Cobranzas"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:331
+#: field:education_contract.payment_term,collection_plan_id:0
+#, python-format
+msgid "Plan de cobranza"
+msgstr "Plan de cobranza"
+
+#. module: collection_plan
+#: field:collection_plan.wizard_invoice,collection_plan_id:0
+msgid "Plan de cobranzas"
+msgstr "Plan de cobranzas"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:329
+#: field:education_contract.payment_term,fixed_plan_id:0
+#, python-format
+msgid "Plan de pago"
+msgstr "Plan de pago"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:330
+#: field:education_contract.payment_term,payed_collection_plan_id:0
+#, python-format
+msgid "Plan de pago de cobranza"
+msgstr "Plan de pago de cobranza"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+msgid "Planes antiguos"
+msgstr "Planes antiguos"
+
+#. module: collection_plan
+#: selection:education_contract.payment_term,discount_type:0
+msgid "Porcentage"
+msgstr "Porcentage"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Porciento"
+msgstr "Porciento"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "RECIBO DE DINERO No"
+msgstr "RECIBO DE DINERO No"
+
+#. module: collection_plan
+#: selection:education_contract.payment_term,internal_state:0
+msgid "Receipt"
+msgstr "Receipt"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+msgid "Replanificar"
+msgstr "Replanificar"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "SALDO:"
+msgstr "SALDO:"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "SAN RAFAEL:"
+msgstr "SAN RAFAEL:"
+
+#. module: collection_plan
+#: field:education_contract.payment_term,number:0
+msgid "Secuencial"
+msgstr "Secuencial"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Son:"
+msgstr "Son:"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:307
+#: field:education_contract.plan,start_date:0
+#, python-format
+msgid "Start date"
+msgstr "Start date"
+
+#. module: collection_plan
+#: field:collection_plan.collection_plan,state:0
+msgid "State"
+msgstr "State"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Subtotal $"
+msgstr "Subtotal $"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_sale_receipt.py:22
+#: view:collection_plan.wizard_receipt:collection_plan.view_wizard_reeipt_form
+#: field:collection_plan.wizard_receipt,operating_unit_id:0
+#, python-format
+msgid "Sucursal"
+msgstr "Sucursal"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "TOTAL $"
+msgstr "TOTAL $"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "TRANSFERENCIA:"
+msgstr "TRANSFERENCIA:"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/payment_term.py:41
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: field:education_contract.payment_term,discount_type:0
+#, python-format
+msgid "Tipo de descuento"
+msgstr "Tipo de descuento"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "Tipo de descuento:"
+msgstr "Tipo de descuento:"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+#: view:collection_plan.wizard_invoice:collection_plan.view_wizard_invoice_form
+#: view:collection_plan.wizard_receipt:collection_plan.view_wizard_reeipt_form
+msgid "Tipo de efectivo"
+msgstr "Tipo de efectivo"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "Tola Chica - Calle OE8B s/n Vinueza, sector La Morita - Telf.: (02) 2373 372"
+msgstr "Tola Chica - Calle OE8B s/n Vinueza, sector La Morita - Telf.: (02) 2373 372"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/payment_term.py:54
+#: field:education_contract.payment_term,quantity:0
+#, python-format
+msgid "Total de cuotas"
+msgstr "Total de cuotas"
+
+#. module: collection_plan
+#: view:website:collection_plan.einvoice_external_layout_receipt_header
+msgid "Tumbaco:"
+msgstr "Tumbaco:"
+
+#. module: collection_plan
+#: view:collection_plan.collection_plan:collection_plan.view_collection_plan_form
+msgid "Valor a pagar"
+msgstr "Valor a pagar"
+
+#. module: collection_plan
+#: code:addons/collection_plan/code/collection.py:21
+#, python-format
+msgid "You can't remove a collection plan, you can only edit it."
+msgstr "You can't remove a collection plan, you can only edit it."
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "____________________"
+msgstr "____________________"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "__________________________"
+msgstr "__________________________"
+
+#. module: collection_plan
+#: view:website:collection_plan.report_receipt_document
+msgid "_______________________________"
+msgstr "_______________________________"
+
+#. module: collection_plan
+#: code:addons/collection_plan/wizard/wizard_invoice.py:124
+#, python-format
+msgid "authorization document is not configured."
+msgstr "authorization document is not configured."
+
+#. module: collection_plan
+#: model:ir.actions.report.xml,name:collection_plan.report_receipt
+msgid "collection_plan.report_receipt"
+msgstr "collection_plan.report_receipt"
+

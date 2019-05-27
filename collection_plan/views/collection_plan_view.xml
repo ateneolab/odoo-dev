@@ -48,8 +48,7 @@
                        string="No. Cuenta"/>
                 <field name="contract_id" string="Contrato de educación" required="1"
                        attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                <field name="campus_id" string="Sucursal"
-                       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+                <field name="campus_id" string="Sucursal" readonly="1"/>
                 <field name="start_date" string="Fecha de inicio"
                        attrs="{'readonly': [('state', 'in', ['done'])]}"/>
               </group>

@@ -155,6 +155,7 @@ class CollectionPlan(models.Model):
         default='new',
         store=True
     )
+    campus_id = fields.Many2one(related='contract_id.campus_id')
 
     @api.depends('payment_term_ids', 'payment_term_ids.payed', 'payment_term_ids.invoice_id')
     def _compute_all_payed(self):

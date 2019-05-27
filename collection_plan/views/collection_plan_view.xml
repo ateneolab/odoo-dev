@@ -47,36 +47,38 @@
 			    <group>
 			      <field name="account_number"
 				     string="No. Cuenta"/>
-                                <field name="contract_id" string="Contrato de educación" required="1"
-                                       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-				<field name="start_date" string="Fecha de inicio"
-				       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                            </group>
-                            <group>
+			      <field name="contract_id" string="Contrato de educación" required="1"
+				     attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+			      <field name="campus_id" string="Sucursal"
+				     attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+			      <field name="start_date" string="Fecha de inicio"
+				     attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+			    </group>
+			    <group>
 			      <field name="user_id" string="Gerente de cuenta"
 				     attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-				<field name="end_date" string="Fecha de fin"
-				       attrs="{'readonly': [('state', 'in', ['done'])]}"/>
-                                <field name="residual" string="Monto"/>
-                                <field name="balance" string="Balance"/>
-                            </group>
+			      <field name="end_date" string="Fecha de fin"
+				     attrs="{'readonly': [('state', 'in', ['done'])]}"/>
+			      <field name="residual" string="Monto"/>
+			      <field name="balance" string="Balance"/>
+			    </group>
 
-                            <group>
-                                <field name="active_plan_id" required="1" string="Plan activo"
-                                       attrs="{'readonly': [('state', 'in', ['done'])]}"
-                                       domain="[('contract_id', '=', contract_id)]">
-                                    <tree editable="top">
-                                        <field name="balance"/>
-                                        <field name="qty_dues"/>
-                                        <field name="amount_monthly"/>
-                                        <field name="residual"/>
-                                    </tree>
-                                    <form>
-                                        <field name="id"/>
-                                    </form>
-                                </field>
-                            </group>
-                        </group>
+			    <group>
+			      <field name="active_plan_id" required="1" string="Plan activo"
+				     attrs="{'readonly': [('state', 'in', ['done'])]}"
+				     domain="[('contract_id', '=', contract_id)]">
+				<tree editable="top">
+				  <field name="balance"/>
+				  <field name="qty_dues"/>
+				  <field name="amount_monthly"/>
+				  <field name="residual"/>
+				</tree>
+				<form>
+				  <field name="id"/>
+				</form>
+			      </field>
+			    </group>
+			</group>
 
                         <notebook>
                             <page string="Pagos planificados">
@@ -187,6 +189,7 @@
 	    <tree string="Collection plan" create="0" import="0">
 	      <field name="account_number"/>
 	      <field name="barcode"/>
+	      <field name="campus_id"/>
 	      <field name="user_id" string="Gerente de cuenta"/>
 	      <field name="start_date" string="Fecha de inicio"/>
 	      <field name="end_date" string="Fecha de fin"/>
@@ -208,6 +211,7 @@
 		    <field name="residual" string="Monto"/>
 		    <field name="barcode" select="True" string="Código"/>
 		    <field name="state" select="True" string="Estado"/>
+		    <field name="campus_id"/>
                     <group expand="0" string="Group By...">
                         <filter name="group_by_user_id"
                                 string="Gerente de cuenta"
@@ -227,6 +231,9 @@
                         <filter name="group_by_state"
                                 string="Estado"
 				domain="[]" context="{'group_by':'state'}"/>
+                        <filter name="group_by_campus_id"
+                                string="Sucursal"
+				domain="[]" context="{'group_by':'campus_id'}"/>
                     </group>
                 </search>
             </field>

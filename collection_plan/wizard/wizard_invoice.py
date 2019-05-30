@@ -165,6 +165,8 @@ class WizardInvoice(models.TransientModel):
                     discount_type = "percent"
                 else:
                     discount_type = "amount"
+        if not discount_type:
+            discount_type = ""
 
         inv_data = {
             "name": "Factura generada",
@@ -269,7 +271,6 @@ class WizardInvoice(models.TransientModel):
                     )
                 )
                 _logger.info("account_income from company: %s" % str(account))
-
                 line = {
                     "name": name,
                     "account_id": account.id,
@@ -374,6 +375,7 @@ class WizardInvoice(models.TransientModel):
                 "quantity": float(1.0),
                 "product_id": default_product.id,
                 "account_analytic_id": False,
+                "payment_id": payment.id,
             }
 
             if self.tax_ids:

@@ -163,10 +163,13 @@ class WizardInvoice(models.TransientModel):
                 payment = Payment.browse(dic_line["payment_id"])
                 if payment.discount_type == "percentage":
                     discount_type = "percent"
-                else:
+                    discount_scope = "per_line_before_tax"
+                elif payment.discount_type == "fixed_amount":
                     discount_type = "amount"
-        if not discount_type:
-            discount_type = ""
+                    discount_scope = "per_line_before_tax"
+                elif not payment.discount_type:
+                    discount_type = ""
+                    discount_scope = "total_before_tax"
 
         inv_data = {
             "name": "Factura generada",
@@ -175,7 +178,7 @@ class WizardInvoice(models.TransientModel):
             "reference": False,
             "account_id": receivable_account_id.id,
             "partner_id": self.partner_id.id,
-            "discount_scope": "per_line_before_tax",
+            "discount_scope": discount_scope,
             "discount_type": discount_type,
             "invoice_line": inv_lines,
             "currency_id": currency_id.id,

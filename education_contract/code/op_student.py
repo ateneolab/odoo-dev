@@ -28,6 +28,12 @@ class Student(models.Model):
         res = super(Student, self).create(vals)
         return res
 
+    @api.multi
+    def write(self, vals):
+        self.check_exist_student(vals)
+        res = super(Student, self).write(vals)
+        return res
+
     def check_exist_student(self, vals):
         if "ced_ruc" in vals:
             ced_ruc = vals.get("ced_ruc")

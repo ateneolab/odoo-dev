@@ -18,6 +18,12 @@ class Student(models.Model):
 
     @api.model
     def create(self, vals):
+        if "firstname" in vals:
+            vals["name"] = vals.get("firstname")
+        if "secondname" in vals:
+            vals["middle_name"] = vals.get("secondname")
+        if "lastname" in vals:
+            vals["last_name"] = vals.get("lastname")
         self.check_exist_student(vals)
         res = super(Student, self).create(vals)
         return res

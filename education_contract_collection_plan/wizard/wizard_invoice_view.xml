@@ -10,7 +10,9 @@
           <group colspan="4" col="4">
 	    <field name="taxes_included" string="Incluye impuestos"/>
 	    <field name="tax_ids" string="Impuestos" widget="many2many_tags"
-		   domain="[('company_id', '=', company_id), ('name', 'in', ['IVA en Ventas (12%)', 'IVA en Ventas (0%)'])]"/>
+		   domain="[('company_id', '=', company_id), '|',
+			   ('name', '=', 'IVA en Ventas (12%)'),
+			   ('name', 'like', '% IVA en Ventas (0%)')]"/>
 	    <field name="company_id" invisible="1"/>
           </group>
         </notebook>
@@ -36,7 +38,10 @@
               <field name="planned_date" invisible="1"/>
               <field name="taxes_included" string="Impuestos?"/>
 	      <field name="tax_ids" string="Impuestos" widget="many2many_tags"
-		     domain="[('company_id', '=', context.get('company_id')), ('name', 'in', ['IVA en Ventas (12%)', 'IVA en Ventas (0%)'])]"/>
+		     domain="[('company_id', '=', context.get('company_id')), '|',
+			     ('name', '=', 'IVA en Ventas (12%)'),
+			     ('name', 'like', '% IVA en Ventas (0%)')]"/>
+
               <field name="payment_date" string="Fecha de pago"/>
               <field name="payed" invisible="1"/>
               <field name="invisible" invisible="1"/>

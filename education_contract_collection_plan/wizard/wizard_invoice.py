@@ -10,14 +10,38 @@ _logger = logging.getLogger(__name__)
 
 
 class WizardInvoice(models.TransientModel):
-    _name = 'collection_plan.wizard_invoice'
-    _inherit = 'collection_plan.wizard_invoice'
+    _name = "collection_plan.wizard_invoice"
+    _inherit = "collection_plan.wizard_invoice"
 
-    verification_id = fields.Many2one('education_contract.verification', related='contract_id.verification_id')
-    collection_plan_id = fields.Many2one('collection_plan.collection_plan',
-                                         related='verification_id.collection_plan_id')
-    tax_ids = fields.Many2many('account.tax', string=_('Impuesto'))
-    taxes_included = fields.Boolean(_(u'Incluye impuesto'))
+    verification_id = fields.Many2one(
+        "education_contract.verification", related="contract_id.verification_id"
+    )
+    collection_plan_id = fields.Many2one(
+        "collection_plan.collection_plan", related="verification_id.collection_plan_id"
+    )
+    tax_ids = fields.Many2many("account.tax", string=_("Impuesto"))
+    taxes_included = fields.Boolean(
+        _(u"Incluye impuesto"), compute="_compute_is_tax_ids"
+    )
+
+    @api.depends("tax_ids")
+    def _compute_is_tax_ids(self):
+        for record in self:
+            if not record.tax_ids:
+                record.taxes_included = True
+            else:
+                record.taxes_included = False
+            for payment in record.payment_term_ids:
+                if not record.taxes_included:
+                    payment.taxes_included = True
+                else:
+                    payment.taxes_included = False
+
+    @api.onchange("tax_ids")
+    def onchange_tax_ids(self):
+        for record in self:
+            for payment in self.payment_term_ids:
+                payment.tax_ids = [(6, 0, record.tax_ids.ids)]
 
     @api.multi
     def build_lines(self):
@@ -30,24 +54,38 @@ class WizardInvoice(models.TransientModel):
             if payment.description:
                 name = payment.description
             else:
-                name = 'Contrato: %s - Fecha de pago: %s' % (
-                    payment.plan_id.collection_plan_id.contract_id.barcode, payment.payment_date)
+                name = "Contrato: %s - Fecha de pago: %s" % (
+                    payment.plan_id.collection_plan_id.contract_id.barcode,
+                    payment.payment_date,
+                )
 
-            default_product_id = self.env['product.template'].search([('name', '=', 'IMPORT SRI PRODUCT')])
-            default_product = self.env['product.product'].search([('product_tmpl_id', '=', default_product_id.id)])
+            default_product_id = self.env["product.template"].search(
+                [("name", "=", "IMPORT SRI PRODUCT")]
+            )
+            default_product = self.env["product.product"].search(
+                [("product_tmpl_id", "=", default_product_id.id)]
+            )
 
             cm_product_template_util_id = default_product_id.product_template_util_id
             if not cm_product_template_util_id:
-                raise _('Accounts for default product is not set correctly for multi company.')
+                raise _(
+                    "Accounts for default product is not set correctly for multi company."
+                )
 
             account = cm_product_template_util_id.account_income
-            _logger.info('account_income: %s' % str(account))
+            _logger.info("account_income: %s" % str(account))
 
-            account = self.env['account.account'].sudo().search([
-                ('company_id', '=', self.operating_unit_id.company_id.id),
-                ('code', '=', account.code)
-            ])
-            _logger.info('account_income from company: %s' % str(account))
+            account = (
+                self.env["account.account"]
+                .sudo()
+                .search(
+                    [
+                        ("company_id", "=", self.operating_unit_id.company_id.id),
+                        ("code", "=", account.code),
+                    ]
+                )
+            )
+            _logger.info("account_income from company: %s" % str(account))
 
             if self.tax_ids:
                 tax_ids = [6, 0, self.tax_ids.ids]
@@ -65,7 +103,7 @@ class WizardInvoice(models.TransientModel):
             price_unit = 0.0
             taxes = self.tax_ids if self.tax_ids else payment.tax_ids
             for tax in taxes:
-                if tax.tax_group == 'vat':
+                if tax.tax_group == "vat":
                     factor = tax.porcentaje / 100 + 1
                     if self.taxes_included or payment.taxes_included:
                         price_unit = payment.amount / factor
@@ -73,16 +111,15 @@ class WizardInvoice(models.TransientModel):
                         price_unit = payment.amount * factor
 
             line = {
-                'name': name,
-                'account_id': account.id,
-                'price_unit': price_unit or payment.amount,
-                'quantity': float(1.0),
-                'product_id': default_product.id,
-                'invoice_line_tax_id': [(6, 0, tax_ids)],
-                'account_analytic_id': False,
+                "name": name,
+                "account_id": account.id,
+                "price_unit": price_unit or payment.amount,
+                "quantity": float(1.0),
+                "product_id": default_product.id,
+                "invoice_line_tax_id": [(6, 0, tax_ids)],
+                "account_analytic_id": False,
             }
 
             inv_lines.append((0, 0, line))
 
         return inv_lines
-

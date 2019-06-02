@@ -114,6 +114,7 @@
                     <field name="invoice_id" string="Factura"/>
                     <field name="internal_state" invisible="1"/>
                     <button name="do_billing"
+			    context="{'default_invoice_id': invoice_id, 'default_id': id}"
                             attrs="{'invisible': [('internal_state', 'not in', ['created'])]}"
                             type="object" string="Facturar" icon="gtk-apply"/>
                     <button name="do_saling"

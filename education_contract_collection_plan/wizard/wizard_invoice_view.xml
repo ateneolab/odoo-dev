@@ -6,20 +6,21 @@
       <field name="model">collection_plan.wizard_invoice</field>
       <field name="inherit_id" ref="collection_plan.view_wizard_invoice_form"/>
       <field name="arch" type="xml">
-        <notebook position="before">
-          <group colspan="4" col="4">
-	    <field name="taxes_included" string="Incluye impuestos"/>
-	    <field name="tax_ids" string="Impuestos" widget="many2many_tags"
-		   domain="[('company_id', '=', company_id), '|',
-			   ('name', '=', 'IVA en Ventas (12%)'),
-			   ('name', 'like', '% IVA en Ventas (0%)')]"/>
-	    <field name="company_id" invisible="1"/>
-          </group>
-        </notebook>
+        <xpath expr="//field[@name='operating_unit_id']" position="after">
+          <field name="tax_ids" string="Impuestos" widget="many2many_tags"
+                 domain="[('company_id', '=', company_id), '|',
+                         ('name', '=', 'IVA en Ventas (12%)'),
+                         ('name', 'like', '% IVA en Ventas (0%)')]"/>
+	  <field name="company_id" invisible="1"/>
+	  <field name="taxes_included" invisible="1"/>
+        </xpath>
         <field name="payment_term_ids" position="replace">
-          <field name="payment_term_ids" context="{'company_id': company_id}"
+          <field name="payment_term_ids" widget="one2many"
+                 options="{'no_create': 1}"
+                 context="{'company_id': company_id, 'is_tax_ids': taxes_included}"
                  domain="[('payed', '=', True), ('invoice_id', '=', False), ('collection_plan_id', '=', collection_plan_id)]">
-            <tree editable="top">
+            <tree editable="top" full_edit="1" create="0"
+                  options="{'no_create': 1, 'no_open': 1}">
               <field name="description" string="Descripción"/>
               <field name="type"/>
               <field name="cash_sub_type"
@@ -36,14 +37,15 @@
               <field name="description_other"
                      attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>
               <field name="planned_date" invisible="1"/>
-              <field name="taxes_included" string="Impuestos?"/>
-	      <field name="tax_ids" string="Impuestos" widget="many2many_tags"
-		     domain="[('company_id', '=', context.get('company_id')), '|',
-			     ('name', '=', 'IVA en Ventas (12%)'),
-			     ('name', 'like', '% IVA en Ventas (0%)')]"/>
-
-              <field name="payment_date" string="Fecha de pago"/>
+              <field name="tax_ids" string="Impuestos"
+		     attrs="{'readonly': [('taxes_included', '=', False)]}"
+                     widget="many2many_tags" style="width: 50%%"
+                     domain="[('company_id', '=', context.get('company_id')), '|',
+                             ('name', '=', 'IVA en Ventas (12%)'),
+                             ('name', 'like', '% IVA en Ventas (0%)')]"/>
+	      <field name="payment_date" string="Fecha de pago"/>
               <field name="payed" invisible="1"/>
+	      <field name="taxes_included" invisible="1"/>
               <field name="invisible" invisible="1"/>
             </tree>
           </field>

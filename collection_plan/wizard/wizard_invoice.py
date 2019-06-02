@@ -12,14 +12,61 @@ _logger = logging.getLogger(__name__)
 class WizardInvoice(models.TransientModel):
     _name = "collection_plan.wizard_invoice"
 
-    contract_id = fields.Many2one("education_contract.contract", "Contrato")
-    collection_plan_id = fields.Many2one("collection_plan.collection_plan")
+    @api.model
+    def _default_contract_id(self):
+        return self._context.get("default_contract_id", None)
 
-    invoice_id = fields.Many2one("account.invoice", string=_(u"Invoices"))
+    @api.model
+    def _default_collection_id(self):
+        return self._context.get("collection_plan_id", None)
+
+    @api.model
+    def _default_payment_id(self):
+        return self._context.get("default_id", None)
+
+    @api.model
+    def _default_invoice_id(self):
+        return self._context.get("default_invoice_id", None)
+
+    contract_id = fields.Many2one(
+        "education_contract.contract", "Contrato", default=_default_contract_id
+    )
+    collection_plan_id = fields.Many2one(
+        "collection_plan.collection_plan", default=_default_collection_id
+    )
+
+    @api.model
+    def default_get(self, fields):
+        Payment = self.env["education_contract.payment_term"]
+        res = super(WizardInvoice, self).default_get(fields)
+        collection_plan_id = self._context.get("collection_plan_id", None)
+        invoice_id = res.get("invoice_id")
+        if "payment_term_ids" in fields:
+            if res.get("payment_id"):
+                payment_id = res.get("payment_id")
+                domain = [("id", "=", payment_id)]
+                payment = Payment.search(domain)
+            else:
+                domain = [
+                    ("payed_collection_plan_id", "=", collection_plan_id),
+                    ("invoice_id", "=", invoice_id),
+                ]
+                payment = Payment.search(domain)
+            res.update({"payment_term_ids": payment.ids})
+        return res
+
+    payment_id = fields.Many2one(
+        "education_contract.payment_term",
+        string=_(u"Pago"),
+        default=_default_payment_id,
+    )
+
+    invoice_id = fields.Many2one(
+        "account.invoice", string=_(u"Invoices"), default=_default_invoice_id
+    )
     payment_term_ids = fields.Many2many(
         "education_contract.payment_term",
         "wizard_invoice_payment_term",
-        compute="_compute_payment_terms",
         string=_("Payments"),
     )
     partner_id = fields.Many2one(
@@ -31,24 +78,6 @@ class WizardInvoice(models.TransientModel):
     company_id = fields.Many2one(
         related="operating_unit_id.company_id", string=_(u"Company")
     )
-
-    @api.one
-    @api.depends("collection_plan_id")
-    def _compute_payment_terms(self):
-        payment_ids = []
-
-        payment_id = self._context.get("payment_id", False)
-        _logger.info("PAYMENT FROM CONTEXT: %s " % payment_id)
-
-        if not payment_id:
-            for inv in self.collection_plan_id.payed_payment_term_ids:
-                if not inv.invoice_id:
-                    payment_ids.append(inv.id)
-        else:
-            payment_ids.append(payment_id)
-
-        _logger.info("PAYMENT_IDS: %s" % payment_ids)
-        self.payment_term_ids = [(6, 0, payment_ids)]
 
     @api.multi
     def build_lines(self):

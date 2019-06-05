@@ -8,27 +8,35 @@ _logger = logging.getLogger(__name__)
 
 
 class WizardInvoice(models.TransientModel):
-    _name = 'collection_plan.wizard_receipt'
+    _name = "collection_plan.wizard_receipt"
 
-    contract_id = fields.Many2one('education_contract.contract', 'Contrato')
-    collection_plan_id = fields.Many2one('collection_plan.collection_plan')
+    contract_id = fields.Many2one("education_contract.contract", "Contrato")
+    collection_plan_id = fields.Many2one("collection_plan.collection_plan")
 
-    invoice_id = fields.Many2one('account.invoice', string=_(u'Invoices'))
-    payment_term_ids = fields.Many2many('education_contract.payment_term', 'wizard_invoice_payment_term',
-                                        compute='_compute_payment_terms',
-                                        string=_('Payments'))
-    partner_id = fields.Many2one('res.partner', related='contract_id.owner', string=_('Cliente'))
-    operating_unit_id = fields.Many2one('operating.unit', related='contract_id.campus_id',
-                                        string=_('Sucursal'))
-    company_id = fields.Many2one(related='operating_unit_id.company_id', string=_(u'Compañia'))
+    invoice_id = fields.Many2one("account.invoice", string=_(u"Invoices"))
+    payment_term_ids = fields.Many2many(
+        "education_contract.payment_term",
+        "wizard_invoice_payment_term",
+        compute="_compute_payment_terms",
+        string=_("Payments"),
+    )
+    partner_id = fields.Many2one(
+        "res.partner", related="contract_id.owner", string=_("Cliente")
+    )
+    operating_unit_id = fields.Many2one(
+        "operating.unit", related="contract_id.campus_id", string=_("Sucursal")
+    )
+    company_id = fields.Many2one(
+        related="operating_unit_id.company_id", string=_(u"Compañia")
+    )
 
     @api.one
-    @api.depends('collection_plan_id')
+    @api.depends("collection_plan_id")
     def _compute_payment_terms(self):
         payment_ids = []
 
-        payment_id = self._context.get('payment_id', False)
-        _logger.info('PAYMENT FROM CONTEXT: %s ' % payment_id)
+        payment_id = self._context.get("payment_id", False)
+        _logger.info("PAYMENT FROM CONTEXT: %s " % payment_id)
 
         if not payment_id:
             for inv in self.collection_plan_id.payed_payment_term_ids:
@@ -37,50 +45,60 @@ class WizardInvoice(models.TransientModel):
         else:
             payment_ids.append(payment_id)
 
-        _logger.info('PAYMENT_IDS: %s' % payment_ids)
+        _logger.info("PAYMENT_IDS: %s" % payment_ids)
         self.payment_term_ids = [(6, 0, payment_ids)]
 
     @api.multi
     def get_period(self, company_id, date_str, context=None):
         self.ensure_one()
 
-        code = '%s/%s' % (date_str[3:5], date_str[6:])
-        domain = [('code', '=', code), ('company_id', '=', company_id)]
-        period_id = self.env['account.period'].search(domain)[:1]
+        code = "%s/%s" % (date_str[3:5], date_str[6:])
+        domain = [("code", "=", code), ("company_id", "=", company_id)]
+        period_id = self.env["account.period"].search(domain)[:1]
         return period_id
 
     @api.one
-    def create_voucher(self):  # aqui se debe aumentar la secuencia del numero de la nota de venta
+    def create_voucher(
+        self
+    ):  # aqui se debe aumentar la secuencia del numero de la nota de venta
         if len(self.payment_term_ids):
             pt = self.payment_term_ids[0]
-            pt.generate_voucher_receipt('done', self.partner_id.id, self.company_id.id, 'receipt')
-            pt.write({'internal_state': 'receipt'})
+            pt.generate_voucher_receipt(
+                "done", self.partner_id.id, self.company_id.id, "receipt"
+            )
+            pt.write({"internal_state": "receipt"})
             res = self.open_voucher(pt.account_voucher_id.id)
-            _logger.info('RES TO RETURN FOR OPENING VOUCHER FORM JUST CREATED: %s' % res)
+            _logger.info(
+                "RES TO RETURN FOR OPENING VOUCHER FORM JUST CREATED: %s" % res
+            )
             pt.collection_plan_id.update_payed()
             # pt.plan_id.compute_residual()
             pt.plan_id.compute_balance()
             # return res
-        return {'type': 'ir.actions.act_close_wizard_and_reload_view'}
+        return {"type": "ir.actions.act_close_wizard_and_reload_view"}
 
     @api.multi
     def open_voucher(self, voucher_id):
         """ open a view on one of the given invoice_ids """
-        ir_model_data = self.pool.get('ir.model.data')
-        form_res = ir_model_data.get_object_reference(self._cr, self._uid, 'account_voucher', 'view_voucher_tree')
+        ir_model_data = self.pool.get("ir.model.data")
+        form_res = ir_model_data.get_object_reference(
+            self._cr, self._uid, "account_voucher", "view_voucher_tree"
+        )
         form_id = form_res and form_res[1] or False
-        tree_res = ir_model_data.get_object_reference(self._cr, self._uid, 'account_voucher', 'view_voucher_form')
+        tree_res = ir_model_data.get_object_reference(
+            self._cr, self._uid, "account_voucher", "view_voucher_form"
+        )
         tree_id = tree_res and tree_res[1] or False
 
         return {
-            'name': _('Generar recibo'),
-            'view_type': 'form',
-            'view_mode': 'form,tree',
-            'res_model': 'account.voucher',
-            'res_id': voucher_id,
-            'view_id': False,
-            'views': [(form_id, 'form'), (tree_id, 'tree')],
-            'type': 'ir.actions.act_window',
+            "name": _("Generar recibo"),
+            "view_type": "form",
+            "view_mode": "form,tree",
+            "res_model": "account.voucher",
+            "res_id": voucher_id,
+            "view_id": False,
+            "views": [(form_id, "form"), (tree_id, "tree")],
+            "type": "ir.actions.act_window",
         }
 
     @api.multi
@@ -88,7 +106,7 @@ class WizardInvoice(models.TransientModel):
         self.ensure_one()
         for pt in self.payment_term_ids:
             if not pt.account_voucher_id:
-                pt.generate_voucher('done')
-            inv.write({'payment_id': [(4, pt.account_voucher_id.id)]})
+                pt.generate_voucher("done")
+            inv.write({"payment_id": [(4, pt.account_voucher_id.id)]})
             pt.account_voucher_id.button_proforma_voucher()
         # reconcile payments to update residual

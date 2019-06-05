@@ -167,7 +167,6 @@ class PaymentTerm(models.Model):
         period = self.env["collection_plan.wizard_invoice"].get_period(
             company_id, datetime.datetime.today().strftime("%d/%m/%Y")
         )
-
         voucher_data = {
             "partner_id": partner_id,
             "amount": abs(self.amount),
@@ -180,7 +179,8 @@ class PaymentTerm(models.Model):
         }
         _logger.info("VOUCHER_DATA: %s" % voucher_data)
         voucher_id = self.env["account.voucher"].create(voucher_data)
-
+        sequence = voucher_id.env["ir.sequence"].get("account.voucher")
+        voucher_id.voucher_number = sequence
         partner = self.env["res.partner"].browse([partner_id])
         account_receivable = partner.property_account_receivable
         account_receivable_id = self.env["account.account"].search(

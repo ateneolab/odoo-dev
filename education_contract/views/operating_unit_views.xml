@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_operating_unit_form_ext" model="ir.ui.view">
+            <field name="name">operating.unit.form.ext</field>
+            <field name="model">operating.unit</field>
+            <field name="inherit_id" ref="operating_unit.view_operating_unit_form"/>
+            <field name="arch" type="xml">
+              <xpath expr="//field[@name='company_id']" position="after">
+		<group colspan="4" col="4">
+		  <field name="ir_sequence"
+			 readonly="1"
+			 required="False"/>
+		  <field name="prefix" string="Prefijo"/>
+		  <field name="suffix" string="Sufijo"/>
+		  <field name="number_next" string="Siguiente número"/>
+		  <field name="padding" string="Tamaño de la secuencia"/>
+		</group>
+              </xpath>
+            </field>
+	</record>
+    </data>
+</openerp>

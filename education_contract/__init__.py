@@ -18,4 +18,5 @@ from code import (
     op_student,
     op_attendance_line,
     op_attendance_sheet,
+    operating_unit,
 )

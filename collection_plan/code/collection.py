@@ -158,10 +158,7 @@ class CollectionPlan(models.Model):
     end_date = fields.Date(_(u"Fecha de fin"))
     notes = fields.Text(_(u"Notas internas"))
     invoice_ids = fields.Many2many("account.invoice", string=_(u"Facturas"))
-    next_payment_date = fields.Date(
-        "Next payment date", compute="_compute_next_payment_date", store=True
-    )
-    account_number = fields.Char("No. de cuenta", compute="_compute_account_number")
+    account_number = fields.Char("No. de cuenta", readonly=True)
     barcode = fields.Char(
         related="contract_id.barcode", string=_(u"Código de contrato")
     )
@@ -192,20 +189,17 @@ class CollectionPlan(models.Model):
             else:
                 record.state = "new"
 
-    @api.depends("contract_id", "contract_id.barcode")
     def _compute_account_number(self):
-        for record in self:
-            sequence_id = record.env["ir.sequence"].get(
-                "collection_plan.collection_plan"
-            )
-            account_number = u"{}-{}".format(
-                str(record.contract_id.barcode), str(sequence_id)
-            )
-            record.account_number = account_number
+        sequence = self._get_sequence()
+        account_number = u"{}-{}".format(str(self.contract_id.barcode), str(sequence))
+        self.account_number = account_number
 
-    @api.one
-    def _compute_next_payment_date(self):
-        pass
+    def _get_sequence(self):
+        context = {}
+        cr = self._cr
+        uid = self._context.get("uid")
+        ids = self.campus_id.ir_sequence.id
+        return self.pool.get("ir.sequence").next_by_id(cr, uid, ids, context)
 
     @api.one
     @api.depends("active_plan_id", "payment_term_ids")
@@ -219,6 +213,7 @@ class CollectionPlan(models.Model):
     def create(self, vals):
         res = super(CollectionPlan, self).create(vals)
         res.update_order_payment(values=vals)
+        res._compute_account_number()
         return res
 
     @api.multi

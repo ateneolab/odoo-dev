@@ -44,6 +44,7 @@
         "views/conciliation_view.xml",
         "views/op_roll_number_view.xml",
         "views/op_student_view.xml",
+        "views/operating_unit_views.xml",
         "wizards/report_rpm.xml",
         "report/view_report.xml",
     ],

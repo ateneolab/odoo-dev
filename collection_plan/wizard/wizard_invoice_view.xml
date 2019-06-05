@@ -44,11 +44,14 @@
                     <field name="discount"/>
                     <field name="amount_paid"/>
                     <field name="voucher_id"
+			   domain="[('payment_term_id', '=', 0)]"
                            attrs="{'readonly': [('cash_sub_type', 'not in', ['debit_card']), ('type', 'not in', ['credit_card'])], 'required': [('cash_sub_type', 'in', ['debit_card'])] }">
                     </field>
                     <field name="check_id"
+			   domain="[('payment_term_id', '=', 0)]"
                            attrs="{'readonly': [('type', 'not in', ['check'])], 'required': [('type', 'in', ['check'])] }"/>
                     <field name="transfer_id"
+			   domain="[('payment_term_id', '=', 0)]"
                            attrs="{'readonly': [('cash_sub_type', 'not in', ['transfer'])], 'required': [('cash_sub_type', 'in', ['transfer'])] }"/>
                     <field name="description_other"
                            attrs="{'readonly': [('type', 'not in', ['other'])], 'required': [('type', 'in', ['other'])] }"/>

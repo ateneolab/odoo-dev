@@ -24,7 +24,7 @@
                     <!--<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' %o.company_id.logo"-->
                     <!--style="witdh: 50%; height: 50%; margin-bottom: 10px"/>-->
                     <!--</div>-->
-                    <div class="text" style="font-size: 6px; float: left;">
+                    <div class="text" style="font-size: 5px; float: left;">
                         <p>
                             <strong>Matriz:</strong>
                             <span>Alonso de Angulo Oe1-152 y Fco. Gomez Villa Flora - Telf.: 2652-300</span>
@@ -271,8 +271,8 @@
             <field name="format">A6</field>
             <!--<field name="page_height">80</field>-->
             <!--<field name="page_width">175</field>-->
-            <field name="orientation">Landscape</field>
-            <field name="margin_top">50</field>
+            <field name="orientation">Portrait</field>
+            <!--<field name="margin_top">50</field>-->
             <!--<field name="margin_bottom">3</field>-->
             <!--<field name="margin_left">3</field>-->
             <!--<field name="margin_right">3</field>-->

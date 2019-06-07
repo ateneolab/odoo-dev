@@ -29,6 +29,7 @@
         "scrollable_tree_view",
         "oeducat_attendance",
         "invoice_discount_amount",
+        "birthday_mail_schedular",
     ],
     # always loaded
     "data": [

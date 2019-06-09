@@ -175,6 +175,47 @@ msgstr "Anticipo"
 msgid "Anticipo de vendedor"
 msgstr "Anticipo de vendedor"
 
+#. module: openeducat_erp
+#: model:ir.ui.menu,name:openeducat_erp.menu_op_school_root
+msgid "OpenEduCat"
+msgstr "AteneoERP"
+
+#. module: openeducat_erp
+#: model:ir.ui.menu,name:openeducat_erp.menu_op_school_main
+msgid "Student"
+msgstr "Estudiantes"
+
+#. module: openeducat_erp
+#: model:ir.actions.act_window,name:openeducat_erp.act_open_op_roll_number_view
+#: model:ir.ui.menu,name:openeducat_erp.menu_op_roll_number_sub
+#: view:op.roll.number:openeducat_erp.view_op_roll_number_form
+#: view:op.roll.number:openeducat_erp.view_op_roll_number_search
+#: view:op.roll.number:openeducat_erp.view_op_roll_number_tree
+#: field:op.roll.number,roll_number:0 field:op.student,roll_number_line:0
+msgid "Roll Number"
+msgstr "Matrícula"
+
+#. module: openeducat_erp
+#: model:ir.ui.menu,name:openeducat_erp.menu_op_school_main
+msgid "Estudiantes"
+msgstr "Estudiantes"
+
+#. module: openeducat_erp
+#: model:ir.actions.act_window,name:openeducat_erp.act_open_op_roll_number_view
+#: model:ir.ui.menu,name:openeducat_erp.menu_op_roll_number_sub
+msgid "Matrícula"
+msgstr "Matrícula"
+
+#. module: openeducat_erp
+#: model:ir.ui.menu,name:openeducat_erp.menu_op_student_sub
+msgid "Students"
+msgstr "Estudiantes"
+
+#. module: openeducat_erp
+#: model:ir.actions.act_window,name:openeducat_erp.act_open_op_student_view
+msgid "Student"
+msgstr "Estudiante"
+
 #. module: education_contract
 #: selection:education_contract.contract,state:0
 msgid "Anulado"
@@ -2254,4 +2295,3 @@ msgstr "unknown"
 #: view:sale.order:education_contract.view_order_form_educ
 msgid "{'no_quick_create': True}"
 msgstr "{'no_quick_create': True}"
-

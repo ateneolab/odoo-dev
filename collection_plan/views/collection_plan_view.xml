@@ -84,10 +84,11 @@
                        domain="[('payed', '=', False)]"
                        string="Información de pago"
                        context="{'default_collection_plan_id': id, 'default_contract_id': contract_id}">
-                  <tree>
+                  <tree colors="red:color==True">
                     <field name="id" invisible="1"/>
                     <field name="collection_plan_id" invisible="1"/>
                     <field name="order" string="Orden"/>
+		    <field name="color" invisible="1"/>
                     <field name="type"/>
                     <field name="cash_sub_type"
                            attrs="{'readonly': [('type', 'not in', ['cash'])], 'required': [('type', 'in', ['cash'])] }"

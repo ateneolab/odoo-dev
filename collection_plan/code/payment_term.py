@@ -50,6 +50,21 @@ class PaymentTerm(models.Model):
         string=_(u"Total de cuotas"), related="fixed_plan_id.qty_payment"
     )
     voucher_number = fields.Char(related="account_voucher_id.voucher_number")
+    color = fields.Boolean(
+        string="Color", store=True, compute="_compute_paymed_color_red"
+    )
+
+    @api.depends("planned_date", "payed", "invoice_id", "voucher_id")
+    def _compute_paymed_color_red(self):
+        today = datetime.datetime.now().date()  # .today().strftime('%Y-%m-%d')
+        for record in self:
+            planned_date = datetime.datetime.strptime(
+                record.planned_date or "", "%Y-%m-%d"
+            ).date()
+            if planned_date < today and not record.payed:
+                record.color = True
+            else:
+                record.color = False
 
     @api.depends("amount_paid")
     def _convert_amount_to_literal(self):

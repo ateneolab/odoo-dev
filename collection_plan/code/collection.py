@@ -136,7 +136,7 @@ class CollectionPlan(models.Model):
         digits=(10, 4), string=_(u"Cantidad"), compute="_compute_residual", store=True
     )
     balance = fields.Float(
-        digits=(6, 4), string=_("Balance"), related="active_plan_id.balance"
+        digits=(6, 4), string=_("Balance"), compute="_compute_balance", store=True
     )
     state = fields.Selection(
         [("created", _("New")), ("done", _("Finish"))], default="created"
@@ -208,6 +208,19 @@ class CollectionPlan(models.Model):
             plan_id = rec.active_plan_id
             residual = plan_id.compute_residual()
             rec.residual = residual
+
+    @api.depends(
+        "payment_term_ids",
+        "payment_term_ids.amount_paid",
+        "payment_term_ids.invoice_id",
+    )
+    def _compute_balance(self):
+        """Total de las cuotas planificadas que faltan por pagar
+        """
+        for record in self:
+            record.balance = sum(
+                item.amount_paid for item in record.payment_term_ids if not item.payed
+            )
 
     @api.model
     def create(self, vals):
@@ -313,17 +326,6 @@ class EducationContractPlan(models.Model):
                 self.payment_term_fixed_ids = [(4, new_payment_term.id)]
                 before_date = sd
                 index += 1
-
-    @api.one
-    @api.onchange("payment_term_ids")
-    def compute_balance(self):
-        print("COMPUTE BALANCE")
-        sum = 0.0
-        if self.payment_term_ids:
-            for pt in self.payment_term_ids:
-                if not pt.payed:
-                    sum += pt.amount
-        self.balance = sum
 
     payment_term_fixed_ids = fields.One2many(
         "education_contract.payment_term",

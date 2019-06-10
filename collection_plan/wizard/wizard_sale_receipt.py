@@ -72,9 +72,6 @@ class WizardInvoice(models.TransientModel):
                 "RES TO RETURN FOR OPENING VOUCHER FORM JUST CREATED: %s" % res
             )
             pt.collection_plan_id.update_payed()
-            # pt.plan_id.compute_residual()
-            pt.plan_id.compute_balance()
-            # return res
         return {"type": "ir.actions.act_close_wizard_and_reload_view"}
 
     @api.multi

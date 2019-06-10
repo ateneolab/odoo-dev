@@ -41,7 +41,7 @@ class PaymentTerm(models.Model):
         string=_(u"Tipo de descuento"),
     )
     amount_paid = fields.Float(
-        string=_(u"Monto a pagar"), compute="_compute_amount_to_paid"
+        string=_(u"Monto a pagar"), compute="_compute_amount_to_paid", store=True
     )
     # Use en la vista solamente
     is_discount = fields.Boolean(string=_(u"Descuento"))

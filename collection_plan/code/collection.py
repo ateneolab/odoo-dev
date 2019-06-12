@@ -167,6 +167,8 @@ class CollectionPlan(models.Model):
             ("new", _(u"Nuevo")),
             ("cancelled_parcial", _(u"Cancelado parcial")),
             ("cancelled", _(u"Cancelado")),
+            ("congelado", _(u"Congelado")),
+            ("retirado", _(u"Retirado")),
         ],
         default="new",
         store=True,

@@ -175,17 +175,14 @@ class CollectionPlan(models.Model):
     )
     campus_id = fields.Many2one(related="contract_id.campus_id")
 
-    def compute_all_payed(self):
-        for record in self:
-            if record.payment_term_ids:
-                if all(item.payed for item in record.payment_term_ids):
-                    record.state = "cancelled"
-                if any(not item.payed for item in record.payment_term_ids):
-                    record.state = "cancelled_parcial"
-                if all(not item.payed for item in record.payment_term_ids):
-                    record.state = "new"
-            else:
-                record.state = "new"
+    def change_state_collection_plan(self):
+        if self.payment_term_ids:
+            if all(item.payed for item in self.payment_term_ids):
+                self.state = "cancelled"
+            if any(not item.payed for item in self.payment_term_ids):
+                self.state = "cancelled_parcial"
+            if all(not item.payed for item in self.payment_term_ids):
+                self.state = "new"
 
     def _compute_account_number(self):
         sequence = self._get_sequence()
@@ -225,6 +222,9 @@ class CollectionPlan(models.Model):
         res = super(CollectionPlan, self).create(vals)
         res.update_order_payment(values=vals)
         res._compute_account_number()
+        verification = vals.get("verification_id")
+        if not verification:
+            res.change_state_collection_plan()
         return res
 
     @api.multi
@@ -239,6 +239,8 @@ class CollectionPlan(models.Model):
                 )
         res = super(CollectionPlan, self).write(vals)
         self.update_order_payment(values=vals)
+        if "payment_term_ids" in vals:
+            self.change_state_collection_plan()
         return res
 
     def update_order_payment(self, values=None):

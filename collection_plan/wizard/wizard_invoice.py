@@ -347,7 +347,7 @@ class WizardInvoice(models.TransientModel):
             _logger.info("UPDATED COLLECTION_PLAN...")
 
             collection_plan.update_payed()
-            collection_plan.compute_all_payed()
+            collection_plan.change_state_collection_plan()
             return self.open_invoices(inv.id)
 
         except Exception as e:
@@ -441,7 +441,7 @@ class WizardInvoice(models.TransientModel):
         _logger.info("UPDATED COLLECTION_PLAN...")
 
         collection_plan.update_payed()
-        collection_plan.compute_all_payed()
+        collection_plan.change_state_collection_plan()
         return self.open_invoices(inv.id)
 
     @api.multi

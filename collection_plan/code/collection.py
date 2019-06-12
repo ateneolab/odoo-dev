@@ -168,16 +168,12 @@ class CollectionPlan(models.Model):
             ("cancelled_parcial", _(u"Cancelado parcial")),
             ("cancelled", _(u"Cancelado")),
         ],
-        compute="_compute_all_payed",
         default="new",
         store=True,
     )
     campus_id = fields.Many2one(related="contract_id.campus_id")
 
-    @api.depends(
-        "payment_term_ids", "payment_term_ids.payed", "payment_term_ids.invoice_id"
-    )
-    def _compute_all_payed(self):
+    def compute_all_payed(self):
         for record in self:
             if record.payment_term_ids:
                 if all(item.payed for item in record.payment_term_ids):

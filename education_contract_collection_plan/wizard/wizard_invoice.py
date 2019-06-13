@@ -20,22 +20,21 @@ class WizardInvoice(models.TransientModel):
         "collection_plan.collection_plan", related="verification_id.collection_plan_id"
     )
     tax_ids = fields.Many2many("account.tax", string=_("Impuesto"))
-    taxes_included = fields.Boolean(
-        _(u"Incluye impuesto"), compute="_compute_is_tax_ids"
-    )
+    is_taxes = fields.Boolean(compute="_compute_is_tax_ids")
+    taxes_included = fields.Boolean(_(u"Incluye impuesto"))
 
     @api.depends("tax_ids")
     def _compute_is_tax_ids(self):
         for record in self:
             if not record.tax_ids:
-                record.taxes_included = True
+                record.is_taxes = True
             else:
-                record.taxes_included = False
+                record.is_taxes = False
             for payment in record.payment_term_ids:
-                if not record.taxes_included:
-                    payment.taxes_included = True
+                if not record.is_taxes:
+                    payment.is_taxes = True
                 else:
-                    payment.taxes_included = False
+                    payment.is_taxes = False
 
     @api.onchange("tax_ids")
     def onchange_tax_ids(self):
@@ -105,7 +104,7 @@ class WizardInvoice(models.TransientModel):
             for tax in taxes:
                 if tax.tax_group == "vat":
                     factor = tax.porcentaje / 100 + 1
-                    if self.taxes_included or payment.taxes_included:
+                    if self.taxes_include or payment.taxes_include:
                         price_unit = payment.amount / factor
                     else:
                         price_unit = payment.amount * factor

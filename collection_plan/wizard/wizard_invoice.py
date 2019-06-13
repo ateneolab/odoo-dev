@@ -315,10 +315,7 @@ class WizardInvoice(models.TransientModel):
                     "payment_id": payment.id,
                 }
 
-                if self.tax_ids:
-                    line.update({"invoice_line_tax_id": [(6, 0, self.tax_ids.ids)]})
-                else:
-                    line.update({"invoice_line_tax_id": [(6, 0, payment.tax_ids.ids)]})
+                line.update({"invoice_line_tax_id": [(6, 0, payment.tax_ids.ids)]})
 
                 inv_lines.append((0, 0, line))
 
@@ -409,10 +406,7 @@ class WizardInvoice(models.TransientModel):
                 "payment_id": payment.id,
             }
 
-            if self.tax_ids:
-                line.update({"invoice_line_tax_id": [(6, 0, self.tax_ids.ids)]})
-            else:
-                line.update({"invoice_line_tax_id": [(6, 0, payment.tax_ids.ids)]})
+            line.update({"invoice_line_tax_id": [(6, 0, payment.tax_ids.ids)]})
 
             inv_lines.append((0, 0, line))
 

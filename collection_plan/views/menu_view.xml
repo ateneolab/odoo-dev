@@ -18,5 +18,29 @@
             </field>
         </record>
 
+        <record id="action_collections_retired" model="ir.actions.act_window">
+            <field name="name">Planes de cobranza retirados</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">collection_plan.collection_plan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+	    <field name="domain">[('state', '=', 'retired')]</field>
+        </record>
+
+        <record id="action_collections_frozen" model="ir.actions.act_window">
+            <field name="name">Planes de cobranza congelados</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">collection_plan.collection_plan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+	    <field name="domain">[('state', '=', 'frozen')]</field>
+        </record>
+
+        <menuitem action="action_collections_retired" id="menu_collections_retired"
+		  parent="education_contract_collection_plan.collections_menu"
+                  sequence="20"/>
+	<menuitem action="action_collections_frozen" id="menu_collections_frozen"
+		  parent="education_contract_collection_plan.collections_menu"
+                  sequence="20"/>
     </data>
 </openerp>

@@ -35,7 +35,15 @@
             <button name="generate_invoice" states="new,cancelled_parcial,cancelled" type="object" string="Generar factura"
                     context="{'collection_plan_id': id, 'default_contract_id': contract_id, 'invoice_multi': True}"
                     class="oe_highlight"/>
-
+            <button name="do_retired" type="object" states="new,cancelled_parcial,cancelled" string="Retirado" class="oe_highlight"/>
+            <button name="do_frozen" type="object" states="new,cancelled_parcial,cancelled" string="Congelado" class="oe_highlight"
+		    context="{'default_collection_plan_id': id, 'default_contract_id': contract_id}"/>
+	    <button name="do_re_enter" type="object"
+		    attrs="{'invisible': [('state', '=', 'frozen')]}"
+		    string="Reingresar" class="oe_highlight"/>
+	    <button name="do_re_enter_frozen" type="object"
+		    attrs="{'invisible': [('state', '!=', 'frozen')]}"
+		    string="Reingresar" class="oe_highlight"/>
             <field name="state" widget="statusbar" options="{'always_reload': True}"/>
           </header>
           <sheet>
@@ -159,7 +167,24 @@
 
                 </field>
               </page>
-
+	      <page string="Congelamientos">
+                <field name="freezing_ids" readonly="1" context="{'default_collection_plan_id': id}">
+                  <tree>
+                    <field name="start_date"/>
+                    <field name="duration"/>
+                    <field name="end_date"/>
+		    <field name="collection_plan_id" invisible="1"/>
+                  </tree>
+                </field>
+	      </page>
+	      <page string="Retirados">
+                <field name="retired_ids" readonly="1" context="{'default_collection_plan_id': id}">
+                  <tree>
+                    <field name="retired_date"/>
+		    <field name="collection_plan_id" invisible="1"/>
+                  </tree>
+                </field>
+	      </page>
               <page string="Planes antiguos" invisible="1">
                 <field name="plan_ids" readonly="1">
                   <tree>

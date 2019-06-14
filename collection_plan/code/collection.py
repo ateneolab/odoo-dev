@@ -11,6 +11,7 @@ from openerp import models, fields, api, _
 _logger = logging.getLogger(__name__)
 
 from openerp.exceptions import except_orm
+from openerp.exceptions import ValidationError
 
 
 class CollectionPlan(models.Model):
@@ -167,13 +168,91 @@ class CollectionPlan(models.Model):
             ("new", _(u"Nuevo")),
             ("cancelled_parcial", _(u"Cancelado parcial")),
             ("cancelled", _(u"Cancelado")),
-            ("congelado", _(u"Congelado")),
-            ("retirado", _(u"Retirado")),
+            ("frozen", _(u"Congelado")),
+            ("retired", _(u"Retirado")),
         ],
         default="new",
         store=True,
     )
     campus_id = fields.Many2one(related="contract_id.campus_id")
+    freezing_ids = fields.One2many(
+        "collection.plan.freeze", "collection_plan_id", string=_(u"Congelamientos")
+    )
+    retired_ids = fields.One2many(
+        "collection.plan.retired", "collection_plan_id", string=_(u"Retirado")
+    )
+
+    @api.multi
+    def do_retired(self):
+        self.check_state_retired_frozen()
+        self.retired_roll_number()
+        self.write({"state": "retired"})
+
+    @api.multi
+    def do_frozen(self):
+        self.check_state_retired_frozen()
+        return self.generated_frozen()
+
+    @api.multi
+    def do_re_enter_frozen(self):
+        self.update_date_re_enter(is_frozen=True)
+        self.change_state_collection_plan()
+
+    def update_date_re_enter(self, is_frozen=False):
+        if self.freezing_ids:
+            today = datetime.now().date()
+            frozens = self.freezing_ids.sorted(key=lambda r: r.end_date, reverse=False)[
+                -1
+            ]
+            frozens.end_date = today
+
+    @api.multi
+    def do_re_enter(self):
+        # TODO: Faltan cosas por poner
+        self.update_date_re_enter(is_frozen=False)
+        self.change_state_collection_plan()
+
+    def retired_roll_number(self):
+        roll_numbers = self.contract_id.roll_number_ids
+        roll_numbers.write({"state": "gone"})
+        Retired = self.env["collection.plan.retired"]
+        Retired.create(
+            dict(retired_date=datetime.now().date(), collection_plan_id=self.id)
+        )
+
+    def check_state_retired_frozen(self):
+        today = datetime.now().date()
+        res = []
+        payments = self.payment_term_ids.filtered(lambda item: not item.payed)
+        for payed in payments:
+            planned_date = datetime.strptime(payed.planned_date, "%Y-%m-%d").date()
+            if planned_date.month == today.month and planned_date.year == today.year:
+                res.append(payed)
+        if res:
+            raise ValidationError(
+                "No se puede cambiar de estado mientras existan pagos sin pagar en el mes en curso."
+            )
+
+    def generated_frozen(self):
+        collection_id = self._context.get("default_collection_plan_id", None)
+        contract_id = self._context.get("default_contract_id", None)
+        view_id = self.env.ref("collection_plan.view_wizard_frozen_form")
+        new = self.env["collection_plan.wizard_frozen"].create({})
+        return {
+            "name": _("Congelar cobranza"),
+            "type": "ir.actions.act_window",
+            "res_model": "collection_plan.wizard_frozen",
+            "res_id": new.id,
+            "view_id": view_id.id,
+            "view_mode": "form",
+            "view_type": "form",
+            "nodestroy": True,
+            "target": "new",
+            "context": {
+                "default_collection_plan_id": collection_id,
+                "default_contract_id": contract_id,
+            },
+        }
 
     def change_state_collection_plan(self):
         if self.payment_term_ids:
@@ -375,3 +454,19 @@ class EducationContract(models.Model):
     collection_id = fields.Many2one(
         "collection_plan.collection_plan", string=_("Collection plan")
     )
+
+
+class Freeze(models.Model):
+    _name = "collection.plan.freeze"
+
+    start_date = fields.Date(u"Fecha de inicio")
+    end_date = fields.Date(u"Fecha reingreso")
+    duration = fields.Integer(u"Duración en meses")
+    collection_plan_id = fields.Many2one("collection_plan.collection_plan", u"Cobranza")
+
+
+class Retired(models.Model):
+    _name = "collection.plan.retired"
+
+    retired_date = fields.Date(u"Fecha de retirado")
+    collection_plan_id = fields.Many2one("collection_plan.collection_plan", u"Cobranza")

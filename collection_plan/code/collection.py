@@ -2,6 +2,7 @@
 
 import datetime
 import logging
+from itertools import chain
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
@@ -199,16 +200,20 @@ class CollectionPlan(models.Model):
         self.change_state_collection_plan()
 
     def update_date_re_enter(self, is_frozen=False):
-        if self.freezing_ids:
-            today = datetime.now().date()
-            frozens = self.freezing_ids.sorted(key=lambda r: r.end_date, reverse=False)[
+        today = datetime.now().date()
+        if is_frozen and self.freezing_ids:
+            frozen = self.freezing_ids.sorted(key=lambda r: r.end_date, reverse=False)[
                 -1
             ]
-            frozens.end_date = today
+            frozen.end_date = today
+        if not is_frozen and self.retired_ids:
+            retired = self.retired_ids.sorted(key=lambda r: r.end_date, reverse=False)[
+                -1
+            ]
+            retired.end_date = today
 
     @api.multi
     def do_re_enter(self):
-        # TODO: Faltan cosas por poner
         self.update_date_re_enter(is_frozen=False)
         self.change_state_collection_plan()
 
@@ -223,7 +228,9 @@ class CollectionPlan(models.Model):
     def check_state_retired_frozen(self):
         today = datetime.now().date()
         res = []
-        payments = self.payment_term_ids.filtered(lambda item: not item.payed)
+        payments = self.payment_term_ids.filtered(
+            lambda item: not item.payed and not item.invoice_id
+        )
         for payed in payments:
             planned_date = datetime.strptime(payed.planned_date, "%Y-%m-%d").date()
             if planned_date.month == today.month and planned_date.year == today.year:
@@ -232,6 +239,31 @@ class CollectionPlan(models.Model):
             raise ValidationError(
                 "No se puede cambiar de estado mientras existan pagos sin pagar en el mes en curso."
             )
+
+    @api.model
+    def re_plan_collections(self):
+        domain = [("state", "=", "frozen")]
+        collections = self.search(domain)
+        today = datetime.now().date()
+        for record in collections:
+            freezing = record.freezing_ids.sorted(
+                key=lambda r: r.end_date, reverse=False
+            )[-1]
+            if freezing:
+                if datetime.strptime(freezing.end_date, "%Y-%m-%d").date() < today:
+                    record.re_plan_payments(today)
+                freezing.end_date = today
+            record.change_state_collection_plan()
+
+    def re_plan_payments(self, date):
+        payments = self.payment_term_ids.filtered(lambda item: not item.payed)
+        if payments:
+            payments = chain(payments)
+            payment = next(payments, None)
+            while payment:
+                payment.planned_date = date
+                date = date + relativedelta(months=1)
+                payment = next(payments, None)
 
     def generated_frozen(self):
         collection_id = self._context.get("default_collection_plan_id", None)
@@ -469,4 +501,5 @@ class Retired(models.Model):
     _name = "collection.plan.retired"
 
     retired_date = fields.Date(u"Fecha de retirado")
+    end_date = fields.Date(u"Fecha reingreso")
     collection_plan_id = fields.Many2one("collection_plan.collection_plan", u"Cobranza")

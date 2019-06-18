@@ -39,7 +39,8 @@
             <button name="do_frozen" type="object" states="new,cancelled_parcial,cancelled" string="Congelado" class="oe_highlight"
 		    context="{'default_collection_plan_id': id, 'default_contract_id': contract_id}"/>
 	    <button name="do_re_enter" type="object"
-		    attrs="{'invisible': [('state', '=', 'frozen')]}"
+		    states="retired"
+		    attrs="{'invisible': ['|', ('state', '=', 'frozen'), ('state', 'in', ['new', 'cancelled_parcial', 'cancelled'])]}"
 		    string="Reingresar" class="oe_highlight"/>
 	    <button name="do_re_enter_frozen" type="object"
 		    attrs="{'invisible': [('state', '!=', 'frozen')]}"
@@ -181,6 +182,7 @@
                 <field name="retired_ids" readonly="1" context="{'default_collection_plan_id': id}">
                   <tree>
                     <field name="retired_date"/>
+		    <field name="end_date"/>
 		    <field name="collection_plan_id" invisible="1"/>
                   </tree>
                 </field>

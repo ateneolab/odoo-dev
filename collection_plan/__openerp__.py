@@ -28,6 +28,7 @@
         "wizard/wizard_sale_receipt_view.xml",
         "wizard/wizard_frozen.xml",
         "report/receipt_report.xml",
+        "data/cron.xml",
     ],
     # only loaded in demonstration mode
     "demo": ["demo.xml"],

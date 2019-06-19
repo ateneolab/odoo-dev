@@ -30,6 +30,7 @@
         "oeducat_attendance",
         "invoice_discount_amount",
         "birthday_mail_schedular",
+        "web_notification",
     ],
     # always loaded
     "data": [

@@ -58,13 +58,14 @@ class PaymentTerm(models.Model):
     def _compute_paymed_color_red(self):
         today = datetime.datetime.now().date()  # .today().strftime('%Y-%m-%d')
         for record in self:
-            planned_date = datetime.datetime.strptime(
-                record.planned_date or "", "%Y-%m-%d"
-            ).date()
-            if planned_date < today and not record.payed:
-                record.color = True
-            else:
-                record.color = False
+            if record.planned_date:
+                planned_date = datetime.datetime.strptime(
+                    record.planned_date, "%Y-%m-%d"
+                ).date()
+                if planned_date < today and not record.payed:
+                    record.color = True
+                else:
+                    record.color = False
 
     @api.depends("amount_paid")
     def _convert_amount_to_literal(self):

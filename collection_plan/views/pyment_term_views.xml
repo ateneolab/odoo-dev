@@ -9,11 +9,12 @@
       <field name="arch" type="xml">
 	<xpath expr="//field[@name='contract_id']" position="after">
 	  <field name="planned_date"
-		 required="1"
+		 attrs="{'readonly': [('payed', '=', True)], 'required': [('payed', '!=', True)]}"
 		 string="Fecha planeada"/>
         </xpath>
 	<xpath expr="//field[@name='type']" position="after">
 	  <field name="payment_date"
+		 attrs="{'readonly': [('payed', '=', True)]}"
 		 string="Fecha de pago"/>
         </xpath>
 	<xpath expr="/form/group[1]/group[2]" position="after">
@@ -21,22 +22,50 @@
 	    <span>
 	      <strong>
 		<label for="is_discount" string="Descuento"/>
-		<field name="is_discount"/>
+		<field name="is_discount"
+		       attrs="{'readonly': [('payed', '=', True)]}"/>
 	      </strong>
 	    </span>
 	  </div>
 	  <div attrs="{'invisible': [('is_discount', '!=', True)]}">
 	    <group>
-	      <field name="discount_type"/>
-	      <field name="discount"/>
+	      <field name="discount_type"
+		     attrs="{'readonly': [('payed', '=', True)]}"/>
+	      <field name="discount"
+		     attrs="{'readonly': [('payed', '=', True)]}"/>
 	    </group>
 	  </div>
 	</xpath>
 	<xpath expr="//field[@name='amount']" position="after">
-	  <field name="amount_paid"/>
+	  <field name="amount_paid"
+		 attrs="{'readonly': [('payed', '=', True)]}"/>
 	</xpath>
 	<xpath expr="//field[@name='amount_paid']" position="after">
 	  <field name="collection_plan_id" invisible="1"/>
+	</xpath>
+	<xpath expr="//field[@name='collection_plan_id']" position="after">
+	  <field name="payed" invisible="1"/>
+	</xpath>
+	<xpath expr="//field[@name='contract_id']" position="attributes">
+	  <attribute name="attrs">{'readonly': [('payed', '=', True)]}</attribute>
+	</xpath>
+	<xpath expr="//field[@name='type']" position="attributes">
+	  <attribute name="attrs">{'readonly': [('payed', '=', True)]}</attribute>
+	</xpath>
+	<xpath expr="//field[@name='cash_sub_type']" position="attributes">
+	  <attribute name="attrs">{'required': [('type', 'in', ['cash'])], 'readonly': [('payed', '=', True)]}</attribute>
+	</xpath>
+	<xpath expr="//field[@name='voucher_id']" position="attributes">
+	  <attribute name="attrs">{'required': [('cash_sub_type', 'in', ['debit_card'])], 'readonly': [('payed', '=', True)]}</attribute>
+	</xpath>
+	<xpath expr="//field[@name='check_id']" position="attributes">
+	  <attribute name="attrs">{'required': [('type', 'in', ['check'])], 'readonly': [('payed', '=', True)]}</attribute>
+	</xpath>
+	<xpath expr="//field[@name='transfer_id']" position="attributes">
+	  <attribute name="attrs">{'required': [('cash_sub_type', 'in', ['transfer'])], 'readonly': [('payed', '=', True)]}</attribute>
+	</xpath>
+	<xpath expr="//field[@name='amount']" position="attributes">
+	  <attribute name="attrs">{'readonly': [('payed', '=', True)]}</attribute>
 	</xpath>
       </field>
     </record>

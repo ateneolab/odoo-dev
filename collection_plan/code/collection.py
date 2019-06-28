@@ -196,10 +196,16 @@ class CollectionPlan(models.Model):
 
     @api.multi
     def do_re_enter_frozen(self):
+        """Para reingresar las cobranza en estado congelado
+
+        """
         self.update_date_re_enter(is_frozen=True)
         self.change_state_collection_plan()
 
     def update_date_re_enter(self, is_frozen=False):
+        """Reingresa las cobranza tanto en estado congelado como retirado
+
+        """
         today = datetime.now().date()
         if is_frozen and self.freezing_ids:
             frozen = self.freezing_ids.sorted(key=lambda r: r.end_date, reverse=False)[
@@ -214,10 +220,15 @@ class CollectionPlan(models.Model):
 
     @api.multi
     def do_re_enter(self):
+        """Reintegra las cobranzas en estado retirado
+
+        """
         self.update_date_re_enter(is_frozen=False)
         self.change_state_collection_plan()
 
     def retired_roll_number(self):
+        """Pone las mátriculas y las cobranzas en estado retirado.
+        """
         roll_numbers = self.contract_id.roll_number_ids
         roll_numbers.write({"state": "gone"})
         Retired = self.env["collection.plan.retired"]
@@ -226,6 +237,10 @@ class CollectionPlan(models.Model):
         )
 
     def check_state_retired_frozen(self):
+        """Chequea que no existan pagos sin pagar en el mes en curso. Para
+        cambiar de estado la cobranza.
+
+        """
         today = datetime.now().date()
         res = []
         payments = self.payment_term_ids.filtered(
@@ -256,6 +271,8 @@ class CollectionPlan(models.Model):
             record.change_state_collection_plan()
 
     def re_plan_payments(self, date):
+        """Replanifica todas las cuotas a partir de la fecha de hoy
+        """
         payments = self.payment_term_ids.filtered(lambda item: not item.payed)
         if payments:
             payments = chain(payments)
@@ -287,6 +304,8 @@ class CollectionPlan(models.Model):
         }
 
     def change_state_collection_plan(self):
+        """Obtiene el estado de las cobranzas
+        """
         if self.payment_term_ids:
             if all(item.payed for item in self.payment_term_ids):
                 self.state = "cancelled"

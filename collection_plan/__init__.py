@@ -8,6 +8,7 @@ from code import (
     account_voucher,
     invoice,
     notifications,
+    op_roll_number,
 )
 from wizard import wizard_invoice, wizard_sale_receipt, wizard_frozen
 from report import receipt_report_parser

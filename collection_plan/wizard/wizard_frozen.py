@@ -70,6 +70,7 @@ class WizardFrozen(models.TransientModel):
                 "duration": self.duration,
                 "end_date": self.end_date,
                 "roll_number_id": roll_number.id,
+                "is_collection": True,
             }
             Roll_freeze.create(values)
         self.collection_plan_id.write({"state": "frozen"})

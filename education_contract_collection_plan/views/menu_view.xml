@@ -36,6 +36,7 @@
             <field name="res_model">collection_plan.collection_plan</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+	    <field name="domain">[('state', 'in', ['new', 'cancelled_parcial', 'cancelled'])]</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     Clic to create a Collection plan.

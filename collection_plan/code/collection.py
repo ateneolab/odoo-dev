@@ -202,12 +202,28 @@ class CollectionPlan(models.Model):
         self.update_date_re_enter(is_frozen=True)
         self.change_state_collection_plan()
 
+    def do_re_enter_roll_number(self, date):
+        """Actualiza la fecha de reingreso de las matriculas
+        cuando la cobranza se reingresa.
+        """
+        roll_numbers = self.contract_id.roll_number_ids
+        for record in roll_numbers:
+            frozen_collection = record.freezing_ids.filtered(
+                lambda item: item.is_collection
+            )
+            if frozen_collection:
+                frozen = frozen_collection.sorted(
+                    key=lambda r: r.end_date, reverse=False
+                )[-1]
+                frozen.end_date = date
+
     def update_date_re_enter(self, is_frozen=False):
         """Reingresa las cobranza tanto en estado congelado como retirado
 
         """
         today = datetime.now().date()
         if is_frozen and self.freezing_ids:
+            self.do_re_enter_roll_number(today)
             frozen = self.freezing_ids.sorted(key=lambda r: r.end_date, reverse=False)[
                 -1
             ]

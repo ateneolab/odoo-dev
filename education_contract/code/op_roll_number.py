@@ -37,6 +37,6 @@ class Freeze(models.Model):
     _name = "op.roll.number.freeze"
 
     start_date = fields.Date(u"Fecha de inicio")
-    end_date = fields.Date(u"Fecha fin", compute="_compute_end_date")
+    end_date = fields.Date(u"Fecha fin")
     duration = fields.Integer(u"Duración en meses")
     roll_number_id = fields.Many2one("op.roll.number", u"Matrícula")

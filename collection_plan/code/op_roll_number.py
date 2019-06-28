@@ -13,6 +13,7 @@ class Freeze(models.Model):
         default=False,
         help="Identifica si el congelamiento fue realizado por una cobranza.",
     )
+    end_date = fields.Date(compute="_compute_end_date")
 
     @api.one
     @api.depends("start_date", "duration")

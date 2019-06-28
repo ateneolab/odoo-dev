@@ -213,9 +213,9 @@ class CollectionPlan(models.Model):
             )
             if frozen_collection:
                 frozen = frozen_collection.sorted(
-                    key=lambda r: r.end_date, reverse=False
+                    key=lambda r: r.create_date, reverse=False
                 )[-1]
-                frozen.end_date = date
+                frozen.write({"end_date": date})
 
     def update_date_re_enter(self, is_frozen=False):
         """Reingresa las cobranza tanto en estado congelado como retirado
@@ -224,15 +224,15 @@ class CollectionPlan(models.Model):
         today = datetime.now().date()
         if is_frozen and self.freezing_ids:
             self.do_re_enter_roll_number(today)
-            frozen = self.freezing_ids.sorted(key=lambda r: r.end_date, reverse=False)[
-                -1
-            ]
-            frozen.end_date = today
+            frozen = self.freezing_ids.sorted(
+                key=lambda r: r.create_date, reverse=False
+            )[-1]
+            frozen.write({"end_date": today})
         if not is_frozen and self.retired_ids:
-            retired = self.retired_ids.sorted(key=lambda r: r.end_date, reverse=False)[
-                -1
-            ]
-            retired.end_date = today
+            retired = self.retired_ids.sorted(
+                key=lambda r: r.create_date, reverse=False
+            )[-1]
+            retired.write({"end_date": today})
 
     @api.multi
     def do_re_enter(self):
@@ -278,7 +278,7 @@ class CollectionPlan(models.Model):
         today = datetime.now().date()
         for record in collections:
             freezing = record.freezing_ids.sorted(
-                key=lambda r: r.end_date, reverse=False
+                key=lambda r: r.create_date, reverse=False
             )[-1]
             if freezing:
                 if datetime.strptime(freezing.end_date, "%Y-%m-%d").date() < today:

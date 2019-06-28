@@ -58,8 +58,20 @@ class WizardFrozen(models.TransientModel):
 
     @api.multi
     def create_frozen(self):
+        """Paso la cobranza y todas las mátriculas asociadas a dicho contrato
+        a estado congelado.
+        """
         roll_numbers = self.contract_id.roll_number_ids
         roll_numbers.write({"frozen": True})
+        Roll_freeze = self.env["op.roll.number.freeze"]
+        for roll_number in roll_numbers:
+            values = {
+                "start_date": self.start_date,
+                "duration": self.duration,
+                "end_date": self.end_date,
+                "roll_number_id": roll_number.id,
+            }
+            Roll_freeze.create(values)
         self.collection_plan_id.write({"state": "frozen"})
         vals = {
             "start_date": self.start_date,

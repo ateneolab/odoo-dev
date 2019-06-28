@@ -283,8 +283,8 @@ class CollectionPlan(models.Model):
             if freezing:
                 if datetime.strptime(freezing.end_date, "%Y-%m-%d").date() < today:
                     record.re_plan_payments(today)
-                freezing.end_date = today
-            record.change_state_collection_plan()
+                    freezing.end_date = today
+                    record.change_state_collection_plan()
 
     def re_plan_payments(self, date):
         """Replanifica todas las cuotas a partir de la fecha de hoy

@@ -10,7 +10,8 @@ class Freeze(models.Model):
     _inherit = "op.roll.number.freeze"
 
     is_collection = fields.Boolean(
-        help="Identifica si el congelamiento fue realizado por una cobranza."
+        default=False,
+        help="Identifica si el congelamiento fue realizado por una cobranza.",
     )
 
     @api.one

@@ -221,7 +221,7 @@ class CollectionPlan(models.Model):
         """Reingresa las cobranza tanto en estado congelado como retirado
 
         """
-        today = datetime.now().date()
+        today = datetime.today()
         if is_frozen and self.freezing_ids:
             self.do_re_enter_roll_number(today)
             frozen = self.freezing_ids.sorted(

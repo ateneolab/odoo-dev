@@ -240,6 +240,8 @@ class CollectionPlan(models.Model):
 
         """
         self.update_date_re_enter(is_frozen=False)
+        roll_numbers = self.contract_id.roll_number_ids
+        roll_numbers.write({"state": "active"})
         self.change_state_collection_plan()
 
     def retired_roll_number(self):

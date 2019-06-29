@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="view_op_roll_number_form3_ext" model="ir.ui.view">
+      <field name="name">op.roll.number.form3.ext</field>
+      <field name="model">op.roll.number</field>
+      <field name="inherit_id" ref="education_contract.view_op_roll_number_form3"/>
+      <field name="priority" eval="8"/>
+      <field name="arch" type="xml">
+	<xpath expr="//field[@name='roll_number_id']" position="after">
+	  <field name="is_collection" invisible="1"/>
+	</xpath>
+	<xpath expr="//tree" position="attributes">
+	  <attribute name="colors">green:is_collection==True</attribute>
+	</xpath>
+      </field>
+    </record>
+  </data>
+</openerp>

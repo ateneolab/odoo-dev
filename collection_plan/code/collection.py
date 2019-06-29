@@ -275,16 +275,17 @@ class CollectionPlan(models.Model):
     def re_plan_collections(self):
         domain = [("state", "=", "frozen")]
         collections = self.search(domain)
-        today = datetime.now().date()
+        today = datetime.today()
         for record in collections:
             freezing = record.freezing_ids.sorted(
                 key=lambda r: r.create_date, reverse=False
             )[-1]
             if freezing:
-                if datetime.strptime(freezing.end_date, "%Y-%m-%d").date() < today:
+                if datetime.strptime(freezing.end_date, "%Y-%m-%d") < today:
                     record.re_plan_payments(today)
                     freezing.end_date = today
                     record.change_state_collection_plan()
+                    record.do_re_enter_roll_number(today)
 
     def re_plan_payments(self, date):
         """Replanifica todas las cuotas a partir de la fecha de hoy

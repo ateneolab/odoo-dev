@@ -41,12 +41,16 @@ class Freeze(models.Model):
     duration = fields.Integer(u"Duración en meses")
     roll_number_id = fields.Many2one("op.roll.number", u"Matrícula")
 
-    @api.onchange("start_date", "duration")
+    @api.onchange("start_date", "duration", "end_date")
     def onchange_end_date(self):
-        if self.start_date and self.duration:
+        if self.start_date and self.duration and not self.end_date:
             start_date = datetime.datetime.strptime(self.start_date, "%Y-%m-%d")
             end_date = start_date + relativedelta(months=self.duration)
             self.end_date = end_date
+        if self.start_date and not self.duration and self.end_date:
+            start_date = datetime.datetime.strptime(self.start_date, "%Y-%m-%d")
+            end_date = datetime.datetime.strptime(self.end_date, "%Y-%m-%d")
+            self.duration = end_date.month - start_date.month
 
     @api.model
     def create(self, vals):

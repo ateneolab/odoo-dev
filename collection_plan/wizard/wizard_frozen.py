@@ -62,7 +62,6 @@ class WizardFrozen(models.TransientModel):
         a estado congelado.
         """
         roll_numbers = self.contract_id.roll_number_ids
-        roll_numbers.write({"frozen": True})
         Roll_freeze = self.env["op.roll.number.freeze"]
         for roll_number in roll_numbers:
             values = {

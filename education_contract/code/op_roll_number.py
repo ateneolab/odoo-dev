@@ -15,10 +15,10 @@ class RollNumber(models.Model):
     start_date = fields.Date(u"Fecha de inicio de clases")
     end_date = fields.Date(u"Fecha de terminación")  # , compute='compute_end_date'
     diploma_date = fields.Date(u"Fecha de entrega de título")
-    frozen = fields.Boolean(u"Congelado")
     freezing_ids = fields.One2many(
         "op.roll.number.freeze", "roll_number_id", u"Congelamientos"
     )
+    state = fields.Selection(selection_add=[("frozen", u"Congelado")])
 
     @api.model
     def create(self, vals):
@@ -65,8 +65,7 @@ class Freeze(models.Model):
         start_date = datetime.datetime.strptime(res.start_date, "%Y-%m-%d")
         end_date = datetime.datetime.strptime(res.end_date, "%Y-%m-%d")
         if today >= start_date and today < end_date:
-            res.roll_number_id.frozen = True
-            res.roll_number_id.state = "inactive"
+            res.roll_number_id.state = "frozen"
             res.roll_number_id.date_state = datetime.datetime.today()
         return res
 
@@ -77,7 +76,6 @@ class Freeze(models.Model):
             start_date = datetime.datetime.strptime(self.start_date, "%Y-%m-%d")
             end_date = vals["end_date"]
             if today >= start_date and today >= end_date:
-                self.roll_number_id.frozen = False
                 self.roll_number_id.state = "active"
                 self.roll_number_id.date_state = datetime.datetime.today()
         res = super(Freeze, self).write(vals)

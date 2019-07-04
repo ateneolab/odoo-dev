@@ -44,10 +44,6 @@
                         </page>
                     </notebook>
                 </group>
-
-                <field name="state" position="after">
-                    <field name="frozen"/>
-                </field>
             </field>
         </record>
 

@@ -9,13 +9,7 @@
             <field name="arch" type="xml">
               <xpath expr="//field[@name='company_id']" position="after">
 		<group colspan="4" col="4">
-		  <field name="ir_sequence"
-			 readonly="1"
-			 required="False"/>
-		  <field name="prefix" string="Prefijo"/>
-		  <field name="suffix" string="Sufijo"/>
-		  <field name="number_next" string="Siguiente número"/>
-		  <field name="padding" string="Tamaño de la secuencia"/>
+		  <field name="ir_sequence"/>
 		</group>
               </xpath>
             </field>

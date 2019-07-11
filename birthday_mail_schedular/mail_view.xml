@@ -21,7 +21,7 @@
     <!--Email template -->
     <record id="email_template_customer_form" model="email.template">
       <field name="name">Send by mail</field>
-      <field name="email_from">admin@techspawn.com</field>
+      <field name="email_from">${object.company_id.email}</field>
       <field name="subject">Happy Birthday To You</field>
       <field name="auto_delete" eval="True"/>
       <!--<field name="record_name">Customer_name</field>-->
@@ -37,7 +37,7 @@
       </td>
       </tr>
       <tr>
-      <td style="width:600px" valign="top"><img src="data:image/png;base64,${object.company_id.image_birth_date}" style="display:block;border:none;min-height:250px;margin:0 auto;" width="500"></td>
+      <td style="width:600px" valign="top"><img src="/birthday_mail_schedular/static/img/birth_date.jpeg" style="display:block;border:none;min-height:250px;margin:0 auto;" width="500"></td>
       </tr>
       <tr>
       <td style="width:600px" valign="top">

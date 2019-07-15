@@ -145,11 +145,6 @@ class PaymentTerm(models.Model):
         self.company_id = company_id
         return company_id
 
-    @api.multi
-    def confirm_payment(self):
-        self.ensure_one()
-        self.generate_voucher("done")
-
     @api.one
     def do_payment(self):
         _logger.info(
@@ -185,7 +180,7 @@ class PaymentTerm(models.Model):
         )
         voucher_data = {
             "partner_id": partner_id,
-            "amount": abs(self.amount),
+            "amount": abs(self.amount_paid),
             "journal_id": journal.id,
             "account_id": journal.default_debit_account_id.id,
             "reference": self.plan_id.collection_plan_id.contract_id.barcode,
@@ -206,7 +201,7 @@ class PaymentTerm(models.Model):
         voucher_line = {
             "name": "",
             # "payment_option": "without_writeoff",
-            "amount": abs(self.amount),
+            "amount": abs(self.amount_paid),
             "voucher_id": voucher_id.id,
             "partner_id": partner_id,
             "account_id": account_receivable_id.id,
@@ -224,7 +219,9 @@ class PaymentTerm(models.Model):
         self.write({"account_voucher_id": voucher_id.id, "state": state, "payed": True})
 
     @api.one
-    def generate_voucher(self, state, partner_id, company_id, type, invoice):
+    def generate_voucher(
+        self, state, partner_id, company_id, type, invoice, taxes_included
+    ):
         journal = self.env["account.journal"].search(
             [
                 ("company_id", "=", company_id),
@@ -243,10 +240,19 @@ class PaymentTerm(models.Model):
         )
         if not journal:
             raise except_orm("Error", u"Journal is not defined.")
+        if self.tax_ids:
+            for tax in self.tax_ids:
+                if not taxes_included or not self.taxes_included:
+                    amount_tax = (self.amount_paid * int(tax.porcentaje)) / 100
+                    amount = abs(self.amount_paid + amount_tax)
+                else:
+                    amount = abs(self.amount_paid)
+        else:
+            amount = abs(self.amount_paid)
 
         voucher_data = {
             "partner_id": partner_id,
-            "amount": abs(self.amount),
+            "amount": amount,
             "journal_id": journal.id,
             "account_id": journal.default_debit_account_id.id,
             "reference": self.plan_id.collection_plan_id.contract_id.barcode,
@@ -264,7 +270,7 @@ class PaymentTerm(models.Model):
         voucher_line = {
             "name": "",
             "payment_option": "without_writeoff",
-            "amount": abs(self.amount),
+            "amount": amount,
             "voucher_id": voucher_id.id,
             "partner_id": partner_id,
             "account_id": invoice.move_id.line_id[0].account_id.id,
